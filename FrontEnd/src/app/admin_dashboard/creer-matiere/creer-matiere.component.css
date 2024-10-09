@@ -1,0 +1,40 @@
+div.form-group select.js-example-basic-single{
+    background-color: black !important;
+    color: white;
+}
+
+/* Styles des checkboxes */
+.styled-checkbox {
+  accent-color: #4caf50; /* Couleur personnalisée des cases à cocher */
+  width: 20px;
+  height: 20px;
+}
+
+/* Styles des labels pour améliorer l'alignement et l'apparence */
+.form-check-label {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Alignement côte à côte des groupes de checkboxes */
+.form-group {
+  display: inline-block;
+  width: 45%; /* Garde 2 éléments côte à côte avec un espace */
+  align-items: center;
+  align-content: space-between;
+}
+
+/* Style pour un label plus gros et gras */
+.form-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+/* Style pour les icônes */
+.form-check-label i {
+  margin-right: 8px;
+  color: #007bff; /* Couleur de l'icône */
+}

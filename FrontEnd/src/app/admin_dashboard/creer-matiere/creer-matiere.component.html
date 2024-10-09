@@ -1,0 +1,158 @@
+<div class="container-scroller">
+    <app-sidebar></app-sidebar>
+           <div class="container-fluid page-body-wrapper">
+    <app-navbar></app-navbar>
+         <div class="main-panel">
+           <div class="content-wrapper">
+            <!-- <form (ngSubmit)="onSubmit()" #matiereForm="ngForm">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Créer Matière</h4>
+                        <br>
+                        <div class="form-group">
+                            <label for="libelle_Matiere">Nom Matière:</label>
+                            <br>
+                            <input
+                                type="text"
+                                id="libelle_Matiere"
+                                required
+                                [(ngModel)]="matiere.libelle"  
+                                name="libelle_Matiere"
+                                style="background-color: black; color: white; font-size: small; padding: 5px; border-radius: 4px;"
+                            />
+                        </div>
+                        <br>
+                      <div class="form-group">
+                            <label for="etudiants">Sélectionner les Étudiants:</label>
+                            <select
+                                id="etudiants"
+                                multiple="multiple"
+                                name="etudiants"
+                                style="width: 100%;"
+                            >
+                                <option *ngFor="let etudiant of etudiants" [ngValue]="etudiant"> 
+                                    {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
+                                </option>
+                            </select>
+                        </div>-->  
+            
+                   <!--    <div class="form-group">
+                            <label for="classes">Sélectionner les Classes:</label>
+                            <select
+                            id="classes"
+                            multiple
+                            name="classes"
+                            [(ngModel)]="matiere.classes" 
+                            class="form-control"
+                        >
+                            <option *ngFor="let classe of classes" [ngValue]="classe">
+                                {{ classe.libelle_Classe }}
+                            </option>
+                        </select>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="professeurs">Sélectionner les Professeurs:</label>
+                            <select
+                            id="professeurs"
+                            multiple
+                            name="professeurs"
+                            [(ngModel)]="matiere.professeurs" 
+                            class="form-control"
+                        >
+                            <option *ngFor="let professeur of professeurs" [ngValue]="professeur">
+                                {{ professeur.nom_Prof }} {{ professeur.prenom_Prof }}
+                            </option>
+                        </select>
+                        </div>
+                    </div>
+            
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-warning mr-2" [disabled]="!matiereForm.form.valid">Submit</button>
+                        <button type="button" class="btn btn-dark" (click)="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </form> 
+             Checkboxes pour Professeurs -->
+            <!-- <div class="form-group">
+                <label>Sélectionner les Professeurs :</label>
+                <div *ngFor="let professeur of professeurs">
+                  <input type="checkbox" (change)="toggleSelectionProf(professeur)" />
+                  {{professeur.nom_Prof}} {{professeur.prenom_Prof}}
+                </div>
+              </div>
+              
+              Checkboxes pour Classes 
+              <div class="form-group">
+                <label>Sélectionner les Classes :</label>
+                <div *ngFor="let classe of classes">
+                  <input type="checkbox" (change)="toggleSelectionClasse(classe)" />
+                  {{classe.libelle_Classe}}
+                </div>
+              </div> -->
+              <form (ngSubmit)="onSubmit()" #matiereForm="ngForm">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Créer Matière</h4>
+                        <br>
+                        <div class="form-group">
+                            <label for="libelle_Matiere" class="font-weight-bold">Nom Matière:</label>
+                            <br>
+                            <input
+                                type="text"
+                                id="libelle_Matiere"
+                                required
+                                
+                                [(ngModel)]="matiere.libelle"  
+                                name="libelle_Matiere"
+                                style="background-color: black; color: white; font-size: small; padding: 5px; border-radius: 4px;"
+                            />
+                        </div>
+                        <br><br>
+            
+                        <div class="d-flex justify-content-between">
+                            <!-- Checkboxes pour Professeurs -->
+                            <div class="form-group">
+                                <label class="font-weight-bold">Sélectionner les Professeurs :</label>
+                                <div *ngFor="let professeur of professeurs" class="form-check">
+                                    <input 
+                                        type="checkbox" 
+                                        class="form-check-input" 
+                                       
+                                        (change)="toggleSelectionProf(professeur)" 
+                                        id="professeur-{{professeur.id_Professeur}}" />
+                                    <label class="form-check-label" for="professeur-{{professeur.id_Professeur}}">
+                                        {{ professeur.nom_Prof }} {{ professeur.prenom_Prof }}
+                                    </label>
+                                </div>
+                            </div>
+            
+                            <!-- Checkboxes pour Classes -->
+                            <div class="form-group">
+                                <label class="font-weight-bold">Sélectionner les Classes :</label>
+                                <div *ngFor="let classe of classes" class="form-check">
+                                    <input 
+                                        type="checkbox" 
+                                        class="form-check-input" 
+                            (change)="toggleSelectionClasse(classe)" 
+                                       
+                                        id="classe-{{classe.id_Classe}}" />
+                                    <label class="form-check-label" for="classe-{{classe.id_Classe}}">
+                                        {{ classe.libelle_Classe }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-warning mr-2" [disabled]="!matiereForm.form.valid">Submit</button>
+                        <button type="button" class="btn btn-dark" (click)="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+            
+         </div>
+         </div>
+       </div>
+     </div>

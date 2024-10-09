@@ -1,0 +1,36 @@
+@import 'select2/dist/css/select2.min.css';
+.select2-container .select2-selection--multiple{
+  background-color: black;
+}
+
+
+.select2-container .select2-selection--multiple .select2-selection__choice {
+
+  padding: 5px 10px !important; /* Ajoute un peu d'espace à l'intérieur */
+
+  margin-left: 3px;
+}
+.select2-container .select2-selection--multiple .select2-selection__choice .select2-selection__choice__display{
+  margin-left: 6px;
+}
+.select2-container .select2-selection--multiple .select2-selection__choice button {
+margin-top: 4px;
+margin-right: 6px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .left, .right {
+    width: 45%;
+  }
+  
+  .left h3, .right h3 {
+    margin-bottom: 10px;
+  }
+  
+  .form-check {
+    margin-bottom: 10px;
+  }
+  

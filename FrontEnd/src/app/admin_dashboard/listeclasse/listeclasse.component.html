@@ -1,0 +1,52 @@
+<div class="container-scroller">
+  <app-sidebar></app-sidebar>
+         <div class="container-fluid page-body-wrapper">
+  <app-navbar></app-navbar>
+       <div class="main-panel">
+         <div class="content-wrapper">
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">Liste des classes</h4>
+                    <a class="nav-link btn btn-info create-new-button" [routerLink]="['/classe']">
+                      + Créer Classe
+                    </a>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Nom</th>
+                          <th>Nombre de Matières</th>
+                          <th>Nombre de Professeurs</th>
+                          <th>Nombre d'Étudiants</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let classe of classes">
+                          <td>{{ classe.id_Classe }}</td>
+                          <td>{{ classe.libelle_Classe }}</td>
+                          <td>{{ classe.nombreMatieres }}</td> 
+                          <td>{{ classe.nombreProfesseurs }}</td> 
+                          <td>{{ classe.nombreEtudiants }}</td>  
+                          <td>
+                            <button class="btn btn-info">Supprimer</button> &nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-info">modifier</button> 
+                         
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+       </div>
+     </div>
+   </div>
