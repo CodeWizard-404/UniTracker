@@ -12,16 +12,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'TP4EX'`, () => {
+  it(`should have as title 'UniTrucker'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('TP4EX');
+    expect(app.title).toEqual('UniTrucker');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('TP4EX app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('UniTrucker app is running!');
   });
 });
