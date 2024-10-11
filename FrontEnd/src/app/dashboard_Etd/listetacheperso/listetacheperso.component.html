@@ -1,0 +1,36 @@
+<div class="container-scroller">
+    <app-sidebar-etd></app-sidebar-etd>
+    <div class="container-fluid page-body-wrapper">
+      <app-navbar-etd></app-navbar-etd>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <h2 class="text-center">Mes Tâches personnalisées</h2>
+       
+            <div *ngFor="let tache of taches" class="mb-3 p-3 rounded shadow">
+                         <div class="card w-75 mx-auto">
+                            <div class="card-body"> 
+
+              <strong class="d-block mb-2">{{ tache.titre }}</strong>
+              <span class="text-muted">Description: {{ tache.description }}</span><br />
+              <span class="text-muted">Date limite: {{ tache.dateLimite }}</span>
+              <div class="form-check">
+                <input 
+                  type="checkbox" 
+                  class="form-check-input" 
+                  [checked]="tache.marquer" 
+                  (change)="markTaskAsCompleted(tache)" 
+                  id="task-{{ tache.id_Tache }}"
+                />
+                <label class="form-check-label" for="task-{{ tache.id_Tache }}">
+                  Marquer comme complétée
+                </label>
+              </div>
+                      </div></div></div>
+        
+        </div>
+        </div>
+    
+
+    </div>
+  </div>
+  

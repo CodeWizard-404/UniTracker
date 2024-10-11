@@ -14,6 +14,10 @@ import { CreerTacheComponent } from './prof_dashboard/creer-tache/creer-tache.co
 import { DashProfComponent } from './prof_dashboard/dash-prof/dash-prof.component';
 import { ListetachesComponent } from './prof_dashboard/listetaches/listetaches.component';
 import { AssignerTacheComponent } from './prof_dashboard/assigner-tache/assigner-tache.component';
+import { DashboardEtdComponent } from './dashboard_Etd/dashboard-etd/dashboard-etd.component';
+import { CreertacheComponent } from './dashboard_Etd/creertache-perso/creertache.component';
+import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listetacheperso.component';
+import { CreergroupeComponent } from './prof_dashboard/creergroupe/creergroupe.component';
 
 
 const routes: Routes =[
@@ -30,6 +34,10 @@ const routes: Routes =[
   {path:'dashboardProf',title:'Dashboard Prof',component:DashProfComponent},
   {path:'listetaches',title:'Liste des taches',component:ListetachesComponent},
   {path:'assignerTache/:id',title:'attribuer tache',component:AssignerTacheComponent},
+  {path:'creerGroupe',title:'Creer groupe',component:CreergroupeComponent},
+  {path:'dashEtd',title:'dashboard etudiant',component:DashboardEtdComponent},
+  {path:'dashEtd/:id/creertacheperso',title:'dashboard etudiant',component:CreertacheComponent},
+  {path:'dashEtd/:id/listetacheperso',title:'liste des taches',component:ListetachepersoComponent},
   {path: '',redirectTo: '/dashboard',pathMatch: 'full'},
   {path: '**',title:'Erreur',component:ErrorComponent},
   
