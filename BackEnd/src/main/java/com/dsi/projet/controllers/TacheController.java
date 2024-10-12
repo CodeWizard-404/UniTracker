@@ -51,4 +51,10 @@ public class TacheController {
 	    Tache tache = tacheService.markTaskAsCompleted(idTache, isCompleted);
 	    return ResponseEntity.ok(tache);
 	}
+	
+	@GetMapping("/tasksByProf")
+	public List<Tache> getTasksByProf(@RequestParam int idProf){
+		return tacheService.getTasksByProf(idProf);
+	}
+	
 }

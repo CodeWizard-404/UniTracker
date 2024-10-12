@@ -4,6 +4,7 @@ import { Tache } from 'src/app/classes/tache';
 import { CreerTacheService } from 'src/app/services/creer-tache.service';
 import { Etudiant } from 'src/app/classes/etudiant';
 import { EtudiantServiceService } from 'src/app/services/etudiant-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-listetaches',
@@ -16,16 +17,19 @@ export class ListetachesComponent implements OnInit{
   selectedTacheId: number | null = null; // Pour stocker l'ID de la tâche sélectionnée
   showEtudiants: boolean = false; // Pour contrôler l'affichage de la liste des étudiants
   selectedEtudiants: number[] = []; // Tableau pour stocker les IDs des étudiants sélectionnés
-
-  constructor(private tacheService: CreerTacheService, private etudiantService: EtudiantServiceService) {}
+  idProf!:number;
+  constructor(private tacheService: CreerTacheService, private etudiantService: EtudiantServiceService,
+    private route:ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.idProf = Number(this.route.snapshot.paramMap.get('id'));
     this.loadTaches();
     this.loadEtudiants();
   }
 
   loadTaches() {
-    this.tacheService.getTaches().subscribe(data => {
+    this.tacheService.getTasksByProf(this.idProf).subscribe(data => {
       this.taches = data;
     }, error => {
       console.error('Erreur lors du chargement des taches', error);

@@ -33,4 +33,8 @@ export class CreerTacheService {
     const url = `${this.baseUrl}/task/mark?idTache=${idTache}&isCompleted=${isCompleted}`;
     return this.http.post<Tache>(url, null); 
   }
+  getTasksByProf(idProf:number):Observable<Tache[]>{
+    const url = `${this.baseUrl}/tasksByProf?idProf=${idProf}`;
+    return this.http.get<Tache[]>(url);
+  }
 }
