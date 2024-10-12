@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +37,14 @@ public class Tache {
 	
 	@ManyToMany
 	@JoinTable(name = "realisation",joinColumns = {@JoinColumn(name="tache_id")},inverseJoinColumns = {@JoinColumn(name="etudiant_id")})
+	@JsonIgnore
 	private List<Etudiant> etudiants=new ArrayList<>();
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "id_Matiere")
+	private Matiere matiere;
+	
 	public Tache() {
 		super();
 		// TODO Auto-generated constructor stub
