@@ -22,6 +22,7 @@ import { ListetachesComponent } from './prof_dashboard/listetaches/listetaches.c
 import { AssignerTacheComponent } from './prof_dashboard/assigner-tache/assigner-tache.component';
 import { SidebarProfComponent } from './prof_dashboard/sidebar-prof/sidebar-prof.component';
 import { NavbarProfComponent } from './prof_dashboard/navbar-prof/navbar-prof.component';
+import { SupprimerTacheComponent } from './prof_dashboard/supprimer-tache/supprimer-tache.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { NavbarProfComponent } from './prof_dashboard/navbar-prof/navbar-prof.co
     AssignerTacheComponent,
     SidebarProfComponent,
     NavbarProfComponent,
+    SupprimerTacheComponent,
   
    
   ],
