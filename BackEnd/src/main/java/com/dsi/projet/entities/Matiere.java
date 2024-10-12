@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Matiere {
@@ -28,6 +29,11 @@ public class Matiere {
 	@ManyToMany
 	@JoinTable(name = "suivie",joinColumns = {@JoinColumn(name="matiere_id")},inverseJoinColumns = {@JoinColumn(name="classe_id")})
 	private List<Classe> classes=new ArrayList<>();
+	
+	@OneToMany(mappedBy = "matiere")
+	private List<Tache> taches=new ArrayList<>();
+	
+	
 	
 	public Matiere(int id_Matiere, String libelle) {
 		super();
