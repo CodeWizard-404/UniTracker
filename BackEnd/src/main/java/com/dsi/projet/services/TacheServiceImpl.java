@@ -84,5 +84,14 @@ public class TacheServiceImpl implements ITacheService{
 	    tache.setMarquer(isCompleted);  
 	    return tacherep.save(tache);  
 	}
+
+	@Override
+	public List<Tache> getTasksByProf(int id_Professeur) {
+		Optional<Professeur> p= profRep.findById(id_Professeur);
+		if(p.isPresent()) {
+	        return tacherep.findByProfesseurId(id_Professeur);
+		}
+		return null;
+	}
 }
 
