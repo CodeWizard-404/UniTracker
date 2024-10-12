@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { data } from 'jquery';
 import { Prof } from 'src/app/classes/prof';
 import { Tache } from 'src/app/classes/tache';
@@ -14,12 +14,13 @@ import { ProfServiceService } from 'src/app/services/prof-service.service';
 })
 export class CreerTacheComponent implements OnInit{
   form!: FormGroup;
+  idProf!:number;
   profs:Prof[]=[]
   constructor(
     private fb: FormBuilder,
     private tacheService: CreerTacheService,
     private router: Router,
-    private profService:ProfServiceService
+    private route:ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -27,9 +28,8 @@ export class CreerTacheComponent implements OnInit{
       titre: ['', Validators.required],
       description: ['', Validators.required],
       dateLimite: ['', Validators.required],
-      id_Professeur: ['', Validators.required],
     });
-    this.loadProf();
+    this.idProf = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   addTache() {
@@ -38,12 +38,11 @@ export class CreerTacheComponent implements OnInit{
         ...this.form.value,  
         dateLimite: new Date(this.form.value.dateLimite).toISOString(),  // Convertir la date
       };
-      const idProf = this.form.value.id_Professeur;
-      this.tacheService.addTache(formData, idProf).subscribe(
+      this.tacheService.addTache(formData, this.idProf).subscribe(
         (response) => {
           console.log('Tâche ajoutée avec succès:', response);
           alert('tache ajoutee avec succès');
-          this.router.navigate(['/listetaches']);
+          this.router.navigate([`/dashboardProf/${this.idProf}/listetaches`]);
         },
         (error) => {
           console.error('Erreur lors de l\'ajout de la tâche:', error);
@@ -53,13 +52,7 @@ export class CreerTacheComponent implements OnInit{
       console.log('Formulaire invalide, veuillez corriger les erreurs.');
     }
   }
-  loadProf(){
-    this.profService.getProfesseurs().subscribe(data=>{
-      this.profs=data;
-    }, error => {
-      console.error('Erreur lors du chargement des profs', error);
-    });
-  }
+  
 
 
 }

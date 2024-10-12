@@ -27,7 +27,7 @@ export class AssignerTacheComponent implements OnInit{
       }
     );
   }
-  
+
   assignTask() {
     if (this.tacheId && this.selectedEtudiants.length > 0) {
       this.tacheService.assignTask(this.tacheId, this.selectedEtudiants).subscribe(
