@@ -1,3 +1,5 @@
+import { Prof } from "./prof";
+
 export class Tache {
     constructor(
         public id_Tache:number,
@@ -5,7 +7,7 @@ export class Tache {
         public description:string,
         public dateLimite:Date,
         public complexite:string,
-        public id_professeur:number,
+        public professeur :Prof,
         public marquer:boolean
     ){}
 }

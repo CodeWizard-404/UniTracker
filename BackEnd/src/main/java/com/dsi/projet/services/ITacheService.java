@@ -11,6 +11,7 @@ public interface ITacheService {
 	public List<Tache> getAll();
 	public List<Tache> getTasksByEtudiant(int idEtudiant);
 	public List<Tache> getTasksByProf(int id_Professeur);
+	public boolean deleteTaskByProf(int idTache,int id_prof);
 	public Tache assignTaskToStudents(int idTache, List<Integer> idsEtudiants);
 	public Tache markTaskAsCompleted(int idTache, boolean isCompleted);
 	

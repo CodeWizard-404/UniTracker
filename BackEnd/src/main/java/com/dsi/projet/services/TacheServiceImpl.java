@@ -93,5 +93,18 @@ public class TacheServiceImpl implements ITacheService{
 		}
 		return null;
 	}
+
+	@Override
+	public boolean deleteTaskByProf(int idTache, int idProf) {
+	    Optional<Tache> tacheOpt = tacherep.findById(idTache);
+	    
+	    if (tacheOpt.isPresent() && tacheOpt.get().getProfesseur().getId_Professeur() == idProf) {
+	        tacherep.deleteById(idTache);
+	        return true; 
+	    }
+	    
+	    return false; 
+	}
+
 }
 
