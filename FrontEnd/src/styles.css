@@ -1,6 +1,6 @@
 @import 'select2/dist/css/select2.min.css';
 .select2-container .select2-selection--multiple{
-  background-color: black;
+  background-color: #1B1212;
 }
 
 
