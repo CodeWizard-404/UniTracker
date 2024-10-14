@@ -17,7 +17,6 @@ constructor(private fb:FormBuilder,private  router:Router,private etudiantservic
   private  classeService:ClasseServiceService) { }
   ngOnInit(): void {
     this.form = this.fb.group({
-      id_classe: ['',Validators.required],
       id_Etudiant: ['', Validators.required],
       nom_Etd: ['', Validators.required],
       prenom_Etd: ['', Validators.required],
@@ -46,6 +45,7 @@ constructor(private fb:FormBuilder,private  router:Router,private etudiantservic
         }
       );
     } else {
+      console.log(this.form.value);
       console.log('Formulaire invalide, veuillez corriger les erreurs.');
     }
   }
