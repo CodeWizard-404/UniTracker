@@ -21,23 +21,27 @@ import { CreergroupeComponent } from './prof_dashboard/creergroupe/creergroupe.c
 
 
 const routes: Routes =[
-  {path: 'dashboard',title:'Dashboard',component:DashboardComponent},
+  {path:'dashboard',title:'Dashboard',component:DashboardComponent},
   {path:'listeprof',title:'Les Profs',component:ListesProfComponent},
   {path:'listeetud',title:'Les Etudiants',component:ListesEtudiantsComponent},
   {path:'listeclasse',title:'Les classes',component:ListeclasseComponent},
   {path:'listmatiere',title:'Les matiere',component:ListematiereComponent},
+  
   {path:'profs',title:'Creer Prof',component:CreerProfComponent},
   {path:'etd',title:'Creer Etudiant',component:CreerEtudiantComponent},
   {path:'classe',title:'Creer Classe',component:CreerClasseComponent},
   {path:'mat',title:'Creer Matiere',component:CreerMatiereComponent},
+
   {path:'dashboardProf/:id/creerTache',title:'Creer Tache',component:CreerTacheComponent},
   {path:'dashboardProf',title:'Dashboard Prof',component:DashProfComponent},
   {path:'dashboardProf/:id/listetaches',title:'Liste des taches',component:ListetachesComponent},
   {path:'assignerTache/:id',title:'attribuer tache',component:AssignerTacheComponent},
   {path:'creerGroupe',title:'Creer groupe',component:CreergroupeComponent},
+
   {path:'dashEtd',title:'dashboard etudiant',component:DashboardEtdComponent},
   {path:'dashEtd/:id/creertacheperso',title:'dashboard etudiant',component:CreertacheComponent},
   {path:'dashEtd/:id/listetacheperso',title:'liste des taches',component:ListetachepersoComponent},
+
   {path: '',redirectTo: '/dashboard',pathMatch: 'full'},
   {path: '**',title:'Erreur',component:ErrorComponent},
   

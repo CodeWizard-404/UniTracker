@@ -1,60 +1,60 @@
- <div class="container-scroller">
-    <app-sidebar-prof></app-sidebar-prof>
-           <div class="container-fluid page-body-wrapper">
+<div class="container-scroller">
+  <app-sidebar-prof></app-sidebar-prof>
+  <div class="container-fluid page-body-wrapper">
     <app-navbar-prof></app-navbar-prof>
-         <div class="main-panel">
-           <div class="content-wrapper">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="card-title">Liste des Taches</h4>
-                <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashboardProf',idProf,'creerTache']">
-                  + Créer Tâche
-                </a>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="card-title">Liste des Taches</h4>
+          <div class="d-flex ">
+          <a class="nav-link btn btn-primary create-new-button " [routerLink]="['/dashboardProf',idProf,'creerTache']">
+            + Créer Tâche
+          </a>
+          <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">
+            + Créer Groupe
+          </a>
+          </div>
+        </div>
+
+        <div *ngFor="let tache of taches" class="mb-3">
+          <div class="card w-75 mx-auto">
+            <div class="card-body">
+              <h5 class="card-title">{{ tache.titre }}</h5>
+              <p class="card-text">{{ tache.description }}</p>
+              <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-primary" (click)="assignTache(tache.id_Tache)">Attribuer</button>
+                <button class="btn btn-primary" [routerLink]="['/modifierTache', tache.id_Tache]">Modifier</button>
+                <button class="btn btn-primary"
+                  (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)">Supprimer</button>
               </div>
-              
-              <div *ngFor="let tache of taches" class="mb-3">
-                <div class="card w-75 mx-auto">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ tache.titre }}</h5>
-                    <p class="card-text">{{ tache.description }}</p>
-                    <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
-                    <div class="d-flex justify-content-between">
-                      <button class="btn btn-primary" (click)="assignTache(tache.id_Tache)">Attribuer</button>
-                      <button class="btn btn-primary" [routerLink]="['/modifierTache', tache.id_Tache]">Modifier</button>
-                      <button class="btn btn-primary" (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)">Supprimer</button>
-                    </div>
-                  </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="showEtudiants" class="mb-4" id="assignEtudiantsSection">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Assigner la tâche à des étudiants (ID Tâche: {{ selectedTacheId }})</h5>
+            </div>
+
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Sélectionnez les étudiants :</label>
+                <div *ngFor="let etudiant of etudiants" class="form-check">
+                  <input type="checkbox" [value]="etudiant.id_Etudiant" (change)="onEtudiantChange($event)"
+                    class="form-check-input" id="etudiant-{{ etudiant.id_Etudiant }}" />
+                  <label class="form-check-label" for="etudiant-{{ etudiant.id_Etudiant }}">
+                    {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
+                  </label>
                 </div>
               </div>
-              
-              <div *ngIf="showEtudiants" class="mb-4" id="assignEtudiantsSection">
-                <div class="card">
-                  <div class="card-header">
-                    <h5 class="mb-0">Assigner la tâche à des étudiants (ID Tâche: {{ selectedTacheId }})</h5>
-                  </div>
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label class="form-label">Sélectionnez les étudiants :</label>
-                      <div *ngFor="let etudiant of etudiants" class="form-check">
-                        <input
-                          type="checkbox"
-                          [value]="etudiant.id_Etudiant"
-                          (change)="onEtudiantChange($event)"
-                          class="form-check-input"
-                          id="etudiant-{{ etudiant.id_Etudiant }}"
-                        />
-                        <label class="form-check-label" for="etudiant-{{ etudiant.id_Etudiant }}">
-                          {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
-                        </label>
-                      </div>
-                    </div>
-                    <button class="btn btn-primary mt-3" (click)="assignSelectedEtudiants()">Assigner Tâche</button>
-                    <button class="btn btn-danger mt-3" (click)="closeEtudiantList()">Fermer</button>
-            
-                  </div>
-                </div>
-              </div>
-         </div>
-         </div>
-       </div>
-     </div>
-     
+              <button class="btn btn-primary mt-3" (click)="assignSelectedEtudiants()">Assigner Tâche</button>
+              <button class="btn btn-danger mt-3" (click)="closeEtudiantList()">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

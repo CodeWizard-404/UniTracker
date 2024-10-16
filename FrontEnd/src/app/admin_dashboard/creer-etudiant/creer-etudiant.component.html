@@ -1,143 +1,231 @@
 <div class="container-scroller">
   <app-sidebar></app-sidebar>
-         <div class="container-fluid page-body-wrapper">
-  <app-navbar></app-navbar>
-       <div class="main-panel">
-         <div class="content-wrapper">
-          <div class="col-12 grid-margin">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Créer un étudiant</h4>
-                <form class="form-sample" [formGroup]="form"  (ngSubmit)="onSubmit()">
-                  <p class="card-description">Informations personnelles</p>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Nom</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" formControlName="nom_Etd" />
-                        </div>
+  <div class="container-fluid page-body-wrapper">
+    <app-navbar></app-navbar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Créer un Etudiant</h4>
+              <form class="form-sample" [formGroup]="form" (ngSubmit)="onSubmit()">
+                <p class="card-description"><i class="bi bi-dot"></i> Informations Personelle </p>
+
+                <div class="row">
+
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Nom</label>
+                        <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        formControlName="nom_Etd" />
+                  </div>
+
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Prénom</label>
+                        <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        formControlName="prenom_Etd" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Mail</label>
+                        <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        formControlName="email_Etd" />
+                  </div>
+
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Mot de passe</label>
+                        <input 
+                        type="password" 
+                        class="form-control custom-input" 
+                        formControlName="mot_de_passe_Etd" />
+                  </div>
+                </div>
+
+                <br>
+
+                <p class="card-description"><i class="bi bi-dot"></i> Informations Académiques </p>
+                <div class="row">
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Année</label>
+                      <input 
+                        type="text" 
+                        class="form-control custom-input "  
+                        formControlName="" />
+                  </div>
+                
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Classe</label>
+                      <input 
+                        type="text" 
+                        class="form-control custom-input "  
+                        formControlName="" />
+                  </div>
+                
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Num</label>
+                      <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        formControlName="" />
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Matieres S1</label>
+                      <input 
+                        type="text" 
+                        class="form-control custom-input "  
+                        formControlName="" />
+                  </div>
+                
+                  <div class="col-md">
+                      <label class="col-sm col-form-label input-label">Matieres S2</label>
+                      <input 
+                        type="text" 
+                        class="form-control custom-input "  
+                        formControlName="" />
+                  </div>
+                
+
+                </div>
+                <hr>
+
+                <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-secondary mr-2"><i class="bi bi-floppy"></i>Ajouter</button>
+                  <button class="btn btn-danger"><i class="bi bi-backspace-reverse"></i>Annuler</button>
+                </div>
+
+               <!--
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">Id</label>
+                      <div class="col-sm-9">
+                        <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        formControlName="id_Etudiant" />
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Prénom</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" formControlName="prenom_Etd"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">Genre</label>
+                      <div class="col-sm-9">
+                        <select class="form-control custom-input" formControlName="sexe_Etd">
+                          <option>Homme</option>
+                          <option>Femme</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">Adresse</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control custom-input" formControlName="adresse_Etd"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">Date naissance</label>
+                      <div class="col-sm-9">
+                        <input type="date" class="form-control custom-input" formControlName="date_de_naissance_Etd"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">Téléphone</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control custom-input" formControlName="telephone_Etd"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">CIN</label>
+                      <div class="col-sm-9">
+                        <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        formControlName="cin_Etd" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">CIN</label>
+                      <div class="col-sm-9">
+                        <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        formControlName="cin_Etd" />
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label input-label">Redoublant</label>
+                      <div class="col-sm-4">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input 
+                            type="radio" 
+                            class="form-check-input" 
+                            [value]="false" 
+                            formControlName="redoublant">
+                            Non
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input 
+                            type="radio" 
+                            class="form-check-input" 
+                            [value]="true" 
+                            formControlName="redoublant">
+                            Oui
+                          </label>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" >Genre</label>
-                        <div class="col-sm-9">
-                          <select class="form-control" formControlName="sexe_Etd">
-                            <option>Homme</option>
-                            <option>Femme</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Adresse</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" formControlName="adresse_Etd"/>
-                        </div>
-                      </div>
-                    </div>
-                 
-                  
-                  </div>
-                  <div class="row">
-                   
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Date naissance</label>
-                        <div class="col-sm-9">
-                          <input class="form-control" type="date" placeholder="dd/mm/yyyy" formControlName="date_de_naissance_Etd"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Téléphone</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" formControlName="telephone_Etd"/>
-                        </div>
-                      </div>
-                    </div>
-                  
-                  </div>
-                  <p class="card-description"> Informations Académiques </p>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Id</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" formControlName="id_Etudiant"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">CIN</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" formControlName="cin_Etd"/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                   
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Mail</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" formControlName="email_Etd"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Mot de passe</label>
-                        <div class="col-sm-9">
-                          <input type="password" class="form-control" formControlName="mot_de_passe_Etd"/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Redoublant</label>
-                        <div class="col-sm-4">
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input type="radio"  [value]="false" formControlName="redoublant"> Non </label>
-                          </div>
-                        </div>
-                        <div class="col-sm-5">
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input type="radio" class="form-check-input" [value]="true" formControlName="redoublant"> Oui </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-               
-                    
-                  </div>
-            
-                  <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                  <button class="btn btn-dark">Cancel</button>
-                </form>
-              </div>
+                </div>
+                -->
+
+
+
+              </form>
             </div>
           </div>
-       </div>
-       </div>
-     </div>
-   </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

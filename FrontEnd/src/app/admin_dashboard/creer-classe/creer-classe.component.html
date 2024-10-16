@@ -1,64 +1,114 @@
 <div class="container-scroller">
-    <app-sidebar></app-sidebar>
-           <div class="container-fluid page-body-wrapper">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid page-body-wrapper">
     <app-navbar></app-navbar>
-         <div class="main-panel">
-           <div class="content-wrapper">
-            <form (ngSubmit)="onSubmit()" #classeForm="ngForm">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Créer Classe</h4>
-                  <br>
-                  <div class="form-group">
-                    <label for="libelle_Classe">Libellé Classe:</label>
-                    <br><input
-                      type="text"
-                      id="libelle_Classe"
-                      required
-                      [(ngModel)]="classe.libelle_Classe"
-                      name="libelle_Classe"
-                      style="background-color: black; color: white; font-size: small; padding: 5px; border-radius: 4px;"
-                    />
-                  </div>
-            
-                  <div class="form-group">
-                    <label for="etudiants">Sélectionner les Étudiants:</label>
-                    <select
-                      id="etudiants"
-                      multiple="multiple"
-                      [(ngModel)]="classe.etudiants"
-                      name="etudiants"
-                      style="width: 100%;"
-                    >
-                      <option *ngFor="let etudiant of etudiants" [ngValue]="etudiant">
-                        {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
-                      </option>
-                    </select>
-                  </div>
-            
-                  <div class="form-group">
-                    <label for="matieres">Sélectionner les Matières:</label>
-                    <select
-                      id="matieres"
-                      multiple="multiple"
-                      [(ngModel)]="classe.matieres"
-                      name="matieres"
-                      style="width: 100%;"
-                    >
-                      <option *ngFor="let matiere of matieres" [ngValue]="matiere">
-                        {{ matiere.libelle }}
-                      </option>
-                    </select>
-                  </div>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <form (ngSubmit)="onSubmit()" #classeForm="ngForm">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Créer Classe</h4>
+
+              <div class="row">
+
+                <div class="col-md">
+                    <label for="libelle_Classe" class="col-sm col-form-label input-label">Nom</label>
+                    <input 
+                    type="text" 
+                    class="form-control custom-input" 
+                    id="libelle_Classe" 
+                    required [(ngModel)]="classe.libelle_Classe" 
+                        name="libelle_Classe" />
                 </div>
-            
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-info mr-2" [disabled]="!classeForm.form.valid">Submit</button>
-                  <button type="button" class="btn btn-dark" (click)="cancel()">Cancel</button>
+
+                <div class="col-md">
+                    <label class="col-sm col-form-label input-label">Num</label>
+                    <input 
+                    type="text" 
+                    class="form-control custom-input " 
+                    formControlName="" />
+                </div>
+
+                <div class="col-md">
+                    <label class="col-sm col-form-label input-label">Année</label>
+                    <input 
+                    type="text" 
+                    class="form-control custom-input " 
+                    formControlName="" />
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+              <div class="col-md">
+                <label class="col-sm col-form-label input-label">Matières S1</label>
+                <div class="checklist-container">
+                  <div *ngFor="let matiere of matieres" class="form-check">
+                    <input type="checkbox"
+                        class="form-control custom-input form-check-input checkbox-input"
+                        (change)="toggleSelectionMatiere(matiere)"
+                        id="matiere-{{matiere.id}}" />
+                    <label class="form-check-label" for="matiere-{{matiere.id}}">
+                      {{ matiere.libelle }}
+                    </label>
+                  </div>
                 </div>
               </div>
-            </form>
-         </div>
-         </div>
-       </div>
-     </div>
+
+              <div class="col-md">
+                <label class="col-sm col-form-label input-label">Matières S2</label>
+                <div class="checklist-container">
+                  <div *ngFor="let matiere of matieres" class="form-check">
+                    <input type="checkbox"
+                        class="form-control custom-input form-check-input checkbox-input"
+                        (change)="toggleSelectionMatiere(matiere)"
+                        id="matiere-{{matiere.id}}" />
+                    <label class="form-check-label" for="matiere-{{matiere.id}}">
+                      {{ matiere.libelle }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+
+
+<!--
+              <div class="form-group">
+                <label for="etudiants">Sélectionner les Étudiants:</label>
+                <select id="etudiants" multiple="multiple" [(ngModel)]="classe.etudiants" name="etudiants"
+                  style="width: 100%;">
+                  <option *ngFor="let etudiant of etudiants" [ngValue]="etudiant">
+                    {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="matieres">Sélectionner les Matières:</label>
+                <select id="matieres" multiple="multiple" [(ngModel)]="classe.matieres" name="matieres"
+                  style="width: 100%;">
+                  <option *ngFor="let matiere of matieres" [ngValue]="matiere">
+                    {{ matiere.libelle }}
+                  </option>
+                </select>
+              </div>
+              -->
+
+            </div>
+
+                        <hr>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-secondary mr-2"><i
+                                    class="bi bi-floppy"></i>Ajouter</button>
+                            <button class="btn btn-danger" (click)="cancel()"><i
+                                    class="bi bi-backspace-reverse"></i>Annuler</button>
+                        </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
