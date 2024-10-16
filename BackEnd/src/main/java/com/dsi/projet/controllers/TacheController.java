@@ -48,11 +48,7 @@ public class TacheController {
 	public List<Tache> getTasksByEtudiant(@RequestParam int idEtd){
 	return tacheService.getTasksByEtudiant(idEtd);}
 	
-	@PostMapping("/task/mark")
-	public ResponseEntity<Tache> markTaskAsCompleted(@RequestParam int idTache, @RequestParam boolean isCompleted) {
-	    Tache tache = tacheService.markTaskAsCompleted(idTache, isCompleted);
-	    return ResponseEntity.ok(tache);
-	}
+
 	
 	@GetMapping("/tasksByProf")
 	public List<Tache> getTasksByProf(@RequestParam int idProf){

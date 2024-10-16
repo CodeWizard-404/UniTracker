@@ -134,6 +134,8 @@ public class Professeur {
 	public void setCin_Prof(String cin_Prof) {
 		this.cin_Prof = cin_Prof;
 	}
+
+
 	
 
 }

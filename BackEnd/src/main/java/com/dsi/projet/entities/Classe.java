@@ -27,6 +27,7 @@ public class Classe {
 
   
     @OneToMany(mappedBy = "classe")
+    //@JsonIgnore
     private List<Etudiant> etudiants = new ArrayList<>();
 
     @ManyToMany

@@ -20,7 +20,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
 		// TODO Auto-generated method stub
 				List <Etudiant> etudiants=etdRep.findAll();
 				for (Etudiant etudiant : etudiants) {
-					if(String.valueOf(etudiant.getCin_Etd()).equals(e.getCin_Etd())) {
+					if(String.valueOf(etudiant.getEmail_Etd()).equals(e.getEmail_Etd())) {
 						return null;
 						
 					}

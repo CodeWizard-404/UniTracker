@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Tache {
@@ -23,13 +24,8 @@ public class Tache {
 	private String titre;
 	private String description;
 	private LocalDateTime dateLimite;
-	public enum ComplexteTache{
-		Easy,
-		Medium,
-		Hard
-	}
-	private ComplexteTache complexite;
-	private boolean marquer=false;
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "id_Professeur")
 	private Professeur professeur;
@@ -45,24 +41,31 @@ public class Tache {
 	@JoinColumn(name = "id_Matiere")
 	private Matiere matiere;
 	
+	/*-------------relationRealisation---------------------------------------------*/
+	@OneToMany(mappedBy = "tache")
+	List<Completion>completions=new ArrayList<>();
+	/*----------------------------------------------------------*/
+	
 	public Tache() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Tache(String titre, String description, LocalDateTime dateLimite,boolean marquer) {
+	public Tache(String titre, String description, LocalDateTime dateLimite) {
 		super();
 		this.titre = titre;
 		this.description = description;
 		this.dateLimite = dateLimite;
-		this.marquer=false;
+		//this.marquer=false;
 	}
+	
 	
 	@Override
 	public String toString() {
 		return "Tache [id_Tache=" + id_Tache + ", titre=" + titre + ", description=" + description + ", dateLimite="
-				+ dateLimite + ", complexite=" + complexite + "]";
+				+ dateLimite + "]";
 	}
+
 	public String getTitre() {
 		return titre;
 	}
@@ -81,12 +84,7 @@ public class Tache {
 	public void setDateLimite(LocalDateTime dateLimite) {
 		this.dateLimite = dateLimite;
 	}
-	public ComplexteTache getComplexite() {
-		return complexite;
-	}
-	public void setComplexite(ComplexteTache complexite) {
-		this.complexite = complexite;
-	}
+	
 	public int getId_Tache() {
 		return id_Tache;
 	}
@@ -107,13 +105,13 @@ public class Tache {
 		this.etudiants = etudiants;
 	}
 
-	public boolean isMarquer() {
-		return marquer;
-	}
-
-	public void setMarquer(boolean marquer) {
-		this.marquer = marquer;
-	}
+//	public boolean isMarquer() {
+//		return marquer;
+//	}
+//
+//	public void setMarquer(boolean marquer) {
+//		this.marquer = marquer;
+//	}
 	
 		
 	

@@ -26,7 +26,7 @@ public class ProfServiceImpl implements IProfService{
 	public Professeur addProf(Professeur p) {
 		List <Professeur> profs=profRep.findAll();
 		for (Professeur professeur : profs) {
-			if(String.valueOf(professeur.getCin_Prof()).equals(p.getCin_Prof())) {
+			if(String.valueOf(professeur.getEmail_Prof()).equals(p.getEmail_Prof())) {
 				return null;
 				
 			}

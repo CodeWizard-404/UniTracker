@@ -7,15 +7,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dsi.projet.entities.Completion;
 import com.dsi.projet.entities.Etudiant;
 import com.dsi.projet.entities.Professeur;
 import com.dsi.projet.entities.Tache;
+import com.dsi.projet.repositories.CompletionRepository;
 import com.dsi.projet.repositories.EtudiantRepository;
 import com.dsi.projet.repositories.ProfRepository;
 import com.dsi.projet.repositories.TacheRepository;
 
 @Service
 public class TacheServiceImpl implements ITacheService{
+	@Autowired
+	private CompletionRepository compRep;
 	@Autowired
 	private TacheRepository tacherep;
 	@Autowired
@@ -28,6 +32,7 @@ public class TacheServiceImpl implements ITacheService{
 		List<Professeur> profs=profRep.findAll();
 		for (Professeur professeur : profs) {
 			if(professeur.getId_Professeur()==idProf) {
+				
 				t.setProfesseur(professeur);
 				return tacherep.save(t);}
 		}
@@ -41,7 +46,15 @@ public class TacheServiceImpl implements ITacheService{
 		 Tache tache = tacherep.findById(idTache).orElseThrow(() -> new RuntimeException("Tâche non trouvée"));
 		 for (Integer idEtudiant : idsEtudiants) {
 			 Etudiant etudiant = etudiantRepo.findById(idEtudiant).orElseThrow(() -> new RuntimeException("Étudiant non trouvé"));
-			 tache.getEtudiants().add(etudiant);
+			 boolean isAlreadyAssigned = tache.getEtudiants().stream()
+                     .anyMatch(e -> e.getId_Etudiant()==etudiant.getId_Etudiant());
+			 if(!isAlreadyAssigned) {
+				 tache.getEtudiants().add(etudiant);
+			     Tache t=tacherep.save(tache);
+			     Completion c=new Completion(false,etudiant,t);
+			     compRep.save(c);
+			 }
+			 
 		}
 		return tacherep.save(tache);
 	}
@@ -59,7 +72,11 @@ public class TacheServiceImpl implements ITacheService{
 		for (Etudiant etudiant : etudiants) {
 			if(etudiant.getId_Etudiant()==idEtudiant) {
 				t.getEtudiants().add(etudiant);
-				return tacherep.save(t);}
+				Tache tache=tacherep.save(t);
+				Completion c=new Completion(false,etudiant,tache);
+				compRep.save(c);
+				
+				return tache ;}
 		}
 		return null;
 	}
@@ -77,13 +94,7 @@ public class TacheServiceImpl implements ITacheService{
 			}
 		else {return null;}
 	}
-	public Tache markTaskAsCompleted(int idTache, boolean isCompleted) {
-	    Tache tache = tacherep.findById(idTache)
-	            .orElseThrow(() -> new RuntimeException("Tâche non trouvée"));
 
-	    tache.setMarquer(isCompleted);  
-	    return tacherep.save(tache);  
-	}
 
 	@Override
 	public List<Tache> getTasksByProf(int id_Professeur) {

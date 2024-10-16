@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -37,7 +38,7 @@ public class Etudiant {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_classe")
-	@JsonIgnore
+	//@JsonIgnore
 	private Classe classe;
 	
 	@ManyToMany(mappedBy = "etudiants")
@@ -51,6 +52,11 @@ public class Etudiant {
 	private List<Groupe>groupes=new ArrayList<>();
 	/*----------------------------------------------------------*/
 	
+	
+	/*-------------relationRealisation---------------------------------------------*/
+	@OneToMany(mappedBy = "etudiant")
+	List<Completion>completions=new ArrayList<>();
+	/*----------------------------------------------------------*/
 	
 
 	
@@ -176,8 +182,11 @@ public class Etudiant {
 
 
 
-	public Classe getClasse() {
-		return classe;
+	public String getClasse() {
+		if(this.classe!=null)
+			return classe.getLibelle_Classe();
+		else
+			return null;
 	}
 
 

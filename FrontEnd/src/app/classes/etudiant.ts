@@ -1,3 +1,4 @@
+import { Classe } from "./classe";
 import { Groupe } from "./groupe";
 
 export class Etudiant {
@@ -13,7 +14,7 @@ export class Etudiant {
             public telephone_Etd:string,
             public mot_de_passe_Etd:string,
             public cin_Etd:string,
-            public id_classe:number,
+            public classe:Classe,
             public groupes: Groupe[]
         ) {}
     }
