@@ -14,7 +14,7 @@ export class Etudiant {
             public telephone_Etd:string,
             public mot_de_passe_Etd:string,
             public cin_Etd:string,
-            public classe:Classe,
+            public id_classe:Number,
             public groupes: Groupe[]
         ) {}
     }
