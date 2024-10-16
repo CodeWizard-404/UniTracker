@@ -1,57 +1,55 @@
-
-
-
-  <div class="container-scroller">
-    <app-sidebar></app-sidebar>
-           <div class="container-fluid page-body-wrapper">
+<div class="container-scroller">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid page-body-wrapper">
     <app-navbar></app-navbar>
-         <div class="main-panel">
-           <div class="content-wrapper">
-            <div class="row ">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">Liste des Etudiants</h4>
-                        <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" [routerLink]="['/etd']">
-                          +Créer Etudiant
-                        </a>
-                      </div>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Id</th>
-                            <th>  Nom</th>
-                            <th> Prenom </th>
-                            <th> Email </th>
-                          <th>Date de naissance</th>
-                            <th> Classe </th>
-                            <th>Redoublant</th>
-                            <th>Téléphone</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let etudiant of etudiants">
-                            <td>{{etudiant.id_Etudiant}}</td>
-                            <td>{{etudiant.nom_Etd}}</td>
-                            <td> {{etudiant.prenom_Etd}} </td>
-                            <td> {{etudiant.email_Etd}}</td>
-                            <td> {{etudiant.date_de_naissance_Etd}} </td>
-                            <td>{{etudiant.id_classe}}</td> <!-- Assurez-vous que 'libelle_Classe' est le bon nom d'attribut dans votre objet classe -->
-                            <td> {{etudiant.redoublant}}</td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row ">
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h4 class="card-title">Liste des Etudiants</h4>
+                  <a class="nav-link btn btn-primary create-new-button" id="createbuttonDropdown" data-toggle="dropdown"
+                    aria-expanded="false" [routerLink]="['/etd']">
+                    +Créer Etudiant
+                  </a>
+                </div>
+                <hr>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Mot de Passe</th>
+                        <th>Email</th>
+                        <th>Classes</th>
+                        <th>Année</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let etudiant of etudiants">
+                        <td>{{etudiant.id_Etudiant}}</td>
+                        <td>{{etudiant.nom_Etd}}-{{etudiant.prenom_Etd}}</td>
+                        <td> ... </td>
+                        <td>{{etudiant.email_Etd}}</td>
+                        <td>{{etudiant.id_classe}}</td>
+                        <td> ... </td>
+                        <td>
+                        <button class="btn btn-secondary"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-secondary"><i class="bi bi-trash-fill"></i></button>
+                        </td>                      
+                    </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-         </div>
-         </div>
-       </div>
-     </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

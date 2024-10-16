@@ -1,37 +1,37 @@
 <div class="container-scroller">
-    <app-sidebar-etd></app-sidebar-etd>
-           <div class="container-fluid page-body-wrapper">
+  <app-sidebar-etd></app-sidebar-etd>
+  <div class="container-fluid page-body-wrapper">
     <app-navbar-etd></app-navbar-etd>
-    
+
     <div class="main-panel">
-        <div class="content-wrapper">
-         <div class="row w-100 m-0">
-           <div class="card col-lg-8 mx-auto">
-             <div class="card-body px-5 py-5">
-               <h3 class="card-title text-left mb-3">Créer tache Personnalisée</h3>
-               <form [formGroup]="tacheForm" (ngSubmit)="addTache()">
-           
-                 <div class="form-group">
-                   <label>Titre</label>
-                   <input type="text" class="form-control p_input" formControlName="titre">
-                 </div>
-                 <div class="form-group">
-                   <label>Descritpion</label>
-                   <textarea class="form-control" formControlName="description"></textarea>
-                 </div>
-                
+      <div class="content-wrapper">
+        <div class="row w-100 m-0">
+          <div class="card col-lg-8 mx-auto">
+            <div class="card-body px-5 py-5">
+              <h3 class="card-title text-left mb-3">Créer tache Personnalisée</h3>
+              <form [formGroup]="tacheForm" (ngSubmit)="addTache()">
+
                 <div class="form-group">
-                 <label>Date limite</label>
-                 <input type="datetime-local"  class="form-control" formControlName="dateLimite">
+                  <label>Titre</label>
+                  <input type="text" class="form-control p_input" formControlName="titre">
+                </div>
+                <div class="form-group">
+                  <label>Descritpion</label>
+                  <textarea class="form-control" formControlName="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Date limite</label>
+                  <input type="datetime-local" class="form-control" formControlName="dateLimite">
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                 <button class="btn btn-dark" [routerLink]="['/dashEtd',idEtudiant,'listetacheperso']">Cancel</button>
-               </form>
-             </div>
-         </div>
-       </div>
-     
+              </form>
+            </div>
+          </div>
+        </div>
+
       </div>
-      </div>
-       </div>
-     </div>
+    </div>
+  </div>
+</div>

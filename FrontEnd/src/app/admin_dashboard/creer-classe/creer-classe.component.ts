@@ -57,6 +57,17 @@ export class CreerClasseComponent {
     });
   }
 
+  selectedMatiere: Matiere[] = [];
+
+  toggleSelectionMatiere(matiere: Matiere) {
+    const index = this.selectedMatiere.indexOf(matiere);
+    if (index === -1) {
+      this.selectedMatiere.push(matiere);
+    } else {
+      this.selectedMatiere.splice(index, 1);
+    }
+  }
+
   onSubmit() {
     console.log('ressss', this.classe);
     this.classeService.createClasse(this.classe).subscribe(response => {
