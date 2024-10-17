@@ -16,6 +16,7 @@ export class MatiereServiceService {
   }
   
   getMatieres(): Observable<Matiere[]> {
-    return this.http.get<Matiere[]>('http://localhost:8084/matieres');
-  }
+    return this.http.get<Matiere[]>(`${this.baseUrl}/matieres`);
+}
+
 }
