@@ -24,7 +24,7 @@
               <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
               <div class="d-flex justify-content-between">
                 <button class="btn btn-primary" (click)="assignTache(tache.id_Tache)">Attribuer</button>
-                <button class="btn btn-primary" [routerLink]="['/modifierTache', tache.id_Tache]">Modifier</button>
+                <button class="btn btn-primary" [routerLink]="['/dashboardProf', idProf, 'taches', tache.id_Tache]">Modifier</button>
                 <button class="btn btn-primary"
                   (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)">Supprimer</button>
               </div>

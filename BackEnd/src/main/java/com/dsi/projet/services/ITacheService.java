@@ -13,6 +13,6 @@ public interface ITacheService {
 	public List<Tache> getTasksByProf(int id_Professeur);
 	public boolean deleteTaskByProf(int idTache,int id_prof);
 	public Tache assignTaskToStudents(int idTache, List<Integer> idsEtudiants);
-
-	
+	public Tache updateTaskByProf(int idTache,Tache tache);
+	public Tache getTaskById(int idTask);
 }

@@ -42,4 +42,14 @@ export class CreerTacheService {
     const url = `${this.baseUrl}/tasksByProf/${idTache}?idProf=${idProf}`;
     return this.http.delete<boolean>(url);
   }
+  updateTaskByProf(idTache:number,tache:Tache):Observable<Tache>{
+    const url = `${this.baseUrl}/tasksByProf/${idTache}`;
+    return  this.http.put<Tache>(url,tache);
+
+  }
+  getTaskById(idtache:number):Observable<Tache>{
+    const url = `${this.baseUrl}/task/${idtache}`;
+    return this.http.get<Tache>(url);
+  }
+
 }

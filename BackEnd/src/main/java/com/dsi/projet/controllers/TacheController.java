@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,6 +60,14 @@ public class TacheController {
 	public boolean deleteTaskByProf(@PathVariable("id") int id,@RequestParam int idProf){
 		return tacheService.deleteTaskByProf(id, idProf);
 	}
-	
+
+	@PutMapping("/tasksByProf/{id}")
+	public Tache updateTache(@PathVariable int id, @RequestBody Tache tache) {
+		return tacheService.updateTaskByProf(id, tache);
+	}
+	@GetMapping("/task/{id}")
+	public Tache getTaskById(@PathVariable int id) {
+		return tacheService.getTaskById(id);
+	}
 	
 }

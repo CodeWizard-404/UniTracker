@@ -117,5 +117,28 @@ public class TacheServiceImpl implements ITacheService{
 	    return false; 
 	}
 
+	@Override
+	public Tache updateTaskByProf(int idTache, Tache tache) {
+	    Optional<Tache> tacheExistante = tacherep.findById(idTache);
+	    if (tacheExistante.isPresent()) {
+	        Tache t = tacheExistante.get();
+	        t.setTitre(tache.getTitre()); 
+            t.setDescription(tache.getDescription()); 
+            t.setDateLimite(tache.getDateLimite());
+            return tacherep.save(t);
+	        }
+		return null;
+	}
+
+	@Override
+	public Tache getTaskById(int idTask) {
+		Optional<Tache> t =tacherep.findById(idTask);
+		if(t.isPresent()) {
+			return t.get();
+		}
+		return null;
+	}
+
+
 }
 
