@@ -10,104 +10,80 @@
               <h4 class="card-title">Créer Classe</h4>
 
               <div class="row">
-
                 <div class="col-md">
-                    <label for="libelle_Classe" class="col-sm col-form-label input-label">Nom</label>
+                    <label for="nom_Classe" class="col-sm col-form-label input-label">Nom</label>
                     <input 
-                    type="text" 
-                    class="form-control custom-input" 
-                    id="libelle_Classe" 
-                    required [(ngModel)]="classe.libelle_Classe" 
-                        name="libelle_Classe" />
+                      type="text" 
+                      class="form-control custom-input" 
+                      id="nom_Classe" 
+                      required [(ngModel)]="classe.nom_Classe" 
+                      name="nom" />
                 </div>
 
+                
                 <div class="col-md">
-                    <label class="col-sm col-form-label input-label">Num</label>
-                    <input 
-                    type="text" 
-                    class="form-control custom-input " 
-                    formControlName="" />
-                </div>
-
+                  <label class="col-sm col-form-label input-label">Année</label>
+                  <select class="form-control custom-input" [(ngModel)]="classe.annee_Classe" name="annee">
+                    <option value="1">1ère Année</option>
+                    <option value="2">2ème Année</option>
+                    <option value="3">3ème Année</option>
+                </select>
+              </div>
                 <div class="col-md">
-                    <label class="col-sm col-form-label input-label">Année</label>
-                    <select class="form-control custom-input " >
-                      <option value="1ère Année">1ère Année</option>
-                      <option value="2ème Année">2ème Année</option>
-                      <option value="3ème Année">3ème Année</option>
-                  </select>
-                </div>
+                  <label class="col-sm col-form-label input-label">Numéro</label>
+                  <input 
+                  type="text" 
+                  class="form-control custom-input " 
+                  [(ngModel)]="classe.num_Classe"
+                  name="num" />
+              </div>
 
+              </div>
 
-            </div>
-
-            <br>
-
-            <div class="row">
+              <br>
+              <div class="row">
               <div class="col-md">
                 <label class="col-sm col-form-label input-label">Matières S1</label>
                 <div class="checklist-container">
-                  <div *ngFor="let matiere of matieres" class="form-check">
+                  <div *ngFor="let matiere of getMatiereS1()" class="form-check">
                     <input type="checkbox"
-                        class="form-control custom-input form-check-input checkbox-input"
-                        (change)="toggleSelectionMatiere(matiere)"
-                        id="matiere-{{matiere.id}}" />
-                    <label class="form-check-label" for="matiere-{{matiere.id}}">
-                      {{ matiere.libelle }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md">
-                <label class="col-sm col-form-label input-label">Matières S2</label>
-                <div class="checklist-container">
-                  <div *ngFor="let matiere of matieres" class="form-check">
-                    <input type="checkbox"
-                        class="form-control custom-input form-check-input checkbox-input"
-                        (change)="toggleSelectionMatiere(matiere)"
-                        id="matiere-{{matiere.id}}" />
-                    <label class="form-check-label" for="matiere-{{matiere.id}}">
+                           class="form-control custom-input form-check-input checkbox-input"
+                           (change)="toggleSelectionMatiere(matiere)"
+                           id="matiere-{{matiere.id_Matiere}}" />
+                    <label class="form-check-label" for="matiere-{{matiere.id_Matiere}}">
                       {{ matiere.libelle }}
                     </label>
                   </div>
                 </div>
               </div>
             
-          </div>
 
-
-<!--
-              <div class="form-group">
-                <label for="etudiants">Sélectionner les Étudiants:</label>
-                <select id="etudiants" multiple="multiple" [(ngModel)]="classe.etudiants" name="etudiants"
-                  style="width: 100%;">
-                  <option *ngFor="let etudiant of etudiants" [ngValue]="etudiant">
-                    {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
-                  </option>
-                </select>
+              <div class="col-md">
+                <label class="col-sm col-form-label input-label">Matières S2</label>
+                <div class="checklist-container">
+                  <div *ngFor="let matiere of getMatiereS2()" class="form-check">
+                    <input type="checkbox"
+                           class="form-control custom-input form-check-input checkbox-input"
+                           (change)="toggleSelectionMatiere(matiere)"
+                           id="matiere-{{matiere.id_Matiere}}" />
+                    <label class="form-check-label" for="matiere-{{matiere.id_Matiere}}">
+                      {{ matiere.libelle }}
+                    </label>
+                  </div>
+                </div>
               </div>
-
-              <div class="form-group">
-                <label for="matieres">Sélectionner les Matières:</label>
-                <select id="matieres" multiple="multiple" [(ngModel)]="classe.matieres" name="matieres"
-                  style="width: 100%;">
-                  <option *ngFor="let matiere of matieres" [ngValue]="matiere">
-                    {{ matiere.libelle }}
-                  </option>
-                </select>
-              </div>
-              -->
 
             </div>
-
-                        <hr>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-secondary mr-2"><i
-                                    class="bi bi-floppy"></i>Ajouter</button>
-                            <button class="btn btn-danger" (click)="cancel()"><i
-                                    class="bi bi-backspace-reverse"></i>Annuler</button>
-                        </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-secondary mr-2">
+                <i class="bi bi-floppy"></i> Ajouter
+              </button>
+              <button class="btn btn-danger" (click)="cancel()">
+                <i class="bi bi-backspace-reverse"></i> Annuler
+              </button>
+            </div>
           </div>
         </form>
       </div>

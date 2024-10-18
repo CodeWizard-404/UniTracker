@@ -59,14 +59,25 @@ export class CreerClasseComponent {
 
   selectedMatiere: Matiere[] = [];
 
-  toggleSelectionMatiere(matiere: Matiere) {
-    const index = this.selectedMatiere.indexOf(matiere);
-    if (index === -1) {
-      this.selectedMatiere.push(matiere);
-    } else {
-      this.selectedMatiere.splice(index, 1);
-    }
+
+toggleSelectionMatiere(matiere: Matiere) {
+  const index = this.selectedMatiere.indexOf(matiere);
+  if (index === -1) {
+    this.selectedMatiere.push(matiere);
+  } else {
+    this.selectedMatiere.splice(index, 1);
   }
+}
+
+
+getMatiereS1(): Matiere[] {
+  return this.matieres.filter(matiere => matiere.semestre === 'S1');
+}
+
+getMatiereS2(): Matiere[] {
+  return this.matieres.filter(matiere => matiere.semestre === 'S2');
+}
+
 
   onSubmit() {
     console.log('ressss', this.classe);

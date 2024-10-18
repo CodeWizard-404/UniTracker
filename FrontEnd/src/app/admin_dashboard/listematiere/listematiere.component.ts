@@ -16,10 +16,11 @@ export class ListematiereComponent implements OnInit{
     this.loadMatieres();
   }
 
-  // Nouvelle méthode pour obtenir les noms des classes
   getClassesNames(matiere: Matiere): string {
     if (matiere.classes && matiere.classes.length > 0) {
-      return matiere.classes.map((c) => c.libelle_Classe).join(", ");
+      return matiere.classes
+        .map(c => `${c.nom_Classe}${c.annee_Classe}${c.num_Classe}`)
+        .join(", ");
     }
     return "Aucune classe";
   }
@@ -28,6 +29,11 @@ export class ListematiereComponent implements OnInit{
     this.matiereService.getMatieres().subscribe(
       (data) => {
         this.matieres = data;
-    });
+      },
+      (error) => {
+        console.error("Erreur lors du chargement des matières", error);
+      }
+    );
   }
 }
+

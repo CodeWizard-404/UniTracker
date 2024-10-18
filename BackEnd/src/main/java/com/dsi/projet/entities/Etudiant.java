@@ -183,12 +183,12 @@ public class Etudiant {
 
 
 
-	public String getClasse() {
-		if(this.classe!=null)
-			return classe.getLibelle_Classe();
-		else
-			return null;
-	}
+//	public String getClasse() {
+//		if(this.classe!=null)
+//			return classe.getLibelle_Classe();
+//		else
+//			return null;
+//	}
 
 
 
@@ -196,6 +196,14 @@ public class Etudiant {
 
 	public void setClasse(Classe classe) {
 		this.classe = classe;
+	}
+
+
+
+
+
+	public Classe getClasse() {
+		return classe;
 	}
 
 

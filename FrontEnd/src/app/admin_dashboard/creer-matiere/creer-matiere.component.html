@@ -23,18 +23,23 @@
                                         name="libelle_Matiere" />
                                 </div>
 
-                                <div class="col-md">
+                                <!-- <div class="col-md">
                                     <label class="col-sm col-form-label input-label">Année</label>
-                                    <select class="form-control custom-input " >
+                                    <select class="form-control custom-input" 
+                                        [(ngModel)]="matiere.annee" 
+                                        name="annee" 
+                                        required>
                                         <option value="1ère Année">1ère Année</option>
                                         <option value="2ème Année">2ème Année</option>
                                         <option value="3ème Année">3ème Année</option>
                                     </select>
-                                </div>
-
+                                </div> -->
                                 <div class="col-md">
                                     <label class="col-sm col-form-label input-label">Semestre</label>
-                                    <select class="form-control custom-input " >
+                                    <select class="form-control custom-input" 
+                                        [(ngModel)]="matiere.semestre" 
+                                        name="semestre" 
+                                        required>
                                         <option value="S1">S1</option>
                                         <option value="S2">S2</option>
                                     </select>
@@ -69,7 +74,7 @@
                                                 (change)="toggleSelectionClasse(classe)"
                                                 id="classe-{{classe.id_Classe}}" />
                                             <label class="form-check-label" for="classe-{{classe.id_Classe}}">
-                                                {{ classe.libelle_Classe }}
+                                                {{ classe.nom_Classe }}{{classe.annee_Classe}}{{classe.num_Classe}}
                                             </label>
                                         </div>
                                     </div>

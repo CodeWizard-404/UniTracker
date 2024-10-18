@@ -7,17 +7,21 @@ export class Matiere {
     libelle: string;
     professeurs: Prof[]; 
     classes: Classe[]; 
+    semestre: string;  
+   
 
     constructor() {
         this.libelle = '';
         this.professeurs = [];
         this.classes = [];
+        this.semestre = '';  
+       
     }
     getEtudiants(): Etudiant[] {
-        // Récupérer tous les étudiants des classes associées
+        
         const etudiants: Etudiant[] = [];
         this.classes.forEach(classe => {
-            etudiants.push(...classe.etudiants); // Ajouter les étudiants de chaque classe
+            etudiants.push(...classe.etudiants); 
         });
         return etudiants;
     }

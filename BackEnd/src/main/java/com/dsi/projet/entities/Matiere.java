@@ -3,7 +3,6 @@ package com.dsi.projet.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,14 +19,14 @@ public class Matiere {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id_Matiere;
 	private String libelle;
+	private String semestre;
 	
 	@ManyToMany
 	@JoinTable(name = "matiere_professeur",joinColumns = {@JoinColumn(name="matiere_id")},inverseJoinColumns = {@JoinColumn(name="professeur_id")})
 	private List<Professeur> professeurs=new ArrayList<>();
 	
 	
-	@ManyToMany
-	@JoinTable(name = "suivie",joinColumns = {@JoinColumn(name="matiere_id")},inverseJoinColumns = {@JoinColumn(name="classe_id")})
+	@ManyToMany(mappedBy = "matieres")
 	private List<Classe> classes=new ArrayList<>();
 	
 	@OneToMany(mappedBy = "matiere")
@@ -35,10 +34,12 @@ public class Matiere {
 	
 	
 	
-	public Matiere(int id_Matiere, String libelle) {
+
+
+	public Matiere(String libelle, String semestre) {
 		super();
-		this.id_Matiere = id_Matiere;
 		this.libelle = libelle;
+		this.semestre = semestre;
 	}
 
 	@Override
@@ -63,22 +64,6 @@ public class Matiere {
 		return id_Matiere;
 	}
 	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public List<Professeur> getProfesseurs() {
@@ -90,8 +75,17 @@ public class Matiere {
 	public List<Classe> getClasses() {
 		return classes;
 	}
+	
 	public void setClasses(List<Classe> classes) {
 		this.classes = classes;
+	}
+
+	public String getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(String semestre) {
+		this.semestre = semestre;
 	}
 	
 	

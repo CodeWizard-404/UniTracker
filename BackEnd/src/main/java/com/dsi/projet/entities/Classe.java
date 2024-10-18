@@ -2,12 +2,7 @@ package com.dsi.projet.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +18,10 @@ public class Classe {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id_Classe;
-    private String libelle_Classe;
+
+    private int num_Classe;
+    private String nom_Classe;
+    private int annee_Classe;
 
   
     @OneToMany(mappedBy = "classe")
@@ -49,26 +47,106 @@ public class Classe {
 
 
 
-	public Classe(String libelle_Classe) {
+
+
+
+
+
+	public Classe(int num_Classe, String nom_Classe, int annee_Classe) {
 		super();
-		this.libelle_Classe = libelle_Classe;
+		this.num_Classe = num_Classe;
+		this.nom_Classe = nom_Classe;
+		this.annee_Classe = annee_Classe;
 	}
 
 
 
 
 
-	public String getLibelle_Classe() {
-		return libelle_Classe;
+
+
+
+
+
+	
+
+
+
+
+
+	public int getNum_Classe() {
+		return num_Classe;
 	}
 
 
 
 
 
-	public void setLibelle_Classe(String libelle_Classe) {
-		this.libelle_Classe = libelle_Classe;
+
+
+
+
+
+	public void setNum_Classe(int num_Classe) {
+		this.num_Classe = num_Classe;
 	}
+
+
+
+
+
+
+
+
+
+
+	public String getNom_Classe() {
+		return nom_Classe;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void setNom_Classe(String nom_Classe) {
+		this.nom_Classe = nom_Classe;
+	}
+
+
+
+
+
+
+
+
+
+
+	public int getAnnee_Classe() {
+		return annee_Classe;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void setAnnee_Classe(int annee_Classe) {
+		this.annee_Classe = annee_Classe;
+	}
+
+
+
+
+
 
 
 
@@ -111,17 +189,11 @@ public class Classe {
 	}
 
 
-
-
-
 	@Override
 	public String toString() {
-		return "Classe [id_Classe=" + id_Classe + ", libelle_Classe=" + libelle_Classe + ", etudiants=" + etudiants
-				+ ", matieres=" + matieres + "]";
+		return "Classe [id_Classe=" + id_Classe + ", num_Classe=" + num_Classe + ", nom_Classe=" + nom_Classe
+				+ ", annee_Classe=" + annee_Classe + ", etudiants=" + etudiants + ", matieres=" + matieres + "]";
 	}
-	
-	
-	
 	
 	
 

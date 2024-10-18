@@ -3,16 +3,20 @@ import { Matiere } from "./matiere";
 
 export class Classe {
     public id_Classe?: number;
-    public libelle_Classe: string;
+    public nom_Classe: string;              
+    public annee_Classe: number;            
+    public num_Classe: number;              
     public etudiants: Etudiant[];
     public matieres: Matiere[];
-    public nombreMatieres?: number; // Propriété optionnelle
-    public nombreProfesseurs?: number; // Propriété optionnelle
-    public nombreEtudiants?: number; // Propriété optionnelle
-  
+    public nombreMatieres?: number;  
+    public nombreProfesseurs?: number; 
+    public nombreEtudiants?: number;  
+
     constructor() {
-      this.libelle_Classe = '';
-      this.etudiants = [];
-      this.matieres = [];
+        this.nom_Classe = '';               
+        this.annee_Classe = 0;              
+        this.num_Classe = 0;                
+        this.etudiants = [];
+        this.matieres = [];
     }
 }

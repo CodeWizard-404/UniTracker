@@ -46,7 +46,7 @@ public class ClasseServiceImpl implements IClasseService{
 		
 	    List<Classe> classes = classeRepository.findAll();
 	    for (Classe classe : classes) {
-	        if (String.valueOf(classe.getLibelle_Classe()).equals(c.getLibelle_Classe())) {
+	    	if (classe.getAnnee_Classe()==c.getAnnee_Classe() && classe.getNum_Classe()== c.getNum_Classe() && classe.getNom_Classe()==c.getNom_Classe()) {
 	           
 	            return null;
 	        }

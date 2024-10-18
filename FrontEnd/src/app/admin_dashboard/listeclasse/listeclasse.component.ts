@@ -17,17 +17,27 @@ export class ListeclasseComponent {
     this.loadClasses();
   }
 
-  loadClasses() {
+   loadClasses() {
     this.classeService.getClasses().subscribe(
       (data) => {
         this.classes = data.map((classe: Classe) => {
+          
+          const nombreMatieres = classe.matieres.length;
+
+          const nombreProfesseurs = classe.matieres.reduce((acc, matiere) => {
+            if (matiere.professeurs) {
+              return acc + matiere.professeurs.length; 
+            }
+            return acc;
+          }, 0);
+
+          const nombreEtudiants = classe.etudiants.length; 
+
           return {
             ...classe,
-            nombreMatieres: classe.matieres.length,
-            nombreProfesseurs: classe.matieres.filter(
-              (m: Matiere) => m.professeurs !== null
-            ).length,
-            nombreEtudiants: classe.etudiants.length,
+            nombreMatieres,
+            nombreProfesseurs,
+            nombreEtudiants,
           };
         });
       },

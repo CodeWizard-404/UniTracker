@@ -16,66 +16,6 @@ import { Matiere } from 'src/app/classes/matiere';
   styleUrls: ['./creer-matiere.component.css']
 })
 export class CreerMatiereComponent {
-//   matiere: Matiere = new Matiere();
-//   professeurs: Prof[] = [];
-//   etudiants: Etudiant[] = [];
-//   classes: Classe[] = [];
-
-//   constructor(private matiereService: MatiereServiceService, private router: Router,private etudiantService :EtudiantServiceService
-//     ,private classeService:ClasseServiceService,
-//     private profService: ProfServiceService) {
-  
-   
-   
-    
-//   }
-
-//   ngOnInit(): void {
-//     this.loadProfesseurs();
-//     this.loadEtudiants();
-//     this.loadClasses();
-//   }
-
-//   loadProfesseurs() {
-//     this.profService.getProfesseurs().subscribe(data => {
-//       this.professeurs = data;
-//     });
-//   }
-
-//   loadEtudiants() {
-//     this.etudiantService.getEtudiants().subscribe(data => {
-//       this.etudiants = data; 
-//     }, error => {
-//       console.error('Erreur lors du chargement des étudiants', error);
-//     });
-//   }
-
-//   loadClasses() {
-//     this.classeService.getClasses().subscribe((data) => {
-//       this.classes = data;
-//     });
-//   }
-
-//   onSubmit() {
-    
-//     this.matiereService.addMatiere(this.matiere).subscribe((response) => {
-//       console.log('Matière ajoutée:', response);
-//       this.router.navigate(['/listmatiere']); 
-//     }, error => {
-//       console.error('Erreur lors de la création de la classe', error);
-//     });
-
-//   }
-
-//   // ngAfterViewInit(): void {
-   
-//   //   $('.js-example-basic-multiple').select2();
-//   // }
-//   cancel() {
-//     this.router.navigate(['/listmatiere']); 
-//   }
-// }
-
 matiere: Matiere = new Matiere();
   professeurs: Prof[] = [];
   etudiants: Etudiant[] = [];
@@ -99,7 +39,7 @@ matiere: Matiere = new Matiere();
   loadProfesseurs() {
     this.profService.getProfesseurs().subscribe(data => {
       this.professeurs = data.map(prof => {
-        return { ...prof, selected: false }; // Ajoute la propriété selected avec valeur false
+        return { ...prof, selected: false }; 
       });
     });
   }
@@ -107,7 +47,7 @@ matiere: Matiere = new Matiere();
   loadClasses() {
     this.classeService.getClasses().subscribe(data => {
       this.classes = data.map(classe => {
-        return { ...classe, selected: false }; // Ajoute la propriété selected avec valeur false
+        return { ...classe, selected: false }; 
       });
     });
   }
@@ -164,14 +104,6 @@ matiere: Matiere = new Matiere();
       console.error('Erreur lors de la création de la matière', error);
     });
   }
-  
-
-  
-
-//   // ngAfterViewInit(): void {
-   
-//   //   $('.js-example-basic-multiple').select2();
-//   // }
   cancel() {
     this.router.navigate(['/listmatiere']); 
   }
