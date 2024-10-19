@@ -64,11 +64,12 @@ export class CreerProfComponent implements OnInit {
 
   generateAndSetPassword(): void {
     const password = this.generatePassword();
-    this.form.get("mot_de_passe_Etd")?.setValue(password);
+    this.form.get("mot_de_passe_Prof")?.setValue(password);  
     console.log("Generated password:", password);
   }
-
+  
   cancel() {
-    this.router.navigate(["/listeetud"]);
+    this.router.navigate(["/listeprof"]); 
   }
+  
 }

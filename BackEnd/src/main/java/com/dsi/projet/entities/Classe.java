@@ -144,4 +144,9 @@ public class Classe {
 	
 	
 
+	public void setEtudiantsByIds(List<Integer> etudiantIds) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'setEtudiantsByIds'");
+	}
+
 }
