@@ -59,6 +59,23 @@ public class Professeur {
 
 
 
+	public Professeur(int id_Professeur, String nom_Prof, String prenom_Prof, String email_Prof, String cin_Prof,
+			String sexe_Prof, String telephone_Prof, String mot_de_passe_Prof, List<Matiere> lesMatieres,
+			List<Tache> lesTaches) {
+		super();
+		this.id_Professeur = id_Professeur;
+		this.nom_Prof = nom_Prof;
+		this.prenom_Prof = prenom_Prof;
+		this.email_Prof = email_Prof;
+		this.cin_Prof = cin_Prof;
+		this.sexe_Prof = sexe_Prof;
+		this.telephone_Prof = telephone_Prof;
+		this.mot_de_passe_Prof = mot_de_passe_Prof;
+		this.lesMatieres = lesMatieres;
+		this.lesTaches = lesTaches;
+	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

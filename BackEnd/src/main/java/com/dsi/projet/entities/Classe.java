@@ -66,21 +66,55 @@ public class Classe {
 		this.annee_Classe = annee_Classe;
 	}
 
-	public List<Etudiant> getEtudiants() {
-		return etudiants;
+	
+	public List<Integer> getEtudiants() {
+        List<Integer> etudiantIds = new ArrayList<>();
+        for (Etudiant etudiant : etudiants) {
+            etudiantIds.add(etudiant.getId_Etudiant());
+        }
+        return etudiantIds;
+    }
+
+	public void setEtudiantsByIds(List<Integer> etudiantIds) {
+        this.etudiants = new ArrayList<>();
+        for (Integer id : etudiantIds) {
+            Etudiant etudiant = new Etudiant();
+            etudiant.setId_Etudiant(id);
+            this.etudiants.add(etudiant);
+        }
+    }
+
+	public List<Integer> getMatiereIds() {
+	    List<Integer> matiereIds = new ArrayList<>();
+	    if (matieres != null) {
+	        for (Matiere matiere : matieres) {
+	            matiereIds.add(matiere.getId_Matiere());
+	        }
+	    }
+	    return matiereIds;
 	}
 
-	public void setEtudiants(List<Etudiant> etudiants) {
+
+	public Classe(int id_Classe, int num_Classe, String nom_Classe, int annee_Classe, List<Etudiant> etudiants,
+			List<Matiere> matieres) {
+		super();
+		this.id_Classe = id_Classe;
+		this.num_Classe = num_Classe;
+		this.nom_Classe = nom_Classe;
+		this.annee_Classe = annee_Classe;
 		this.etudiants = etudiants;
-	}
-
-	public List<Matiere> getMatieres() {
-		return matieres;
-	}
-
-	public void setMatieres(List<Matiere> matieres) {
 		this.matieres = matieres;
 	}
+
+	public void setMatieresByIds(List<Integer> matiereIds) {
+	    this.matieres = new ArrayList<>();
+	    for (Integer id : matiereIds) {
+	        Matiere matiere = new Matiere(); // Créer un nouvel objet Matiere
+	        matiere.setId_Matiere(id); // Définir uniquement l'ID
+	        this.matieres.add(matiere); // Ajouter à la liste
+	    }
+	}
+
 
 	public int getId_Classe() {
 		return id_Classe;

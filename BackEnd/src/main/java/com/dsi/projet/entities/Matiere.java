@@ -65,6 +65,18 @@ public class Matiere {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
+	public Matiere(int id_Matiere, String libelle, String semestre, List<Professeur> professeurs, List<Classe> classes,
+			List<Tache> taches, List<Groupe> groupes) {
+		super();
+		this.id_Matiere = id_Matiere;
+		this.libelle = libelle;
+		this.semestre = semestre;
+		this.professeurs = professeurs;
+		this.classes = classes;
+		this.taches = taches;
+		this.groupes = groupes;
+	}
+
 	public int getId_Matiere() {
 		return id_Matiere;
 	}

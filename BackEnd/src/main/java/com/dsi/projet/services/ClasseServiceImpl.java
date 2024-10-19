@@ -37,47 +37,65 @@ public class ClasseServiceImpl implements IClasseService {
 
 	@Override
 	public Classe createClass(Classe c) {
+	
+	    List<Classe> classes = classeRepository.findAll();
+	    for (Classe classe : classes) {
+	        if (classe.getAnnee_Classe() == c.getAnnee_Classe() 
+	            && classe.getNum_Classe() == c.getNum_Classe()
+	            && classe.getNom_Classe().equals(c.getNom_Classe())) { 
+	            return null; 
+	        }
+	    }
 
-		List<Classe> classes = classeRepository.findAll();
-		for (Classe classe : classes) {
-			if (classe.getAnnee_Classe() == c.getAnnee_Classe() && classe.getNum_Classe() == c.getNum_Classe()
-					&& classe.getNom_Classe() == c.getNom_Classe()) {
+	 
+	    List<Integer> etudiantIds = c.getEtudiants();
+	    List<Etudiant> etudiants = new ArrayList<>();
+	    for (Integer etudiantId : etudiantIds) {
+	        Etudiant etudiantFromDb = etudiantRepository.findById(etudiantId).orElse(null);
+	        if (etudiantFromDb != null) {
+	            etudiantFromDb.setClasse(c); // Lier l'étudiant à la classe
+	            etudiants.add(etudiantFromDb);
+	        }
+	    }
+	    c.setEtudiantsByIds(etudiantIds); 
+	    /*---------------------------------------------------------------------------*/
+	    List<Integer> matiereIds = c.getMatiereIds();
+	    List<Matiere> matieres = new ArrayList<>();
+	    for (Integer matiereId : matiereIds) {
+	        Matiere matiereFromDb = matiereRepository.findById(matiereId).orElse(null);
+	        if (matiereFromDb != null) {
+	            List<Professeur> professeursFromDb = new ArrayList<>();
+	            for (Professeur professeur : matiereFromDb.getProfesseurs()) {
+	                Professeur profFromDb = professeurRepository.findById(professeur.getId_Professeur()).orElse(null);
+	                if (profFromDb != null) {
+	                    professeursFromDb.add(profFromDb);
+	                }
+	            }
+	            matiereFromDb.setProfesseurs(professeursFromDb); 
+	            matieres.add(matiereFromDb);
+	        }
+	    }
 
-				return null;
-			}
-		}
+	    c.setMatieresByIds(matiereIds); 
 
-		List<Etudiant> etudiants = new ArrayList<>();
+	    return classeRepository.save(c); 
+	}
 
-		for (Etudiant etudiant : c.getEtudiants()) {
-			Etudiant etudiantFromDb = etudiantRepository.findById(etudiant.getId_Etudiant()).orElse(null);
-			if (etudiantFromDb != null) {
-				etudiantFromDb.setClasse(c);
-				etudiants.add(etudiantFromDb);
-			}
-		}
-		c.setEtudiants(etudiants);
-		// Traitement des matières et des professeurs associés
-		List<Matiere> matieres = new ArrayList<>();
-		for (Matiere matiere : c.getMatieres()) {
-			Matiere matiereFromDb = matiereRepository.findById(matiere.getId_Matiere()).orElse(null);
-			if (matiereFromDb != null) {
-				// Vérifier les professeurs associés à la matière
-				List<Professeur> professeursFromDb = new ArrayList<>();
-				for (Professeur professeur : matiereFromDb.getProfesseurs()) {
-					Professeur profFromDb = professeurRepository.findById(professeur.getId_Professeur()).orElse(null);
-					if (profFromDb != null) {
-						professeursFromDb.add(profFromDb); // Ajouter les professeurs à la matière
-					}
-				}
-				matiereFromDb.setProfesseurs(professeursFromDb); // Lier les professeurs à la matière
-				matieres.add(matiereFromDb);
-			}
-		}
-		c.setMatieres(matieres); // Associer les matières à la classe
-
-		// Sauvegarder la classe avec ses matières et étudiants
-		return classeRepository.save(c);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//
 		// List<Matiere> matieres = new ArrayList<>();
 		//
@@ -109,4 +127,3 @@ public class ClasseServiceImpl implements IClasseService {
 		// return classeRepository.save(c);
 
 	}
-}

@@ -32,6 +32,34 @@ public class Etudiant {
 	@Temporal(TemporalType.DATE)
 	private LocalDate date_de_naissance_Etd;
 	private String sexe_Etd;
+	public Etudiant() {
+		super();
+	}
+
+	public Etudiant(int id_Etudiant, String nom_Etd, String prenom_Etd, String email_Etd, String mot_de_passe_Etd,
+			String adresse_Etd, boolean redoublant, LocalDate date_de_naissance_Etd, String sexe_Etd,
+			String telephone_Etd, String cin_Etd, Classe classe, List<Tache> taches, List<Groupe> groupes,
+			List<Completion> completions) {
+		super();
+		this.id_Etudiant = id_Etudiant;
+		this.nom_Etd = nom_Etd;
+		this.prenom_Etd = prenom_Etd;
+		this.email_Etd = email_Etd;
+		this.mot_de_passe_Etd = mot_de_passe_Etd;
+		this.adresse_Etd = adresse_Etd;
+		this.redoublant = redoublant;
+		this.date_de_naissance_Etd = date_de_naissance_Etd;
+		this.sexe_Etd = sexe_Etd;
+		this.telephone_Etd = telephone_Etd;
+		this.cin_Etd = cin_Etd;
+		this.classe = classe;
+		this.taches = taches;
+		this.groupes = groupes;
+		this.completions = completions;
+	}
+
+
+
 	private String telephone_Etd;
 	private String cin_Etd;
 
@@ -204,9 +232,6 @@ public class Etudiant {
 		return id_Etudiant;
 	}
 
-	public Etudiant() {
-		super();
-	}
 
 
 
