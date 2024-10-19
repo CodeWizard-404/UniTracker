@@ -61,7 +61,7 @@ public class Matiere {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-<<<<<<< HEAD
+
 	public Matiere(int id_Matiere, String libelle, String semestre, List<Professeur> professeurs, List<Classe> classes,
 			List<Tache> taches, List<Groupe> groupes) {
 		super();
@@ -73,8 +73,8 @@ public class Matiere {
 		this.taches = taches;
 		this.groupes = groupes;
 	}
-=======
->>>>>>> 3074e4271904c262fe6e2202e154ad6fb6cd67b9
+
+
 
 	public int getId_Matiere() {
 		return id_Matiere;

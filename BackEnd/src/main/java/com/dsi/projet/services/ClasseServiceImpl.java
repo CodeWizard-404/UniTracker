@@ -35,50 +35,34 @@ public class ClasseServiceImpl implements IClasseService {
 		return classeRepository.findAll();
 	}
 
-	@Override
-	public Classe createClass(Classe c) {
-	
-	    List<Classe> classes = classeRepository.findAll();
-	    for (Classe classe : classes) {
-	        if (classe.getAnnee_Classe() == c.getAnnee_Classe() 
-	            && classe.getNum_Classe() == c.getNum_Classe()
-	            && classe.getNom_Classe().equals(c.getNom_Classe())) { 
+	 public Classe createClass(Classe c) {
+	        if (classeExistente(c)) {
 	            return null; 
 	        }
-	    }
-
-	 
-	    List<Integer> etudiantIds = c.getEtudiants();
-	    List<Etudiant> etudiants = new ArrayList<>();
-	    for (Integer etudiantId : etudiantIds) {
-	        Etudiant etudiantFromDb = etudiantRepository.findById(etudiantId).orElse(null);
-	        if (etudiantFromDb != null) {
-	            etudiantFromDb.setClasse(c); // Lier l'étudiant à la classe
-	            etudiants.add(etudiantFromDb);
+	        c.setEtudiants(c.getEtudiants()); 
+	        c.setMatieresByIds(c.getMatieres()); 
+	        Classe savedClass = classeRepository.save(c);
+	        for (Integer etudiantId : savedClass.getEtudiants()) {
+	            etudiantRepository.findById(etudiantId).ifPresent(etudiant -> {
+	                etudiant.setClasse(savedClass);
+	                etudiantRepository.save(etudiant);
+	            });
 	        }
-	    }
-	    c.setEtudiantsByIds(etudiantIds); 
-	    /*---------------------------------------------------------------------------*/
-	    List<Integer> matiereIds = c.getMatiereIds();
-	    List<Matiere> matieres = new ArrayList<>();
-	    for (Integer matiereId : matiereIds) {
-	        Matiere matiereFromDb = matiereRepository.findById(matiereId).orElse(null);
-	        if (matiereFromDb != null) {
-	            List<Professeur> professeursFromDb = new ArrayList<>();
-	            for (Professeur professeur : matiereFromDb.getProfesseurs()) {
-	                Professeur profFromDb = professeurRepository.findById(professeur.getId_Professeur()).orElse(null);
-	                if (profFromDb != null) {
-	                    professeursFromDb.add(profFromDb);
-	                }
-	            }
-	            matiereFromDb.setProfesseurs(professeursFromDb); 
-	            matieres.add(matiereFromDb);
+	        for (Integer matiereId : savedClass.getMatieres()) {
+	            matiereRepository.findById(matiereId).ifPresent(matiere -> {
+	                matiere.getClasses().add(savedClass); 
+	                matiereRepository.save(matiere); 
+	            });
 	        }
+
+	        return savedClass;
 	    }
+	private boolean classeExistente(Classe c) {
 
-	    c.setMatieresByIds(matiereIds); 
-
-	    return classeRepository.save(c); 
+	    return classeRepository.findAll().stream().anyMatch(classe ->
+	            classe.getAnnee_Classe() == c.getAnnee_Classe() &&
+	            classe.getNum_Classe() == c.getNum_Classe() &&
+	            classe.getNom_Classe().equals(c.getNom_Classe()));
 	}
 
 		

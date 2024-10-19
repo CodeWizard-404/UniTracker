@@ -75,7 +75,7 @@ public class Classe {
         return etudiantIds;
     }
 
-	public void setEtudiantsByIds(List<Integer> etudiantIds) {
+	public void setEtudiants(List<Integer> etudiantIds) {
         this.etudiants = new ArrayList<>();
         for (Integer id : etudiantIds) {
             Etudiant etudiant = new Etudiant();
@@ -84,7 +84,7 @@ public class Classe {
         }
     }
 
-	public List<Integer> getMatiereIds() {
+	public List<Integer> getMatieres() {
 	    List<Integer> matiereIds = new ArrayList<>();
 	    if (matieres != null) {
 	        for (Matiere matiere : matieres) {
@@ -113,6 +113,9 @@ public class Classe {
 	        matiere.setId_Matiere(id); // Définir uniquement l'ID
 	        this.matieres.add(matiere); // Ajouter à la liste
 	    }
+	}
+	public void setMatieres(List<Matiere> matieres) {
+	    this.matieres = matieres; // Assurez-vous d'avoir un attribut 'matieres' de type List<Matiere>
 	}
 
 
