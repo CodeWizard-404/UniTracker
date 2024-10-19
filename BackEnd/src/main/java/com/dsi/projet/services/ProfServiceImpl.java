@@ -24,13 +24,6 @@ public class ProfServiceImpl implements IProfService{
 
 	@Override
 	public Professeur addProf(Professeur p) {
-		List <Professeur> profs=profRep.findAll();
-		for (Professeur professeur : profs) {
-			if(String.valueOf(professeur.getEmail_Prof()).equals(p.getEmail_Prof())) {
-				return null;
-				
-			}
-		}
 		// TODO Auto-generated method stub
 		return profRep.save(p);
 	}
