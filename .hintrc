@@ -38,6 +38,7 @@
         ]
       }
     ],
-    "css-prefix-order": "off"
+    "css-prefix-order": "off",
+    "meta-charset-utf-8": "off"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "tp4-ex",
+  "name": "UniTracker",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,11 +18,14 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "bootstrap-datepicker": "^1.10.0",
+    "flatpickr": "^4.6.13",
     "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.0",
     "rxjs": "~7.8.0",
     "select2": "^4.1.0-rc.0",
-    "tp4-ex": "file:",
     "tslib": "^2.3.0",
+    "UniTracker": "file:",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

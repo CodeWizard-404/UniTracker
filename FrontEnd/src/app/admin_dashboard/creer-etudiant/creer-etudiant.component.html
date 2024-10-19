@@ -9,43 +9,48 @@
             <div class="card-body">
               <h4 class="card-title">Créer un Etudiant</h4>
               <form class="form-sample" [formGroup]="form" (ngSubmit)="onSubmit()">
-                <p class="card-description"><i class="bi bi-dot"></i> Informations Personelle </p>
+                <p class="card-description"><i class="bi bi-dot"></i> Informations Personnelles </p>
 
                 <div class="row">
-
                   <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Nom</label>
-                        <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        formControlName="nom_Etd" />
+                    <label class="col-sm col-form-label input-label">Nom</label>
+                    <input type="text" class="form-control custom-input" formControlName="nom_Etd" />
                   </div>
 
                   <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Prénom</label>
-                        <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        formControlName="prenom_Etd" />
+                    <label class="col-sm col-form-label input-label">Prénom</label>
+                    <input type="text" class="form-control custom-input" formControlName="prenom_Etd" />
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Mail</label>
-                        <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        formControlName="email_Etd" />
+                    <label class="col-sm col-form-label input-label">Mail</label>
+                    <input type="text" class="form-control custom-input" formControlName="email_Etd" />
                   </div>
 
                   <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Mot de passe</label>
+                    <label class="col-sm col-form-label input-label">Mot de passe</label>
+                    <div class="input-group">
                         <input 
-                        type="password" 
-                        class="form-control custom-input" 
-                        formControlName="mot_de_passe_Etd" />
-                  </div>
+                            type="password" 
+                            class="form-control custom-input" 
+                            [type]="isPasswordVisible ? 'text' : 'password'" 
+                            formControlName="mot_de_passe_Etd" 
+                            [value]="form.get('mot_de_passe_Etd')?.value" 
+                            readonly />
+                        <span class="input-group-text1" (click)="generateAndSetPassword()" style="cursor: pointer;">
+                            <i class="bi bi-shuffle"></i>
+                        </span>
+                        <span class="input-group-text2" (click)="togglePasswordVisibility()" style="cursor: pointer;">
+                            <i class="bi" [ngClass]="isPasswordVisible ? 'bi-eye-slash' : 'bi-eye'"></i>
+                        </span>
+                    </div>
+                    <small class="form-text text-muted">Mot de passe généré automatiquement.</small>
+                </div>
+                
+                
+                
                 </div>
 
                 <br>
@@ -53,33 +58,28 @@
                 <p class="card-description"><i class="bi bi-dot"></i> Informations Académiques </p>
 
                 <div class="row">
-                  
                   <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Année</label>
-                      <select class="form-control custom-input " >
-                        <option value="1ère Année">1ère Année</option>
-                        <option value="2ème Année">2ème Année</option>
-                        <option value="3ème Année">3ème Année</option>
+                    <label class="col-sm col-form-label input-label">Classe</label>
+                    <select class="form-control custom-input" formControlName="classe">
+                      <option *ngFor="let classe of uniqueClasses" [value]="classe">{{ classe }}</option>
                     </select>
                   </div>
-                
+
                   <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Classe</label>
-                      <input 
-                        type="text" 
-                        class="form-control custom-input "  
-                        formControlName="" />
+                    <label class="col-sm col-form-label input-label">Numéro de Classe</label>
+                    <input type="number" class="form-control custom-input" formControlName="numClasse" />
                   </div>
-                
+
                   <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Num</label>
-                      <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        formControlName="" />
+                    <label class="col-sm col-form-label input-label">Année</label>
+                    <select class="form-control custom-input" formControlName="anneeClasse">
+                      <option value="1">1ère Année</option>
+                      <option value="2">2ème Année</option>
+                      <option value="3">3ème Année</option>
+                    </select>
                   </div>
                 </div>
-                
+
                 <div class="row">
                   <div class="col-md">
                       <label class="col-sm col-form-label input-label">Matieres S1</label>
@@ -96,15 +96,26 @@
                         class="form-control custom-input "  
                         formControlName="" />
                   </div>
-                
-
                 </div>
+
                 <hr>
 
                 <div class="d-flex justify-content-end">
-                  <button type="submit" class="btn btn-secondary mr-2"><i class="bi bi-floppy"></i>Ajouter</button>
-                  <button class="btn btn-danger"><i class="bi bi-backspace-reverse"></i>Annuler</button>
+                  <button type="submit" class="btn btn-secondary mr-2"><i class="bi bi-floppy"></i> Ajouter</button>
+                  <button type="button" class="btn btn-danger" (click)="cancel()"><i class="bi bi-backspace-reverse"></i> Annuler</button>
                 </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
               <!--
 
@@ -221,14 +232,3 @@
                   </div>
                 </div>
                 -->
-
-
-
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

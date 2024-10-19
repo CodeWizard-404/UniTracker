@@ -36,10 +36,10 @@
                       <tr *ngFor="let etudiant of etudiants">
                         <td>{{etudiant.id_Etudiant}}</td>
                         <td>{{etudiant.nom_Etd}}-{{etudiant.prenom_Etd}}</td>
-                        <td> ... </td>
+                        <td>{{etudiant.mot_de_passe_Etd}} </td>
                         <td>{{etudiant.email_Etd}}</td>
-                        <td>{{etudiant.id_classe}}</td>
-                        <td> ... </td>
+                        <td>{{etudiant.classe}}-{{etudiant.numClasse}}</td> 
+                        <td>{{etudiant.anneeClasse}} </td>
                         <td>
                         <button class="btn btn-secondary"><i class="bi bi-pencil-square"></i></button>
                         <button class="btn btn-secondary"><i class="bi bi-trash-fill"></i></button>
