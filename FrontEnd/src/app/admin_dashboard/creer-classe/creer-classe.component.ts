@@ -91,11 +91,12 @@ toggleSelectionMatiere(matiere: Matiere) {
 
   onSubmit() {
     console.log("Before submitting:", this.classe);
-    console.log("Num Classe:", this.classe.num_Classe); 
+    console.log("Num Classe:", this.classe.num_Classe); // This should show the current value before submission
+    
   
     this.classe.matieres = this.selectedMatiere
       .map(matiere => matiere.id_Matiere)
-      .filter((id): id is number => id !== undefined);
+      .filter((id): id is number => id !== undefined); 
   
     this.classeService.createClasse(this.classe).subscribe(
       (response) => {
@@ -106,6 +107,7 @@ toggleSelectionMatiere(matiere: Matiere) {
       }
     );
   }
+  
   
   
 

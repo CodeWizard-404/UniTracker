@@ -16,6 +16,7 @@ export class ClasseServiceService {
 
 
   createClasse(classe: Classe): Observable<Classe> {
+    console.log("Sending Classe:", classe); 
     return this.http.post<Classe>(this.Url, classe);
   }
 
