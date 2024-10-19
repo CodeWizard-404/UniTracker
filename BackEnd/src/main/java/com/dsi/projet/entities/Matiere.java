@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -34,6 +35,10 @@ public class Matiere {
 	
 	
 	
+	/*---------------------------------------------------------------------------*/
+	@OneToMany(mappedBy = "matiere")  
+	private List<Groupe> groupes = new ArrayList<>();
+	/*---------------------------------------------------------------------------*/
 
 
 	public Matiere(String libelle, String semestre) {
