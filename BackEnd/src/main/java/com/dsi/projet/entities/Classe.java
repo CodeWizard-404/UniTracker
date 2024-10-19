@@ -86,12 +86,19 @@ public class Classe {
 
 	public List<Integer> getMatieres() {
 	    List<Integer> matiereIds = new ArrayList<>();
-	    if (matieres != null) {
 	        for (Matiere matiere : matieres) {
 	            matiereIds.add(matiere.getId_Matiere());
 	        }
-	    }
+	    
 	    return matiereIds;
+	}
+	public void setMatieres(List<Integer> matiereIds) {
+	    this.matieres = new ArrayList<>();
+	    for (Integer id : matiereIds) {
+	        Matiere matiere = new Matiere(); 
+	        matiere.setId_Matiere(id); 
+	        this.matieres.add(matiere); 
+	    }
 	}
 
 
@@ -106,17 +113,8 @@ public class Classe {
 		this.matieres = matieres;
 	}
 
-	public void setMatieresByIds(List<Integer> matiereIds) {
-	    this.matieres = new ArrayList<>();
-	    for (Integer id : matiereIds) {
-	        Matiere matiere = new Matiere(); // Créer un nouvel objet Matiere
-	        matiere.setId_Matiere(id); // Définir uniquement l'ID
-	        this.matieres.add(matiere); // Ajouter à la liste
-	    }
-	}
-	public void setMatieres(List<Matiere> matieres) {
-	    this.matieres = matieres; // Assurez-vous d'avoir un attribut 'matieres' de type List<Matiere>
-	}
+	
+	
 
 
 	public int getId_Classe() {
@@ -128,5 +126,7 @@ public class Classe {
 		return "Classe [id_Classe=" + id_Classe + ", num_Classe=" + num_Classe + ", nom_Classe=" + nom_Classe
 				+ ", annee_Classe=" + annee_Classe + ", etudiants=" + etudiants + ", matieres=" + matieres + "]";
 	}
+	
+	
 
 }

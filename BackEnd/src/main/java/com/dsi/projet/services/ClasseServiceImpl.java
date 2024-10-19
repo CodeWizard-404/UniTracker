@@ -27,36 +27,37 @@ public class ClasseServiceImpl implements IClasseService {
 	@Autowired
 	private MatiereRepository matiereRepository;
 
-	@Autowired
-	private ProfRepository professeurRepository;
+	
 
 	@Override
 	public List<Classe> allClasses() {
 		return classeRepository.findAll();
 	}
 
-	 public Classe createClass(Classe c) {
-	        if (classeExistente(c)) {
-	            return null; 
-	        }
-	        c.setEtudiants(c.getEtudiants()); 
-	        c.setMatieresByIds(c.getMatieres()); 
-	        Classe savedClass = classeRepository.save(c);
-	        for (Integer etudiantId : savedClass.getEtudiants()) {
-	            etudiantRepository.findById(etudiantId).ifPresent(etudiant -> {
-	                etudiant.setClasse(savedClass);
-	                etudiantRepository.save(etudiant);
-	            });
-	        }
-	        for (Integer matiereId : savedClass.getMatieres()) {
-	            matiereRepository.findById(matiereId).ifPresent(matiere -> {
-	                matiere.getClasses().add(savedClass); 
-	                matiereRepository.save(matiere); 
-	            });
-	        }
-
-	        return savedClass;
+	@Override
+	public Classe createClass(Classe c) {
+	    if (classeExistente(c)) {
+	        return null; 
 	    }
+	    c.setEtudiants(c.getEtudiants()); 
+	    c.setMatieres(c.getMatieres()); 
+	    Classe savedClass = classeRepository.save(c);
+	    for (Integer etudiantId : savedClass.getEtudiants()) {
+	        etudiantRepository.findById(etudiantId).ifPresent(etudiant -> {
+	            etudiant.setClasse(savedClass); 
+	            etudiantRepository.save(etudiant);
+	        });
+	    }
+	    for (Integer matiereId : savedClass.getMatieres()) {
+	        matiereRepository.findById(matiereId).ifPresent(matiere -> {
+	            matiere.getClasses().add(savedClass); 
+	            matiereRepository.save(matiere);
+	        });
+	    }
+
+	    return savedClass; 
+	}
+
 	private boolean classeExistente(Classe c) {
 
 	    return classeRepository.findAll().stream().anyMatch(classe ->
@@ -68,7 +69,7 @@ public class ClasseServiceImpl implements IClasseService {
 		
 		
 		
-		
+}
 		
 		
 		
@@ -110,4 +111,4 @@ public class ClasseServiceImpl implements IClasseService {
 		//
 		// return classeRepository.save(c);
 
-	}
+	
