@@ -60,9 +60,6 @@ export class CreerEtudiantComponent implements OnInit {
             };
         }
 
-        // Optionally log the complete formData
-        console.log('Submitting formData:', formData);
-
         this.etudiantservice.addEtud(formData).subscribe(
             response => {
                 console.log('Etudiant ajouté avec succès:', response);
@@ -76,9 +73,6 @@ export class CreerEtudiantComponent implements OnInit {
         console.log('Formulaire invalide, veuillez corriger les erreurs.');
     }
 
-    console.log('Form valid:', this.form.valid);
-    console.log('Form errors:', this.form.errors);
-    console.log('Form value:', this.form.value);
   }
 
   loadClasses() {
