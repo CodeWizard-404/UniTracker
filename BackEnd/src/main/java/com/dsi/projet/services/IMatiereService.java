@@ -3,7 +3,6 @@ package com.dsi.projet.services;
 
 import java.util.List;
 
-import com.dsi.projet.entities.Etudiant;
 import com.dsi.projet.entities.Matiere;
 
 public interface IMatiereService {
