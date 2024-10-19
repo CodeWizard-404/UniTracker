@@ -98,7 +98,7 @@ export class CreerEtudiantComponent implements OnInit {
 
   generateAndSetPassword(): void {
     const password = this.generatePassword();
-    this.form.get('mot_de_passe_Etd')?.setValue(password);
+    this.form.get('mot_de_passe_Prof')?.setValue(password);
     console.log('Generated password:', password);
   }
   

@@ -3,6 +3,8 @@ package com.dsi.projet.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.mapping.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Matiere {
 	@JoinTable(name = "matiere_professeur", joinColumns = { @JoinColumn(name = "matiere_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "professeur_id") })
 	private List<Professeur> professeurs = new ArrayList<>();
+
 
 	@ManyToMany(mappedBy = "matieres")
 	private List<Classe> classes = new ArrayList<>();
