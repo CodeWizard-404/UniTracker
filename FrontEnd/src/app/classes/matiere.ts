@@ -10,6 +10,7 @@ export class Matiere {
     semestre: string;  
 
     constructor() {
+        this.id_Matiere = 0;
         this.libelle = '';
         this.professeurs = [];
         this.classes = [];
