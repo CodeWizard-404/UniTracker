@@ -79,18 +79,6 @@ public class Matiere {
 		return id_Matiere;
 	}
 
-	public List<Tache> getTaches() {
-		return taches;
-	}
-
-	public void setTaches(List<Tache> taches) {
-		this.taches = taches;
-	}
-
-	public List<Groupe> getGroupes() {
-		return groupes;
-	}
-
 	public void setGroupes(List<Groupe> groupes) {
 		this.groupes = groupes;
 	}
@@ -99,21 +87,33 @@ public class Matiere {
 		this.id_Matiere = id_Matiere;
 	}
 
-	public List<Professeur> getProfesseurs() {
-		return professeurs;
+	public void setTaches(List<Integer> tacheIds) {
+	    this.taches = new ArrayList<>();
+	    for (Integer id : tacheIds) {
+	        Tache tache = new Tache();
+	        tache.setId_Tache(id); // Assumes you have a setter for id_Tache in Tache class
+	        this.taches.add(tache);
+	    }
 	}
 
-	public void setProfesseurs(List<Professeur> professeurs) {
-		this.professeurs = professeurs;
+	public void setProfesseurs(List<Integer> profIds) {
+	    this.professeurs = new ArrayList<>();
+	    for (Integer id : profIds) {
+	        Professeur professeur = new Professeur();
+	        professeur.setId_Professeur(id); // Assumes you have a setter for id_Professeur in Professeur class
+	        this.professeurs.add(professeur);
+	    }
 	}
 
-	public List<Classe> getClasses() {
-		return classes;
+	public void setClasses(List<Integer> classeIds) {
+	    this.classes = new ArrayList<>();
+	    for (Integer id : classeIds) {
+	        Classe classe = new Classe();
+	        classe.setId_Classe(id); // Assumes you have a setter for id_Classe in Classe class
+	        this.classes.add(classe);
+	    }
 	}
 
-	public void setClasses(List<Classe> classes) {
-		this.classes = classes;
-	}
 
 	public String getSemestre() {
 		return semestre;
@@ -122,5 +122,41 @@ public class Matiere {
 	public void setSemestre(String semestre) {
 		this.semestre = semestre;
 	}
+	public List<Integer> getProfesseurs() {
+        List<Integer> ids = new ArrayList<>();
+        for (Professeur professeur : professeurs) {
+            ids.add(professeur.getId_Professeur()); 
+        }
+        return ids;
+    }
 
+
+	public List<Classe> getClasses() {
+		return classes;
+	}
+
+    public List<Integer> getTaches() {
+        List<Integer> ids = new ArrayList<>();
+        for (Tache tache : taches) {
+            ids.add(tache.getId_Tache());
+        }
+        return ids;
+    }
+
+    public List<Integer> getClasseIds() {
+        List<Integer> ids = new ArrayList<>();
+        for (Classe classe : classes) {
+            ids.add(classe.getId_Classe());
+        }
+        return ids;
+    }
+
+    public List<Integer> getGroupes() {
+        List<Integer> ids = new ArrayList<>();
+        for (Groupe groupe : groupes) {
+            ids.add(groupe.getId_Groupe()); 
+        }
+        return ids;
+    }
+    
 }

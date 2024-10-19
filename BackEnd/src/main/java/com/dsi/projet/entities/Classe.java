@@ -75,6 +75,12 @@ public class Classe {
         return etudiantIds;
     }
 
+	public void setEtudiants1(List<Etudiant> etudiants) {
+		this.etudiants = etudiants;
+	}
+
+	
+
 	public void setEtudiants(List<Integer> etudiantIds) {
         this.etudiants = new ArrayList<>();
         for (Integer id : etudiantIds) {
@@ -83,6 +89,12 @@ public class Classe {
             this.etudiants.add(etudiant);
         }
     }
+
+	public void setId_Classe(int id_Classe) {
+		this.id_Classe = id_Classe;
+	}
+
+
 
 	public List<Integer> getMatieres() {
 	    List<Integer> matiereIds = new ArrayList<>();
@@ -117,6 +129,8 @@ public class Classe {
 	
 
 
+
+
 	public int getId_Classe() {
 		return id_Classe;
 	}
@@ -126,6 +140,7 @@ public class Classe {
 		return "Classe [id_Classe=" + id_Classe + ", num_Classe=" + num_Classe + ", nom_Classe=" + nom_Classe
 				+ ", annee_Classe=" + annee_Classe + ", etudiants=" + etudiants + ", matieres=" + matieres + "]";
 	}
+	
 	
 	
 

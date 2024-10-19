@@ -119,6 +119,33 @@ public class Professeur {
 	public String getEmail_Prof() {
 		return email_Prof;
 	}
+	public List<Matiere> getLesMatieres() {
+		return lesMatieres;
+	}
+
+
+	
+
+	public void setLesMatieres(List<Matiere> lesMatieres) {
+		this.lesMatieres = lesMatieres;
+	}
+
+
+	public List<Tache> getLesTaches() {
+		return lesTaches;
+	}
+
+
+	public void setLesTaches(List<Tache> lesTaches) {
+		this.lesTaches = lesTaches;
+	}
+
+
+	public void setId_Professeur(int id_Professeur) {
+		this.id_Professeur = id_Professeur;
+	}
+
+
 	public void setEmail_Prof(String email_Prof) {
 		this.email_Prof = email_Prof;
 	}

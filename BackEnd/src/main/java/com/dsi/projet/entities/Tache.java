@@ -52,6 +52,39 @@ public class Tache {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Matiere getMatiere() {
+		return matiere;
+	}
+
+	public void setMatiere(Matiere matiere) {
+		this.matiere = matiere;
+	}
+
+	public List<Completion> getCompletions() {
+		return completions;
+	}
+
+	public void setCompletions(List<Completion> completions) {
+		this.completions = completions;
+	}
+
+	public void setId_Tache(int id_Tache) {
+		this.id_Tache = id_Tache;
+	}
+
+	public Tache(int id_Tache, String titre, String description, LocalDateTime dateLimite, Professeur professeur,
+			List<Etudiant> etudiants, Matiere matiere, List<Completion> completions) {
+		super();
+		this.id_Tache = id_Tache;
+		this.titre = titre;
+		this.description = description;
+		this.dateLimite = dateLimite;
+		this.professeur = professeur;
+		this.etudiants = etudiants;
+		this.matiere = matiere;
+		this.completions = completions;
+	}
+
 	public Tache(String titre, String description, LocalDateTime dateLimite) {
 		super();
 		this.titre = titre;
@@ -64,7 +97,8 @@ public class Tache {
 	@Override
 	public String toString() {
 		return "Tache [id_Tache=" + id_Tache + ", titre=" + titre + ", description=" + description + ", dateLimite="
-				+ dateLimite + "]";
+				+ dateLimite + ", professeur=" + professeur + ", etudiants=" + etudiants + ", matiere=" + matiere
+				+ ", completions=" + completions + "]";
 	}
 
 	public String getTitre() {
