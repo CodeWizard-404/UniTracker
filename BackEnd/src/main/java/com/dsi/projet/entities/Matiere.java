@@ -71,6 +71,26 @@ public class Matiere {
 	
 
 
+	public List<Tache> getTaches() {
+		return taches;
+	}
+
+	public void setTaches(List<Tache> taches) {
+		this.taches = taches;
+	}
+
+	public List<Groupe> getGroupes() {
+		return groupes;
+	}
+
+	public void setGroupes(List<Groupe> groupes) {
+		this.groupes = groupes;
+	}
+
+	public void setId_Matiere(int id_Matiere) {
+		this.id_Matiere = id_Matiere;
+	}
+
 	public List<Professeur> getProfesseurs() {
 		return professeurs;
 	}

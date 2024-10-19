@@ -41,8 +41,8 @@ public class Groupe {
 		this.etudiants = etudiants;
 		this.matiere = matiere;
 	}
-	public Matiere getMatiere() {
-		return matiere;
+	public int getMatiere() {
+		return matiere.getId_Matiere();
 	}
 	public void setMatiere(Matiere matiere) {
 		this.matiere = matiere;
@@ -50,21 +50,24 @@ public class Groupe {
 	public int getId_Groupe() {
 		return id_Groupe;
 	}
-	public void setId_Groupe(int id_Groupe) {
-		this.id_Groupe = id_Groupe;
-	}
+	
+	 public void setId_Groupe(int id_Groupe) {
+	        this.id_Groupe = id_Groupe;
+	    }
 	public String getLibelle_Groupe() {
 		return libelle_Groupe;
 	}
-	public void setLibelle_Groupe(String libelle_Groupe) {
-		this.libelle_Groupe = libelle_Groupe;
-	}
-	public List<Etudiant> getEtudiants() {
-		return etudiants;
-	}
-	public void setEtudiants(List<Etudiant> etudiants) {
-		this.etudiants = etudiants;
-	}
+	  public void setLibelle_Groupe(String libelle_Groupe) {
+	        this.libelle_Groupe = libelle_Groupe;
+	    }
+	public List<Integer> getEtudiants() {
+        List<Integer> etudiantIds = new ArrayList<>();
+        for (Etudiant etudiant : etudiants) {
+            etudiantIds.add(etudiant.getId_Etudiant());
+        }
+        return etudiantIds;
+    }
+
 	public Groupe(int id_Groupe, String libelle_Groupe, List<Etudiant> etudiants) {
 		super();
 		this.id_Groupe = id_Groupe;
@@ -75,6 +78,22 @@ public class Groupe {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void setEtudiants(List<Integer> etudiantIds) {
+	    this.etudiants = new ArrayList<>();
+	    for (Integer id : etudiantIds) {
+	        Etudiant etudiant = new Etudiant();
+	        etudiant.setId_Etudiant(id);
+	        this.etudiants.add(etudiant);
+	    }
+	}
+
+	 public void setMatiereById(int matiereId) {
+	        this.matiere.setId_Matiere(matiereId);
+	         
+	    }
+	 
+	
 
 	
 }

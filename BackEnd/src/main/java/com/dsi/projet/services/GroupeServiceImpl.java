@@ -13,8 +13,6 @@ import com.dsi.projet.entities.Groupe;
 import com.dsi.projet.repositories.GroupeRepository;
 import com.dsi.projet.repositories.EtudiantRepository;
 
-import com.dsi.projet.services.GroupeService;
-
 
 @Service
 public class GroupeServiceImpl implements GroupeService {
@@ -25,13 +23,38 @@ public class GroupeServiceImpl implements GroupeService {
 	
 	@Override
 	public Groupe addGroupe(Groupe g) {
-    List<Etudiant> etudiants = new ArrayList<>();
-        g.getEtudiants().forEach(e -> EtudiantRepository.findById(e.getId_Etudiant()).ifPresent(etudiant -> {
-            etudiant.getGroupes().add(g);
-            etudiants.add(etudiant);
-        }));
+	    List<Integer> etudiantIds = g.getEtudiants(); 
+	    List<Etudiant> etudiants = new ArrayList<>();
 
-        g.setEtudiants(etudiants);
-        return Repository.save(g);
-    }
+	    for (Integer etudiantId : etudiantIds) {
+	        EtudiantRepository.findById(etudiantId).ifPresent(etudiant -> {
+	            etudiant.getGroupes().add(g); 
+	            etudiants.add(etudiant); 
+	        });
+	    }
+	    g.setEtudiants(etudiantIds); 
+	    return Repository.save(g); 
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}

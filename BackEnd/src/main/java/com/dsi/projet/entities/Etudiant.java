@@ -40,6 +40,32 @@ public class Etudiant {
 	// @JsonIgnore
 	private Classe classe;
 
+	public List<Tache> getTaches() {
+		return taches;
+	}
+
+	public void setTaches(List<Tache> taches) {
+		this.taches = taches;
+	}
+
+	public List<Completion> getCompletions() {
+		return completions;
+	}
+
+	public void setCompletions(List<Completion> completions) {
+		this.completions = completions;
+	}
+
+	public void setId_Etudiant(int id_Etudiant) {
+		this.id_Etudiant = id_Etudiant;
+	}
+
+	public void setGroupes(List<Groupe> groupes) {
+		this.groupes = groupes;
+	}
+
+
+
 	@ManyToMany(mappedBy = "etudiants")
 	@JsonIgnore
 	private List<Tache> taches = new ArrayList<>();
