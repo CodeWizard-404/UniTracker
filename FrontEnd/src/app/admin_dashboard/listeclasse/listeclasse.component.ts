@@ -24,9 +24,9 @@ export class ListeclasseComponent {
         this.classes = data.map((classe: Classe) => {
           return {
             ...classe,
-            nombreMatieres: Array.isArray(classe.matiereIds) ? classe.matiereIds.length : 0,
+            nombreMatieres: Array.isArray(classe.matieres) ? classe.matieres.length : 0,
             nombreEtudiants: Array.isArray(classe.etudiants) ? classe.etudiants.length : 0,
-            nombreProfesseurs: classe.matiereIds?.reduce((acc, matiereIds) => acc + (matiereIds.professeurs?.length || 0), 0) || 0,
+            nombreProfesseurs: classe.matieres?.reduce((acc, matieres) => acc + (matieres.professeurs?.length || 0), 0) || 0,
 
           };
         });
