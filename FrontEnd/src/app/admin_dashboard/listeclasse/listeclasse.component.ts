@@ -17,33 +17,26 @@ export class ListeclasseComponent {
     this.loadClasses();
   }
 
-   loadClasses() {
+  loadClasses() {
     this.classeService.getClasses().subscribe(
       (data) => {
+        console.log("Raw classes data:", data); 
         this.classes = data.map((classe: Classe) => {
-          
-          const nombreMatieres = classe.matieres.length;
-
-          const nombreProfesseurs = classe.matieres.reduce((acc, matiere) => {
-            if (matiere.professeurs) {
-              return acc + matiere.professeurs.length; 
-            }
-            return acc;
-          }, 0);
-
-          const nombreEtudiants = classe.etudiants.length; 
-
           return {
             ...classe,
-            nombreMatieres,
-            nombreProfesseurs,
-            nombreEtudiants,
+            nombreMatieres: Array.isArray(classe.matiereIds) ? classe.matiereIds.length : 0,
+            nombreEtudiants: Array.isArray(classe.etudiants) ? classe.etudiants.length : 0,
+            nombreProfesseurs: classe.matiereIds?.reduce((acc, matiereIds) => acc + (matiereIds.professeurs?.length || 0), 0) || 0,
+
           };
         });
+        console.log("Mapped classes:", this.classes);
       },
       (error) => {
-        console.error("Erreur lors de la récupération des classes", error);
+        console.error("Error retrieving classes:", error);
       }
     );
   }
+  
+  
 }

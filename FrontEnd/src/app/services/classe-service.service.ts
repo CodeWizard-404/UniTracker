@@ -19,8 +19,8 @@ export class ClasseServiceService {
     return this.http.post<Classe>(this.Url, classe);
   }
 
-  getClasses(): Observable<any[]> {
-    return this.http.get<any[]>(this.Url);
+  getClasses(): Observable<Classe[]> {
+    return this.http.get<Classe[]>(this.Url);
   }
 
 }

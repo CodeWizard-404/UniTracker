@@ -8,17 +8,14 @@ export class Matiere {
     professeurs: Prof[]; 
     classes: Classe[]; 
     semestre: string;  
-   
 
     constructor() {
         this.libelle = '';
         this.professeurs = [];
         this.classes = [];
         this.semestre = '';  
-       
     }
     getEtudiants(): Etudiant[] {
-        
         const etudiants: Etudiant[] = [];
         this.classes.forEach(classe => {
             etudiants.push(...classe.etudiants); 

@@ -18,12 +18,47 @@ export class ListematiereComponent implements OnInit{
 
   getClassesNames(matiere: Matiere): string {
     if (matiere.classes && matiere.classes.length > 0) {
-      return matiere.classes
-        .map(c => `${c.nom_Classe}${c.annee_Classe}${c.num_Classe}`)
-        .join(", ");
+      const uniqueClasses = new Map<string, Set<string>>();
+  
+      matiere.classes.forEach(c => {
+        if (!uniqueClasses.has(c.nom_Classe)) {
+          uniqueClasses.set(c.nom_Classe, new Set<string>());
+        }
+        uniqueClasses.get(c.nom_Classe)?.add(c.num_Classe.toString());
+      });
+  
+      const result: string[] = [];
+      uniqueClasses.forEach((numbers, name) => {
+        result.push(`${name}: ${Array.from(numbers).join(",")}`);
+      });
+  
+      return result.join("/ ");
     }
     return "Aucune classe";
   }
+  
+  getClassesYear(matiere: Matiere): string[] {
+    if (matiere.classes && matiere.classes.length > 0) {
+      const uniqueYears = new Set<number>();
+  
+      matiere.classes.forEach(c => {
+        uniqueYears.add(c.annee_Classe); 
+      });
+  
+      const yearsWithSuffix: string[] = Array.from(uniqueYears).map(year => {
+        switch (year) {
+          case 1:
+            return `${year}er`;
+          default:
+            return `${year}eme`; 
+        }
+      });
+  
+      return yearsWithSuffix;
+    }
+    return [];
+  }
+  
 
   loadMatieres() {
     this.matiereService.getMatieres().subscribe(

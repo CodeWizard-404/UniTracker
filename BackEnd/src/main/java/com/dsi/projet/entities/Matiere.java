@@ -75,7 +75,6 @@ public class Matiere {
 	}
 
 
-
 	public int getId_Matiere() {
 		return id_Matiere;
 	}

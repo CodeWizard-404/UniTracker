@@ -7,7 +7,7 @@ export class Classe {
     public annee_Classe: number;            
     public num_Classe: number;              
     public etudiants: Etudiant[];
-    public matieres: Matiere[];
+    public matiereIds: Matiere[];
     public nombreMatieres?: number;  
     public nombreProfesseurs?: number; 
     public nombreEtudiants?: number;  
@@ -17,6 +17,6 @@ export class Classe {
         this.annee_Classe = 0;              
         this.num_Classe = 0;                
         this.etudiants = [];
-        this.matieres = [];
+        this.matiereIds = [];
     }
 }
