@@ -43,8 +43,6 @@ public class MatiereServiceImpl implements IMatiereService {
 	    }
 
 	  
-	   
-
 
 	    return savedMatiere; 
 	}
