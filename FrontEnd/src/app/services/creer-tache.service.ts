@@ -15,6 +15,10 @@ export class CreerTacheService {
     let params = new HttpParams().set('idProf', idProf.toString());
     return this.http.post<Tache>(`${this.baseUrl}/createTaskByProf`, newTache, { params });
   }
+  createTaskByEtudiant(idEtudiant: number, tache: Tache): Observable<Tache> {
+    let params=new HttpParams().set('idEtudiant', idEtudiant.toString());
+    return this.http.post<Tache>(`${this.baseUrl}/createTaskByEtdudiant`, tache, { params });
+  }
   createTacheByEtudiant(idEtudiant: number, tache: Tache): Observable<Tache> {
     const url = `${this.baseUrl}/createTaskByEtdudiant?idEtudiant=${idEtudiant}`;
     return this.http.post<Tache>(url, tache);

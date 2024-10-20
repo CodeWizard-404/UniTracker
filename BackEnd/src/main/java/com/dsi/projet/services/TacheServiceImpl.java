@@ -48,6 +48,7 @@ public class TacheServiceImpl implements ITacheService{
 			 Etudiant etudiant = etudiantRepo.findById(idEtudiant).orElseThrow(() -> new RuntimeException("Étudiant non trouvé"));
 			 boolean isAlreadyAssigned = tache.getEtudiants().stream()
                      .anyMatch(e -> e.getId_Etudiant()==etudiant.getId_Etudiant());
+					 
 			 if(!isAlreadyAssigned) {
 				 tache.getEtudiants().add(etudiant);
 			     Tache t=tacherep.save(tache);
@@ -76,7 +77,7 @@ public class TacheServiceImpl implements ITacheService{
 				Completion c=new Completion(false,etudiant,tache);
 				compRep.save(c);
 				
-				return tache ;}
+				return tache; }
 		}
 		return null;
 	}

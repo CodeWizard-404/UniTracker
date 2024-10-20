@@ -18,6 +18,18 @@
                       <label>Descritpion</label>
                       <textarea class="form-control" formControlName="description"></textarea>
                     </div>
+                    <div class="form-group">
+                      <div class="form-label">
+                        <label for="matiere">Matiere :</label>
+                      </div>
+                      <div class="form-input">
+                        <select class="form-control p_input" formControlName="matiere" id="matiere">
+                          <option *ngFor="let matiere of matieres" [ngValue]="matiere">
+                            {{ matiere.libelle }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
                    
                    <div class="form-group">
                     <label>Date limite</label>

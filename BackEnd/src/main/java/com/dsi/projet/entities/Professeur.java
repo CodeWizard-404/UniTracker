@@ -119,8 +119,13 @@ public class Professeur {
 	public String getEmail_Prof() {
 		return email_Prof;
 	}
-	public List<Matiere> getLesMatieres() {
-		return lesMatieres;
+	public List<Integer> getMatieres() {
+	    List<Integer> matiereIds = new ArrayList<>();
+	        for (Matiere matiere : lesMatieres) {
+	            matiereIds.add(matiere.getId_Matiere());
+	        }
+	    
+	    return matiereIds;
 	}
 
 
@@ -131,8 +136,13 @@ public class Professeur {
 	}
 
 
-	public List<Tache> getLesTaches() {
-		return lesTaches;
+	public List<Integer> getLesTaches() {
+		List<Integer> tachesIds = new ArrayList<>();
+		for (Tache t : lesTaches) {
+			tachesIds.add(t.getId_Tache());
+			
+		}
+		return tachesIds;
 	}
 
 

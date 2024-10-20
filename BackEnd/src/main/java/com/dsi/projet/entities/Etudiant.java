@@ -29,15 +29,15 @@ public class Etudiant {
 	private String mot_de_passe_Etd;
 	private String adresse_Etd;
 	private boolean redoublant;
-	@Temporal(TemporalType.DATE)
-	private LocalDate date_de_naissance_Etd;
+//	@Temporal(TemporalType.DATE)
+//	private LocalDate date_de_naissance_Etd;
 	private String sexe_Etd;
 	public Etudiant() {
 		super();
 	}
 
 	public Etudiant(int id_Etudiant, String nom_Etd, String prenom_Etd, String email_Etd, String mot_de_passe_Etd,
-			String adresse_Etd, boolean redoublant, LocalDate date_de_naissance_Etd, String sexe_Etd,
+			String adresse_Etd, boolean redoublant, String sexe_Etd,
 			String telephone_Etd, String cin_Etd, Classe classe, List<Tache> taches, List<Groupe> groupes,
 			List<Completion> completions) {
 		super();
@@ -48,7 +48,7 @@ public class Etudiant {
 		this.mot_de_passe_Etd = mot_de_passe_Etd;
 		this.adresse_Etd = adresse_Etd;
 		this.redoublant = redoublant;
-		this.date_de_naissance_Etd = date_de_naissance_Etd;
+		
 		this.sexe_Etd = sexe_Etd;
 		this.telephone_Etd = telephone_Etd;
 		this.cin_Etd = cin_Etd;
@@ -68,16 +68,14 @@ public class Etudiant {
 	// @JsonIgnore
 	private Classe classe;
 
-	public List<Tache> getTaches() {
-		return taches;
-	}
+	
 
-	public void setTaches(List<Tache> taches) {
-		this.taches = taches;
-	}
-
-	public List<Completion> getCompletions() {
-		return completions;
+	public List<Integer> getCompletions() {
+		 List<Integer> compsIds = new ArrayList<>();
+		 for (Completion c : completions) {
+			 compsIds.add(c.getId_Completion());
+		}
+		return compsIds;
 	}
 
 	public void setCompletions(List<Completion> completions) {
@@ -114,7 +112,7 @@ public class Etudiant {
 	public Etudiant(
 		int id_Etudiant, String nom_Etd, String prenom_Etd, String email_Etd,String mot_de_passe_Etd, 
 		Classe classe, List<Tache> taches, List<Groupe> groupes, 
-		String adresse_Etd,boolean redoublant, LocalDate date_de_naissance_Etd, 
+		String adresse_Etd,boolean redoublant, 
 		String sexe_Etd, String telephone_Etd,String cin_Etd
 		) {
 		super();
@@ -126,7 +124,7 @@ public class Etudiant {
 
 		this.adresse_Etd = adresse_Etd;
 		this.redoublant = redoublant;
-		this.date_de_naissance_Etd = date_de_naissance_Etd;
+		
 		this.sexe_Etd = sexe_Etd;
 		this.telephone_Etd = telephone_Etd;
 		this.cin_Etd = cin_Etd;
@@ -143,9 +141,24 @@ public class Etudiant {
 				+ classe + ", taches=" + taches
 
 				+", adresse_Etd=" + adresse_Etd + ", redoublant=" + redoublant
-				+ ", date_de_naissance_Etd=" + date_de_naissance_Etd + ", sexe_Etd=" + sexe_Etd + ", telephone_Etd="
+				 + ", sexe_Etd=" + sexe_Etd + ", telephone_Etd="
 				+ telephone_Etd + ", cin_Etd=" + cin_Etd  + "]";
 	}
+	
+	public List<Integer> getTaches() {
+		List<Integer> tacheIds = new ArrayList<>();
+		for (Tache t : taches) {
+			tacheIds.add(t.getId_Tache());
+			
+		}
+		return tacheIds;
+	}
+
+	public void setTaches(List<Tache> taches) {
+		this.taches = taches;
+	}
+	
+	
 
 	public String getNom_Etd() {
 		return nom_Etd;
@@ -179,13 +192,13 @@ public class Etudiant {
 		this.adresse_Etd = adresse_Etd;
 	}
 
-	public LocalDate getDate_de_naissance_Etd() {
-		return date_de_naissance_Etd;
-	}
-
-	public void setDate_de_naissance_Etd(LocalDate date_de_naissance_Etd) {
-		this.date_de_naissance_Etd = date_de_naissance_Etd;
-	}
+//	public LocalDate getDate_de_naissance_Etd() {
+//		return date_de_naissance_Etd;
+//	}
+//
+//	public void setDate_de_naissance_Etd(LocalDate date_de_naissance_Etd) {
+//		this.date_de_naissance_Etd = date_de_naissance_Etd;
+//	}
 
 	public String getSexe_Etd() {
 		return sexe_Etd;

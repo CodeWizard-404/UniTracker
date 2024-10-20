@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Matiere } from 'src/app/classes/matiere';
 import { Tache } from 'src/app/classes/tache';
 import { CreerTacheService } from 'src/app/services/creer-tache.service';
+import { MatiereServiceService } from 'src/app/services/matiere-service.service';
 
 @Component({
   selector: 'app-creertache',
@@ -13,15 +15,25 @@ export class CreertacheComponent implements OnInit {
   tacheForm!: FormGroup;
   idEtudiant!: number; 
   taches: Tache[] = []
-  constructor(private fb: FormBuilder, private tacheService: CreerTacheService,private route: ActivatedRoute) { }
+  matieres:Matiere[]=[];
+  constructor(private fb: FormBuilder, private tacheService: CreerTacheService,private route: ActivatedRoute,private matService:MatiereServiceService) { }
 
   ngOnInit(): void {
     this.tacheForm = this.fb.group({
       titre: ['', Validators.required],
       description: ['', Validators.required],
       dateLimite: ['', Validators.required],
+      matiere: ['', Validators.required],
     });
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
+    this.matService.getMatieres().subscribe(
+      (data) => {
+        this.matieres = data;
+      },
+      (error) => {
+        console.error("Erreur lors du chargement des matières", error);
+      }
+    );
     console.log(this.idEtudiant);
   }
   addTache(): void {
@@ -31,18 +43,20 @@ export class CreertacheComponent implements OnInit {
         dateLimite: new Date(this.tacheForm.value.dateLimite).toISOString(), 
       };
       const tache = this.tacheForm.value;
-      this.tacheService.createTacheByEtudiant(this.idEtudiant, tache).subscribe(
+      this.tacheService.createTaskByEtudiant(this.idEtudiant, tache).subscribe(
 
         response => {
-          console.log('Tâche ajoutée avec succès:', response);
-          alert("Tâche ajoutée avec succès:");
+          if(response==null){alert("Tâche non ajoutée");console.log('Tâche non ajoutée:', tache);}
+          else{console.log('Tâche ajoutée avec succès:', response);
+            alert("Tâche ajoutée avec succès:");}
+          
         },
         error => {
-          console.error('Erreur lors de l\'ajout de la tâche:', error);
+          console.error('Erreur lors de l\'ajout de la tâche:', error,tache);
         }
       );
     } else {
-      console.log('Formulaire invalide, veuillez corriger les erreurs.');
+      console.log('Formulaire invalide, veuillez corriger les erreurs.',this.tacheForm.value.matiere);
     }
   }
 

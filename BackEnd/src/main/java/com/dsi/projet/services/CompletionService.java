@@ -17,8 +17,8 @@ public class CompletionService implements ICompletion{
 
 	@Override
 	public Completion Consulter(int idEtd, int idTache) {
-		List<Completion>realisations=comRep.findAll();
-		for (Completion completion : realisations) {
+		List<Completion>completions=comRep.findAll();
+		for (Completion completion : completions) {
 			if(completion.getEtudiant().getId_Etudiant()==idEtd)
 				if(completion.getTache().getId_Tache()==idTache)
 					return completion;

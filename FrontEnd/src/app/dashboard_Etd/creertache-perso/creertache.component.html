@@ -29,19 +29,15 @@
                     <label for="matiere">Matiere :</label>
                   </div>
                   <div class="form-input">
-                    <select 
-                    class="form-control p_input" 
-                    formControlName="matiere">
-                      <option value="">Matiere </option>
-                      <option value="WEB">WEB</option>
-                      <option value="Algo">Algo</option>
-                      <option value="Reseau">Reseau</option>
-                      <option value="Flutter">Flutter</option>
+                    <select class="form-control p_input" formControlName="matiere" id="matiere">
+                      <option *ngFor="let matiere of matieres" [ngValue]="matiere">
+                        {{ matiere.libelle }}
+                      </option>
                     </select>
                   </div>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <div class="form-label">
                     <label for="type">Type :</label>
                   </div>
@@ -53,7 +49,7 @@
                       <option value="Projet">Projet</option>
                     </select>
                   </div>
-                </div>
+                </div> -->
                 
                 <div class="form-group">
                   <div class="form-label">
@@ -79,7 +75,7 @@
                   </div>
                 </div>
                 
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <div class="form-label">
                     <label>Taches :</label>
                   </div>
@@ -94,7 +90,7 @@
                       </div>
                     </div>
                   </div>
-                </div>              
+                </div>               -->
                 
                 <hr>
                 <div class="d-flex justify-content-end">

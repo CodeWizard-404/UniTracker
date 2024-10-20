@@ -60,9 +60,14 @@ public class Tache {
 		this.matiere = matiere;
 	}
 
-	public List<Completion> getCompletions() {
-		return completions;
+	public List<Integer> getCompletions() {
+		 List<Integer> compsIds = new ArrayList<>();
+		 for (Completion c : completions) {
+			 compsIds.add(c.getId_Completion());
+		}
+		return compsIds;
 	}
+	
 
 	public void setCompletions(List<Completion> completions) {
 		this.completions = completions;
@@ -131,6 +136,8 @@ public class Tache {
 	public void setProfesseur(Professeur professeur) {
 		this.professeur = professeur;
 	}
+
+	
 
 	public List<Etudiant> getEtudiants() {
 		return etudiants;

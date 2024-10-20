@@ -46,7 +46,7 @@ public class MatiereServiceImpl implements IMatiereService {
         if (m.getProfesseurs() != null) {
             for (Integer profId : m.getProfesseurs()) {
                 professeurRepository.findById(profId).ifPresent(professeur -> {
-                    professeur.getLesMatieres().add(savedMatiere);
+                    professeur.getMatieres().add(savedMatiere.getId_Matiere());
                     professeurRepository.save(professeur);
                 });
             }
