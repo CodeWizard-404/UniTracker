@@ -8,28 +8,20 @@ export class Matiere {
     id_Matiere?: number; 
     libelle: string;
     professeurs: number[]; 
-    classes: Classe[]; 
-    classeIds: number[];  
+    classes: Classe[];
+    classesIds: number[];
     semestre: string;  
     taches: Tache[];
     groupes: Groupe[];
-
 
     constructor() {
         this.libelle = '';
         this.professeurs = [];
         this.classes = [];
-        this.classeIds = [];  
+        this.classesIds = []; 
         this.semestre = '';  
         this.taches = [];
         this.groupes = [];
     }
-
-    // getEtudiants(): Etudiant[] {
-    //     const etudiants: Etudiant[] = [];
-    //     this.classes.forEach(classe => {
-    //         etudiants.push(...classe.etudiants); 
-    //     });
-    //     return etudiants;
-    // }
 }
+

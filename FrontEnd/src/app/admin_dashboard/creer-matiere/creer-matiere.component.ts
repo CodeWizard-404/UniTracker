@@ -9,6 +9,7 @@ import { ClasseServiceService } from 'src/app/services/classe-service.service';
 import { ProfServiceService } from 'src/app/services/prof-service.service';
 import { Matiere } from 'src/app/classes/matiere';
 
+
 @Component({
   selector: 'app-creer-matiere',
   templateUrl: './creer-matiere.component.html',
@@ -18,11 +19,10 @@ export class CreerMatiereComponent {
   matiere: Matiere = new Matiere();
   professeurs: Prof[] = [];
   etudiants: Etudiant[] = [];
-  //classes: number[] = [];
-  classes: Classe[] = [];
+  classes: Classe[] = [];  // Keep this as Classe[]
   selectedClassYear: number = 0; 
   selectedProfesseurs: Prof[] = [];
-  selectedClasses: Classe[] = [];
+  selectedClasses: Classe[] = []; // This holds selected class objects
 
   constructor(
     private matiereService: MatiereServiceService, 
@@ -46,7 +46,9 @@ export class CreerMatiereComponent {
 
   loadClasses() {
     this.classeService.getClasses().subscribe(data => {
-      this.classes = data.map(classe => ({ ...classe, selected: false }));
+      this.classes = data; // Now this.classes is correctly an array of Classe objects
+    }, error => {
+      console.error('Erreur lors du chargement des classes', error);
     });
   }
 
@@ -70,37 +72,34 @@ export class CreerMatiereComponent {
   toggleSelectionClasse(classe: Classe) {
     const index = this.selectedClasses.indexOf(classe);
     if (index === -1) {
-        this.selectedClasses.push(classe);
+      this.selectedClasses.push(classe);
     } else {
-        this.selectedClasses.splice(index, 1);
+      this.selectedClasses.splice(index, 1);
     }
+  }
 
-    // Update classeIds based on selected classes
-    this.matiere.classeIds = this.selectedClasses.map(selectedClass => selectedClass.id_Classe!);
-}
+  onSubmit() {
+    console.log('Matiere object before modification:', this.matiere);
 
+    // Map selected classes to their objects
+    this.matiere.classes = this.selectedClasses; // Use selected classes directly
 
-onSubmit() {
-  console.log('Matiere object before modification:', this.matiere);
+    console.log('Selected class year:', this.selectedClassYear);
+    
+    // Map selected professors to their IDs
+    this.matiere.professeurs = this.selectedProfesseurs.map(prof => prof.id_Professeur);
 
-this.matiere.classes = this.selectedClasses.filter((classe): classe is Classe => classe !== undefined);
+    console.log('Matiere object before sending to server:', this.matiere);
 
-  console.log('Selected class year:', this.selectedClassYear);
-  
-  this.matiere.professeurs = this.selectedProfesseurs.map(prof => prof.id_Professeur);
-
-  console.log('Matiere object before sending to server:', this.matiere);
-
-  this.matiereService.addMatiere(this.matiere).subscribe((response) => {
+    this.matiereService.addMatiere(this.matiere).subscribe((response) => {
       console.log('Matière ajoutée:', response);
       this.router.navigate(['/listmatiere']);
-  }, error => {
+    }, error => {
       console.error('Erreur lors de la création de la matière', error);
-  });
+    });
 }
 
 
-  
 
   cancel() {
     this.router.navigate(['/listmatiere']); 

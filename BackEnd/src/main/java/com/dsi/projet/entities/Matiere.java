@@ -23,14 +23,23 @@ public class Matiere {
 	private String semestre;
 
 	@ManyToMany
-	@JoinTable(name = "matiere_professeur", joinColumns = { @JoinColumn(name = "matiere_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "professeur_id") })
+	@JoinTable(
+		name = "matiere_professeur", 
+		joinColumns = @JoinColumn(name = "matiere_id"), 
+		inverseJoinColumns = @JoinColumn(name = "professeur_id")
+	)
 	private List<Professeur> professeurs = new ArrayList<>();
 
-
-	@ManyToMany(mappedBy = "matieres")
+	@ManyToMany
+    @JoinTable(
+        name = "classe_matiere",
+        joinColumns = @JoinColumn(name = "matiere_id"),
+        inverseJoinColumns = @JoinColumn(name = "classe_id")
+    )
 	private List<Classe> classes = new ArrayList<>();
 
+	//@ManyToMany(mappedBy = "matieres")
+	
 	@OneToMany(mappedBy = "matiere")
 	private List<Tache> taches = new ArrayList<>();
 

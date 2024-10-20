@@ -24,6 +24,11 @@ export class ClasseServiceService {
     return this.http.get<Classe[]>(this.Url);
   }
 
+
+  getClassesByIds(classIds: number[]): Observable<Classe[]> {
+    return this.http.post<Classe[]>(`${this.Url}/classes`, { ids: classIds });
+  }
+
 }
 
 

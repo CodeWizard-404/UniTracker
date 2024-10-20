@@ -48,12 +48,4 @@ public class MatiereServiceImpl implements IMatiereService {
 	}
 
 
-
-
-	
-	
-	
-	
-	
-
 }

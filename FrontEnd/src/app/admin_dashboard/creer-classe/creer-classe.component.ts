@@ -100,6 +100,7 @@ toggleSelectionMatiere(matiere: Matiere) {
     this.classeService.createClasse(this.classe).subscribe(
       (response) => {
         console.log("Classe created successfully:", response);
+        this.router.navigate(['/listeclasse']);
       },
       (error) => {
         console.error("Erreur lors de la création de la classe", error);
