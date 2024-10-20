@@ -1,5 +1,4 @@
 import { Etudiant } from "./etudiant";
-import { Matiere } from "./matiere";
 
 export class Classe {
     public id_Classe?: number;
@@ -13,11 +12,11 @@ export class Classe {
     public nombreEtudiants?: number;  
 
     constructor() {
+        this.id_Classe = 0;
         this.nom_Classe = '';               
         this.annee_Classe = 0;              
         this.num_Classe = 0;                
         this.etudiants = [];
         this.matieres = [];
-
     }
 }

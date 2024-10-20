@@ -46,10 +46,13 @@ export class CreerEtudiantComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log("Before submitting:", this.form);
     if (this.form.valid) {
         const formData = { ...this.form.value };
+        
+        // Remove the id_Etudiant if it's present
+        delete formData.id_Etudiant;
 
-        // Create the classe object based on the selected class
         const selectedClass = this.classes.find(c => c.nom_Classe === formData.classe);
         if (selectedClass) {
             formData.classe = {
@@ -72,8 +75,8 @@ export class CreerEtudiantComponent implements OnInit {
     } else {
         console.log('Formulaire invalide, veuillez corriger les erreurs.');
     }
+}
 
-  }
 
   loadClasses() {
     this.classeService.getClasses().subscribe((data) => {
@@ -98,7 +101,7 @@ export class CreerEtudiantComponent implements OnInit {
 
   generateAndSetPassword(): void {
     const password = this.generatePassword();
-    this.form.get('mot_de_passe_Prof')?.setValue(password);
+    this.form.get('mot_de_passe_Etd')?.setValue(password);
     console.log('Generated password:', password);
   }
   

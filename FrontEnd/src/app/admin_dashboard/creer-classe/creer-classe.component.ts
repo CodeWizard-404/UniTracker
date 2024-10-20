@@ -35,7 +35,7 @@ export class CreerClasseComponent {
     this.loadEtudiants();
     this.loadMatieres();
     this.loadProfesseurs();
-    console.log("Initialized num_Classe:", this.classe.num_Classe); // Add this line
+    console.log("Initialized num_Classe:", this.classe.num_Classe); 
   }
   
 
@@ -91,8 +91,7 @@ toggleSelectionMatiere(matiere: Matiere) {
 
   onSubmit() {
     console.log("Before submitting:", this.classe);
-    console.log("Num Classe:", this.classe.num_Classe); // This should show the current value before submission
-    
+    console.log("Num Classe:", this.classe.num_Classe);
   
     this.classe.matieres = this.selectedMatiere
       .map(matiere => matiere.id_Matiere)
@@ -107,7 +106,6 @@ toggleSelectionMatiere(matiere: Matiere) {
       }
     );
   }
-  
   
   
 

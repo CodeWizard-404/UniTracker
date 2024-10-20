@@ -15,33 +15,32 @@
                                 <div class="col-md">
                                     <label for="libelle_Matiere" class="col-sm col-form-label input-label">Nom</label>
                                     <input 
-                                    type="text" 
-                                    class="form-control custom-input" 
-                                    id="libelle_Matiere" 
-                                    required
+                                        type="text" 
+                                        class="form-control custom-input" 
+                                        id="libelle_Matiere" 
+                                        required
                                         [(ngModel)]="matiere.libelle" 
                                         name="libelle_Matiere" />
                                 </div>
 
-                                <!-- <div class="col-md">
+                                <div class="col-md">
                                     <label class="col-sm col-form-label input-label">Année</label>
-                                    <select class="form-control custom-input" 
-                                        [(ngModel)]="matiere.annee" 
-                                        name="annee" 
-                                        required>
-                                        <option value="1ère Année">1ère Année</option>
-                                        <option value="2ème Année">2ème Année</option>
-                                        <option value="3ème Année">3ème Année</option>
+                                    <select class="form-control custom-input" [(ngModel)]="selectedClassYear" name="annee" required>
+                                        <option [ngValue]="1">1ère Année</option>
+                                        <option [ngValue]="2">2ème Année</option>
+                                        <option [ngValue]="3">3ème Année</option>
                                     </select>
-                                </div> -->
+                                </div>
+                                
+
                                 <div class="col-md">
                                     <label class="col-sm col-form-label input-label">Semestre</label>
                                     <select class="form-control custom-input" 
-                                        [(ngModel)]="matiere.semestre" 
-                                        name="semestre" 
-                                        required>
-                                        <option value="S1">S1</option>
-                                        <option value="S2">S2</option>
+                                            [(ngModel)]="matiere.semestre" 
+                                            name="semestre" 
+                                            required>
+                                        <option value="1">S1</option>
+                                        <option value="2">S2</option>
                                     </select>
                                 </div>
 
@@ -54,11 +53,10 @@
                                     <div class="checklist-container">
                                         <div *ngFor="let professeur of professeurs" class="form-check">
                                             <input type="checkbox"
-                                                class="form-control custom-input form-check-input checkbox-input"
+                                                class="form-check-input checkbox-input"
                                                 (change)="toggleSelectionProf(professeur)"
-                                                id="professeur-{{professeur.id_Professeur}}" />
-                                            <label class="form-check-label"
-                                                for="professeur-{{professeur.id_Professeur}}">
+                                                [id]="'professeur-' + professeur.id_Professeur" />
+                                            <label class="form-check-label" [for]="'professeur-' + professeur.id_Professeur">
                                                 {{ professeur.nom_Prof }} {{ professeur.prenom_Prof }}
                                             </label>
                                         </div>
@@ -70,11 +68,11 @@
                                     <div class="checklist-container">
                                         <div *ngFor="let classe of classes" class="form-check">
                                             <input type="checkbox"
-                                                class="form-control custom-input form-check-input checkbox-input"
+                                                class="form-check-input checkbox-input"
                                                 (change)="toggleSelectionClasse(classe)"
-                                                id="classe-{{classe.id_Classe}}" />
-                                            <label class="form-check-label" for="classe-{{classe.id_Classe}}">
-                                                {{ classe.nom_Classe }}{{classe.annee_Classe}}{{classe.num_Classe}}
+                                                [id]="'classe-' + classe.id_Classe" />
+                                            <label class="form-check-label" [for]="'classe-' + classe.id_Classe">
+                                                {{ classe.nom_Classe }} {{ classe.annee_Classe }} {{ classe.num_Classe }}
                                             </label>
                                         </div>
                                     </div>
@@ -86,102 +84,11 @@
 
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-secondary mr-2"><i
-                                    class="bi bi-floppy"></i>Ajouter</button>
-                            <button class="btn btn-danger" (click)="cancel()"><i
-                                    class="bi bi-backspace-reverse"></i>Annuler</button>
+                            <button type="submit" class="btn btn-secondary mr-2"><i class="bi bi-floppy"></i> Ajouter</button>
+                            <button type="button" class="btn btn-danger" (click)="cancel()"><i class="bi bi-backspace-reverse"></i> Annuler</button>
                         </div>
                     </div>
-
-
-                    <!-- <form (ngSubmit)="onSubmit()" #matiereForm="ngForm">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Créer Matière</h4>
-                        <br>
-                        <div class="form-group">
-                            <label for="libelle_Matiere">Nom Matière:</label>
-                            <br>
-                            <input
-                                type="text"
-                                id="libelle_Matiere"
-                                required
-                                [(ngModel)]="matiere.libelle"  
-                                name="libelle_Matiere"
-                                style="background-color: black; color: white; font-size: small; padding: 5px; border-radius: 4px;"
-                            />
-                        </div>
-                        <br>
-                      <div class="form-group">
-                            <label for="etudiants">Sélectionner les Étudiants:</label>
-                            <select
-                                id="etudiants"
-                                multiple="multiple"
-                                name="etudiants"
-                                style="width: 100%;"
-                            >
-                                <option *ngFor="let etudiant of etudiants" [ngValue]="etudiant"> 
-                                    {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
-                                </option>
-                            </select>
-                        </div>-->
-
-                    <!--    <div class="form-group">
-                            <label for="classes">Sélectionner les Classes:</label>
-                            <select
-                            id="classes"
-                            multiple
-                            name="classes"
-                            [(ngModel)]="matiere.classes" 
-                            class="form-control"
-                        >
-                            <option *ngFor="let classe of classes" [ngValue]="classe">
-                                {{ classe.libelle_Classe }}
-                            </option>
-                        </select>
-                        </div>
-            
-                        <div class="form-group">
-                            <label for="professeurs">Sélectionner les Professeurs:</label>
-                            <select
-                            id="professeurs"
-                            multiple
-                            name="professeurs"
-                            [(ngModel)]="matiere.professeurs" 
-                            class="form-control"
-                        >
-                            <option *ngFor="let professeur of professeurs" [ngValue]="professeur">
-                                {{ professeur.nom_Prof }} {{ professeur.prenom_Prof }}
-                            </option>
-                        </select>
-                        </div>
-                    </div>
-            
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-warning mr-2" [disabled]="!matiereForm.form.valid">Submit</button>
-                        <button type="button" class="btn btn-dark" (click)="cancel()">Cancel</button>
-                    </div>
-                </div>
-            </form> 
-             Checkboxes pour Professeurs -->
-                    <!-- <div class="form-group">
-                <label>Sélectionner les Professeurs :</label>
-                <div *ngFor="let professeur of professeurs">
-                  <input type="checkbox" (change)="toggleSelectionProf(professeur)" />
-                  {{professeur.nom_Prof}} {{professeur.prenom_Prof}}
-                </div>
-              </div>
-              
-              Checkboxes pour Classes 
-              <div class="form-group">
-                <label>Sélectionner les Classes :</label>
-                <div *ngFor="let classe of classes">
-                  <input type="checkbox" (change)="toggleSelectionClasse(classe)" />
-                  {{classe.libelle_Classe}}
-                </div>
-              </div> -->
                 </form>
-
             </div>
         </div>
     </div>
