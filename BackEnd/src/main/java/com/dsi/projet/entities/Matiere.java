@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.mapping.Set;
 
+import com.dsi.projet.repositories.ClasseRepository;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -117,14 +119,9 @@ public class Matiere {
 	    }
 	}
 
-	public void setClasses(List<Integer> classeIds) {
-	    this.classes = new ArrayList<>();
-	    for (Integer id : classeIds) {
-	        Classe classe = new Classe();
-	        classe.setId_Classe(id); // Assumes you have a setter for id_Classe in Classe class
-	        this.classes.add(classe);
-	    }
-	}
+    public void setClasses(List<Classe> classes) {
+        this.classes = classes;
+    }
 
 
 	public String getSemestre() {
