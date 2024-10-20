@@ -284,6 +284,10 @@ public class Etudiant {
 		return groupes;
 	}
 
+    public void setId(int id_Etudiant) {
+		this.id_Etudiant = id_Etudiant;
+    }
+
 	/*
 	 * 
 	 * public void setGroupes(List<Groupe> groupes) {

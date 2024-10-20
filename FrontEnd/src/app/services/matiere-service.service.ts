@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class MatiereServiceService {
 
   constructor(private http:HttpClient) { }
-  private baseUrl = 'http://localhost:8084';
+  private baseUrl = 'http://localhost:8081';
 
   addMatiere(newMat:Matiere):Observable<Matiere>{
     return this.http.post<Matiere>(`${this.baseUrl}/matieres`,newMat);

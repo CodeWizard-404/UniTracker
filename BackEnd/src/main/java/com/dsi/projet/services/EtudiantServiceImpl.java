@@ -17,13 +17,14 @@ public class EtudiantServiceImpl implements IEtudiantService {
 	public Etudiant addEtudiant(Etudiant e) {
 		List<Etudiant> etudiants = etdRep.findAll();
 		
+		
 		for (Etudiant etudiant : etudiants) {
 			if (String.valueOf(etudiant.getEmail_Etd()).equals(e.getEmail_Etd())) {
 				return null;
 
 			}
 		}
-
+		//e.setId(0);
 		return etdRep.save(e);
 
 		// java.util.Optional<Etudiant> etudiant = etdRep.findByCin_Etd(e.getCin_Etd());

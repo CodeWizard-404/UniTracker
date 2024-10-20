@@ -46,11 +46,10 @@ export class CreerEtudiantComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log("Before submitting:", this.form);
+    
     if (this.form.valid) {
         const formData = { ...this.form.value };
-        
-        // Remove the id_Etudiant if it's present
+        console.log("Before submitting:", formData);
         delete formData.id_Etudiant;
 
         const selectedClass = this.classes.find(c => c.nom_Classe === formData.classe);

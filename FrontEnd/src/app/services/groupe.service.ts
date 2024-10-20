@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class GroupeService {
 
   constructor(private http:HttpClient) { }
-  private baseUrl = 'http://localhost:8084';
+  private baseUrl = 'http://localhost:8081';
 
   addGroupe(groupe: Groupe): Observable<Groupe> {
     return this.http.post<Groupe>(`${this.baseUrl}/createGroupe`, groupe);

@@ -10,7 +10,7 @@ import { Matiere } from '../classes/matiere';
 })
 export class ClasseServiceService {
 
-  private Url = 'http://localhost:8084/classes'; 
+  private Url = 'http://localhost:8081/classes'; 
 
   constructor(private http: HttpClient) {}
 

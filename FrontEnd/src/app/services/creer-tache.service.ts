@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CreerTacheService {
-  private baseUrl = 'http://localhost:8084';
+  private baseUrl = 'http://localhost:8081';
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +20,7 @@ export class CreerTacheService {
     return this.http.post<Tache>(url, tache);
   }
   getTaches(): Observable<Tache[]> {
-    return this.http.get<Tache[]>('http://localhost:8084/tasks');
+    return this.http.get<Tache[]>('http://localhost:8081/tasks');
   }
   assignTask(idTache: number, selectedEtudiants: number[]): Observable<Tache> {
     return this.http.post<Tache>(`${this.baseUrl}/task/assign?idTache=${idTache}`, selectedEtudiants);

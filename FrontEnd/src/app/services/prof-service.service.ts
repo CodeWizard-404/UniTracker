@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class ProfServiceService {
   constructor(private http:HttpClient) { }
-  private baseUrl = 'http://localhost:8084';
+  private baseUrl = 'http://localhost:8081';
 
   addProf(newProf:Prof):Observable<Prof>{
     return this.http.post<Prof>(`${this.baseUrl}/profs`,newProf);
   }
 
   getProfesseurs(): Observable<Prof[]> {
-    return this.http.get<Prof[]>('http://localhost:8084/profs');
+    return this.http.get<Prof[]>('http://localhost:8081/profs');
   }
   
 }
