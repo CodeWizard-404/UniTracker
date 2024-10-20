@@ -2,6 +2,9 @@ package com.dsi.projet.entities;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -52,16 +55,17 @@ public class Completion {
 		this.marquer = marquer;
 	}
 
-	public Etudiant getEtudiant() {
-		return etudiant;
+	public Integer getEtudiant() {
+		
+		return etudiant.getId_Etudiant();
 	}
 
 	public void setEtudiant(Etudiant etudiant) {
 		this.etudiant = etudiant;
 	}
 
-	public Tache getTache() {
-		return tache;
+	public Integer getTache() {
+		return tache.getId_Tache();
 	}
 
 	public void setTache(Tache tache) {

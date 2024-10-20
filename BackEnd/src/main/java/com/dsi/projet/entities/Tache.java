@@ -60,13 +60,18 @@ public class Tache {
 		this.matiere = matiere;
 	}
 
-	public List<Integer> getCompletions() {
-		 List<Integer> compsIds = new ArrayList<>();
-		 for (Completion c : completions) {
-			 compsIds.add(c.getId_Completion());
-		}
-		return compsIds;
+//	public List<Integer> getCompletions() {
+//		 List<Integer> compsIds = new ArrayList<>();
+//		 for (Completion c : completions) {
+//			 compsIds.add(c.getId_Completion());
+//		}
+//		return compsIds;
+//	}
+	
+	public List<Completion> getCompletions() {
+		return completions;
 	}
+	
 	
 
 	public void setCompletions(List<Completion> completions) {

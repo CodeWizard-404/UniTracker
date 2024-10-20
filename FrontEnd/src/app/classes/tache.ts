@@ -1,3 +1,5 @@
+import { Completion } from "./completion";
+import { Matiere } from "./matiere";
 import { Prof } from "./prof";
 
 export class Tache {
@@ -8,6 +10,7 @@ export class Tache {
         public dateLimite:Date,
         public complexite:string,
         public professeur :Prof,
-        public marquer:boolean
+        public completions:Completion[],
+        public matiere:Matiere
     ){}
 }

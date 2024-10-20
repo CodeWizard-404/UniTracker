@@ -19,8 +19,8 @@ public class CompletionService implements ICompletion{
 	public Completion Consulter(int idEtd, int idTache) {
 		List<Completion>completions=comRep.findAll();
 		for (Completion completion : completions) {
-			if(completion.getEtudiant().getId_Etudiant()==idEtd)
-				if(completion.getTache().getId_Tache()==idTache)
+			if(completion.getEtudiant()==idEtd)
+				if(completion.getTache()==idTache)
 					return completion;
 		}
 		// TODO Auto-generated method stub

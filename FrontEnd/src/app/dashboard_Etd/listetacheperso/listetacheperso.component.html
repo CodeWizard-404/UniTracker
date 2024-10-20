@@ -19,17 +19,59 @@
               <strong class="d-block mb-2">{{ tache.titre }}</strong>
               <span class="text-muted">Description: {{ tache.description }}</span><br />
               <span class="text-muted">Date limite: {{ tache.dateLimite }}</span>
-              <div class="form-check">
+              <span class="text-muted">Date limite: {{ tache.dateLimite }}</span><br />
+              <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span>
+              <div *ngFor="let c of tache.completions">
+                <div   *ngIf="c.etudiant === idEtudiant">
+                  <!-- <p *ngIf="c">Complétion ID: {{ c.etudiant }}</p> -->
+                  <!-- <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer" (change)="markTaskAsCompleted(c)"  /> -->
+
+                   <!-- Checkbox to toggle completion -->
+          <div class="form-check mt-2">
+            <input type="checkbox" class="form-check-input" 
+                   [(ngModel)]="c.marquer" 
+                   (change)="markTaskAsCompleted(c)" 
+                   id="completion-{{c.id_Completion}}" />
+            <label class="form-check-label" for="completion-{{c.id_Completion}}">
+              Marquer comme complétée
+            </label>
+          </div>
+          <div class="progress" style="height: 15px;">
+            <div class="progress-bar" role="progressbar" 
+                 [style.width]="c.marquer ? '100%' : '0%'" 
+                 [attr.aria-valuenow]="c.marquer ? 100 : 0" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100"></div>
+          </div>
+        
+                 
+                
+                </div>
+              </div>
+              
+              <!-- <div *ngIf="marked">
+                
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" [(ngModel)]="marked.marquer"  />
+                  
+                  <label class="form-check-label">
+                    Marquer comme complétée
+                  </label>
+                </div>
+              
+                <p><strong>Complexité de la tâche:</strong> {{ marked.complexite }}</p>
+              </div> -->
+              <!-- <div class="form-check">
                 <input type="checkbox" class="form-check-input" [checked]="tache.marquer"
                   (change)="markTaskAsCompleted(tache)" id="task-{{ tache.id_Tache }}" />
                 <label class="form-check-label" for="task-{{ tache.id_Tache }}">
                   Marquer comme complétée
                 </label>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
-
+       
 
 
       </div>
