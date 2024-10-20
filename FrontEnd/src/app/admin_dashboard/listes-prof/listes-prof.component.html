@@ -35,8 +35,8 @@
                         <td>{{prof.nom_Prof}}-{{prof.prenom_Prof}}</td>
                         <td>{{prof.mot_de_passe_Prof}}</td>
                         <td>{{prof.email_Prof}}</td>
-                        <td> ... </td>
-                        <td> ... </td>
+                        <td>{{ getClassesNames(prof) }}</td> 
+                        <td>{{ getGroupedClassesByYear(prof) }}</td>
                         <td>
                           <button class="btn btn-secondary"><i class="bi bi-pencil-square"></i></button>
                           <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>

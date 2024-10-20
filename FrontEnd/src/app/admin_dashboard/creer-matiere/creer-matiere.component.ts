@@ -19,10 +19,10 @@ export class CreerMatiereComponent {
   matiere: Matiere = new Matiere();
   professeurs: Prof[] = [];
   etudiants: Etudiant[] = [];
-  classes: Classe[] = [];  // Keep this as Classe[]
+  classes: Classe[] = [];  
   selectedClassYear: number = 0; 
   selectedProfesseurs: Prof[] = [];
-  selectedClasses: Classe[] = []; // This holds selected class objects
+  selectedClasses: Classe[] = [];
 
   constructor(
     private matiereService: MatiereServiceService, 
@@ -46,7 +46,7 @@ export class CreerMatiereComponent {
 
   loadClasses() {
     this.classeService.getClasses().subscribe(data => {
-      this.classes = data; // Now this.classes is correctly an array of Classe objects
+      this.classes = data; 
     }, error => {
       console.error('Erreur lors du chargement des classes', error);
     });
@@ -80,17 +80,10 @@ export class CreerMatiereComponent {
 
   onSubmit() {
     console.log('Matiere object before modification:', this.matiere);
-
-    // Map selected classes to their objects
-    this.matiere.classes = this.selectedClasses; // Use selected classes directly
-
+    this.matiere.classes = this.selectedClasses; 
     console.log('Selected class year:', this.selectedClassYear);
-    
-    // Map selected professors to their IDs
     this.matiere.professeurs = this.selectedProfesseurs.map(prof => prof.id_Professeur);
-
     console.log('Matiere object before sending to server:', this.matiere);
-
     this.matiereService.addMatiere(this.matiere).subscribe((response) => {
       console.log('Matière ajoutée:', response);
       this.router.navigate(['/listmatiere']);

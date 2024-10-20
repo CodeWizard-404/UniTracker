@@ -59,24 +59,29 @@
 
                 <div class="row">
                   <div class="col-md">
+                    <label class="col-sm col-form-label input-label">Année</label>
+                    <select class="form-control custom-input" formControlName="anneeClasse" (change)="onYearChange()">
+                      <option [ngValue]="1">1ère Année</option>
+                      <option [ngValue]="2">2ème Année</option>
+                      <option [ngValue]="3">3ème Année</option>
+                    </select>
+                  </div>
+                
+                  <div class="col-md">
                     <label class="col-sm col-form-label input-label">Classe</label>
-                    <select class="form-control custom-input" formControlName="classe">
-                      <option *ngFor="let classe of uniqueClasses" [value]="classe">{{ classe }}</option>
+                    <select class="form-control custom-input" formControlName="classe" (change)="onClasseChange($event)">
+                      <option *ngFor="let classe of filteredClasses" [ngValue]="classe">{{ classe.nom_Classe }} {{ classe.num_Classe }}</option>
                     </select>
                   </div>
 
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Numéro de Classe</label>
-                    <input type="number" class="form-control custom-input" formControlName="numClasse" />
-                  </div>
-
-                  <div class="col-md">
-                    <label class="col-sm col-form-label input-label">Année</label>
-                    <select class="form-control custom-input" formControlName="anneeClasse">
-                      <option [ngValue]="1">1ère Année</option>
-                      <option [ngValue]="2">2ème Année</option>
-                      <option [ngValue]="3">3ème Année</option>
-                    </select>
+                    <input 
+                      type="number" 
+                      class="form-control custom-input" 
+                      formControlName="numClasse" 
+                      [value]="form.get('classe')?.value?.num_Classe" 
+                      readonly />
                   </div>
                 </div>
 
