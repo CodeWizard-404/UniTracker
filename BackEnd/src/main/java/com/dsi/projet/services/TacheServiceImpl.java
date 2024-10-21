@@ -144,6 +144,38 @@ public class TacheServiceImpl implements ITacheService{
 		return null;
 	}
 
+	@Override
+	public Tache updateTaskByEtud(int idTache, Tache tache) {
+	    	   
+	    Optional<Tache> tacheExistante = tacherep.findById(idTache);
+	    
 
-}
+	    if (tacheExistante.isPresent()) {
+	       
+	        if (tacheExistante.get().getProfesseur() == null ) {
+	            
+	            
+	            Tache t = tacheExistante.get(); 
+	            t.setTitre(tache.getTitre()); 
+	            t.setDescription(tache.getDescription()); 
+	            t.setDateLimite(tache.getDateLimite());
+	            
+	           
+	            return tacherep.save(t);
+	        } else {
+	           
+	            return null; 
+	        }
+	    }
+	    
+	  
+	    return null;
+	}
+	    
+
+
+	}
+
+
+
 

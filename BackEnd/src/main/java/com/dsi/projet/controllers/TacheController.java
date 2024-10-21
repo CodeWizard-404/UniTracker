@@ -70,4 +70,9 @@ public class TacheController {
 		return tacheService.getTaskById(id);
 	}
 	
+	@PutMapping("/tasksByEtud/{id}")
+	public Tache updateTacheByEtud(@PathVariable int id, @RequestBody Tache tache) {
+		return tacheService.updateTaskByEtud(id, tache);
+	}
+	
 }

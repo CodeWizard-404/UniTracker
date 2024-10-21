@@ -31,6 +31,7 @@ import { CreertacheComponent } from './dashboard_Etd/creertache-perso/creertache
 import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listetacheperso.component';
 import { CreergroupeComponent } from './prof_dashboard/creergroupe/creergroupe.component';
 import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache.component';
+import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
 
 
 
@@ -65,6 +66,7 @@ import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache
     ListetachepersoComponent,
     CreergroupeComponent,
     UpdateTacheComponent,
+    ModifierTacheComponent,
 
   
    

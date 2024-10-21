@@ -19,6 +19,7 @@ import { CreertacheComponent } from './dashboard_Etd/creertache-perso/creertache
 import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listetacheperso.component';
 import { CreergroupeComponent } from './prof_dashboard/creergroupe/creergroupe.component';
 import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache.component';
+import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
 
 
 const routes: Routes =[
@@ -38,6 +39,7 @@ const routes: Routes =[
   {path:'dashboardProf/:id/listetaches',title:'Liste des taches',component:ListetachesComponent},
   {path:'assignerTache/:id',title:'attribuer tache',component:AssignerTacheComponent},
   {path:'dashboardProf/:id/taches/:idTache',title:'Modifier tache',component:UpdateTacheComponent},
+  {path:'dashboardEtud/:id/taches/:idTache',title:'Modifier tache',component:ModifierTacheComponent},
   {path:'creerGroupe',title:'Creer groupe',component:CreergroupeComponent},
 
 

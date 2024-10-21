@@ -14,5 +14,6 @@ public interface ITacheService {
 	public boolean deleteTaskByProf(int idTache,int id_prof);
 	public Tache assignTaskToStudents(int idTache, List<Integer> idsEtudiants);
 	public Tache updateTaskByProf(int idTache,Tache tache);
+	public Tache updateTaskByEtud(int idTache,Tache tache);
 	public Tache getTaskById(int idTask);
 }
