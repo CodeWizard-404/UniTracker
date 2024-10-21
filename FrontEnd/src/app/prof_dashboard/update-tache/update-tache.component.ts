@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CreerTacheService } from 'src/app/services/creer-tache.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class UpdateTacheComponent implements OnInit{
   idProf!:number;
   tacheId!: number;
   form!:FormGroup;
-  constructor(private tacheService:CreerTacheService,private route:ActivatedRoute,
+  constructor(private tacheService:CreerTacheService,private route:ActivatedRoute, private router: Router,
     private formBuilder:FormBuilder
   ){}
 ngOnInit(): void {
@@ -44,6 +44,7 @@ ngOnInit(): void {
         response => {
           console.log('Tâche mise à jour avec succès !');
           alert('Tâche mise à jour avec succès');
+          this.router.navigate(['/dashboardProf', this.idProf, 'listetaches']);
         },
         error => {
           console.error('Erreur lors de la mise à jour de la tâche', error);
