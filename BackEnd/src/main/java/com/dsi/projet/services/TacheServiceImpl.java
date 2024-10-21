@@ -113,7 +113,7 @@ public class TacheServiceImpl implements ITacheService{
 	    
 	    if (tacheOpt.isPresent() && tacheOpt.get().getProfesseur().getId_Professeur() == idProf) {
 	    	for (Completion completion : c) {
-				if(completion.getTache()==idTache) {compRep.delete(completion);}
+				if(completion.getTache()==idTache) {compRep.deleteById(completion.getId_Completion());}
 			}
 	        tacherep.deleteById(idTache);
 	        return true; 
