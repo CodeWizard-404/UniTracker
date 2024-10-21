@@ -31,6 +31,7 @@ public class CompletionService implements ICompletion{
 	public Completion markTaskAsCompleted(int idCompletion, boolean isCompleted) {
 		Completion c = comRep.findById(idCompletion).orElseThrow(() -> new RuntimeException("realisation non trouvée"));
 		c.setMarquer(isCompleted);
+		c.setComplexite(null);
 		return comRep.save(c);
 
 //	    Tache tache = comRep.findById(idTache)
@@ -48,6 +49,7 @@ public class CompletionService implements ICompletion{
 		Optional<Completion> c = comRep.findById(idCompletion);
 		if(c.isPresent()) {
 			c.get().setComplexite(complexite);
+			
 	    return comRep.save(c.get());}
 		else return null;
 	

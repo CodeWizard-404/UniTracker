@@ -41,29 +41,33 @@
                  aria-valuemax="100"></div>
                  </div>
                
-                 
-                 <div >
-                  <select class="form-select custom-select-style" 
-                          aria-label="Default select example" 
-                          *ngIf="c.marquer" 
-                          (change)="chooseDiff(c)"  
-                          [(ngModel)]="c.complexite">
-                    <option value="Easy">Facile</option>
+                  
+                <div class="form-group" *ngIf="c.marquer" style="margin: 20px;">
+                  <div class="form-label">
+                    <label >choisir difficulte :</label>
+                  </div>
+                  <div class="form-input">
+                    <select class="form-control p_input" (change)="chooseDiff(c)"  
+                    [(ngModel)]="c.complexite">
+                    <option value="" disabled selected>Choisir...</option>
+                      <option value="Easy">Facile</option>
                     <option value="Medium">Moyenne</option>
                     <option value="Hard">Difficile</option>
-                  </select>
-                </div>             
+                    </select>
+                  </div>
+                </div>           
                
           
         
-          <div class="mt-3">
-            <button class="btn btn-primary" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]">
-              Modifier Tâche
-            </button>
-          </div>   
+                      
                 
                 </div>
               </div>
+              <div class="mt-3">
+                <button class="btn btn-primary" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]">
+                   Modifier Tâche
+                 </button>
+                </div>  
               
             </div>
           </div>
