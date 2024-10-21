@@ -75,4 +75,10 @@ public class TacheController {
 		return tacheService.updateTaskByEtud(id, tache);
 	}
 	
+	@DeleteMapping("/tasksByEtud/{id}")
+	public boolean deleteTaskByEtud(@PathVariable("id") int id,@RequestParam int idEtud){
+		return tacheService.deleteTaskByProf(id, idEtud);
+	}
+
+	
 }
