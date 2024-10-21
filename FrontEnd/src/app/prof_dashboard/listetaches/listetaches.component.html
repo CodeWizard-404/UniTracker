@@ -6,44 +6,76 @@
       <div class="content-wrapper">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h4 class="card-title">Liste des Taches</h4>
-          <div class="d-flex ">
-          <a class="nav-link btn btn-primary create-new-button " [routerLink]="['/dashboardProf',idProf,'creerTache']">
-            + Créer Tâche
-          </a>
-          <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">
-            + Créer Groupe
-          </a>
+          <div class="d-flex">
+            <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashboardProf', idProf, 'creerTache']">+ Créer Tâche</a>
+            <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Créer Groupe</a>
           </div>
         </div>
 
-        <div *ngFor="let tache of taches" class="mb-3">
-          <div class="card w-75 mx-auto">
-            <div class="card-body">
-              <h5 class="card-title">{{ tache.titre }}</h5>
-              <p class="card-text">{{ tache.description }}</p>
-              <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
-              <div class="d-flex justify-content-between">
-                <button class="btn btn-primary" (click)="assignTache(tache.id_Tache)">Attribuer</button>
-                <button class="btn btn-primary" [routerLink]="['/dashboardProf', idProf, 'taches', tache.id_Tache]">Modifier</button>
-                <button class="btn btn-primary"
-                  (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)">Supprimer</button>
+        <div class="kanban-container d-flex justify-content-between">
+          <div class="kanban-column">
+            <h5>To Do</h5>
+            <!--<div *ngFor="let tache of taches | filterByStatus:'todo'" class="card mb-3">-->
+            <div *ngFor="let tache of taches " class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ tache.titre }}</h5>
+                <p class="card-text">{{ tache.description }}</p>
+                <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
+                <div class="d-flex justify-content-between">
+                  <button class="btn btn-lig" [routerLink]="['/dashboardProf', idProf, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 40px;"><i class="bi bi-pencil-square"></i></button>
+                </div>
+              </div>
+            
+            <div class="d-flex justify-content-between mt-3">                  
+              <button class="btn btn-secondary" (click)="assignTache(tache.id_Tache)" style="position: absolute; bottom: 30px; left: 40px;"><i class="bi bi-person-plus-fill"></i></button>
+              <button class="btn btn-danger" (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)"  style="position: absolute; bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
+            </div>
+          </div>
+</div>  </div>  
+        
+<!--
+          <div class="kanban-column">
+            <h5>In Progress</h5>
+            <div *ngFor="let tache of taches | filterByStatus:'inProgress'" class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ tache.titre }}</h5>
+                <p class="card-text">{{ tache.description }}</p>
+                <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
+                <div class="d-flex justify-content-between">
+                  <button class="btn btn-primary" (click)="assignTache(tache.id_Tache)">Attribuer</button>
+                  <button class="btn btn-primary" [routerLink]="['/dashboardProf', idProf, 'taches', tache.id_Tache]">Modifier</button>
+                  <button class="btn btn-danger" (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)">Supprimer</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+
+          <div class="kanban-column">
+            <h5>Done</h5>
+            <div *ngFor="let tache of taches | filterByStatus:'done'" class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ tache.titre }}</h5>
+                <p class="card-text">{{ tache.description }}</p>
+                <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
+                <div class="d-flex justify-content-between">
+                  <button class="btn btn-primary" (click)="assignTache(tache.id_Tache)">Attribuer</button>
+                  <button class="btn btn-primary" [routerLink]="['/dashboardProf', idProf, 'taches', tache.id_Tache]">Modifier</button>
+                  <button class="btn btn-danger" (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)">Supprimer</button>
+                </div>
+              </div>
+            </div>
+          </div>-->
 
         <div *ngIf="showEtudiants" class="mb-4" id="assignEtudiantsSection">
           <div class="card">
             <div class="card-header">
               <h5 class="mb-0">Assigner la tâche à des étudiants (ID Tâche: {{ selectedTacheId }})</h5>
             </div>
-
             <div class="card-body">
               <div class="form-group">
                 <label class="form-label">Sélectionnez les étudiants :</label>
                 <div *ngFor="let etudiant of etudiants" class="form-check">
-                  <input type="checkbox" [value]="etudiant.id_Etudiant" (change)="onEtudiantChange($event)"
-                    class="form-check-input" id="etudiant-{{ etudiant.id_Etudiant }}" />
+                  <input type="checkbox" [value]="etudiant.id_Etudiant" (change)="onEtudiantChange($event)" class="form-check-input" id="etudiant-{{ etudiant.id_Etudiant }}" />
                   <label class="form-check-label" for="etudiant-{{ etudiant.id_Etudiant }}">
                     {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
                   </label>

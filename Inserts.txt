@@ -1,3 +1,19 @@
+-- Update the sequence for completion 
+UPDATE `completion_seq` SET `next_val` = (SELECT MAX(`id_completion`) + 1 FROM `completion`);
+-- Update the sequence for realisation 
+UPDATE `professeur_seq` SET `next_val` = (SELECT MAX(`id_professeur`) + 1 FROM `professeur`);
+-- Update the sequence for tache 
+UPDATE `tache_seq` SET `next_val` = (SELECT MAX(`id_tache`) + 1 FROM `tache`);
+-- Update the sequence for groupe 
+UPDATE `groupe_seq` SET `next_val` = (SELECT MAX(`id_groupe`) + 1 FROM `groupe`);
+-- Update the sequence for etudiant 
+UPDATE `etudiant_seq` SET `next_val` = (SELECT MAX(`id_etudiant`) + 1 FROM `etudiant`);
+-- Update the sequence for classe 
+UPDATE `classe_seq` SET `next_val` = (SELECT MAX(`id_classe`) + 1 FROM `classe`);
+-- Update the sequence for realisation 
+UPDATE `matiere_seq` SET `next_val` = (SELECT MAX(`id_matiere`) + 1 FROM `matiere`);
+
+
 INSERT INTO `classe` (`id_classe`, `annee_classe`, `nom_classe`, `num_classe`) VALUES
 (1, 1, 'TI', 1),
 (2, 1, 'TI', 2),
@@ -241,6 +257,19 @@ INSERT INTO `classe_matiere` (`classe_id`, `matiere_id`) VALUES
 (6, 23);
 
 
+
+
+INSERT INTO `etudiant` (`id_etudiant`, `adresse_etd`, `cin_etd`, `email_etd`, `mot_de_passe_etd`, `nom_etd`, `prenom_etd`, `redoublant`, `sexe_etd`, `telephone_etd`, `id_classe`) VALUES
+(1, NULL, NULL, 'std1@gmail.com', 'Password1', 'std1', 'student1', b'0', NULL, NULL, 1),
+(2, NULL, NULL, 'std2@gmail.com', 'Password2', 'std2', 'student2', b'0', NULL, NULL, 2),
+(3, NULL, NULL, 'std3@gmail.com', 'Password3', 'std3', 'student3', b'0', NULL, NULL, 3),
+(4, NULL, NULL, 'std4@gmail.com', 'Password4', 'std4', 'student4', b'0', NULL, NULL, 4),
+(5, NULL, NULL, 'std5@gmail.com', 'Password5', 'std5', 'student5', b'0', NULL, NULL, 5),
+(6, NULL, NULL, 'std6@gmail.com', 'Password6', 'std6', 'student6', b'0', NULL, NULL, 6),
+(7, NULL, NULL, 'std7@gmail.com', 'Password7', 'std7', 'student7', b'0', NULL, NULL, 7),
+(8, NULL, NULL, 'std8@gmail.com', 'Password8', 'std8', 'student8', b'0', NULL, NULL, 8),
+(9, NULL, NULL, 'std9@gmail.com', 'Password9', 'std9', 'student9', b'0', NULL, NULL, 9),
+(10, NULL, NULL, 'std10@gmail.com', 'Password10', 'std10', 'student10', b'0', NULL, NULL, 10);
 
 
 INSERT INTO `etudiant` (`id_etudiant`, `adresse_etd`, `cin_etd`, `date_de_naissance_etd`, `email_etd`, `mot_de_passe_etd`, `nom_etd`, `prenom_etd`, `redoublant`, `sexe_etd`, `telephone_etd`, `id_classe`) VALUES
