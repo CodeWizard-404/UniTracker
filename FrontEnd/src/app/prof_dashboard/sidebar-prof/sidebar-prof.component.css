@@ -6,11 +6,15 @@
 }
 h1{
     color: white !important;
+    font-size: larger !important;
 }
 
 a:hover {
     text-decoration: none;
 }
 
+.nav-link{
+    cursor: pointer;
+}
 
 

@@ -2,13 +2,15 @@
     font-weight: bold;
 }
 h1{
-    color: aliceblue;
+    color: white !important;
+    font-size: larger !important;
 }
-h1:hover{
-    text-shadow: 1px 1px 100px gray;
-    color: gray;
-}
+
 a:hover {
     text-decoration: none;
+}
+
+.nav-link{
+    cursor: pointer;
 }
 
