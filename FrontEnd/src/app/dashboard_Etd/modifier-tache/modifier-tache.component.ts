@@ -24,7 +24,8 @@ export class ModifierTacheComponent {
   ) {}
 
   ngOnInit(): void {
-    this.idEtudiant = +this.route.snapshot.paramMap.get('idEtudiant')!;
+    this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
+    
     this.idTache = +this.route.snapshot.paramMap.get('idTache')!;
     
     
@@ -53,6 +54,7 @@ export class ModifierTacheComponent {
     if (this.tacheForm.valid) {
       this.tacheService.updateTaskByEtud(this.idTache, this.tacheForm.value).subscribe(() => {
         this.router.navigate(['/dashEtd', this.idEtudiant, 'listetacheperso']);
+        
       });
     }
   }
