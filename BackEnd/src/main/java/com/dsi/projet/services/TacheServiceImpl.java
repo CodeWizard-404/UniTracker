@@ -171,11 +171,41 @@ public class TacheServiceImpl implements ITacheService{
 	  
 	    return null;
 	}
-	    
 
-
+	@Override
+	public boolean deleteTaskByEtud(int idTache, int id_etud) {
+		// TODO Auto-generated method stub
+		
+		    Optional<Tache> tacheOpt = tacherep.findById(idTache);
+		    
+		    if (tacheOpt.isPresent()) {
+		        Tache tache = tacheOpt.get();
+		        List<Etudiant> etudiants = tache.getEtudiants();
+		        
+		 
+		        boolean isEtudiantAssociated = false;
+		        for (Etudiant e : etudiants) {
+		            if (e.getId_Etudiant() == id_etud) {
+		                isEtudiantAssociated = true;
+		                break; 
+		            }
+		        }
+		        
+		        if (isEtudiantAssociated) {
+		            
+		            List<Completion> c = compRep.findAll();
+		            for (Completion completion : c) {
+						if(completion.getTache()==idTache) {compRep.deleteById(completion.getId_Completion());}
+					}
+			        tacherep.deleteById(idTache);
+			        return true; 
+		            
+		         
+		       
+		        }
+		    }
+		    
+		    return false;
+		}
 	}
-
-
-
 

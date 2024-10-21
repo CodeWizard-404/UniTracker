@@ -43,22 +43,7 @@ loadTasks() {
       }
     );
 }
-// markTaskAsCompleted(tache: Tache) {
-  // const isCompleted = !tache.marquer; 
-  // this.tacheService.markTaskAsCompleted(tache.id_Tache, isCompleted)
-  //   .subscribe(
-  //     (updatedTache: Tache) => {
-  //       const index = this.taches.findIndex(t => t.id_Tache === updatedTache.id_Tache);
-  //       if (index !== -1) {
-  //         this.taches[index] = updatedTache; 
-  //       }
-  //       console.log('Tâche marquée comme complétée:', updatedTache);
-  //     },
-  //     (error) => {
-  //       console.error('Erreur lors de la mise à jour de la tâche:', error);
-  //     }
-  //   );
-// }
+
 toggleCompletion(c: Completion) {
   const newStatus = !c.marquer; // Toggle the current status
   c.marquer = newStatus; // Update local state
@@ -83,5 +68,18 @@ markTaskAsCompleted(c: Completion) {
       console.error('Erreur lors de la mise à jour de la tâche:', error);
     }
   );
+}
+
+chooseDiff(c: Completion) {
+  const difficulty=c.complexite;
+  //const isCompleted = c.marquer; // Use the current value of `marquer` to determine the state
+  this.CompServ.chooseDiff(c.id_Completion,difficulty).subscribe((updatedCompletion: Completion) => {
+    c.complexite = updatedCompletion.complexite; // Update the local completion object
+    console.log('difficultee choisit:', updatedCompletion);
+  },
+  (error) => {
+    console.error('Erreur lors de la mise à jour de la tâche:', error);
+  });
+  
 }
 }
