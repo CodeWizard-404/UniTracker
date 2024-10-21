@@ -18,6 +18,10 @@ export class CompletionService {
     const url = `${this.Url}/realisation/mark?idcomp=${idcomp}&isCompleted=${isCompleted}`;
     return this.http.post<Completion>(url, null); // Sending null body since we're using query params
   }
+  chooseDiff(idcomp: number, complexite: String): Observable<Completion> {
+    const url = `${this.Url}/realisation/difficulty?idcomp=${idcomp}&complexite=${complexite}`;
+    return this.http.post<Completion>(url, null); // Sending null body since we're using query params
+  }
 
   
 }
