@@ -67,6 +67,7 @@
                 <button class="btn btn-primary" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]">
                    Modifier Tâche
                  </button>
+                 <button class="btn btn-danger" (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)"  style="position: absolute; bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>  
               
             </div>

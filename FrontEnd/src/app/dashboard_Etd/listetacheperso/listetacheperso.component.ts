@@ -82,4 +82,21 @@ chooseDiff(c: Completion) {
   });
   
 }
+
+deleteTask(idTache: number, idEtudiant: number): void {
+  this.tacheService.deleteTaskByProf(idTache, idEtudiant).subscribe(
+    (response: boolean) => {
+      if (response) {
+        console.log('Tâche supprimée avec succès.');
+        this.taches = this.taches.filter(tache => tache.id_Tache !== idTache);
+      
+      } else {
+        console.log('La tâche n\'a pas été trouvée ou n\'appartient pas au professeur.');
+      }
+    },
+    error => {
+      console.error('Erreur lors de la suppression de la tâche:', error);
+    }
+  );
+}
 }

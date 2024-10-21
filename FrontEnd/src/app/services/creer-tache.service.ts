@@ -61,5 +61,10 @@ export class CreerTacheService {
 
   }
 
+  deleteTaskByEtud(idTache: number, idEtud: number): Observable<boolean> {
+    const url = `${this.baseUrl}/tasksByEtud/${idTache}?idEtud=${idEtud}`;
+    return this.http.delete<boolean>(url);
+  }
+
 
 }
