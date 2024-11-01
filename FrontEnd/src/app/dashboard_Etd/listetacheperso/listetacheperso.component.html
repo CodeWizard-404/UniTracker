@@ -18,9 +18,8 @@
             <div class="card-body">
               <strong class="d-block mb-2">{{ tache.titre }}</strong>
               <span class="text-muted">Description: {{ tache.description }}</span><br />
-              <span class="text-muted">Date limite: {{ tache.dateLimite }}</span>
               <span class="text-muted">Date limite: {{ tache.dateLimite }}</span><br />
-              <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span>
+              <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
               <div *ngFor="let c of tache.completions">
                 <div   *ngIf="c.etudiant === idEtudiant">
                   
@@ -64,10 +63,11 @@
                 </div>
               </div>
               <div class="mt-3">
-                <button class="btn btn-primary" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]">
+                <button *ngIf="tache.professeur==null"  class="btn btn-primary" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" >
                    Modifier Tâche
+                   
                  </button>
-                 <button class="btn btn-danger" (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)"  style="position: absolute; bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
+                 <button *ngIf="tache.professeur==null" class="btn btn-danger" (click)="deleteTask(tache.id_Tache, idEtudiant)"  style="position: absolute; bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>  
               
             </div>

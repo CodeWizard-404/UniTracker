@@ -24,29 +24,30 @@ public class Groupe {
 	@ManyToMany(mappedBy = "groupes")
 	private List<Etudiant> etudiants=new ArrayList<>();
 	/*---------------------------------------------------------------*/
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "matiere_id") 
-	private Matiere matiere;
+	/*
+	 * @ManyToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "matiere_id") private Matiere matiere;
+	 */
 	
 
 	@Override
 	public String toString() {
 		return "Groupe [id_Groupe=" + id_Groupe + ", libelle_Groupe=" + libelle_Groupe + ", etudiants=" + etudiants
-				+ ", matiere=" + matiere + "]";
+				+  "]";
 	}
 	public Groupe(int id_Groupe, String libelle_Groupe, List<Etudiant> etudiants, Matiere matiere) {
 		super();
 		this.id_Groupe = id_Groupe;
 		this.libelle_Groupe = libelle_Groupe;
 		this.etudiants = etudiants;
-		this.matiere = matiere;
+
 	}
-	public int getMatiere() {
-		return matiere.getId_Matiere();
-	}
-	public void setMatiere(Matiere matiere) {
-		this.matiere = matiere;
-	}
+
+	/*
+	 * public int getMatiere() { return matiere.getId_Matiere(); } public void
+	 * setMatiere(Matiere matiere) { this.matiere = matiere; }
+	 */
 	public int getId_Groupe() {
 		return id_Groupe;
 	}
@@ -88,10 +89,12 @@ public class Groupe {
 	    }
 	}
 
-	 public void setMatiereById(int matiereId) {
-	        this.matiere.setId_Matiere(matiereId);
-	         
-	    }
+	/*
+	 * public void setMatiereById(int matiereId) {
+	 * this.matiere.setId_Matiere(matiereId);
+	 * 
+	 * }
+	 */
 	 
 	
 

@@ -32,7 +32,7 @@ export class CreerTacheComponent implements OnInit{
       titre: ['', Validators.required],
       description: ['', Validators.required],
       dateLimite: ['', Validators.required],
-      matiere: ['', Validators.required],
+      // matiere: ['', Validators.required],
     });
     this.idProf = Number(this.route.snapshot.paramMap.get('id'));
     this.matService.getMatieres().subscribe(

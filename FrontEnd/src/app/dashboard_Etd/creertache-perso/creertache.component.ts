@@ -24,7 +24,7 @@ export class CreertacheComponent implements OnInit {
       titre: ['', Validators.required],
       description: ['', Validators.required],
       dateLimite: ['', Validators.required],
-      matiere: ['', Validators.required],
+      // matiere: ['', Validators.required],
     });
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
     this.matService.getMatieres().subscribe(
@@ -57,7 +57,7 @@ export class CreertacheComponent implements OnInit {
         }
       );
     } else {
-      console.log('Formulaire invalide, veuillez corriger les erreurs.',this.tacheForm.value.matiere);
+      console.log('Formulaire invalide, veuillez corriger les erreurs.');
     }
   }
 

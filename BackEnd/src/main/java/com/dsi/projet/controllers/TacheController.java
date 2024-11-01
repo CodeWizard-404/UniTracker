@@ -77,7 +77,7 @@ public class TacheController {
 	
 	@DeleteMapping("/tasksByEtud/{id}")
 	public boolean deleteTaskByEtud(@PathVariable("id") int id,@RequestParam int idEtud){
-		return tacheService.deleteTaskByProf(id, idEtud);
+		return tacheService.deleteTaskByEtud(id, idEtud);
 	}
 
 	

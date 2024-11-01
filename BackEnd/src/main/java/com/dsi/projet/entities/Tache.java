@@ -38,9 +38,11 @@ public class Tache {
 	private List<Etudiant> etudiants=new ArrayList<>();
 	
 	
-	@ManyToOne
-	@JoinColumn(name = "id_Matiere")
-	private Matiere matiere;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_Matiere") private Matiere matiere;
+	 */
 	
 	/*-------------relationRealisation---------------------------------------------*/
 	@OneToMany(mappedBy = "tache")
@@ -51,14 +53,11 @@ public class Tache {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Matiere getMatiere() {
-		return matiere;
-	}
-
-	public void setMatiere(Matiere matiere) {
-		this.matiere = matiere;
-	}
+	/*
+	 * public Matiere getMatiere() { return matiere; }
+	 * 
+	 * public void setMatiere(Matiere matiere) { this.matiere = matiere; }
+	 */
 
 //	public List<Integer> getCompletions() {
 //		 List<Integer> compsIds = new ArrayList<>();
@@ -91,7 +90,7 @@ public class Tache {
 		this.dateLimite = dateLimite;
 		this.professeur = professeur;
 		this.etudiants = etudiants;
-		this.matiere = matiere;
+
 		this.completions = completions;
 	}
 
@@ -107,7 +106,7 @@ public class Tache {
 	@Override
 	public String toString() {
 		return "Tache [id_Tache=" + id_Tache + ", titre=" + titre + ", description=" + description + ", dateLimite="
-				+ dateLimite + ", professeur=" + professeur + ", etudiants=" + etudiants + ", matiere=" + matiere
+				+ dateLimite + ", professeur=" + professeur + ", etudiants=" + etudiants 
 				+ ", completions=" + completions + "]";
 	}
 

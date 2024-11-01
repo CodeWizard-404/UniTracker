@@ -42,12 +42,16 @@ public class Matiere {
 
 	//@ManyToMany(mappedBy = "matieres")
 	
-	@OneToMany(mappedBy = "matiere")
-	private List<Tache> taches = new ArrayList<>();
+	/*
+	 * @OneToMany(mappedBy = "matiere") private List<Tache> taches = new
+	 * ArrayList<>();
+	 */
 
 	/*---------------------------------------------------------------------------*/
-	@OneToMany(mappedBy = "matiere")
-	private List<Groupe> groupes = new ArrayList<>();
+	/*
+	 * @OneToMany(mappedBy = "matiere") private List<Groupe> groupes = new
+	 * ArrayList<>();
+	 */
 	/*---------------------------------------------------------------------------*/
 
 	public Matiere(String libelle, String semestre) {
@@ -84,8 +88,7 @@ public class Matiere {
 		this.semestre = semestre;
 		this.professeurs = professeurs;
 		this.classes = classes;
-		this.taches = taches;
-		this.groupes = groupes;
+
 	}
 
 
@@ -93,22 +96,18 @@ public class Matiere {
 		return id_Matiere;
 	}
 
-	public void setGroupes(List<Groupe> groupes) {
-		this.groupes = groupes;
-	}
-
+	/*
+	 * public void setGroupes(List<Groupe> groupes) { this.groupes = groupes; }
+	 */
 	public void setId_Matiere(int id_Matiere) {
 		this.id_Matiere = id_Matiere;
 	}
 
-	public void setTaches(List<Integer> tacheIds) {
-	    this.taches = new ArrayList<>();
-	    for (Integer id : tacheIds) {
-	        Tache tache = new Tache();
-	        tache.setId_Tache(id); // Assumes you have a setter for id_Tache in Tache class
-	        this.taches.add(tache);
-	    }
-	}
+	/*
+	 * public void setTaches(List<Integer> tacheIds) { this.taches = new
+	 * ArrayList<>(); for (Integer id : tacheIds) { Tache tache = new Tache();
+	 * tache.setId_Tache(id); this.taches.add(tache); } }
+	 */
 
 	public void setProfesseurs(List<Integer> profIds) {
 	    this.professeurs = new ArrayList<>();
@@ -144,13 +143,10 @@ public class Matiere {
 		return classes;
 	}
 
-    public List<Integer> getTaches() {
-        List<Integer> ids = new ArrayList<>();
-        for (Tache tache : taches) {
-            ids.add(tache.getId_Tache());
-        }
-        return ids;
-    }
+	/*
+	 * public List<Integer> getTaches() { List<Integer> ids = new ArrayList<>(); for
+	 * (Tache tache : taches) { ids.add(tache.getId_Tache()); } return ids; }
+	 */
 
     public List<Integer> getClasseIds() {
         List<Integer> ids = new ArrayList<>();
@@ -160,13 +156,11 @@ public class Matiere {
         return ids;
     }
 
-    public List<Integer> getGroupes() {
-        List<Integer> ids = new ArrayList<>();
-        for (Groupe groupe : groupes) {
-            ids.add(groupe.getId_Groupe()); 
-        }
-        return ids;
-    }
+	/*
+	 * public List<Integer> getGroupes() { List<Integer> ids = new ArrayList<>();
+	 * for (Groupe groupe : groupes) { ids.add(groupe.getId_Groupe()); } return ids;
+	 * }
+	 */
    
     
 }

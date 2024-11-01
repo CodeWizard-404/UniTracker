@@ -11,8 +11,8 @@ export class Matiere {
     classes: Classe[];
     classesIds: number[];
     semestre: string;  
-    taches: Tache[];
-    groupes: Groupe[];
+
+
 
     constructor() {
         this.libelle = '';
@@ -20,8 +20,8 @@ export class Matiere {
         this.classes = [];
         this.classesIds = []; 
         this.semestre = '';  
-        this.taches = [];
-        this.groupes = [];
+   
+
     }
 }
 

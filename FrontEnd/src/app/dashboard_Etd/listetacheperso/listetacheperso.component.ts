@@ -84,7 +84,7 @@ chooseDiff(c: Completion) {
 }
 
 deleteTask(idTache: number, idEtudiant: number): void {
-  this.tacheService.deleteTaskByProf(idTache, idEtudiant).subscribe(
+  this.tacheService.deleteTaskByEtud(idTache, idEtudiant).subscribe(
     (response: boolean) => {
       if (response) {
         console.log('Tâche supprimée avec succès.');
