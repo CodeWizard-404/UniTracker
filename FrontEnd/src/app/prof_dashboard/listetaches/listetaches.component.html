@@ -75,6 +75,7 @@
               <div class="form-group">
                 <label class="form-label">Sélectionnez les étudiants :</label>
                 <div *ngFor="let etudiant of etudiants" class="form-check">
+                  
                   <input type="checkbox" [value]="etudiant.id_Etudiant" (change)="onEtudiantChange($event)" class="form-check-input" id="etudiant-{{ etudiant.id_Etudiant }}" />
                   <label class="form-check-label" for="etudiant-{{ etudiant.id_Etudiant }}">
                     {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}

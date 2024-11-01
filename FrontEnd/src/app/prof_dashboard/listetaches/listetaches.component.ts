@@ -62,11 +62,12 @@ export class ListetachesComponent implements OnInit{
     this.selectedEtudiants = []; // Réinitialise l'ID de la tâche sélectionnée
   }
   assignSelectedEtudiants() {
-    const selectedEtudiants = this.etudiants.filter(etudiant => this.selectedEtudiants).map(etudiant => etudiant.id_Etudiant);
+    const selectedEtudiants = this.selectedEtudiants;
+    //const selectedEtudiants = this.etudiants.filter(etudiant => this.selectedEtudiants).map(etudiant => etudiant.id_Etudiant);
     if (selectedEtudiants.length > 0 && this.selectedTacheId) {
       this.tacheService.assignTask(this.selectedTacheId, selectedEtudiants).subscribe(
         response => {
-          console.log('Tâche assignée avec succès:', response);
+          console.log('Tâche assignée avec succès:', response,selectedEtudiants);
           alert('Tâche assignée avec succès');
           this.closeEtudiantList(); // Ferme la liste après assignation
         },
