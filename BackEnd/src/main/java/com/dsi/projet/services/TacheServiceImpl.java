@@ -7,12 +7,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dsi.projet.entities.Classe;
 import com.dsi.projet.entities.Completion;
 import com.dsi.projet.entities.Etudiant;
+import com.dsi.projet.entities.Matiere;
 import com.dsi.projet.entities.Professeur;
 import com.dsi.projet.entities.Tache;
 import com.dsi.projet.repositories.CompletionRepository;
 import com.dsi.projet.repositories.EtudiantRepository;
+import com.dsi.projet.repositories.MatiereRepository;
 import com.dsi.projet.repositories.ProfRepository;
 import com.dsi.projet.repositories.TacheRepository;
 
@@ -26,6 +29,8 @@ public class TacheServiceImpl implements ITacheService{
     private EtudiantRepository etudiantRepo;
 	@Autowired
     private ProfRepository profRep;
+	@Autowired
+    private MatiereRepository matRep;
 
 	@Override
 	public Tache addTacheByProf(Tache t,int idProf) {
@@ -213,6 +218,31 @@ public class TacheServiceImpl implements ITacheService{
 		    return false; 
 	
 	
+	}
+
+	@Override
+	public String getMatiereByTache(int idTache) {
+		Optional<Tache> tacheOpt = tacherep.findById(idTache);
+		if(tacheOpt.isPresent()) {
+			Tache tache = tacheOpt.get();
+	        Professeur p = tache.getProfesseur();
+
+	        Classe c = tache.getEtudiants().stream()
+	            .findFirst()
+	            .map(etudiant -> new Classe(etudiant.getNumClasse(), etudiant.getClasse(), etudiant.getAnneeClasse()))
+	            .orElse(null);
+			if(c!=null) {
+			List<Matiere> matieres=matRep.findAll();
+			for (Matiere matiere : matieres) {
+				if(matiere.getProfesseurs().contains(p.getId_Professeur()) && matiere.getClasses().contains(c) ) {
+					return matiere.getLibelle();
+				}
+			}
+			}
+			return null;
+			
+		}
+		return null;
 	}
 	}
 

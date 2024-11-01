@@ -69,6 +69,10 @@ public class TacheController {
 	public Tache getTaskById(@PathVariable int id) {
 		return tacheService.getTaskById(id);
 	}
+	@GetMapping("/matiereBytask/{id}")
+	public String getMatiereByTask(@PathVariable int id) {
+		return tacheService.getMatiereByTache(id);
+	}
 	
 	@PutMapping("/tasksByEtud/{id}")
 	public Tache updateTacheByEtud(@PathVariable int id, @RequestBody Tache tache) {

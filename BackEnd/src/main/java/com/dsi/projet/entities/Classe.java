@@ -2,6 +2,8 @@ package com.dsi.projet.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -139,6 +141,24 @@ public class Classe {
 	public String toString() {
 		return "Classe [id_Classe=" + id_Classe + ", num_Classe=" + num_Classe + ", nom_Classe=" + nom_Classe
 				+ ", annee_Classe=" + annee_Classe + ", etudiants=" + etudiants + ", matieres=" + matieres + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(annee_Classe, nom_Classe, num_Classe);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Classe other = (Classe) obj;
+		return annee_Classe == other.annee_Classe && Objects.equals(nom_Classe, other.nom_Classe)
+				&& num_Classe == other.num_Classe;
 	}
 	
 	
