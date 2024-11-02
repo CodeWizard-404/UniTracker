@@ -33,8 +33,12 @@ import { CreergroupeComponent } from './dashboard_Etd/creergroupe/creergroupe.co
 import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache.component';
 import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
+
+
+
 
 
 @NgModule({
@@ -79,6 +83,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+
     BrowserAnimationsModule,
     MatSnackBarModule,
     ToastrModule.forRoot({
@@ -86,6 +91,8 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 3000,                  
       closeButton: true                  
     }),
+
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

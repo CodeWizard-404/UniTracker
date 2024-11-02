@@ -68,8 +68,8 @@ export class ListetachesComponent implements OnInit{
       this.tacheService.assignTask(this.selectedTacheId, selectedEtudiants).subscribe(
         response => {
           console.log('Tâche assignée avec succès:', response,selectedEtudiants);
-          alert('Tâche assignée avec succès');
-          this.closeEtudiantList(); // Ferme la liste après assignation
+          this.Submited();
+          setTimeout(() => { this.closeEtudiantList(); }, 1000);
         },
         error => {
           console.error('Erreur lors de l\'attribution de la tâche:', error);
@@ -77,6 +77,13 @@ export class ListetachesComponent implements OnInit{
       );
     }
   }
+
+  alertVisible1 = false;
+  Submited() {
+    this.alertVisible1 = true;
+    setTimeout(() => { this.alertVisible1 = false;}, 2000);
+  }
+
   onEtudiantChange(event: any) {
     const idEtudiant = +event.target.value; // Convertir la valeur en nombre
     if (event.target.checked) {

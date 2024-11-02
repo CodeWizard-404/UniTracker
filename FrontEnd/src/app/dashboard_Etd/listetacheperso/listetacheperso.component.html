@@ -4,83 +4,157 @@
     <app-navbar-etd></app-navbar-etd>
     <div class="main-panel">
       <div class="content-wrapper">
+
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h2 class="text-center">Mes Tâches personnelles</h2>
-          <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashEtd', idEtudiant, 'creertacheperso']">
+          <a class="nav-link btn btn-primary create-new-button"
+            [routerLink]="['/dashEtd', idEtudiant, 'creertacheperso']">
             + Créer Tâche
           </a>
           <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Créer Groupe</a>
         </div>
 
+        <div class="kanban-container d-flex justify-content-between">
 
-        
-        <div *ngFor="let tache of taches" class="mb-3 p-3 rounded shadow">
-          <div class="card w-75 mx-auto">
-            <div class="card-body">
-              <strong class="d-block mb-2">{{ tache.titre }}</strong>
-              <span class="text-muted">Description: {{ tache.description }}</span><br />
-              <span class="text-muted">Date limite: {{ tache.dateLimite }}</span><br />
-              <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
-              <div *ngFor="let c of tache.completions">
-                <div   *ngIf="c.etudiant === idEtudiant">
-                  
-               <div class="form-check mt-2">
-                 <input type="checkbox" class="form-check-input" 
-                   [(ngModel)]="c.marquer" 
-                   (change)="markTaskAsCompleted(c)" 
-                   id="completion-{{c.id_Completion}}" />
-                    <label class="form-check-label" for="completion-{{c.id_Completion}}">
-                    Marquer comme complétée
-                   </label>
+          <div class="kanban-column">
+            <h5>To Do</h5>
+            <div *ngFor="let tache of taches" class="card mb-3">
+              <div class="card-body">
+                <strong class="d-block mb-2">{{ tache.titre }}</strong>
+                <span class="text-muted">Description: {{ tache.description }}</span><br />
+                <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
+                <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
+                <div class="d-flex justify-content-between">
+                  <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
-                <div class="progress" style="height: 15px;">
-                     <div class="progress-bar" role="progressbar" 
-                 [style.width]="c.marquer ? '100%' : '0%'" 
-                 [attr.aria-valuenow]="c.marquer ? 100 : 0" 
-                 aria-valuemin="0" 
-                 aria-valuemax="100"></div>
-                 </div>
-               
-                  
-                <div class="form-group" *ngIf="c.marquer" style="margin: 20px;">
-                  <div class="form-label">
-                    <label >choisir difficulte :</label>
+                <div *ngFor="let c of tache.completions">
+                  <div *ngIf="c.etudiant === idEtudiant">
+                    <div class="form-check mt-2">
+                      <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
+                        (change)="markTaskAsCompleted(c)" id="completion-{{c.id_Completion}}" />
+                      <label class="form-check-label" for="completion-{{c.id_Completion}}">
+                        Marquer comme complétée
+                      </label>
+                    </div>
+                    <div class="progress" style="height: 15px;">
+                      <div class="progress-bar" role="progressbar" [style.width]="c.marquer ? '100%' : '0%'"
+                        [attr.aria-valuenow]="c.marquer ? 100 : 0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="form-group" *ngIf="c.marquer" style="margin: 20px;">
+                      <div class="form-label">
+                        <label>Difficulte :</label>
+                      </div>
+                      <div class="form-input">
+                        <select class="form-control p_input" (change)="chooseDiff(c)" [(ngModel)]="c.complexite">
+                          <option value="" disabled selected>Choisir...</option>
+                          <option value="Easy">Facile</option>
+                          <option value="Medium">Moyenne</option>
+                          <option value="Hard">Difficile</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-input">
-                    <select class="form-control p_input" (change)="chooseDiff(c)"  
-                    [(ngModel)]="c.complexite">
-                    <option value="" disabled selected>Choisir...</option>
-                      <option value="Easy">Facile</option>
-                    <option value="Medium">Moyenne</option>
-                    <option value="Hard">Difficile</option>
-                    </select>
-                  </div>
-                </div>           
-               
-          
-        
-                      
-                
+                </div>
+                  <div class="d-flex justify-content-between mt-3">
+                  <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>
               </div>
-              <div class="mt-3">
-                <button *ngIf="tache.professeur==null"  class="btn btn-primary" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" >
-                   Modifier Tâche
-                   
-                 </button>
-                 <button *ngIf="tache.professeur==null" class="btn btn-danger" (click)="deleteTask(tache.id_Tache, idEtudiant)"  style="position: absolute; bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
-                </div>  
-              
             </div>
           </div>
+<!--
+          <div class="kanban-column">
+            <h5>In Progress</h5>
+            <div *ngFor="let tache of taches" class="card mb-3">
+              <div class="card-body">
+                <strong class="d-block mb-2">{{ tache.titre }}</strong>
+                <span class="text-muted">Description: {{ tache.description }}</span><br />
+                <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
+                <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span>
+                <div class="d-flex justify-content-between">
+                  <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
+                </div>
+                <div *ngFor="let c of tache.completions">
+                  <div *ngIf="c.etudiant === idEtudiant">
+                    <div class="form-check mt-2">
+                      <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
+                        (change)="markTaskAsCompleted(c)" id="completion-{{c.id_Completion}}" />
+                      <label class="form-check-label" for="completion-{{c.id_Completion}}">
+                        Marquer comme complétée
+                      </label>
+                    </div>
+                    <div class="progress" style="height: 15px;">
+                      <div class="progress-bar" role="progressbar" [style.width]="c.marquer ? '100%' : '0%'"
+                        [attr.aria-valuenow]="c.marquer ? 100 : 0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="form-group" *ngIf="c.marquer" style="margin: 20px;">
+                      <div class="form-label">
+                        <label>Difficulte :</label>
+                      </div>
+                      <div class="form-input">
+                        <select class="form-control p_input" (change)="chooseDiff(c)" [(ngModel)]="c.complexite">
+                          <option value="" disabled selected>Choisir...</option>
+                          <option value="Easy">Facile</option>
+                          <option value="Medium">Moyenne</option>
+                          <option value="Hard">Difficile</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <div class="d-flex justify-content-between mt-3">
+                  <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kanban-column">
+            <h5>Done</h5>
+            <div *ngFor="let tache of taches" class="card mb-3">
+              <div class="card-body">
+                <strong class="d-block mb-2">{{ tache.titre }}</strong>
+                <span class="text-muted">Description: {{ tache.description }}</span><br />
+                <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
+                <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> 
+                <div class="d-flex justify-content-between">
+                  <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
+                </div>
+                <div *ngFor="let c of tache.completions">
+                  <div *ngIf="c.etudiant === idEtudiant">
+                    <div class="form-check mt-2">
+                      <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
+                        (change)="markTaskAsCompleted(c)" id="completion-{{c.id_Completion}}" />
+                      <label class="form-check-label" for="completion-{{c.id_Completion}}">
+                        Marquer comme complétée
+                      </label>
+                    </div>
+                    <div class="progress" style="height: 15px;">
+                      <div class="progress-bar" role="progressbar" [style.width]="c.marquer ? '100%' : '0%'"
+                        [attr.aria-valuenow]="c.marquer ? 100 : 0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="form-group" *ngIf="c.marquer" style="margin: 20px;">
+                      <div class="form-label">
+                        <label>Difficulte :</label>
+                      </div>
+                      <div class="form-input">
+                        <select class="form-control p_input" (change)="chooseDiff(c)" [(ngModel)]="c.complexite">
+                          <option value="" disabled selected>Choisir...</option>
+                          <option value="Easy">Facile</option>
+                          <option value="Medium">Moyenne</option>
+                          <option value="Hard">Difficile</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <div class="d-flex justify-content-between mt-3">
+                  <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>-->        
         </div>
-       
-
-
       </div>
-   
     </div>
-
-
   </div>
 </div>

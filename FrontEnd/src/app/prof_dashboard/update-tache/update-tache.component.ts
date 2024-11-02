@@ -43,15 +43,31 @@ ngOnInit(): void {
       this.tacheService.updateTaskByProf(this.tacheId,this.form.value).subscribe(
         response => {
           console.log('Tâche mise à jour avec succès !');
-          alert('Tâche mise à jour avec succès');
-          this.router.navigate(['/dashboardProf', this.idProf, 'listetaches']);
+          this.Submited();
+          setTimeout(() => {
+          this.router.navigate(['/dashboardProf', this.idProf, 'listetaches']);},2000);
         },
         error => {
           console.error('Erreur lors de la mise à jour de la tâche', error);
+          this.errorSubmit();
         }
       );
     }
+    else{
+      console.log('Formulaire invalide, veuillez corriger les erreurs.');
+      this.errorSubmit();
+    }
   }
+  alertVisible0 = false;
+  alertVisible1 = false;
 
+  Submited() {
+    this.alertVisible1 = true;
+    setTimeout(() => { this.alertVisible1 = false;}, 2000);
+  }
+  errorSubmit() {
+    this.alertVisible0 = true;
+    setTimeout(() => { this.alertVisible0 = false;}, 3000);
+  }
 
 }
