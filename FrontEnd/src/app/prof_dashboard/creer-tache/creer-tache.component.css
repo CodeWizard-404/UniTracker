@@ -32,9 +32,9 @@
 }
 
 .custom-datetime-dark {
-    appearance: none;
-    -webkit-appearance: none;
     -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
     color: #ffffff;
     font-size: 16px;
     background-color: #282828;
