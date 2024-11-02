@@ -15,6 +15,9 @@ import { ProfServiceService } from 'src/app/services/prof-service.service';
   styleUrls: ['./creer-tache.component.css']
 })
 export class CreerTacheComponent implements OnInit{
+
+
+
   form!: FormGroup;
   idProf!:number;
   profs:Prof[]=[]
@@ -54,18 +57,32 @@ export class CreerTacheComponent implements OnInit{
       this.tacheService.addTache(formData, this.idProf).subscribe(
         (response) => {
           console.log('Tâche ajoutée avec succès:', response);
-          alert('tache ajoutee avec succès');
-          this.router.navigate([`/dashboardProf/${this.idProf}/listetaches`]);
+          this.Submited();
+          setTimeout(() => {
+          this.router.navigate([`/dashboardProf/${this.idProf}/listetaches`]);},2000);
         },
         (error) => {
           console.error('Erreur lors de l\'ajout de la tâche:', error);
+          this.errorSubmit();
         }
       );
     } else {
       console.log('Formulaire invalide, veuillez corriger les erreurs.');
+      this.errorSubmit();
     }
   }
-  
+
+  alertVisible0 = false;
+  alertVisible1 = false;
+
+  Submited() {
+    this.alertVisible1 = true;
+    setTimeout(() => { this.alertVisible1 = false;}, 2000);
+  }
+  errorSubmit() {
+    this.alertVisible0 = true;
+    setTimeout(() => { this.alertVisible0 = false;}, 3000);
+  }
 
 
 }

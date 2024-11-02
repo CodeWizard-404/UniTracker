@@ -51,4 +51,6 @@ export class AssignerTacheComponent implements OnInit{
       this.selectedEtudiants = this.selectedEtudiants.filter(id => id !== idEtudiant);
     }
   }
+
+  
 }

@@ -32,6 +32,7 @@ import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listet
 import { CreergroupeComponent } from './prof_dashboard/creergroupe/creergroupe.component';
 import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache.component';
 import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -76,7 +77,8 @@ import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],
