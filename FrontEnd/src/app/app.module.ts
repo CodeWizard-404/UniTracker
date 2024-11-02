@@ -29,10 +29,12 @@ import { NavbarEtdComponent } from './dashboard_Etd/navbar-etd/navbar-etd.compon
 import { SidebarEtdComponent } from './dashboard_Etd/sidebar-etd/sidebar-etd.component';
 import { CreertacheComponent } from './dashboard_Etd/creertache-perso/creertache.component';
 import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listetacheperso.component';
-import { CreergroupeComponent } from './prof_dashboard/creergroupe/creergroupe.component';
+import { CreergroupeComponent } from './dashboard_Etd/creergroupe/creergroupe.component';
 import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache.component';
 import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -76,8 +78,14 @@ import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
-
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center', 
+      timeOut: 3000,                  
+      closeButton: true                  
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

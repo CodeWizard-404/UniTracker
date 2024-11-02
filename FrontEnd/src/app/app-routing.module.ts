@@ -17,7 +17,7 @@ import { AssignerTacheComponent } from './prof_dashboard/assigner-tache/assigner
 import { DashboardEtdComponent } from './dashboard_Etd/dashboard-etd/dashboard-etd.component';
 import { CreertacheComponent } from './dashboard_Etd/creertache-perso/creertache.component';
 import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listetacheperso.component';
-import { CreergroupeComponent } from './prof_dashboard/creergroupe/creergroupe.component';
+import { CreergroupeComponent } from './dashboard_Etd/creergroupe/creergroupe.component';
 import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache.component';
 import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
 

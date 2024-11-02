@@ -22,8 +22,7 @@ public class GroupeServiceImpl implements GroupeService {
 	private GroupeRepository Repository;
 	@Autowired
 	private EtudiantRepository EtudiantRepository;
-	@Autowired
-    private MatiereRepository matiereRepository;
+
 	
 	@Override
 	public Groupe addGroupe(Groupe g) {
@@ -37,19 +36,7 @@ public class GroupeServiceImpl implements GroupeService {
 	            etudiants.add(etudiant);      
 	        });
 	    }
-
-	    // Associer les étudiants récupérés au groupe
 	    g.setEtudiants(etudiantIds); 
-
-		/*
-		 * // Récupérer la matière à partir de son ID, si elle est présente if
-		 * (g.getMatiere()!= 0) { Matiere matiere =
-		 * matiereRepository.findById(g.getMatiere()) .orElseThrow(() -> new
-		 * IllegalArgumentException("Matiere not found with id: " + g.getMatiere()));
-		 * g.setMatiere(matiere); // Associe la matière au groupe }
-		 */
-
-	    // Sauvegarder le groupe avec les étudiants et la matière associés
 	    return Repository.save(g);
 	}
 
