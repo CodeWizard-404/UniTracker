@@ -14,7 +14,6 @@ export class ModifierTacheComponent {
   idEtudiant!: number;
   idTache!: number;
   matieres: any[] = []; 
-
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,

@@ -109,6 +109,13 @@ public class Etudiant {
 	List<Completion> completions = new ArrayList<>();
 	/*----------------------------------------------------------*/
 
+	/*-------------relationNotification---------------------------------------------*/
+	
+	@OneToMany(mappedBy = "etudiant")
+	List<Notification> notifications = new ArrayList<>();
+	/*----------------------------------------------------------*/
+
+	
 	public Etudiant(
 		int id_Etudiant, String nom_Etd, String prenom_Etd, String email_Etd,String mot_de_passe_Etd, 
 		Classe classe, List<Tache> taches, List<Groupe> groupes, 
