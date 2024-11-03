@@ -44,23 +44,18 @@ public class NotificationServiceImpl implements INotificationService{
             long joursRestants = ChronoUnit.DAYS.between(aujourdHui, dateLimite);
             System.out.println(joursRestants);
             if (joursRestants <=2 && joursRestants>0 ) {  // Notification 1 ou 2 jours avant la date limite
-            	if (!notificationExistsForTask(tache.getTitre(),etudiant.getId_Etudiant())) { //eviter la répetition des notifications
+            	if (!notificationExistsForTask(tache.getId_Tache(),etudiant.getId_Etudiant())) { //eviter la répetition des notifications
                 Notification notification = new Notification("La tâche " + tache.getTitre() +
                 " arrive à échéance dans " + joursRestants + " jour(s)");
                 notification.setEtudiant(etudiant);
+                notification.setTacheId(tache.getId_Tache());
                 saveNotification(notification);
             }}
         }
             }
     }
-	private boolean notificationExistsForTask(String titre,int idetud) {
-	    List<Notification> notifications = notificationRepository.findAll();
-	    for (Notification notification : notifications) {
-	        if (notification.getMessage().contains("La tâche " + titre) && notification.getEtudiant().getId_Etudiant()==idetud) {
-	            return true; 
-	        }
-	    }
-	    return false; 
+	private boolean notificationExistsForTask(int tacheId, int etudiantId) {
+	    return notificationRepository.existsByTacheIdAndEtudiantId(tacheId, etudiantId);
 	}
 	public void saveNotification(Notification notification) {
         notificationRepository.save(notification);

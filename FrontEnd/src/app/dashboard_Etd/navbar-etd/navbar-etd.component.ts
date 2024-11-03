@@ -55,7 +55,5 @@ export class NavbarEtdComponent implements OnInit{
 
   updateNewNotificationsCount(): void {
     this.hasNewNotifications = this.notifications.some(notification => !notification.read);
-
-
   }
 }

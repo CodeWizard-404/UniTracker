@@ -9,5 +9,8 @@ import com.dsi.projet.entities.Notification;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long>{
     @Query("SELECT n FROM Notification n WHERE n.etudiant.id = ?1")
-    List<Notification> findByEtudiant_Id(int idEtudiant); 
+    List<Notification> findByEtudiant_Id(int idEtudiant);
+    
+    boolean existsByTacheIdAndEtudiantId(int tacheId, int etudiantId);
+
 }

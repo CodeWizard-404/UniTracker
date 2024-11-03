@@ -23,6 +23,7 @@ public class Notification {
 	    @JoinColumn(name = "etudiant_id") // Colonne qui contient l'ID de l'étudiant dans la table notifications
 	    private Etudiant etudiant;
 
+	    private int tacheId;
 	    public Notification() {}
 
 	    public Notification(String message) {
@@ -60,6 +61,14 @@ public class Notification {
 
 		public void setEtudiant(Etudiant etudiant) {
 			this.etudiant = etudiant;
+		}
+
+		public int getTacheId() {
+			return tacheId;
+		}
+
+		public void setTacheId(int tacheId) {
+			this.tacheId = tacheId;
 		}
 
 		@Override
