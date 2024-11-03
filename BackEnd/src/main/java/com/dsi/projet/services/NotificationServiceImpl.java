@@ -45,7 +45,7 @@ public class NotificationServiceImpl implements INotificationService{
             System.out.println(joursRestants);
             if (joursRestants <=2 && joursRestants>0 ) {  // Notification 1 ou 2 jours avant la date limite
             	if (!notificationExistsForTask(tache.getTitre(),etudiant.getId_Etudiant())) { //eviter la répetition des notifications
-                Notification notification = new Notification("La tâche :" + tache.getTitre() +
+                Notification notification = new Notification("La tâche " + tache.getTitre() +
                 " arrive à échéance dans " + joursRestants + " jour(s)");
                 notification.setEtudiant(etudiant);
                 saveNotification(notification);
