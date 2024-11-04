@@ -70,13 +70,13 @@ public class Etudiant {
 
 	
 
-	public List<Integer> getCompletions() {
-		 List<Integer> compsIds = new ArrayList<>();
-		 for (Completion c : completions) {
-			 compsIds.add(c.getId_Completion());
-		}
-		return compsIds;
-	}
+//	public List<Integer> getCompletions() {
+//		 List<Integer> compsIds = new ArrayList<>();
+//		 for (Completion c : completions) {
+//			 compsIds.add(c.getId_Completion());
+//		}
+//		return compsIds;
+//	}
 
 	public void setCompletions(List<Completion> completions) {
 		this.completions = completions;

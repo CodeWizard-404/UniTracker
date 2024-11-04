@@ -23,14 +23,14 @@ public class CompletionController {
 	return comServ.Consulter(idEtd, idTache);}
 	
 	@PostMapping("/realisation/mark")
-	public ResponseEntity<Completion> markTaskAsCompleted(@RequestParam int idcomp, @RequestParam boolean isCompleted) {
-	    Completion c = comServ.markTaskAsCompleted(idcomp, isCompleted);
+	public ResponseEntity<Completion> markTaskAsCompleted(@RequestParam int tacheId,@RequestParam int etudiantId, @RequestParam boolean isCompleted) {
+	    Completion c = comServ.markTaskAsCompleted(tacheId,etudiantId, isCompleted);
 	    return ResponseEntity.ok(c );
 	}
 	
 	@PostMapping("/realisation/difficulty")
-	public ResponseEntity<Completion> pickDifficulty(@RequestParam int idcomp, @RequestParam ComplexteTache complexite) {
-	    Completion c = comServ.pickDifficulty(idcomp, complexite);
+	public ResponseEntity<Completion> pickDifficulty(@RequestParam int tacheId,@RequestParam int etudiantId, @RequestParam ComplexteTache complexite) {
+	    Completion c = comServ.pickDifficulty(tacheId,etudiantId, complexite);
 	    return ResponseEntity.ok(c );
 	}
 	

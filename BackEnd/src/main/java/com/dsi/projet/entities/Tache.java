@@ -32,8 +32,9 @@ public class Tache {
 	private Professeur professeur;
 	
 	
+	//realisation
 	@ManyToMany
-	@JoinTable(name = "realisation",joinColumns = {@JoinColumn(name="tache_id")},inverseJoinColumns = {@JoinColumn(name="etudiant_id")})
+	@JoinTable(name = "completion",joinColumns = {@JoinColumn(name="tache_id")},inverseJoinColumns = {@JoinColumn(name="etudiant_id")})
 	@JsonIgnore
 	private List<Etudiant> etudiants=new ArrayList<>();
 	

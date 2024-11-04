@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dsi.projet.entities.Completion;
 import com.dsi.projet.entities.Completion.ComplexteTache;
+import com.dsi.projet.entities.CompletionId;
 import com.dsi.projet.repositories.CompletionRepository;
 
 @Service
@@ -28,24 +29,20 @@ public class CompletionService implements ICompletion{
 	}
 
 	@Override
-	public Completion markTaskAsCompleted(int idCompletion, boolean isCompleted) {
-		Completion c = comRep.findById(idCompletion).orElseThrow(() -> new RuntimeException("realisation non trouvée"));
-		c.setMarquer(isCompleted);
-		c.setComplexite(null);
-		return comRep.save(c);
+	public Completion markTaskAsCompleted(int tacheId, int etudiantId, boolean isCompleted) {
+		 CompletionId idCompletion = new CompletionId(tacheId, etudiantId);
+		 Completion completion = comRep.findById(idCompletion)
+			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
+		 completion.setMarquer(isCompleted);
 
-//	    Tache tache = comRep.findById(idTache)
-//	            .orElseThrow(() -> new RuntimeException("Tâche non trouvée"));
-//
-//	    tache.setMarquer(isCompleted);  
-//	    return tacherep.save(tache);  
-//	}
-		// TODO Auto-generated method stub
-		//return null;
+		    // Save the updated Completion entity back to the database
+		    return comRep.save(completion);
+		
 	}
 
 	@Override
-	public Completion pickDifficulty(int idCompletion, ComplexteTache complexite) {
+	public Completion pickDifficulty(int tacheId, int etudiantId, ComplexteTache complexite) {
+		CompletionId idCompletion = new CompletionId(tacheId, etudiantId);
 		Optional<Completion> c = comRep.findById(idCompletion);
 		if(c.isPresent()) {
 			c.get().setComplexite(complexite);
@@ -54,5 +51,4 @@ public class CompletionService implements ICompletion{
 		else return null;
 	
 	}
-
 }

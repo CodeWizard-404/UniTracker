@@ -5,18 +5,21 @@ package com.dsi.projet.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 
 @Entity
 public class Completion {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id_Completion;
+	@EmbeddedId
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+	private CompletionId id_Completion;
 	private boolean marquer=false;
 	public enum ComplexteTache{
 		Easy,
@@ -26,12 +29,16 @@ public class Completion {
 	private ComplexteTache complexite;
 
 	@ManyToOne
-	@JoinColumn(name = "id_etd")
+	@MapsId("etudiant_id") // Mappe l'ID composite à l'association
+    @JoinColumn(name = "etudiant_id", insertable = false, updatable = false) // Désactiver insertable et updatable
+	//@JoinColumn(name = "etudiant_id")
 	//@JsonIgnore
 	private Etudiant etudiant;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_tache")
+	@MapsId("tache_id") // Mappe l'ID composite à l'association
+    @JoinColumn(name = "tache_id", insertable = false, updatable = false) // Désactiver insertable et updatable
+	//@JoinColumn(name = "tache_id")
 	//@JsonIgnore
 	private Tache tache;
 
@@ -72,7 +79,7 @@ public class Completion {
 		this.tache = tache;
 	}
 
-	public int getId_Completion() {
+	public CompletionId getId_Completion() {
 		return id_Completion;
 	}
 	
