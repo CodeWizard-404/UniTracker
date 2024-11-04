@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Etudiant } from 'src/app/classes/etudiant';
+import { Matiere } from 'src/app/classes/matiere';
+import { Prof } from 'src/app/classes/prof';
 import { CreerTacheService } from 'src/app/services/creer-tache.service';
 import { EtudiantServiceService } from 'src/app/services/etudiant-service.service';
+import { ProfServiceService } from 'src/app/services/prof-service.service';
 
 @Component({
   selector: 'app-assigner-tache',
@@ -9,13 +13,18 @@ import { EtudiantServiceService } from 'src/app/services/etudiant-service.servic
   styleUrls: ['./assigner-tache.component.css']
 })
 export class AssignerTacheComponent implements OnInit{
+  
+  idProf!:number;
   tacheId!: number; // ID de la tâche à attribuer
   etudiants: Etudiant[] = []; // Liste des étudiants
   selectedEtudiants: number[] = []; 
-  constructor(private etudiantService:EtudiantServiceService,private tacheService:CreerTacheService){}
+  constructor(private profService: ProfServiceService,private route:ActivatedRoute,private etudiantService:EtudiantServiceService,private tacheService:CreerTacheService){}
   ngOnInit(): void {
     this.loadEtudiants();
+    this.idProf = Number(this.route.snapshot.paramMap.get('id'));
+    
   }
+ 
 
   loadEtudiants() {
     this.etudiantService.getEtudiants().subscribe(
@@ -50,6 +59,22 @@ export class AssignerTacheComponent implements OnInit{
     } else {
       this.selectedEtudiants = this.selectedEtudiants.filter(id => id !== idEtudiant);
     }
+  }
+  getClassesNames(prof: Prof): string {
+    if (prof.lesMatieres && prof.lesMatieres.length > 0) {
+      const uniqueClasses = new Set<string>();
+
+      prof.lesMatieres.forEach(m => {
+        if (m.classes && m.classes.length > 0) {
+          m.classes.forEach(cls => {
+            uniqueClasses.add(cls.nom_Classe); 
+          });
+        }
+      });
+
+      return Array.from(uniqueClasses).join(", ");
+    }
+    return "Aucune classe";
   }
 
   
