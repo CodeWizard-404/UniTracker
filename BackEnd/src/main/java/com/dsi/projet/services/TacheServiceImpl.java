@@ -73,14 +73,16 @@ public class TacheServiceImpl implements ITacheService{
 
 	@Override
 	public Tache addTachebyEtudiant(Tache t, int idEtudiant) {
-
+		//List<Completion> c=compRep.findAll();
 		List<Etudiant> etudiants=etudiantRepo.findAll();
 		for (Etudiant etudiant : etudiants) {
 			if(etudiant.getId_Etudiant()==idEtudiant) {
 				t.getEtudiants().add(etudiant);
 				Tache tache=tacherep.save(t);
-//				Completion c=new Completion(false,etudiant,tache);
-//				compRep.save(c);
+				
+//				for (Completion completion : c) {
+//					if(completion.getTache()==t.getId_Tache() && completion.getEtudiant()==idEtudiant) {compRep.save(completion.setMarquer(false));}
+//				}
 				
 				return tache; }
 		}

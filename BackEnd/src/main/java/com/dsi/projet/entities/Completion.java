@@ -5,6 +5,7 @@ package com.dsi.projet.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Completion {
 //	@Id
 //	@GeneratedValue(strategy=GenerationType.AUTO)
 	private CompletionId id_Completion;
+	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean marquer=false;
 	public enum ComplexteTache{
 		Easy,
