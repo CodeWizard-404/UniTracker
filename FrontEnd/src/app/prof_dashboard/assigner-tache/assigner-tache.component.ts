@@ -13,7 +13,7 @@ import { ProfServiceService } from 'src/app/services/prof-service.service';
   styleUrls: ['./assigner-tache.component.css']
 })
 export class AssignerTacheComponent implements OnInit{
-  
+  prof!:Prof;
   idProf!:number;
   tacheId!: number; // ID de la tâche à attribuer
   etudiants: Etudiant[] = []; // Liste des étudiants
@@ -22,6 +22,9 @@ export class AssignerTacheComponent implements OnInit{
   ngOnInit(): void {
     this.loadEtudiants();
     this.idProf = Number(this.route.snapshot.paramMap.get('id'));
+    this.profService.getProf(this.idProf).subscribe(data=>{this.prof=data;},error => {
+      console.error(error);
+    })
     
   }
  
