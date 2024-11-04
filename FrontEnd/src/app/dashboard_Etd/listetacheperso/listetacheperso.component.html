@@ -17,7 +17,7 @@
 
           <div class="kanban-column">
             <h5>To Do</h5>
-            <div *ngFor="let tache of taches" class="card mb-3">
+            <div *ngFor="let tache of todoTasks" class="card mb-3">
               <div class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">Description: {{ tache.description }}</span><br />
@@ -29,8 +29,11 @@
                 <div *ngFor="let c of tache.completions">
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
-                      <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
-                      (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)" id="completion-{{c.tache_id}}-{{c.etudiant_id}}"/>
+                      <input type="checkbox" 
+                      class="form-check-input" 
+                      [(ngModel)]="c.marquer"
+                      (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)" 
+                      id="completion-{{c.tache_id}}-{{c.etudiant_id}}"/>
                       <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant_id}}">
                         Marquer comme complétée
                       </label>
@@ -105,16 +108,16 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->  
 
           <div class="kanban-column">
             <h5>Done</h5>
-            <div *ngFor="let tache of taches" class="card mb-3">
+            <div *ngFor="let tache of doneTasks" class="card mb-3">
               <div class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">Description: {{ tache.description }}</span><br />
                 <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
-                <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> 
+                <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
                 <div class="d-flex justify-content-between">
                   <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
@@ -122,8 +125,8 @@
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
                       <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
-                        (change)="markTaskAsCompleted(c)" id="completion-{{c.id_Completion}}" />
-                      <label class="form-check-label" for="completion-{{c.id_Completion}}">
+                      (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)" id="completion-{{c.tache_id}}-{{c.etudiant_id}}"/>
+                      <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant_id}}">
                         Marquer comme complétée
                       </label>
                     </div>
@@ -136,7 +139,7 @@
                         <label>Difficulte :</label>
                       </div>
                       <div class="form-input">
-                        <select class="form-control p_input" (change)="chooseDiff(c)" [(ngModel)]="c.complexite">
+                        <select class="form-control p_input" (change)="chooseDiff(c,tache.id_Tache)" [(ngModel)]="c.complexite">
                           <option value="" disabled selected>Choisir...</option>
                           <option value="Easy">Facile</option>
                           <option value="Medium">Moyenne</option>
@@ -151,7 +154,7 @@
                 </div>
               </div>
             </div>
-          </div>-->        
+          </div>      
         </div>
       </div>
     </div>
