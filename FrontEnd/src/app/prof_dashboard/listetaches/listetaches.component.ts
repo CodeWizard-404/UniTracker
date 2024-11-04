@@ -51,25 +51,24 @@ export class ListetachesComponent implements OnInit{
     setTimeout(() => {
       const element = document.getElementById('assignEtudiantsSection');
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' }); // Défilement en douceur
+        element.scrollIntoView({ behavior: 'smooth' }); 
       }
     }, 0); 
     }
 
   closeEtudiantList() {
-    this.showEtudiants = false; // Ferme la liste des étudiants
+    this.showEtudiants = false; 
     this.selectedTacheId = null;
-    this.selectedEtudiants = []; // Réinitialise l'ID de la tâche sélectionnée
+    this.selectedEtudiants = []; 
   }
   assignSelectedEtudiants() {
     const selectedEtudiants = this.selectedEtudiants;
-    //const selectedEtudiants = this.etudiants.filter(etudiant => this.selectedEtudiants).map(etudiant => etudiant.id_Etudiant);
     if (selectedEtudiants.length > 0 && this.selectedTacheId) {
       this.tacheService.assignTask(this.selectedTacheId, selectedEtudiants).subscribe(
         response => {
           console.log('Tâche assignée avec succès:', response,selectedEtudiants);
           this.Submited();
-          setTimeout(() => { this.closeEtudiantList(); }, 1000);
+          setTimeout(() => { this.closeEtudiantList(); }, 2200);
         },
         error => {
           console.error('Erreur lors de l\'attribution de la tâche:', error);
@@ -85,12 +84,10 @@ export class ListetachesComponent implements OnInit{
   }
 
   onEtudiantChange(event: any) {
-    const idEtudiant = +event.target.value; // Convertir la valeur en nombre
+    const idEtudiant = +event.target.value; 
     if (event.target.checked) {
-      // Ajouter à la liste des étudiants sélectionnés
       this.selectedEtudiants.push(idEtudiant);
     } else {
-      // Retirer de la liste des étudiants sélectionnés
       this.selectedEtudiants = this.selectedEtudiants.filter(id => id !== idEtudiant);
     }
   }

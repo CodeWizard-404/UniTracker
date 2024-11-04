@@ -50,9 +50,7 @@ export class ListetachepersoComponent implements OnInit {
     this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       (updatedCompletion: Completion) => {
         console.log('Tâche marquée comme complétée:', updatedCompletion);
-        
-        // Update the local task arrays without refreshing
-        this.updateTaskLists();
+                this.updateTaskLists();
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);
@@ -60,18 +58,17 @@ export class ListetachepersoComponent implements OnInit {
     );
   }
 
-chooseDiff(c: Completion,tacheId: number)  {
-  const difficulty=c.complexite;
-  //const isCompleted = c.marquer; // Use the current value of `marquer` to determine the state
-  this.CompServ.chooseDiff(tacheId,c.etudiant,difficulty).subscribe((updatedCompletion: Completion) => {
-    c.complexite = updatedCompletion.complexite; // Update the local completion object
-    console.log('difficultee choisit:', updatedCompletion);
-  },
-  (error) => {
-    console.error('Erreur lors de la mise à jour de la tâche:', error, tacheId,c.etudiant,difficulty);
-  });
-  
-}
+  chooseDiff(c: Completion,tacheId: number)  {
+    const difficulty=c.complexite;
+    this.CompServ.chooseDiff(tacheId,c.etudiant,difficulty).subscribe((updatedCompletion: Completion) => {
+      c.complexite = updatedCompletion.complexite; 
+      console.log('difficultee choisit:', updatedCompletion);
+    },
+    (error) => {
+      console.error('Erreur lors de la mise à jour de la tâche:', error, tacheId,c.etudiant,difficulty);
+    });
+    
+  }
 
 deleteTask(idTache: number, idEtudiant: number): void {
   this.tacheService.deleteTaskByEtud(idTache, idEtudiant).subscribe(
