@@ -18,4 +18,7 @@ export class ProfServiceService {
     return this.http.get<Prof[]>('http://localhost:8081/profs');
   }
   
+  getProf(id:Number): Observable<Prof> {
+    return this.http.get<Prof>(`${this.baseUrl}/prof/${id}`);
+  }
 }
