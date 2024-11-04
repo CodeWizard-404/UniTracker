@@ -20,28 +20,24 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Nom</th>
-                        <th>Num</th>
-                        <th>Année</th>
+                        <th>Nom de la classe</th>
                         <th>Matières</th>
                         <th>Professeurs</th>
                         <th>Etudiants</th>
-                        <th>Action</th>
+                        <!-- <th>Action</th> -->
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let classe of classes">
                         <td>{{ classe.id_Classe }}</td>
-                        <td>{{ classe.nom_Classe}}</td>
-                        <td>{{ classe.num_Classe}}</td>
-                        <td>{{ classe.annee_Classe}}</td>
+                        <td>{{ classe.nom_Classe}}{{ classe.annee_Classe}}{{ classe.num_Classe}}</td>
                         <td>{{ classe.nombreMatieres }}</td>
                         <td>{{ classe.nombreProfesseurs }}</td>
                         <td>{{ classe.nombreEtudiants }}</td>
-                        <td>
+                        <!-- <td>
                           <button class="btn btn-secondary"><i class="bi bi-pencil-square"></i></button>
                           <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                        </td>
+                        </td> -->
                       </tr>
                     </tbody>
                   </table>
