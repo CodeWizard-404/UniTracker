@@ -31,8 +31,8 @@
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
                       <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
-                        (change)="markTaskAsCompleted(c)" id="completion-{{c.id_Completion}}" />
-                      <label class="form-check-label" for="completion-{{c.id_Completion}}">
+                      (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)" id="completion-{{c.tache_id}}-{{c.etudiant_id}}"/>
+                      <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant_id}}">
                         Marquer comme complétée
                       </label>
                     </div>
@@ -45,7 +45,7 @@
                         <label>Difficulte :</label>
                       </div>
                       <div class="form-input">
-                        <select class="form-control p_input" (change)="chooseDiff(c)" [(ngModel)]="c.complexite">
+                        <select class="form-control p_input" (change)="chooseDiff(c,tache.id_Tache)" [(ngModel)]="c.complexite">
                           <option value="" disabled selected>Choisir...</option>
                           <option value="Easy">Facile</option>
                           <option value="Medium">Moyenne</option>

@@ -57,8 +57,8 @@ public class TacheServiceImpl implements ITacheService{
 			 if(!isAlreadyAssigned) {
 				 tache.getEtudiants().add(etudiant);
 			     Tache t=tacherep.save(tache);
-			     Completion c=new Completion(false,etudiant,t);
-			     compRep.save(c);
+//			     Completion c=new Completion(false,etudiant,t);
+//			     compRep.save(c);
 			 }
 			 
 		}
@@ -79,8 +79,8 @@ public class TacheServiceImpl implements ITacheService{
 			if(etudiant.getId_Etudiant()==idEtudiant) {
 				t.getEtudiants().add(etudiant);
 				Tache tache=tacherep.save(t);
-				Completion c=new Completion(false,etudiant,tache);
-				compRep.save(c);
+//				Completion c=new Completion(false,etudiant,tache);
+//				compRep.save(c);
 				
 				return tache; }
 		}

@@ -47,8 +47,7 @@ loadTasks() {
 toggleCompletion(c: Completion) {
   const newStatus = !c.marquer; // Toggle the current status
   c.marquer = newStatus; // Update local state
-  this.CompServ.markTaskAsCompleted(c.id_Completion, newStatus).subscribe(
-    (updatedCompletion: Completion) => {
+  this.CompServ.markTaskAsCompleted(c.tache_id,c.etudiant_id, newStatus).subscribe(    (updatedCompletion: Completion) => {
       console.log('Tâche marquée comme complétée:', updatedCompletion);
     },
     (error) => {
@@ -57,28 +56,27 @@ toggleCompletion(c: Completion) {
   );
 }
 
-markTaskAsCompleted(c: Completion) {
-  const isCompleted = c.marquer; // Use the current value of `marquer` to determine the state
-  this.CompServ.markTaskAsCompleted(c.id_Completion, isCompleted).subscribe(
-    (updatedCompletion: Completion) => {
-      c.marquer = updatedCompletion.marquer; // Update the local completion object
+markTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean){
+  //const isCompleted = c.marquer; // Use the current value of `marquer` to determine the state
+  this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
+        (updatedCompletion: Completion) => {
+      isCompleted = updatedCompletion.marquer;  // Update the local completion object
       console.log('Tâche marquée comme complétée:', updatedCompletion);
     },
     (error) => {
-      console.error('Erreur lors de la mise à jour de la tâche:', error);
-    }
+      console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);    }
   );
 }
 
-chooseDiff(c: Completion) {
+chooseDiff(c: Completion,tacheId: number)  {
   const difficulty=c.complexite;
   //const isCompleted = c.marquer; // Use the current value of `marquer` to determine the state
-  this.CompServ.chooseDiff(c.id_Completion,difficulty).subscribe((updatedCompletion: Completion) => {
+  this.CompServ.chooseDiff(tacheId,c.etudiant,difficulty).subscribe((updatedCompletion: Completion) => {
     c.complexite = updatedCompletion.complexite; // Update the local completion object
     console.log('difficultee choisit:', updatedCompletion);
   },
   (error) => {
-    console.error('Erreur lors de la mise à jour de la tâche:', error);
+    console.error('Erreur lors de la mise à jour de la tâche:', error, tacheId,c.etudiant,difficulty);
   });
   
 }

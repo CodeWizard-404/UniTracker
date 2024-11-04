@@ -14,12 +14,13 @@ export class CompletionService {
     const url = `${this.Url}/completion?idEtd=${idEtd}&idTache=${idTache}`;
     return this.http.get<Completion>(url);
   }
-  markTaskAsCompleted(idcomp: number, isCompleted: boolean): Observable<Completion> {
-    const url = `${this.Url}/realisation/mark?idcomp=${idcomp}&isCompleted=${isCompleted}`;
+  markTaskAsCompleted(idTache:number, idEtd: number,isCompleted: boolean): Observable<Completion> {
+    const url = `${this.Url}/realisation/mark?tacheId=${idTache}&etudiantId=${idEtd}&isCompleted=${isCompleted}`;
     return this.http.post<Completion>(url, null); // Sending null body since we're using query params
   }
-  chooseDiff(idcomp: number, complexite: String): Observable<Completion> {
-    const url = `${this.Url}/realisation/difficulty?idcomp=${idcomp}&complexite=${complexite}`;
+
+ chooseDiff(idTache:number, idEtd: number,complexite: String): Observable<Completion> {
+    const url = `${this.Url}/realisation/difficulty?tacheId=${idTache}&etudiantId=${idEtd}&complexite=${complexite}`;
     return this.http.post<Completion>(url, null); // Sending null body since we're using query params
   }
 
