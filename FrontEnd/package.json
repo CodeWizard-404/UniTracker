@@ -20,7 +20,6 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
-    "UniTracker": "file:",
     "bootstrap-datepicker": "^1.10.0",
     "flatpickr": "^4.6.13",
     "jquery": "^3.7.1",
@@ -29,6 +28,7 @@
     "rxjs": "~7.8.0",
     "select2": "^4.1.0-rc.0",
     "tslib": "^2.3.0",
+    "UniTracker": "file:",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
