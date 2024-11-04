@@ -1,8 +1,7 @@
 import { Matiere } from "./matiere";
 
 export class Prof {
-    public matieres: number[]; // Add this line to hold matiere IDs
-
+    public matieres: number[]; 
     constructor(
         public id_Professeur: number,
         public nom_Prof: string,
@@ -12,8 +11,8 @@ export class Prof {
         public cin_Prof: string,
         public sexe_Prof: string,
         public telephone_Prof: string,
-        public lesMatieres: Matiere[] // This will hold full Matiere details after fetch
+        public lesMatieres: Matiere[] 
     ) {
-        this.matieres = []; // Initialize matieres array
+        this.matieres = []; 
     }
 }

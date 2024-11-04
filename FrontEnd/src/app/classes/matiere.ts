@@ -8,8 +8,6 @@ export class Matiere {
     classesIds: number[];
     semestre: string;  
 
-
-
     constructor() {
         this.libelle = '';
         this.professeurs = [];
