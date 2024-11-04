@@ -6,12 +6,11 @@
       <div class="content-wrapper">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="text-center">Mes Tâches personnelles</h2>
-          <a class="nav-link btn btn-primary create-new-button"
-            [routerLink]="['/dashEtd', idEtudiant, 'creertacheperso']">
-            + Créer Tâche
-          </a>
+          <h4 class="card-title">Mes Tâches</h4>
+          <div class="d-flex">
+            <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashEtd', idEtudiant, 'creertacheperso']">+ Créer Tâche</a>
           <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Créer Groupe</a>
+          </div>
         </div>
 
         <div class="kanban-container d-flex justify-content-between">

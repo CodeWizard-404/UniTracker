@@ -1,87 +1,89 @@
 import { Component, OnInit } from '@angular/core';
-import { Matiere } from 'src/app/classes/matiere';
 import { Prof } from 'src/app/classes/prof';
+import { Matiere } from 'src/app/classes/matiere';
 import { ProfServiceService } from 'src/app/services/prof-service.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-listes-prof',
   templateUrl: './listes-prof.component.html',
   styleUrls: ['./listes-prof.component.css']
 })
-export class ListesProfComponent implements  OnInit {
-  profs:Prof[]=[];
-  Matieres: Matiere[] = [];
+export class ListesProfComponent implements OnInit {
+  profs: Prof[] = [];
+  allMatieres: Matiere[] = [];
 
+  constructor(private profService: ProfServiceService, private http: HttpClient) {}
 
-  constructor(private profService:ProfServiceService){}
-ngOnInit(): void {
-  this.loadProf();
-}
-
-loadProf(){
-  this.profService.getProfesseurs().subscribe(data=>{
-    this.profs=data;
-  }, error => {
-    console.error('Erreur lors du chargement des profs', error);
-  });
-}
-
-getMatieresNames(prof: Prof): string {
-  if (prof.lesMatieres && prof.lesMatieres.length > 0) {
-    const uniqueMatieres = new Set<string>();
-
-    prof.lesMatieres.forEach(m => {
-      uniqueMatieres.add(m.libelle); 
-    });
-
-    return Array.from(uniqueMatieres).join(", ");
+  ngOnInit(): void {
+    this.loadProfAndMatieres();
   }
-  return "Aucune matière"; 
-}
 
-getClassesNames(prof: Prof): string {
-  if (prof.lesMatieres && prof.lesMatieres.length > 0) {
-    const uniqueClasses = new Set<string>();
-
-    prof.lesMatieres.forEach(m => {
-      if (m.classes && m.classes.length > 0) {
-        m.classes.forEach(cls => {
-          uniqueClasses.add(cls.nom_Classe); 
-        });
-      }
+  loadProfAndMatieres() {
+    this.profService.getProfesseurs().subscribe(profsData => {
+      this.profs = profsData;
+      this.fetchAndAttachMatieres();
+    }, error => {
+      console.error('Erreur lors du chargement des profs', error);
     });
-
-    return Array.from(uniqueClasses).join(", ");
   }
-  return "Aucune classe"; 
+
+  fetchAndAttachMatieres() {
+    this.http.get<Matiere[]>('http://localhost:8081/matieres').subscribe(matieresData => {
+      this.allMatieres = matieresData;
+
+      // Attach full Matiere details to each Prof
+      this.profs.forEach(prof => {
+        prof.lesMatieres = this.allMatieres.filter(matiere => 
+          matiere.id_Matiere !== undefined && prof.matieres.includes(matiere.id_Matiere)
+        );
+      });
+    }, error => {
+      console.error('Erreur lors du chargement des matieres', error);
+    });
 }
 
-getGroupedClassesByYear(prof: Prof): string {
-  if (prof.lesMatieres && prof.lesMatieres.length > 0) {
-    const groupedClasses = new Map<number, Set<number>>();
 
-    prof.lesMatieres.forEach(m => {
-      if (m.classes && m.classes.length > 0) {
-        m.classes.forEach(cls => {
-          if (!groupedClasses.has(cls.annee_Classe)) {
-            groupedClasses.set(cls.annee_Classe, new Set<number>());
-          }
-          groupedClasses.get(cls.annee_Classe)?.add(cls.num_Classe);
-        });
-      }
-    });
+  getClassesNames(prof: Prof): string {
+    if (prof.lesMatieres && prof.lesMatieres.length > 0) {
+      const uniqueClasses = new Set<string>();
 
-    const result: string[] = [];
-    groupedClasses.forEach((classNumbers, year) => {
-      const yearLabel = year === 1 ? '1er' : `${year}eme`;
-      result.push(`${yearLabel}: ${Array.from(classNumbers).sort().join(",")}`);
-    });
+      prof.lesMatieres.forEach(m => {
+        if (m.classes && m.classes.length > 0) {
+          m.classes.forEach(cls => {
+            uniqueClasses.add(cls.nom_Classe); 
+          });
+        }
+      });
 
-    return result.join(" / ");
+      return Array.from(uniqueClasses).join(", ");
+    }
+    return "Aucune classe";
   }
-  return "Aucune classe";
-}
 
+  getGroupedClassesByYear(prof: Prof): string {
+    if (prof.lesMatieres && prof.lesMatieres.length > 0) {
+      const groupedClasses = new Map<number, Set<number>>();
 
-  
+      prof.lesMatieres.forEach(m => {
+        if (m.classes && m.classes.length > 0) {
+          m.classes.forEach(cls => {
+            if (!groupedClasses.has(cls.annee_Classe)) {
+              groupedClasses.set(cls.annee_Classe, new Set<number>());
+            }
+            groupedClasses.get(cls.annee_Classe)?.add(cls.num_Classe);
+          });
+        }
+      });
+
+      const result: string[] = [];
+      groupedClasses.forEach((classNumbers, year) => {
+        const yearLabel = year === 1 ? '1er' : `${year}eme`;
+        result.push(`${yearLabel}: ${Array.from(classNumbers).sort().join(",")}`);
+      });
+
+      return result.join(" / ");
+    }
+    return "Aucune classe";
+  }
 }

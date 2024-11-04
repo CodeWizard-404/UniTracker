@@ -1,8 +1,4 @@
 import { Classe } from "./classe";
-import { Etudiant } from "./etudiant";
-import { Groupe } from "./groupe";
-import { Prof } from "./prof";
-import { Tache } from "./tache";
 
 export class Matiere {
     id_Matiere?: number; 
@@ -20,8 +16,6 @@ export class Matiere {
         this.classes = [];
         this.classesIds = []; 
         this.semestre = '';  
-   
-
     }
 }
 
