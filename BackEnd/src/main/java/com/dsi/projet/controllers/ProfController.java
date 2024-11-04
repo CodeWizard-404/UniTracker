@@ -28,7 +28,7 @@ public class ProfController {
 	return profService.getProfs();}
 	
 	@GetMapping("/prof/{idProf}")
-	public Professeur getProfs(@PathVariable("idProf") int id){
+	public Professeur getProf(@PathVariable("idProf") int id){
 	return profService.getProf(id);}
 	
 	
