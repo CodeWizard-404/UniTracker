@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { data } from 'jquery';
 import { Completion } from 'src/app/classes/completion';
 import { Tache } from 'src/app/classes/tache';
 import { CompletionService } from 'src/app/services/completion.service';
@@ -11,75 +10,65 @@ import { CreerTacheService } from 'src/app/services/creer-tache.service';
   templateUrl: './listetacheperso.component.html',
   styleUrls: ['./listetacheperso.component.css']
 })
-export class ListetachepersoComponent implements OnInit{
+export class ListetachepersoComponent implements OnInit {
+  doneTasks: Tache[] = [];
+  todoTasks: Tache[] = [];
   idEtudiant!: number; 
-  taches: Tache[] = []
-  marked!:Completion;
-  constructor( private tacheService: CreerTacheService,private route: ActivatedRoute,private CompServ:CompletionService) { }
+  taches: Tache[] = [];
+  marked!: Completion;
 
-ngOnInit(): void {
-  this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
-  this.CompServ.getCompletion(this.idEtudiant,203).subscribe(
-    (response: Completion) => {
-      this.marked = response;
-      console.log('Tâches récupérées avec succès:', this.marked);
-    },
-    (error) => {
-      console.error('Erreur lors de la récupération des tâches:', error);
-    }
-  );
-  console.log(this.idEtudiant);
-  this.loadTasks();
-}
-loadTasks() {
-  this.tacheService.getTasksByEtudiant(this.idEtudiant)
-    .subscribe(
+  constructor(private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService) { }
+
+  ngOnInit(): void {
+    this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
+    this.loadTasks();
+  }
+
+  loadTasks() {
+    this.tacheService.getTasksByEtudiant(this.idEtudiant).subscribe(
       (response: Tache[]) => {
         this.taches = response;
-        console.log('Tâches récupérées avec succès:', this.taches);
+        this.updateTaskLists(); 
       },
       (error) => {
         console.error('Erreur lors de la récupération des tâches:', error);
       }
     );
-}
+  }
 
-toggleCompletion(c: Completion) {
-  const newStatus = !c.marquer; // Toggle the current status
-  c.marquer = newStatus; // Update local state
-  this.CompServ.markTaskAsCompleted(c.tache_id,c.etudiant_id, newStatus).subscribe(    (updatedCompletion: Completion) => {
-      console.log('Tâche marquée comme complétée:', updatedCompletion);
+  updateTaskLists() {
+    this.doneTasks = this.taches.filter(tache => 
+      tache.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+    );
+    
+    this.todoTasks = this.taches.filter(tache => 
+      !tache.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+    );
+  }
+
+  markTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean) {
+    this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
+      (updatedCompletion: Completion) => {
+        console.log('Tâche marquée comme complétée:', updatedCompletion);
+                this.updateTaskLists();
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);
+      }
+    );
+  }
+
+  chooseDiff(c: Completion,tacheId: number)  {
+    const difficulty=c.complexite;
+    this.CompServ.chooseDiff(tacheId,c.etudiant,difficulty).subscribe((updatedCompletion: Completion) => {
+      c.complexite = updatedCompletion.complexite; 
+      console.log('difficultee choisit:', updatedCompletion);
     },
     (error) => {
-      console.error('Erreur lors de la mise à jour de la tâche:', error);
-    }
-  );
-}
-
-markTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean){
-  //const isCompleted = c.marquer; // Use the current value of `marquer` to determine the state
-  this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
-        (updatedCompletion: Completion) => {
-      isCompleted = updatedCompletion.marquer;  // Update the local completion object
-      console.log('Tâche marquée comme complétée:', updatedCompletion);
-    },
-    (error) => {
-      console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);    }
-  );
-}
-
-chooseDiff(c: Completion,tacheId: number)  {
-  const difficulty=c.complexite;
-  //const isCompleted = c.marquer; // Use the current value of `marquer` to determine the state
-  this.CompServ.chooseDiff(tacheId,c.etudiant,difficulty).subscribe((updatedCompletion: Completion) => {
-    c.complexite = updatedCompletion.complexite; // Update the local completion object
-    console.log('difficultee choisit:', updatedCompletion);
-  },
-  (error) => {
-    console.error('Erreur lors de la mise à jour de la tâche:', error, tacheId,c.etudiant,difficulty);
-  });
-  
-}
+      console.error('Erreur lors de la mise à jour de la tâche:', error, tacheId,c.etudiant,difficulty);
+    });
+    
+  }
 
 deleteTask(idTache: number, idEtudiant: number): void {
   this.tacheService.deleteTaskByEtud(idTache, idEtudiant).subscribe(
