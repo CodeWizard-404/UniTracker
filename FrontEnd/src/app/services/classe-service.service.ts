@@ -11,6 +11,7 @@ import { Matiere } from '../classes/matiere';
 export class ClasseServiceService {
 
   private Url = 'http://localhost:8081/classes'; 
+  private Url2 = 'http://localhost:8081'; 
 
   constructor(private http: HttpClient) {}
 
@@ -28,7 +29,11 @@ export class ClasseServiceService {
   getClassesByIds(classIds: number[]): Observable<Classe[]> {
     return this.http.post<Classe[]>(`${this.Url}/classes`, { ids: classIds });
   }
-
+  getClassesByIdProf(idProf: number): Observable<Classe[]> {
+    console.log("Making HTTP call to:", `${this.Url2}/${idProf}/classes`);
+    return this.http.get<Classe[]>(`${this.Url2}/${idProf}/classes`);
+  }
+  
 }
 
 

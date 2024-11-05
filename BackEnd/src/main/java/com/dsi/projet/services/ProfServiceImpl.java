@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dsi.projet.entities.Classe;
 import com.dsi.projet.entities.Professeur;
 import com.dsi.projet.repositories.EtudiantRepository;
 import com.dsi.projet.repositories.ProfRepository;
@@ -37,5 +38,9 @@ public class ProfServiceImpl implements IProfService{
 		
 		return null;
 	}
+	
+	public List<Classe> getClassesByProfId(int idProf) {
+        return profRep.findClassesByProfId(idProf);
+    }
 
 }

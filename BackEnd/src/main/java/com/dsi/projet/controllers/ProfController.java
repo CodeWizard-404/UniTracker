@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dsi.projet.entities.Classe;
 import com.dsi.projet.entities.Professeur;
 import com.dsi.projet.services.ProfServiceImpl;
 
@@ -36,5 +37,10 @@ public class ProfController {
 	public Professeur addProf(@RequestBody Professeur p){
 	return profService.addProf(p);
 }
+	
+	 @GetMapping("/{idProf}/classes")
+	    public List<Classe> getClassesByIdProf(@PathVariable int idProf) {
+	        return profService.getClassesByProfId(idProf);
+	    }
 
 }

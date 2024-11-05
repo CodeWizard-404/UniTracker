@@ -22,4 +22,8 @@ export class EtudiantServiceService {
       })
   );;
   }
+
+  getEtudiantsByIdClasse(classeId: number): Observable<Etudiant[]> {
+    return this.http.get<Etudiant[]>(`${this.baseUrl}/Etudiants/byClasse/${classeId}`);
+  }
 }

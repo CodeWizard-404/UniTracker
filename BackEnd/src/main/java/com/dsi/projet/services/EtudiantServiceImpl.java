@@ -38,5 +38,8 @@ public class EtudiantServiceImpl implements IEtudiantService {
 	public List<Etudiant> getAll() {
 		return etdRep.findAll();
 	}
+	 public List<Etudiant> getEtudiantsByIdClasse(int classeId) {
+	        return etdRep.findEtudiantsByClasseId(classeId);
+	    }
 
 }
