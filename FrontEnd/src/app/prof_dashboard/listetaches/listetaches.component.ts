@@ -5,6 +5,10 @@ import { CreerTacheService } from 'src/app/services/creer-tache.service';
 import { Etudiant } from 'src/app/classes/etudiant';
 import { EtudiantServiceService } from 'src/app/services/etudiant-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { Prof } from 'src/app/classes/prof';
+import { ProfServiceService } from 'src/app/services/prof-service.service';
+import { ClasseServiceService } from 'src/app/services/classe-service.service';
+import { Classe } from 'src/app/classes/classe';
 
 @Component({
   selector: 'app-listetaches',
@@ -13,19 +17,36 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListetachesComponent implements OnInit{
   taches: Tache[] = [];
+  prof!:Prof;
   etudiants: Etudiant[] = [];
   selectedTacheId: number | null = null; // Pour stocker l'ID de la tâche sélectionnée
   showEtudiants: boolean = false; // Pour contrôler l'affichage de la liste des étudiants
   selectedEtudiants: number[] = []; // Tableau pour stocker les IDs des étudiants sélectionnés
   idProf!:number;
-  constructor(private tacheService: CreerTacheService, private etudiantService: EtudiantServiceService,
-    private route:ActivatedRoute
-  ) {}
+  tabClasses!:Classe[];
+  
+  constructor(private tacheService: CreerTacheService, private etudiantService: EtudiantServiceService,private profService: ProfServiceService,
+    private route:ActivatedRoute, private classeService: ClasseServiceService) {}
 
   ngOnInit(): void {
+    
     this.idProf = Number(this.route.snapshot.paramMap.get('id'));
+
     this.loadTaches();
+
     this.loadEtudiants();
+
+    // this.profService.getProf(this.idProf).subscribe(
+    //   data => {
+    //     this.prof = data;
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    // );
+    console.log("tttttttttttttttttt2")
+    this.loadClasses()
+    
   }
 
   loadTaches() {
@@ -33,6 +54,22 @@ export class ListetachesComponent implements OnInit{
       this.taches = data;
     }, error => {
       console.error('Erreur lors du chargement des taches', error);
+    });
+  }
+  loadClasses(){
+    if (this.idProf == null) {
+      console.error("idProf is not defined");
+      return;
+    }
+    this.classeService.getClassesByIdProf(this.idProf).subscribe({
+      next: (data) => {
+        console.log("tttttttttttttttttt")
+        this.tabClasses = data;
+        console.log("Classes retrieved:", data);
+      },
+      error: (error) => {
+        console.error("Error retrieving classes:", error);
+      }
     });
   }
 
@@ -111,6 +148,52 @@ export class ListetachesComponent implements OnInit{
       }
     );
   }
+
+ onClasseChange(classe: Classe, event: any) {
+  if (event.target.checked) {
+    this.etudiantService.getEtudiantsByIdClasse(classe.id_Classe!).subscribe({
+      next: (etudiants) => {
+        etudiants.forEach(etudiant => {
+          if (!this.selectedEtudiants.includes(etudiant.id_Etudiant)) {
+            this.selectedEtudiants.push(etudiant.id_Etudiant); 
+          }
+        });
+      },
+      error: (error) => {
+        console.error("Erreur lors du chargement des étudiants pour la classe:", error);
+      }
+    });
+  } else {
+    this.etudiantService.getEtudiantsByIdClasse(classe.id_Classe!).subscribe({
+      next: (etudiants) => {
+        etudiants.forEach(etudiant => {
+          this.selectedEtudiants = this.selectedEtudiants.filter(id => id !== etudiant.id_Etudiant);
+        });
+      },
+      error: (error) => {
+        console.error("Erreur lors du chargement des étudiants pour la classe:", error);
+      }
+    });
+  }
+}
+
+  // getClassesNames(prof: Prof): string[] {
+  //   if (prof.lesMatieres && prof.lesMatieres.length > 0) {
+  //     const uniqueClasses = new Set<string>();
+
+  //     prof.lesMatieres.forEach(m => {
+  //       if (m.classes && m.classes.length > 0) {
+  //         m.classes.forEach(cls => {
+  //           uniqueClasses.add(cls.nom_Classe); 
+  //         });
+  //       }
+  //     });
+
+  //     return Array.from(uniqueClasses);
+  //   }
+  //   return [];
+  // }
+
 
 }
 

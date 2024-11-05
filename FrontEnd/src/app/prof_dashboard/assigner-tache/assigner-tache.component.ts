@@ -18,9 +18,11 @@ export class AssignerTacheComponent implements OnInit{
   tacheId!: number; // ID de la tâche à attribuer
   etudiants: Etudiant[] = []; // Liste des étudiants
   selectedEtudiants: number[] = []; 
+  tabClassNames!:string[];
   constructor(private profService: ProfServiceService,private route:ActivatedRoute,private etudiantService:EtudiantServiceService,private tacheService:CreerTacheService){}
   ngOnInit(): void {
     this.loadEtudiants();
+    this.tabClassNames=this.getClassesNames(this.prof);
     this.idProf = Number(this.route.snapshot.paramMap.get('id'));
     this.profService.getProf(this.idProf).subscribe(data=>{this.prof=data;},error => {
       console.error(error);
@@ -63,7 +65,7 @@ export class AssignerTacheComponent implements OnInit{
       this.selectedEtudiants = this.selectedEtudiants.filter(id => id !== idEtudiant);
     }
   }
-  getClassesNames(prof: Prof): string {
+  getClassesNames(prof: Prof): string[] {
     if (prof.lesMatieres && prof.lesMatieres.length > 0) {
       const uniqueClasses = new Set<string>();
 
@@ -75,9 +77,9 @@ export class AssignerTacheComponent implements OnInit{
         }
       });
 
-      return Array.from(uniqueClasses).join(", ");
+      return Array.from(uniqueClasses);
     }
-    return "Aucune classe";
+    return [];
   }
 
   

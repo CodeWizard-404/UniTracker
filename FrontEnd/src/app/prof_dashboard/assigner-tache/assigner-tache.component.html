@@ -12,6 +12,11 @@
           <input type="checkbox" [value]="etudiant.id_Etudiant" (change)="onEtudiantChange($event)">
           {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
         </div>
+        <!-- <label>les classes associées au prof :</label>
+        <div *ngFor="let classes of tabClassNames">
+          <input type="checkbox" [value]="classes">
+          {{ classes }} 
+        </div> -->
       </div>
   
     <button (click)="assignTask()" class="btn btn-primary">Assigner Tâche</button>
