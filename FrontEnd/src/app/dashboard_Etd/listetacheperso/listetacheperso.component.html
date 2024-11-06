@@ -22,6 +22,28 @@
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">Description: {{ tache.description }}</span><br />
                 <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
+                <button *ngIf="!timers[tache.id_Tache]" 
+                class="btn btn-success" 
+                (click)="toggleTimer(tache.id_Tache)" 
+                [ngClass]="{'btn-start': !timers[tache.id_Tache]}">
+          <i class="fa fa-play"></i> 
+        </button>
+        
+        <button *ngIf="timers[tache.id_Tache]" 
+                class="btn" 
+                (click)="toggleTimer(tache.id_Tache)" 
+                [ngClass]="{
+                  'btn-success': !timers[tache.id_Tache].running, 
+                  'btn-danger': timers[tache.id_Tache].running,
+                  'btn-pause': timers[tache.id_Tache].running, 
+                  'btn-resume': !timers[tache.id_Tache].running
+                }">
+          <i class="fa" [ngClass]="timers[tache.id_Tache].running ? 'fa-pause' : 'fa-play'"></i> 
+        </button>
+        
+                <div class="mt-2">
+                  <span>Temps écoulé: {{ formatTime(times[tache.id_Tache] || 0) }}</span>
+                </div>
                 <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
                 <div class="d-flex justify-content-between">
                   <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
@@ -71,6 +93,10 @@
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">Description: {{ tache.description }}</span><br />
                 <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
+
+                <div class="mt-2">
+                  <span>Temps écoulé: {{ formatTime(times[tache.id_Tache] || 0) }}</span>
+                </div>
                 <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
                 <div class="d-flex justify-content-between">
                   <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>

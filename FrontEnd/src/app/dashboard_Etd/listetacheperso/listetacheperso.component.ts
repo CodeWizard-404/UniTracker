@@ -17,6 +17,10 @@ export class ListetachepersoComponent implements OnInit {
   taches: Tache[] = [];
   marked!: Completion;
 
+    
+    timers: { [key: number]: any } = {}; 
+    times: { [key: number]: number } = {}; 
+
   constructor(private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService) { }
 
   ngOnInit(): void {
@@ -35,6 +39,57 @@ export class ListetachepersoComponent implements OnInit {
       }
     );
   }
+  toggleTimer(tacheId: number) {
+    if (!this.timers[tacheId]) {
+      // Start the timer if it's not running
+      this.startTimer(tacheId);
+    } else {
+      if (this.timers[tacheId].running) {
+        // Pause the timer if it's running
+        this.stopTimer(tacheId);
+      } else {
+        // Resume the timer if it's paused
+        this.resumeTimer(tacheId);
+      }
+    }
+  }
+
+  startTimer(tacheId: number) {
+    this.timers[tacheId] = { startTime: Date.now(), interval: null, running: true };
+    this.times[tacheId] = 0;
+
+    this.timers[tacheId].interval = setInterval(() => {
+      this.times[tacheId] = Math.floor((Date.now() - this.timers[tacheId].startTime) / 1000);
+    }, 1000);
+  }
+
+  stopTimer(tacheId: number) {
+    if (this.timers[tacheId]) {
+      clearInterval(this.timers[tacheId].interval);
+      this.timers[tacheId].running = false; // Set running to false when timer is stopped
+    }
+  }
+
+  resumeTimer(tacheId: number) {
+    if (this.timers[tacheId] && !this.timers[tacheId].running) {
+      // Continue from where it was paused
+      this.timers[tacheId].startTime = Date.now() - this.times[tacheId] * 1000;
+      this.timers[tacheId].running = true;
+
+      this.timers[tacheId].interval = setInterval(() => {
+        this.times[tacheId] = Math.floor((Date.now() - this.timers[tacheId].startTime) / 1000);
+      }, 1000);
+    }
+  }
+
+  formatTime(seconds: number): string {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  
 
   updateTaskLists() {
     this.doneTasks = this.taches.filter(tache => 

@@ -18,6 +18,32 @@
   margin-bottom: 15px; 
 }
 
+.btn-start {
+  background-color: #28a745;
+  transition: background-color 0.3s ease;
+}
+
+.btn-start:hover {
+  background-color: #218838;
+}
+
+.btn-stop {
+  background-color: #dc3545;
+  transition: background-color 0.3s ease;
+}
+
+.btn-stop:hover {
+  background-color: #c82333;
+}
+
+button i {
+  margin-right: 5px; /* Espacement entre l'icône et le texte */
+}
+
+button {
+  font-size: 16px; /* Taille de police plus grande */
+  padding: 10px 20px; /* Améliorer la taille du bouton */
+}
 
 
 .card {
