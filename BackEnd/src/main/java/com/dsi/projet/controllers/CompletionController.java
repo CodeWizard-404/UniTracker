@@ -1,9 +1,12 @@
 package com.dsi.projet.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +37,10 @@ public class CompletionController {
 	    return ResponseEntity.ok(c );
 	}
 	
+	@GetMapping("/rappels/{id}")
+	public List<String> getRappelsByEtudiant(@PathVariable("id") int id){
+		return comServ.getRappelByEtudiant(id);
+	}
 //	@PostMapping("/task/mark")
 //	public ResponseEntity<Tache> markTaskAsCompleted(@RequestParam int idTache, @RequestParam boolean isCompleted) {
 //	    Tache tache = tacheService.markTaskAsCompleted(idTache, isCompleted);

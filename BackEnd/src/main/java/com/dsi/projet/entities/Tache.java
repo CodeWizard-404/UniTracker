@@ -1,6 +1,8 @@
 package com.dsi.projet.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +153,8 @@ public class Tache {
 	public void setEtudiants(List<Etudiant> etudiants) {
 		this.etudiants = etudiants;
 	}
+	
+	
 
 //	public boolean isMarquer() {
 //		return marquer;

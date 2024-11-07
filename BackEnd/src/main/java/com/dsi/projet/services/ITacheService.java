@@ -19,4 +19,5 @@ public interface ITacheService {
 	public boolean deleteTaskByEtud(int idTache,int id_etud);
 	
 	public String getMatiereByTache(int idTache);
+	
 }

@@ -14,29 +14,27 @@
         </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
-        
-      
         <li class="nav-item dropdown border-left">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" >
-            <i class="mdi mdi-bell" ></i>
-            <span class="count bg-danger" *ngIf="hasNewNotifications"></span>
+            <i class="mdi mdi-bell" (click)="OnclickBell()"></i>
+            <span class="count bg-danger" *ngIf="hasNewNotifications && !clicked" (click)="OnclickBell()"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
             <h5 class="p-3 mb-0">Notifications</h5>
-            <div class="dropdown-divider" *ngIf="notifications.length > 0;else noNotifications"></div>
+            <div class="dropdown-divider" *ngIf="rappels && rappels.length > 0;else noNotifications"></div>
              
               <div class="preview-item-content">
               <div>
                 
-               <div *ngFor="let notification of notifications">
-                <a class="dropdown-item preview-item" (click)="markAsRead(notification)">
+               <div *ngFor="let rappel of rappels;let i = index">
+                <a class="dropdown-item preview-item">
 
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-dark rounded-circle">
                     <i class="fa-regular fa-clock" style="color: rgb(182, 47, 47);"></i>
                 </div>
                 </div>
-                  <p [ngClass]="{'font-weight-bold': !notification.read}" style="padding-top: 15px;padding-right: 6px;">   &nbsp;{{ notification.message }}</p>
+                  <p style="padding-top: 15px;padding-right: 6px;">   &nbsp;{{rappel}}</p>
                 </a>
                 <div class="dropdown-divider"></div>
               </div>

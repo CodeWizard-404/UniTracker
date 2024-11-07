@@ -6,6 +6,7 @@ import { Tache } from 'src/app/classes/tache';
 import { CreerTacheService } from 'src/app/services/creer-tache.service';
 import { MatiereServiceService } from 'src/app/services/matiere-service.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-creertache',
@@ -17,7 +18,8 @@ export class CreertacheComponent implements OnInit {
   idEtudiant!: number; 
   taches: Tache[] = []
   matieres:Matiere[]=[];
-  constructor(private fb: FormBuilder, private router: Router, private tacheService: CreerTacheService,private route: ActivatedRoute,private matService:MatiereServiceService) { }
+  constructor(private fb: FormBuilder, private router: Router, private tacheService: CreerTacheService,
+    private route: ActivatedRoute,private matService:MatiereServiceService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.tacheForm = this.fb.group({
@@ -45,11 +47,11 @@ export class CreertacheComponent implements OnInit {
       };
       const tache = this.tacheForm.value;
       this.tacheService.createTaskByEtudiant(this.idEtudiant, tache).subscribe(
-
         response => {
           if(response==null){alert("Tâche non ajoutée");console.log('Tâche non ajoutée:', tache);}
           else{console.log('Tâche ajoutée avec succès:', response);
-            alert("Tâche ajoutée avec succès:");this.router.navigate(['/dashEtd', this.idEtudiant, 'listetacheperso']);}
+            this.toastr.success('Tâche crée avec succès!');
+            this.router.navigate(['/dashEtd', this.idEtudiant, 'listetacheperso']);}
           
         },
         error => {

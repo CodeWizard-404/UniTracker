@@ -13,4 +13,5 @@ import com.dsi.projet.entities.Tache;
 public interface CompletionRepository extends JpaRepository<Completion,CompletionId> {
 	 @Query("SELECT c.tache FROM Completion c WHERE c.etudiant.id = :idEtudiant")
 	    List<Tache> findTasksByEtudiantId(@Param("idEtudiant") int idEtudiant);
+	 
 }

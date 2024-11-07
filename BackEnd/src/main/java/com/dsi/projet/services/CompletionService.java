@@ -1,20 +1,30 @@
 package com.dsi.projet.services;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.dsi.projet.entities.Completion;
 import com.dsi.projet.entities.Completion.ComplexteTache;
 import com.dsi.projet.entities.CompletionId;
+import com.dsi.projet.entities.Etudiant;
+import com.dsi.projet.entities.Tache;
 import com.dsi.projet.repositories.CompletionRepository;
+import com.dsi.projet.repositories.EtudiantRepository;
 
 @Service
 public class CompletionService implements ICompletion{
 	@Autowired
 	private CompletionRepository comRep;
+	
+	@Autowired
+	private EtudiantRepository etdRep;
 
 	@Override
 	public Completion Consulter(int idEtd, int idTache) {
@@ -51,4 +61,28 @@ public class CompletionService implements ICompletion{
 		else return null;
 	
 	}
+
+	public List<String> getRappelByEtudiant(int id_etd) {
+	    List<Tache> taches = comRep.findTasksByEtudiantId(id_etd); 
+	    List<String> rappels = new ArrayList<>();
+	    for (Tache tache : taches) {
+	        String rappel = notifierSiDateProche(tache);  
+	        if (rappel != null) {
+	            rappels.add(rappel);
+	        }
+	    }
+	    return rappels.isEmpty() ? null : rappels; 
+	}
+
+	public String notifierSiDateProche(Tache tache) {
+	    LocalDate aujourdHui = LocalDate.now();
+	    LocalDate dateLimite = tache.getDateLimite().toLocalDate();
+	    long joursRestants = ChronoUnit.DAYS.between(aujourdHui, dateLimite);
+	    
+	    if (joursRestants <= 2 && joursRestants > 0) { //jours restants pour la fin de la tâche 1 ou 2 jours
+	        return "La tâche '" + tache.getTitre() + "' arrive à échéance dans " + joursRestants + " jour(s).";
+	    }
+	    return null;
+	}
+	
 }

@@ -24,5 +24,8 @@ export class CompletionService {
     return this.http.post<Completion>(url, null); // Sending null body since we're using query params
   }
 
+  getRappelByEtudiant(idEtd:number):Observable<string[]>{
+    return this.http.get<string[]>((`${this.Url}/rappels/${idEtd}`))
+  }
   
 }

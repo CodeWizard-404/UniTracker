@@ -2,6 +2,8 @@ package com.dsi.projet.entities;
 
 
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +93,7 @@ public class Completion {
 	public void setComplexite(ComplexteTache complexite) {
 		this.complexite = complexite;
 	}
-	
+
+  
 	
 }

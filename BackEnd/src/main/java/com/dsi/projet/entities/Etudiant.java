@@ -51,12 +51,7 @@ public class Etudiant {
 	List<Completion> completions = new ArrayList<>();
 	/*----------------------------------------------------------*/
 
-	/*-------------relationNotification---------------------------------------------*/
 	
-	@OneToMany(mappedBy = "etudiant")
-	List<Notification> notifications = new ArrayList<>();
-	/*----------------------------------------------------------*/
-
 
 //	@Temporal(TemporalType.DATE)
 //	private LocalDate date_de_naissance_Etd;
@@ -67,7 +62,7 @@ public class Etudiant {
 
 
 public Etudiant(String nom_Etd, String prenom_Etd, String email_Etd, String mot_de_passe_Etd, Classe classe,
-		List<Tache> taches, List<Groupe> groupes, List<Completion> completions, List<Notification> notifications) {
+		List<Tache> taches, List<Groupe> groupes, List<Completion> completions) {
 	super();
 	this.nom_Etd = nom_Etd;
 	this.prenom_Etd = prenom_Etd;
@@ -77,7 +72,6 @@ public Etudiant(String nom_Etd, String prenom_Etd, String email_Etd, String mot_
 	this.taches = taches;
 	this.groupes = groupes;
 	this.completions = completions;
-	this.notifications = notifications;
 }
 
 
@@ -230,8 +224,7 @@ public Etudiant(String nom_Etd, String prenom_Etd, String email_Etd, String mot_
 	public String toString() {
 		return "Etudiant [id_Etudiant=" + id_Etudiant + ", nom_Etd=" + nom_Etd + ", prenom_Etd=" + prenom_Etd
 				+ ", email_Etd=" + email_Etd + ", mot_de_passe_Etd=" + mot_de_passe_Etd + ", classe=" + classe
-				+ ", taches=" + taches + ", groupes=" + groupes + ", completions=" + completions + ", notifications="
-				+ notifications + "]";
+				+ ", taches=" + taches + ", groupes=" + groupes + ", completions=" + completions + "]";
 	}
 
 	/*

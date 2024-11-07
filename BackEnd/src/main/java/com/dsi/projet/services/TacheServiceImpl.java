@@ -1,10 +1,13 @@
 package com.dsi.projet.services;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.dsi.projet.entities.Classe;
@@ -221,7 +224,7 @@ public class TacheServiceImpl implements ITacheService{
 	
 	
 	}
-
+	
 	@Override
 	public String getMatiereByTache(int idTache) {
 		Optional<Tache> tacheOpt = tacherep.findById(idTache);
@@ -246,5 +249,7 @@ public class TacheServiceImpl implements ITacheService{
 		}
 		return null;
 	}
+
+
 	}
 
