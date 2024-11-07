@@ -1,0 +1,69 @@
+<div class="container-scroller">
+    <app-sidebar></app-sidebar>
+    <div class="container-fluid page-body-wrapper">
+      <app-navbar></app-navbar>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Modifier les informations de l'étudiant</h4>
+                  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                      <label for="nom_Etd">Nom</label>
+                      <input type="text" id="nom_Etd" class="form-control" formControlName="nom_Etd" />
+                    
+                    </div>
+  
+                    <div class="form-group">
+                      <label for="prenom_Etd">Prénom</label>
+                      <input type="text" id="prenom_Etd" class="form-control" formControlName="prenom_Etd" />
+                    
+                    </div>
+  
+                    <div class="form-group">
+                      <label for="email_Etd">Email</label>
+                      <input type="email" id="email_Etd" class="form-control" formControlName="email_Etd" />
+                      
+                    </div>
+  
+                    <div class="form-group">
+                      <label for="mot_de_passe_Etd">Mot de passe</label>
+                      <input type="password" id="mot_de_passe_Etd" class="form-control" formControlName="mot_de_passe_Etd" />
+                      
+                    </div>
+  
+                    <div formGroupName="classe">
+                        <div class="form-group">
+                          <label for="nomClasse">Nom de la Classe</label>
+                          <input type="text" id="nomClasse" class="form-control" formControlName="nomClasse" />
+                        </div>
+                      
+                        <div class="form-group">
+                          <label for="anneeClasse">Année de la Classe</label>
+                          <input type="number" id="anneeClasse" class="form-control" formControlName="anneeClasse" />
+                        </div>
+                      
+                        <div class="form-group">
+                          <label for="numClasse">Numéro de la Classe</label>
+                          <input type="number" id="numClasse" class="form-control" formControlName="numClasse" />
+                        </div>
+                      </div>
+
+                      
+                    <button type="submit" class="btn btn-success" [disabled]="editForm.invalid">
+                      Enregistrer les modifications
+                    </button>
+                    <a routerLink="/listes-etudiants" class="btn btn-secondary ml-2">Annuler</a>
+                 
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -9,14 +9,8 @@ export class Etudiant {
             public email_Etd:string,
             public mot_de_passe_Etd:string,
 
-            public adresse_Etd:string,
-            public redoublant:boolean,
-            public date_de_naissance_Etd:Date,
-            public cin_Etd:string,
-            public sexe_Etd:string,
-            public telephone_Etd:string,
-            
             public classe:Classe,
+            public nomClasse :string,
             public numClasse :number,
             public anneeClasse:number,
             

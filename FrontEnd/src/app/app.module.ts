@@ -36,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
+import { EditEtudiantComponent } from './admin_dashboard/edit-etudiant/edit-etudiant.component';
 
 
 
@@ -73,6 +74,7 @@ import { ToastrModule } from 'ngx-toastr';
     CreergroupeComponent,
     UpdateTacheComponent,
     ModifierTacheComponent,
+    EditEtudiantComponent,
 
   
    

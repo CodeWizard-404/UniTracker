@@ -3,10 +3,13 @@ package com.dsi.projet.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +37,21 @@ public class EtudiantController {
     public List<Etudiant> getEtudiantsByIdClasse(@PathVariable int classeId) {
         return etdServ.getEtudiantsByIdClasse(classeId);
     }
+	
+	 @PutMapping("etudiants/{id}")
+	 public Etudiant updateEtudiant(@PathVariable int id, @RequestBody Etudiant etd) {
+	      Etudiant etudiant = etdServ.editEtudiant(etd,id);
+	      if (etudiant != null) {
+	           return etudiant;
+	      }
+	        return null;
+	  }
+
+	  @DeleteMapping("/{id}")
+	  public boolean deleteEtudiant(@PathVariable int id) {
+	       etdServ.deleteEtudiant(id);
+	       return true;
+	      
+	  }
 
 }

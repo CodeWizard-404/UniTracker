@@ -20,12 +20,14 @@ import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listet
 import { CreergroupeComponent } from './dashboard_Etd/creergroupe/creergroupe.component';
 import { UpdateTacheComponent } from './prof_dashboard/update-tache/update-tache.component';
 import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
+import { EditEtudiantComponent } from './admin_dashboard/edit-etudiant/edit-etudiant.component';
 
 
 const routes: Routes =[
   {path:'dashboard',title:'Dashboard',component:DashboardComponent},
   {path:'listeprof',title:'Les Profs',component:ListesProfComponent},
   {path:'listeetud',title:'Les Etudiants',component:ListesEtudiantsComponent},
+  { path: 'edit-etudiant/:id', component: EditEtudiantComponent },
   {path:'listeclasse',title:'Les classes',component:ListeclasseComponent},
   {path:'listmatiere',title:'Les matiere',component:ListematiereComponent},
   

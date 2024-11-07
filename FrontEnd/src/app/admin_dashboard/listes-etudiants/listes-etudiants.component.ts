@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { each } from "jquery";
 import { Classe } from "src/app/classes/classe";
 import { Etudiant } from "src/app/classes/etudiant";
@@ -13,7 +14,8 @@ import { EtudiantServiceService } from "src/app/services/etudiant-service.servic
 export class ListesEtudiantsComponent implements OnInit {
   constructor(
     private etudiantService: EtudiantServiceService,
-    private classService: ClasseServiceService
+    private classService: ClasseServiceService,
+    private router: Router
   ) {}
   etudiants: Etudiant[] = [];
   classes: Classe[] = [];
@@ -31,4 +33,24 @@ export class ListesEtudiantsComponent implements OnInit {
       }
     );
   }
+
+ // Méthode pour éditer un étudiant
+ editEtudiant(etudiant: Etudiant) {
+  // Naviguer vers la page d'édition d'un étudiant avec l'ID de l'étudiant
+  this.router.navigate([`/edit-etudiant/${etudiant.id_Etudiant}`]);
+}
+
+// Méthode pour supprimer un étudiant
+deleteEtudiant(id_Etudiant: number) {
+  // Appel à un service de suppression (à ajouter dans le service)
+  this.etudiantService.deleteEtudiant(id_Etudiant).subscribe(
+    () => {
+      this.loadEtudiants(); // Recharger la liste après suppression
+      alert('Étudiant supprimé avec succès!');
+    },
+    (error) => {
+      console.error("Erreur lors de la suppression de l'étudiant", error);
+    }
+  );
+}
 }

@@ -27,71 +27,13 @@ public class Etudiant {
 	private String prenom_Etd;
 	private String email_Etd;
 	private String mot_de_passe_Etd;
-	private String adresse_Etd;
-	private boolean redoublant;
-//	@Temporal(TemporalType.DATE)
-//	private LocalDate date_de_naissance_Etd;
-	private String sexe_Etd;
-	public Etudiant() {
-		super();
-	}
-
-	public Etudiant(int id_Etudiant, String nom_Etd, String prenom_Etd, String email_Etd, String mot_de_passe_Etd,
-			String adresse_Etd, boolean redoublant, String sexe_Etd,
-			String telephone_Etd, String cin_Etd, Classe classe, List<Tache> taches, List<Groupe> groupes,
-			List<Completion> completions) {
-		super();
-		this.id_Etudiant = id_Etudiant;
-		this.nom_Etd = nom_Etd;
-		this.prenom_Etd = prenom_Etd;
-		this.email_Etd = email_Etd;
-		this.mot_de_passe_Etd = mot_de_passe_Etd;
-		this.adresse_Etd = adresse_Etd;
-		this.redoublant = redoublant;
-		
-		this.sexe_Etd = sexe_Etd;
-		this.telephone_Etd = telephone_Etd;
-		this.cin_Etd = cin_Etd;
-		this.classe = classe;
-		this.taches = taches;
-		this.groupes = groupes;
-		this.completions = completions;
-	}
-
-
-
-	private String telephone_Etd;
-	private String cin_Etd;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "id_classe")
 	// @JsonIgnore
 	private Classe classe;
-
 	
-
-//	public List<Integer> getCompletions() {
-//		 List<Integer> compsIds = new ArrayList<>();
-//		 for (Completion c : completions) {
-//			 compsIds.add(c.getId_Completion());
-//		}
-//		return compsIds;
-//	}
-
-	public void setCompletions(List<Completion> completions) {
-		this.completions = completions;
-	}
-
-	public void setId_Etudiant(int id_Etudiant) {
-		this.id_Etudiant = id_Etudiant;
-	}
-
-	public void setGroupes(List<Groupe> groupes) {
-		this.groupes = groupes;
-	}
-
-
-
+	
 	@ManyToMany(mappedBy = "etudiants")
 	@JsonIgnore
 	private List<Tache> taches = new ArrayList<>();
@@ -115,42 +57,51 @@ public class Etudiant {
 	List<Notification> notifications = new ArrayList<>();
 	/*----------------------------------------------------------*/
 
-	
-	public Etudiant(
-		int id_Etudiant, String nom_Etd, String prenom_Etd, String email_Etd,String mot_de_passe_Etd, 
-		Classe classe, List<Tache> taches, List<Groupe> groupes, 
-		String adresse_Etd,boolean redoublant, 
-		String sexe_Etd, String telephone_Etd,String cin_Etd
-		) {
-		super();
-		this.id_Etudiant = id_Etudiant;
-		this.nom_Etd = nom_Etd;
-		this.prenom_Etd = prenom_Etd;
-		this.email_Etd = email_Etd;
-		this.mot_de_passe_Etd = mot_de_passe_Etd;
 
-		this.adresse_Etd = adresse_Etd;
-		this.redoublant = redoublant;
-		
-		this.sexe_Etd = sexe_Etd;
-		this.telephone_Etd = telephone_Etd;
-		this.cin_Etd = cin_Etd;
-		
-		this.classe = classe;
-		this.taches = taches;
+//	@Temporal(TemporalType.DATE)
+//	private LocalDate date_de_naissance_Etd;
+
+	public Etudiant() {
+		super();
+	}
+
+
+public Etudiant(String nom_Etd, String prenom_Etd, String email_Etd, String mot_de_passe_Etd, Classe classe,
+		List<Tache> taches, List<Groupe> groupes, List<Completion> completions, List<Notification> notifications) {
+	super();
+	this.nom_Etd = nom_Etd;
+	this.prenom_Etd = prenom_Etd;
+	this.email_Etd = email_Etd;
+	this.mot_de_passe_Etd = mot_de_passe_Etd;
+	this.classe = classe;
+	this.taches = taches;
+	this.groupes = groupes;
+	this.completions = completions;
+	this.notifications = notifications;
+}
+
+
+//	public List<Integer> getCompletions() {
+//		 List<Integer> compsIds = new ArrayList<>();
+//		 for (Completion c : completions) {
+//			 compsIds.add(c.getId_Completion());
+//		}
+//		return compsIds;
+//	}
+
+	public void setCompletions(List<Completion> completions) {
+		this.completions = completions;
+	}
+
+	public void setId_Etudiant(int id_Etudiant) {
+		this.id_Etudiant = id_Etudiant;
+	}
+
+	public void setGroupes(List<Groupe> groupes) {
 		this.groupes = groupes;
 	}
 
-	@Override
-	public String toString() {
-		return "Etudiant [id_Etudiant=" + id_Etudiant + ", nom_Etd=" + nom_Etd + ", prenom_Etd=" + prenom_Etd
-				+ ", email_Etd=" + email_Etd + ", mot_de_passe_Etd=" + mot_de_passe_Etd +  ", classe="
-				+ classe + ", taches=" + taches
 
-				+", adresse_Etd=" + adresse_Etd + ", redoublant=" + redoublant
-				 + ", sexe_Etd=" + sexe_Etd + ", telephone_Etd="
-				+ telephone_Etd + ", cin_Etd=" + cin_Etd  + "]";
-	}
 	
 	public List<Integer> getTaches() {
 		List<Integer> tacheIds = new ArrayList<>();
@@ -191,13 +142,7 @@ public class Etudiant {
 		this.email_Etd = email_Etd;
 	}
 
-	public String getAdresse_Etd() {
-		return adresse_Etd;
-	}
 
-	public void setAdresse_Etd(String adresse_Etd) {
-		this.adresse_Etd = adresse_Etd;
-	}
 
 //	public LocalDate getDate_de_naissance_Etd() {
 //		return date_de_naissance_Etd;
@@ -206,38 +151,6 @@ public class Etudiant {
 //	public void setDate_de_naissance_Etd(LocalDate date_de_naissance_Etd) {
 //		this.date_de_naissance_Etd = date_de_naissance_Etd;
 //	}
-
-	public String getSexe_Etd() {
-		return sexe_Etd;
-	}
-
-	public void setSexe_Etd(String sexe_Etd) {
-		this.sexe_Etd = sexe_Etd;
-	}
-
-	public String getTelephone_Etd() {
-		return telephone_Etd;
-	}
-
-	public void setTelephone_Etd(String telephone_Etd) {
-		this.telephone_Etd = telephone_Etd;
-	}
-
-	public String getCin_Etd() {
-		return cin_Etd;
-	}
-
-	public void setCin_Etd(String cin_Etd) {
-		this.cin_Etd = cin_Etd;
-	}
-
-	public boolean isRedoublant() {
-		return redoublant;
-	}
-
-	public void setRedoublant(boolean redoublant) {
-		this.redoublant = redoublant;
-	}
 
 	public String getMot_de_passe_Etd() {
 		return mot_de_passe_Etd;
@@ -275,7 +188,9 @@ public class Etudiant {
 	// public void setNumClasse(int Num_Classe) {
 	// 	this.classe.setNum_Classe(Num_Classe);
 	// }
-
+	public Classe getClasse1() {
+		return classe;
+	}
 
 	public String getClasse() {
 		return classe.getNom_Classe();
@@ -307,6 +222,17 @@ public class Etudiant {
     public void setId(int id_Etudiant) {
 		this.id_Etudiant = id_Etudiant;
     }
+
+
+
+
+	@Override
+	public String toString() {
+		return "Etudiant [id_Etudiant=" + id_Etudiant + ", nom_Etd=" + nom_Etd + ", prenom_Etd=" + prenom_Etd
+				+ ", email_Etd=" + email_Etd + ", mot_de_passe_Etd=" + mot_de_passe_Etd + ", classe=" + classe
+				+ ", taches=" + taches + ", groupes=" + groupes + ", completions=" + completions + ", notifications="
+				+ notifications + "]";
+	}
 
 	/*
 	 * 
