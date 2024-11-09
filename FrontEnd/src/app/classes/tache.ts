@@ -11,6 +11,8 @@ export class Tache {
         public complexite:string,
         public professeur :Prof,
         public completions:Completion[],
+        public sousTaches:Tache[],
+        public tachePrincipale:String,
 
     ){}
 }

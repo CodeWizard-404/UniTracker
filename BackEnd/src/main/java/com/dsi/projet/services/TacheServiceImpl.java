@@ -250,6 +250,21 @@ public class TacheServiceImpl implements ITacheService{
 		return null;
 	}
 
+	@Override
+	public Tache addSubTask(Tache t, int idEtudiant, int idTacheP) {
+				List<Etudiant> etudiants=etudiantRepo.findAll();
+				for (Etudiant etudiant : etudiants) {
+					if(etudiant.getId_Etudiant()==idEtudiant) {
+						t.getEtudiants().add(etudiant);
+						Tache tacheP = tacherep.findById(idTacheP)
+							        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
+						t.setTachePrincipale(tacheP);
+						Tache tache=tacherep.save(t);
+						return tache; }
+				}
+				return null;
+	}
+
 
 	}
 

@@ -47,9 +47,10 @@
                     [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]"
                     style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
+                <!-- marks as completed  difficulty options  and add comment part -->
                 <div *ngFor="let c of tache.completions">
-
-
+                  
+                  
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
                       <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
@@ -77,24 +78,21 @@
                         </select>
                       </div>
                     </div>
-                    <input type="text" [(ngModel)]="comment">
-                    <button (click)="addComment(tache.id_Tache,comment,c)">ajouter un commentaire</button>
+                    <input  type="text"  [(ngModel)]="comment">
+                    <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
 
                 </div>
 
-
-                <div *ngFor="let c of tache.completions">
-                  <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
-                </div>
-
-
-
-                <div class="d-flex justify-content-between mt-3">
-                  <button *ngIf="tache.professeur==null" class="btn btn-danger"
-                    (click)="deleteTask(tache.id_Tache, idEtudiant)" style="position: absolute; bottom: 30px; right: 40px;"><i
-                      class="bi bi-trash-fill"></i></button>
-
+                  
+                  <div *ngFor="let c of tache.completions">
+                    <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
+                  </div>
+                 
+                  
+                
+                  <div class="d-flex justify-content-between mt-3">
+                  <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>
               </div>
             </div>
@@ -117,6 +115,7 @@
                     [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]"
                     style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
+                <!-- marks as completed  difficulty options and add comment part -->
                 <div *ngFor="let c of tache.completions">
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
@@ -146,25 +145,22 @@
                       </div>
 
                     </div>
-                    <input type="text" [(ngModel)]="comment">
-                    <button (click)="addComment(tache.id_Tache,comment,c)">ajouter un commentaire</button>
+                    <input  type="text"  [(ngModel)]="comment">
+                      <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
                 </div>
-                <div *ngFor="let c of tache.completions">
+                  <div *ngFor="let c of tache.completions">
                   <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
-                </div>
-
-
-
-                <div class="d-flex justify-content-between mt-3">
-                  <button *ngIf="tache.professeur==null" class="btn btn-danger"
-                    (click)="deleteTask(tache.id_Tache, idEtudiant)" style="position: absolute; bottom: 30px; right: 40px;"><i
-                      class="bi bi-trash-fill"></i></button>
-
+                  </div>
+                 
+                  
+                  
+                  <div class="d-flex justify-content-between mt-3">
+                  <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>
               </div>
             </div>
-          </div>
+          </div>      
         </div>
       </div>
     </div>

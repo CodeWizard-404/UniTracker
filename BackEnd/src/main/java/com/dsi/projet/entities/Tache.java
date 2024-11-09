@@ -52,6 +52,32 @@ public class Tache {
 	List<Completion>completions=new ArrayList<>();
 	/*----------------------------------------------------------*/
 	
+	
+	/*-------------relationSoustaches---------------------------------------------*/
+	@OneToMany(mappedBy = "tachePrincipale")
+	List<Tache>sousTaches=new ArrayList<>();
+	/*----------------------------------------------------------*/
+	
+	/*-------------relationSoustaches---------------------------------------------*/
+	@ManyToOne
+	@JoinColumn(name = "id_TacheP")
+	private Tache tachePrincipale;
+	/*----------------------------------------------------------*/
+	
+	public void setTachePrincipale(Tache tachePrincipale) {
+		this.tachePrincipale = tachePrincipale;
+	}
+
+	public String getTachePrincipale() {
+		if(tachePrincipale!=null) {return tachePrincipale.getTitre();}
+		return null;
+		
+	}
+
+	public List<Tache> getSousTaches() {
+		return sousTaches;
+	}
+
 	public Tache() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -103,6 +129,12 @@ public class Tache {
 		this.description = description;
 		this.dateLimite = dateLimite;
 		//this.marquer=false;
+	}
+	
+	public Tache(String titre) {
+		super();
+		this.titre = titre;
+		
 	}
 	
 	
