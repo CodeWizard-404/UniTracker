@@ -16,6 +16,7 @@ export class ListetachepersoComponent implements OnInit {
   idEtudiant!: number; 
   taches: Tache[] = [];
   marked!: Completion;
+  comment!:String;
 
     
     timers: { [key: number]: any } = {}; 
@@ -141,4 +142,17 @@ deleteTask(idTache: number, idEtudiant: number): void {
     }
   );
 }
+addComment(idTache: number,comment:String){
+  console.log(comment);
+  this.CompServ.addComment(idTache,this.idEtudiant,comment).subscribe(
+    (updatedCompletion: Completion) => {
+      console.log('commentaire ajoutee avec succee', updatedCompletion);
+            
+    },
+    (error) => {
+      console.error('Erreur lors de la mise à jour de la tâche:', idTache,this.idEtudiant,error);
+    }
+  );
+}
+
 }

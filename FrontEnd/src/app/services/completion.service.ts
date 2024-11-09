@@ -10,6 +10,11 @@ export class CompletionService {
   private Url = 'http://localhost:8081'; 
 
   constructor(private http: HttpClient) {}
+  addComment(idTache:number, idEtd: number,comment: String): Observable<Completion>{
+    const url = `${this.Url}/realisation/comment?tacheId=${idTache}&etudiantId=${idEtd}&comment=${comment}`;
+    return this.http.put<Completion>(url, null)
+
+  }
   getCompletion(idEtd: number,idTache:number): Observable<Completion> {
     const url = `${this.Url}/completion?idEtd=${idEtd}&idTache=${idTache}`;
     return this.http.get<Completion>(url);
