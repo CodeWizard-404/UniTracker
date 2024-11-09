@@ -132,6 +132,7 @@ deleteTask(idTache: number, idEtudiant: number): void {
       if (response) {
         console.log('Tâche supprimée avec succès.');
         this.taches = this.taches.filter(tache => tache.id_Tache !== idTache);
+        this.updateTaskLists();
       
       } else {
         console.log('La tâche n\'a pas été trouvée ou n\'appartient pas au professeur.');
@@ -142,10 +143,11 @@ deleteTask(idTache: number, idEtudiant: number): void {
     }
   );
 }
-addComment(idTache: number,comment:String){
+addComment(idTache: number,comment:String,c:Completion){
   console.log(comment);
   this.CompServ.addComment(idTache,this.idEtudiant,comment).subscribe(
     (updatedCompletion: Completion) => {
+      c.commentaires = updatedCompletion.commentaires; 
       console.log('commentaire ajoutee avec succee', updatedCompletion);
             
     },

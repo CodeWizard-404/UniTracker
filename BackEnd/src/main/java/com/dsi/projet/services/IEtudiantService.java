@@ -10,5 +10,6 @@ public interface IEtudiantService {
 	
 	public Etudiant editEtudiant(Etudiant e,int id);
 	public boolean deleteEtudiant(int id);
+	public Etudiant getEtudiantById(int id);
 
 }

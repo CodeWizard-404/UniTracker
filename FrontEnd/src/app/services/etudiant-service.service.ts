@@ -22,6 +22,9 @@ export class EtudiantServiceService {
       })
   );;
   }
+  getEtudiantById(id:number): Observable<Etudiant> {
+    return this.http.get<Etudiant>(`http://localhost:8081/etd/${id}`);
+  }
 
   getEtudiantsByIdClasse(classeId: number): Observable<Etudiant[]> {
     return this.http.get<Etudiant[]>(`${this.baseUrl}/Etudiants/byClasse/${classeId}`);
