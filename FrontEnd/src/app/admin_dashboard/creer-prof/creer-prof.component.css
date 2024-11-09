@@ -4,25 +4,16 @@
   padding: 15px;
 }
 
-.card-title {
-  color: #ffffff;
-  font-weight: bold;
-}
-
 .input-label, .card-description {
   color: #767676;
   font-weight: 500;
 }
 
-.card-description {
-  color: white;
-}
-
-
 .custom-input {
-  background-color: #282828;
+  background-color: #e5e5e5;
   border: 1px solid #555555;
-  color: #ffffff;
+  color: #303030;
+  font-weight: bold;
   border-radius: 5px;
   padding: 10px;
   transition: border-color 0.3s ease;
@@ -35,7 +26,7 @@
 }
 
 .custom-input:-webkit-autofill {
-  background-color: #282828 !important;
+  background-color: #e5e5e5 !important;
   border-color: #007bff;
   -webkit-box-shadow: 0 0 0px 1000px #cfcfcfa2 inset;
   transition: background-color 5000s ease-in-out 0s;
@@ -46,6 +37,10 @@
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: 600;
+  border: 1px solid #555555;
+}
+.input-group {
+  position: relative;
 }
 
 .input-group-text1 , .input-group-text2{

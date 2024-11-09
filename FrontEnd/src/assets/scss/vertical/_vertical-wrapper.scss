@@ -37,6 +37,7 @@
 
 .content-wrapper {
   background: $content-bg;
+  border: 1px solid #808080;
   padding: 1.875rem 1.75rem;
   width: 100%;
   @include flex-grow(1);

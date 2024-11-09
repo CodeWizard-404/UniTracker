@@ -1,6 +1,7 @@
 .navbar-menu-wrapper{
     box-shadow: none !important;
 }
-/* nav{
-    background: #2a2b2f !important;
-} */
+.nav-item{
+    color: #808080 !important;
+}
+

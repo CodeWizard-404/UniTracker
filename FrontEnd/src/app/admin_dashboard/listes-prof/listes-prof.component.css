@@ -2,21 +2,28 @@ hr {
     background-color: white;
 }
 
+.table-responsive {
+    border: 2px solid #808080; 
+    border-radius: 15px; 
+}
+
 table {
-    background-color: #292b3195;
-    border-radius: 15px;
+    background-color: #80808071;
 }
 
 th {
     color: white !important;
+    text-shadow: 1px 1px 5px #808080 !important;
+    font-weight: bolder !important;
     text-align: center;
-
+    border: 1ps;
 }
 
 td {
     border: none;
     text-align: center;
     padding: 7px;
+    color: #272727;
 }
 
 .card {
@@ -33,3 +40,4 @@ td button {
     margin-right: 0;
     padding-right: 0;
 }
+

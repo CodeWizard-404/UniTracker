@@ -6,10 +6,12 @@
       <div class="content-wrapper">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h4 class="card-title">Mes Tâches</h4>
+          <h2 class="card-title">Mes Tâches</h2>
           <div class="d-flex">
-            <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashEtd', idEtudiant, 'creertacheperso']">+ Créer Tâche</a>
-          <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Créer Groupe</a>
+            <a class="nav-link btn btn-primary create-new-button"
+              [routerLink]="['/dashEtd', idEtudiant, 'creertacheperso']">+ Créer Tâche</a>
+            <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Créer
+              Groupe</a>
           </div>
         </div>
 
@@ -22,41 +24,38 @@
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">Description: {{ tache.description }}</span><br />
                 <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
-                <button *ngIf="!timers[tache.id_Tache]" 
-                class="btn btn-success" 
-                (click)="toggleTimer(tache.id_Tache)" 
-                [ngClass]="{'btn-start': !timers[tache.id_Tache]}">
-                <i class="fa fa-play"></i> 
-               </button>
-        
-               <button *ngIf="timers[tache.id_Tache]" 
-                class="btn" 
-                (click)="toggleTimer(tache.id_Tache)" 
-                [ngClass]="{
+                <button *ngIf="!timers[tache.id_Tache]" class="btn btn-success" (click)="toggleTimer(tache.id_Tache)"
+                  [ngClass]="{'btn-start': !timers[tache.id_Tache]}">
+                  <i class="fa fa-play"></i>
+                </button>
+
+                <button *ngIf="timers[tache.id_Tache]" class="btn" (click)="toggleTimer(tache.id_Tache)" [ngClass]="{
                   'btn-success': !timers[tache.id_Tache].running, 
                   'btn-danger': timers[tache.id_Tache].running,
                   'btn-pause': timers[tache.id_Tache].running, 
                   'btn-resume': !timers[tache.id_Tache].running
                 }">
-               <i class="fa" [ngClass]="timers[tache.id_Tache].running ? 'fa-pause' : 'fa-play'"></i> 
-               </button>
-        
+                  <i class="fa" [ngClass]="timers[tache.id_Tache].running ? 'fa-pause' : 'fa-play'"></i>
+                </button>
+
                 <div class="mt-2">
                   <span>Temps écoulé: {{ formatTime(times[tache.id_Tache] || 0) }}</span>
                 </div>
                 <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
                 <div class="d-flex justify-content-between">
-                  <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
+                  <button *ngIf="tache.professeur==null" class="btn btn-lig"
+                    [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]"
+                    style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
                 <!-- marks as completed  difficulty options  and add comment part -->
                 <div *ngFor="let c of tache.completions">
+                  
+                  
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
-                      <input type="checkbox" 
-                      class="form-check-input" 
-                      [(ngModel)]="c.marquer"
-                      (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)" 
-                      id="completion-{{c.tache_id}}-{{c.etudiant}}"/>
+                      <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
+                        (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)"
+                        id="completion-{{c.tache_id}}-{{c.etudiant}}" />
                       <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant}}">
                         Marquer comme complétée
                       </label>
@@ -70,7 +69,8 @@
                         <label>Difficulte :</label>
                       </div>
                       <div class="form-input">
-                        <select class="form-control p_input" (change)="chooseDiff(c,tache.id_Tache)" [(ngModel)]="c.complexite">
+                        <select class="form-control p_input" (change)="chooseDiff(c,tache.id_Tache)"
+                          [(ngModel)]="c.complexite">
                           <option value="" disabled selected>Choisir...</option>
                           <option value="Easy">Facile</option>
                           <option value="Medium">Moyenne</option>
@@ -78,36 +78,17 @@
                         </select>
                       </div>
                     </div>
-                    <!-- soustaches -->
-                      <!-- Form to add a subtask -->
-      
-                      <form [formGroup]="tacheForm" (ngSubmit)="addSubTask(tache)">
-                        <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" />
-                        <button type="submit">Ajouter une sous-tâche</button>
-                      </form>
-                    
-                      <div *ngIf="tache.sousTaches">
-                        <div *ngFor="let s of tache.sousTaches">
-                          <div *ngIf="s.completions">
-                            <div *ngFor="let c of s.completions">
-                              <div *ngIf="c.etudiant === idEtudiant">{{ s.titre }}</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    <!-- soustaches -->
                     <input  type="text"  [(ngModel)]="comment">
                     <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
-                  
+
                 </div>
-                <!-- marks as completed  difficulty options and add comment part -->
+
                   
-                 <!-- show Comments -->
                   <div *ngFor="let c of tache.completions">
                     <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
                   </div>
-                 <!-- show Comments -->
+                 
                   
                 
                   <div class="d-flex justify-content-between mt-3">
@@ -120,7 +101,6 @@
           <div class="kanban-column">
             <h5>Done</h5>
             <div *ngFor="let tache of doneTasks" class="card mb-3">
-              
               <div class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">Description: {{ tache.description }}</span><br />
@@ -131,14 +111,17 @@
                 </div>
                 <!-- <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span> -->
                 <div class="d-flex justify-content-between">
-                  <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
+                  <button *ngIf="tache.professeur==null" class="btn btn-lig"
+                    [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]"
+                    style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
                 <!-- marks as completed  difficulty options and add comment part -->
                 <div *ngFor="let c of tache.completions">
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
                       <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
-                      (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)" id="completion-{{c.tache_id}}-{{c.etudiant}}"/>
+                        (change)="markTaskAsCompleted(tache.id_Tache, c.etudiant, c.marquer)"
+                        id="completion-{{c.tache_id}}-{{c.etudiant}}" />
                       <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant}}">
                         Marquer comme complétée
                       </label>
@@ -152,51 +135,31 @@
                         <label>Difficulte :</label>
                       </div>
                       <div class="form-input">
-                        <select class="form-control p_input" (change)="chooseDiff(c,tache.id_Tache)" [(ngModel)]="c.complexite">
+                        <select class="form-control p_input" (change)="chooseDiff(c,tache.id_Tache)"
+                          [(ngModel)]="c.complexite">
                           <option value="" disabled selected>Choisir...</option>
                           <option value="Easy">Facile</option>
                           <option value="Medium">Moyenne</option>
                           <option value="Hard">Difficile</option>
                         </select>
-                      </div> 
-                      
-                    </div>
-                    
-                      <!-- Form to add a subtask -->
-      
-                      <form [formGroup]="tacheForm" (ngSubmit)="addSubTask(tache)">
-                        <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" />
-                        <button type="submit">Ajouter une sous-tâche</button>
-                      </form>
-                    <!-- soustaches -->
-                      <div *ngIf="tache.sousTaches">
-                        <div *ngFor="let s of tache.sousTaches">
-                          <div *ngIf="s.completions">
-                            <div *ngFor="let c of s.completions">
-                              <div *ngIf="c.etudiant === idEtudiant">{{ s.titre }}</div>
-                            </div>
-                          </div>
-                        </div>
                       </div>
-                    <!-- soustaches -->
+
+                    </div>
                     <input  type="text"  [(ngModel)]="comment">
                       <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
                 </div>
-                <!-- marks as completed  difficulty options and add comment part -->
-
-                   <!-- show Comments -->
-                   <div *ngFor="let c of tache.completions">
-                    <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
+                  <div *ngFor="let c of tache.completions">
+                  <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
                   </div>
-                 <!-- show Comments -->
+                 
+                  
                   
                   <div class="d-flex justify-content-between mt-3">
                   <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>
-              
+              </div>
             </div>
-           </div>
           </div>      
         </div>
       </div>
@@ -254,4 +217,4 @@
                 </div>
               </div>
             </div>
-          </div>-->  
+          </div>-->
