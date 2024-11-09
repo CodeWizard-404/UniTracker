@@ -32,7 +32,8 @@ export class ListetachepersoComponent implements OnInit {
   loadTasks() {
     this.tacheService.getTasksByEtudiant(this.idEtudiant).subscribe(
       (response: Tache[]) => {
-        this.taches = response;
+        this.taches = response.filter(tache => !tache.tachePrincipale);  
+        //this.taches = response;
         this.updateTaskLists(); 
       },
       (error) => {
@@ -155,6 +156,11 @@ addComment(idTache: number,comment:String,c:Completion){
       console.error('Erreur lors de la mise à jour de la tâche:', idTache,this.idEtudiant,error);
     }
   );
+}
+addSubTask(idTacheP:number,comment:String){
+  //t: Tache,
+  //idEtudiant: number, 
+
 }
 
 }

@@ -34,6 +34,11 @@ public class TacheController {
 		return this.tacheService.addTachebyEtudiant(tache, idEtudiant);
 	}
 	
+	@PostMapping("/addSubTask")
+	public Tache addSubTask(@RequestBody Tache t,@RequestParam int idEtudiant,@RequestParam int idTacheP) {
+		return this.tacheService.addSubTask(t, idEtudiant, idTacheP);
+	}
+	
 
 	@PostMapping("/task/assign")
 	public ResponseEntity<?> assignTask(@RequestParam int idTache, @RequestBody List<Integer> idsEtudiants) {

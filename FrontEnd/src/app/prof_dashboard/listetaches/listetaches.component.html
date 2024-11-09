@@ -34,9 +34,11 @@
                       <i class="bi bi-pencil-square"></i>
                     </button>
                   </div>
-                   <div *ngFor="let c of tache.completions">
-                    <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiant}}</div>
-                   </div>
+                   <!-- show Comments -->
+                  <div *ngFor="let c of tache.completions">
+                    <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
+                  </div>
+                 <!-- show Comments -->
                     <div *ngIf="selectedTacheId === tache.id_Tache" class="mb-4" id="assignEtudiantsSection">
                     <div class="card">
                       <h5 class="mb-0">Assigner à des étudiants</h5>

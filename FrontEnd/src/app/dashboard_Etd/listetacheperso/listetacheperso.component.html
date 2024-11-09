@@ -48,9 +48,8 @@
                 <div class="d-flex justify-content-between">
                   <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
+                <!-- marks as completed  difficulty options  and add comment part -->
                 <div *ngFor="let c of tache.completions">
-                  
-                  
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
                       <input type="checkbox" 
@@ -79,17 +78,29 @@
                         </select>
                       </div>
                     </div>
+                    <!-- soustaches -->
+                    <input  type="text"  [(ngModel)]="comment">
+                    <button (click)="addSubTask(tache.id_Tache,comment)" >ajouter une soustache</button>
+                    <div *ngFor="let s of tache.sousTaches">
+                      <div *ngFor="let c of s.completions">
+                      <div *ngIf="c.etudiant === idEtudiant">
+                        {{s.titre}}
+                      </div>
+                      </div>
+                    </div>
+                    <!-- soustaches -->
                     <input  type="text"  [(ngModel)]="comment">
                     <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
                   
                 </div>
-
+                <!-- marks as completed  difficulty options and add comment part -->
                   
+                 <!-- show Comments -->
                   <div *ngFor="let c of tache.completions">
                     <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
                   </div>
-                 
+                 <!-- show Comments -->
                   
                 
                   <div class="d-flex justify-content-between mt-3">
@@ -114,6 +125,7 @@
                 <div class="d-flex justify-content-between">
                   <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
                 </div>
+                <!-- marks as completed  difficulty options and add comment part -->
                 <div *ngFor="let c of tache.completions">
                   <div *ngIf="c.etudiant === idEtudiant">
                     <div class="form-check mt-2">
@@ -141,21 +153,30 @@
                       </div> 
                       
                     </div>
+                    <!-- soustaches -->
+                    <div *ngFor="let s of tache.sousTaches">
+                      <div>{{s.titre}}</div>
+                      
+                    </div>
+                    <!-- soustaches -->
                     <input  type="text"  [(ngModel)]="comment">
                       <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
                 </div>
-                  <div *ngFor="let c of tache.completions">
-                  <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
+                <!-- marks as completed  difficulty options and add comment part -->
+
+                   <!-- show Comments -->
+                   <div *ngFor="let c of tache.completions">
+                    <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
                   </div>
-                 
-                  
+                 <!-- show Comments -->
                   
                   <div class="d-flex justify-content-between mt-3">
                   <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>
               </div>
             </div>
+
           </div>      
         </div>
       </div>
