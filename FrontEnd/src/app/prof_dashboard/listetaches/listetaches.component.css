@@ -14,7 +14,7 @@
 
 .kanban-column h5 {
     font-weight: bold;
-    color: #ffffff; 
+    color: #505050; 
     margin-bottom: 15px; 
 }
 
@@ -24,6 +24,19 @@
     padding: 15px;
     transition: transform 0.2s;
     background-color: #292b3195;
+}
+
+.card-title {
+    color: #505050;
+    font-weight: bold;
+}
+
+.card-body .card-title {
+    color: #303030;
+    font-size: large;
+}
+.card-text {
+    color: #ffffff !important;
 }
 
 .card:hover {
