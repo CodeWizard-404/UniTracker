@@ -39,7 +39,6 @@ export class ListetachepersoComponent implements OnInit {
     this.tacheService.getTasksByEtudiant(this.idEtudiant).subscribe(
       (response: Tache[]) => {
         this.taches = response.filter(tache => !tache.tachePrincipale);  
-        //this.taches = response;
         this.updateTaskLists(); 
       },
       (error) => {
@@ -49,14 +48,11 @@ export class ListetachepersoComponent implements OnInit {
   }
   toggleTimer(tacheId: number) {
     if (!this.timers[tacheId]) {
-      // Start the timer if it's not running
       this.startTimer(tacheId);
     } else {
       if (this.timers[tacheId].running) {
-        // Pause the timer if it's running
         this.stopTimer(tacheId);
       } else {
-        // Resume the timer if it's paused
         this.resumeTimer(tacheId);
       }
     }
@@ -74,13 +70,12 @@ export class ListetachepersoComponent implements OnInit {
   stopTimer(tacheId: number) {
     if (this.timers[tacheId]) {
       clearInterval(this.timers[tacheId].interval);
-      this.timers[tacheId].running = false; // Set running to false when timer is stopped
+      this.timers[tacheId].running = false; 
     }
   }
 
   resumeTimer(tacheId: number) {
     if (this.timers[tacheId] && !this.timers[tacheId].running) {
-      // Continue from where it was paused
       this.timers[tacheId].startTime = Date.now() - this.times[tacheId] * 1000;
       this.timers[tacheId].running = true;
 
@@ -191,4 +186,14 @@ addSubTask(tache:Tache){
 }
 }
 
+
+  selectedTask: any;
+
+  openTaskDetails(tache: any) {
+    this.selectedTask = tache;
+  }
+
+  closeTaskDetails() {
+    this.selectedTask = null;
+  }
 }
