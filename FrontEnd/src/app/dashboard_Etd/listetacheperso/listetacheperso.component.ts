@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Completion } from 'src/app/classes/completion';
 import { Tache } from 'src/app/classes/tache';
@@ -11,20 +12,25 @@ import { CreerTacheService } from 'src/app/services/creer-tache.service';
   styleUrls: ['./listetacheperso.component.css']
 })
 export class ListetachepersoComponent implements OnInit {
+  tacheForm!: FormGroup;
   doneTasks: Tache[] = [];
   todoTasks: Tache[] = [];
   idEtudiant!: number; 
   taches: Tache[] = [];
   marked!: Completion;
   comment!:String;
+  selectedTacheId: number | null = null;
 
     
     timers: { [key: number]: any } = {}; 
     times: { [key: number]: number } = {}; 
 
-  constructor(private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService) { }
+  constructor(private cd: ChangeDetectorRef,private fb: FormBuilder,private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService) { }
 
   ngOnInit(): void {
+    this.tacheForm = this.fb.group({
+      titre: ['', Validators.required]
+    });
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
     this.loadTasks();
   }
@@ -145,10 +151,12 @@ deleteTask(idTache: number, idEtudiant: number): void {
   );
 }
 addComment(idTache: number,comment:String,c:Completion){
+  
   console.log(comment);
   this.CompServ.addComment(idTache,this.idEtudiant,comment).subscribe(
     (updatedCompletion: Completion) => {
-      c.commentaires = updatedCompletion.commentaires; 
+      c.commentaires = updatedCompletion.commentaires;
+      this.comment=""; 
       console.log('commentaire ajoutee avec succee', updatedCompletion);
             
     },
@@ -157,10 +165,30 @@ addComment(idTache: number,comment:String,c:Completion){
     }
   );
 }
-addSubTask(idTacheP:number,comment:String){
-  //t: Tache,
-  //idEtudiant: number, 
+addSubTask(tache:Tache){
+  this.selectedTacheId = tache.id_Tache;
+  if (this.tacheForm.valid) {
+    
+    const t = this.tacheForm.value;
+    this.tacheService.addSubTask(t,this.idEtudiant,tache.id_Tache).subscribe(
+      (updatedTache: Tache) => {
+        
+        tache.completions=updatedTache.completions;
+        tache.sousTaches = [...updatedTache.sousTaches];
+        console.log('soustache ajoutee avec succee', tache.completions);
+        this.cd.detectChanges();
+        this.tacheForm.reset();
+              
+      },
+    error => {
+      console.error('Erreur lors de l\'ajout de la tâche:', error,t);
+    }
+  );
+  
 
+} else {
+  console.log('Formulaire invalide, veuillez corriger les erreurs.');
+}
 }
 
 }

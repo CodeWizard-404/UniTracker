@@ -79,15 +79,22 @@
                       </div>
                     </div>
                     <!-- soustaches -->
-                    <input  type="text"  [(ngModel)]="comment">
-                    <button (click)="addSubTask(tache.id_Tache,comment)" >ajouter une soustache</button>
-                    <div *ngFor="let s of tache.sousTaches">
-                      <div *ngFor="let c of s.completions">
-                      <div *ngIf="c.etudiant === idEtudiant">
-                        {{s.titre}}
+                      <!-- Form to add a subtask -->
+      
+                      <form [formGroup]="tacheForm" (ngSubmit)="addSubTask(tache)">
+                        <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" />
+                        <button type="submit">Ajouter une sous-tâche</button>
+                      </form>
+                    
+                      <div *ngIf="tache.sousTaches">
+                        <div *ngFor="let s of tache.sousTaches">
+                          <div *ngIf="s.completions">
+                            <div *ngFor="let c of s.completions">
+                              <div *ngIf="c.etudiant === idEtudiant">{{ s.titre }}</div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      </div>
-                    </div>
                     <!-- soustaches -->
                     <input  type="text"  [(ngModel)]="comment">
                     <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
@@ -113,6 +120,7 @@
           <div class="kanban-column">
             <h5>Done</h5>
             <div *ngFor="let tache of doneTasks" class="card mb-3">
+              
               <div class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">Description: {{ tache.description }}</span><br />
@@ -153,11 +161,23 @@
                       </div> 
                       
                     </div>
+                    
+                      <!-- Form to add a subtask -->
+      
+                      <form [formGroup]="tacheForm" (ngSubmit)="addSubTask(tache)">
+                        <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" />
+                        <button type="submit">Ajouter une sous-tâche</button>
+                      </form>
                     <!-- soustaches -->
-                    <div *ngFor="let s of tache.sousTaches">
-                      <div>{{s.titre}}</div>
-                      
-                    </div>
+                      <div *ngIf="tache.sousTaches">
+                        <div *ngFor="let s of tache.sousTaches">
+                          <div *ngIf="s.completions">
+                            <div *ngFor="let c of s.completions">
+                              <div *ngIf="c.etudiant === idEtudiant">{{ s.titre }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     <!-- soustaches -->
                     <input  type="text"  [(ngModel)]="comment">
                       <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
@@ -174,9 +194,9 @@
                   <div class="d-flex justify-content-between mt-3">
                   <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>
-              </div>
+              
             </div>
-
+           </div>
           </div>      
         </div>
       </div>
