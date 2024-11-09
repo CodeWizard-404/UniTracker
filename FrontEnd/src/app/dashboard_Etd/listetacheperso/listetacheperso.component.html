@@ -78,6 +78,24 @@
                         </select>
                       </div>
                     </div>
+                    <!-- Form to add a subtask -->
+      
+                    <form [formGroup]="tacheForm" (ngSubmit)="addSubTask(tache)">
+                      <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" />
+                      <button type="submit">Ajouter une sous-tâche</button>
+                    </form>
+                  <!-- soustaches -->
+                    <div *ngIf="tache.sousTaches">
+                      <div *ngFor="let s of tache.sousTaches">
+                        <div *ngIf="s.completions">
+                          <div *ngFor="let c of s.completions">
+                            <div *ngIf="c.etudiant === idEtudiant">{{ s.titre }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+                  <!-- soustaches -->
                     <input  type="text"  [(ngModel)]="comment">
                     <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
@@ -145,6 +163,24 @@
                       </div>
 
                     </div>
+                    <!-- Form to add a subtask -->
+      
+                    <form [formGroup]="tacheForm" (ngSubmit)="addSubTask(tache)">
+                      <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" />
+                      <button type="submit">Ajouter une sous-tâche</button>
+                    </form>
+                  <!-- soustaches -->
+                    <div *ngIf="tache.sousTaches">
+                      <div *ngFor="let s of tache.sousTaches">
+                        <div *ngIf="s.completions">
+                          <div *ngFor="let c of s.completions">
+                            <div *ngIf="c.etudiant === idEtudiant">{{ s.titre }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+                  <!-- soustaches -->
                     <input  type="text"  [(ngModel)]="comment">
                       <button (click)="addComment(tache.id_Tache,comment,c)" >ajouter un commentaire</button>
                   </div>
