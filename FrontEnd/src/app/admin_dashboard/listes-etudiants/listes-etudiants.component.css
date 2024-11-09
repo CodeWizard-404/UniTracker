@@ -1,33 +1,43 @@
-hr{
+hr {
     background-color: white;
-    }
-    table{
-        background-color: #292b3195;
-        border-radius: 15px;
-    }
-    th{
-        color: white !important;
-        text-align: center;
+}
 
-    }
-    td{
-        border: none;
-        text-align: center;
-        padding: 7px;
-    }
-    .card{
-        border-radius: 15px !important;
-        border:1px solid gray !important;
-    }
+.table-responsive {
+    border: 2px solid #808080; 
+    border-radius: 15px; 
+}
 
-    td button{
-        text-align: center;
-        margin: 0 5px; 
-    }
+table {
+    background-color: #80808071;
+}
 
-    .bi {
-        margin-right: 0; 
-        padding-right: 0; 
-    }
-    
-    
+th {
+    color: white !important;
+    text-shadow: 1px 1px 5px #808080 !important;
+    font-weight: bolder !important;
+    text-align: center;
+    border: 1ps;
+}
+
+td {
+    border: none;
+    text-align: center;
+    padding: 7px;
+    color: #272727;
+}
+
+.card {
+    border-radius: 15px !important;
+    border: 1px solid gray !important;
+}
+
+td button {
+    text-align: center;
+    margin: 0 5px;
+}
+
+.bi {
+    margin-right: 0;
+    padding-right: 0;
+}
+
