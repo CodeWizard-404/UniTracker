@@ -11,6 +11,7 @@ import { EtudiantServiceService } from 'src/app/services/etudiant-service.servic
   styleUrls: ['./edit-etudiant.component.css']
 })
 export class EditEtudiantComponent {
+  
   etudiant: Etudiant;
   editForm: FormGroup;
 
@@ -84,6 +85,28 @@ export class EditEtudiantComponent {
         }
       );
     }
+  }
+
+  isPasswordVisible: boolean = false; 
+
+  
+  generatePassword(length = 8): string {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*@#";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+    }
+    return password;
+  }
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  generateAndSetPassword(): void {
+    const password = this.generatePassword();
+    this.editForm.get('mot_de_passe_Etd')?.setValue(password);
+    console.log('Generated password:', password);
   }
 }
 

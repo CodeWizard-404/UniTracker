@@ -35,7 +35,9 @@ h1{
 }
 
 
-
+.profile-name h3{
+    font-family: cursive !important;
+}
 
 .sidebar-brand {
     padding: 0 !important;

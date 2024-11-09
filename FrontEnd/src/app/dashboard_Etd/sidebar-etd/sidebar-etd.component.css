@@ -33,7 +33,9 @@ h1{
     background-color: inherit !important;
 }
 
-
+.profile-name h3{
+    font-family: cursive !important;
+}
 
 .sidebar-brand {
     padding: 0 !important;
