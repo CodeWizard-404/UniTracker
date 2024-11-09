@@ -48,23 +48,23 @@ public class CompletionService implements ICompletion{
 			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
 		 completion.setMarquer(isCompleted);
 		/////
-		Tache tache = tacheRepo.findById(tacheId)
-					        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
-		Optional<Tache> tacheP=tacheRepo.findById((Integer) tache.getTachePrincipaleId());
-		if(tacheP.isPresent()) {
-		List<Completion>completions=tacheP.get().getCompletions();
-		int p=0;
-		for (Completion c : completions) {
-			if(c.getEtudiant()==etudiantId && c.isMarquer()) {p++;}
-		    }
-		 CompletionId idCompletionP = new CompletionId(tacheId,(int) tache.getTachePrincipaleId());
-		 Completion completionP = comRep.findById(idCompletion)
-			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
-		 completionP.setProgression(p);
-		// if(p>)
-		}
+//		Tache tache = tacheRepo.findById(tacheId)
+//					        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
+//		Optional<Tache> tacheP=tacheRepo.findById((Integer) tache.getTachePrincipaleId());
+//		if(tacheP.isPresent()) {
+//		List<Completion>completions=tacheP.get().getCompletions();
+//		int p=0;
+//		for (Completion c : completions) {
+//			if(c.getEtudiant()==etudiantId && c.isMarquer()) {p++;}
+//		    }
+//		 CompletionId idCompletionP = new CompletionId(tacheId,(int) tache.getTachePrincipaleId());
+//		 Completion completionP = comRep.findById(idCompletion)
+//			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
+//		 completionP.setProgression(p);
+//		
+//		} 
 		
-				 ////
+	   ////
 		    return comRep.save(completion);
 		
 	}
