@@ -32,7 +32,12 @@ public class Completion {
 	}
 	private ComplexteTache complexite;
 	private List<String> commentaires = new ArrayList<>();
+	private int progression;
 	//=new ArrayList<String>();
+
+	public void setProgression(int progression) {
+		this.progression = progression;
+	}
 
 	@ManyToOne
 	@MapsId("etudiant_id") // Mappe l'ID composite à l'association
