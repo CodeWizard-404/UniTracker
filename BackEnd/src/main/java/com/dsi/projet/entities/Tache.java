@@ -73,6 +73,11 @@ public class Tache {
 		return null;
 		
 	}
+	public Object getTachePrincipaleId() {
+		if(tachePrincipale!=null) {return tachePrincipale.getId_Tache();}
+		return null;
+		
+	}
 
 	public List<Tache> getSousTaches() {
 		return sousTaches;

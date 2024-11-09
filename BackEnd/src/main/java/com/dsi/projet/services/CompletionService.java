@@ -17,6 +17,7 @@ import com.dsi.projet.entities.Etudiant;
 import com.dsi.projet.entities.Tache;
 import com.dsi.projet.repositories.CompletionRepository;
 import com.dsi.projet.repositories.EtudiantRepository;
+import com.dsi.projet.repositories.TacheRepository;
 
 @Service
 public class CompletionService implements ICompletion{
@@ -25,6 +26,8 @@ public class CompletionService implements ICompletion{
 	
 	@Autowired
 	private EtudiantRepository etdRep;
+	@Autowired
+	private TacheRepository tacheRepo;
 
 	@Override
 	public Completion Consulter(int idEtd, int idTache) {
@@ -44,8 +47,24 @@ public class CompletionService implements ICompletion{
 		 Completion completion = comRep.findById(idCompletion)
 			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
 		 completion.setMarquer(isCompleted);
-
-		    // Save the updated Completion entity back to the database
+		/////
+//		Tache tache = tacheRepo.findById(tacheId)
+//					        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
+//		Optional<Tache> tacheP=tacheRepo.findById((Integer) tache.getTachePrincipaleId());
+//		if(tacheP.isPresent()) {
+//		List<Completion>completions=tacheP.get().getCompletions();
+//		int p=0;
+//		for (Completion c : completions) {
+//			if(c.getEtudiant()==etudiantId && c.isMarquer()) {p++;}
+//		    }
+//		 CompletionId idCompletionP = new CompletionId(tacheId,(int) tache.getTachePrincipaleId());
+//		 Completion completionP = comRep.findById(idCompletion)
+//			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
+//		 completionP.setProgression(p);
+//		
+//		} 
+		
+	   ////
 		    return comRep.save(completion);
 		
 	}
