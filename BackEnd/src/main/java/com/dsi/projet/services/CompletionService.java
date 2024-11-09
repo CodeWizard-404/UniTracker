@@ -84,5 +84,23 @@ public class CompletionService implements ICompletion{
 	    }
 	    return null;
 	}
+
+	@Override
+	public Completion addComment(int tacheId, int etudiantId,String comment) {
+		CompletionId idCompletion = new CompletionId(tacheId, etudiantId);
+		Optional<Completion> c = comRep.findById(idCompletion);
+		if(c.isPresent()) {
+			//if(c.get().getCommentaires()==null) {
+				List<String> comments=c.get().getCommentaires();
+				if(comments==null) {comments=new ArrayList<>();}
+				comments.add(comment);	
+				c.get().setCommentaires(comments);
+			
+			
+			
+		    return comRep.save(c.get());
+		}
+		return null;
+	}
 	
 }

@@ -31,6 +31,8 @@ public class Completion {
 		Hard
 	}
 	private ComplexteTache complexite;
+	private List<String> commentaires = new ArrayList<>();
+	//=new ArrayList<String>();
 
 	@ManyToOne
 	@MapsId("etudiant_id") // Mappe l'ID composite à l'association
@@ -48,11 +50,12 @@ public class Completion {
 
 	public Completion() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.commentaires= new ArrayList<>();
 	}
 
 	public Completion(boolean marquer, Etudiant etudiant, Tache tache) {
 		super();
+		this.commentaires=new ArrayList<String>();
 		this.marquer = marquer;
 		this.etudiant = etudiant;
 		this.tache = tache;
@@ -92,6 +95,16 @@ public class Completion {
 	}
 	public void setComplexite(ComplexteTache complexite) {
 		this.complexite = complexite;
+	}
+
+	
+
+	public void setCommentaires(List<String> commentaires) {
+		this.commentaires = commentaires;
+	}
+
+	public List<String> getCommentaires() {
+		return commentaires;
 	}
 
   

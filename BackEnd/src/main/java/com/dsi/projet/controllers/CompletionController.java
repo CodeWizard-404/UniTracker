@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,4 +47,8 @@ public class CompletionController {
 //	    Tache tache = tacheService.markTaskAsCompleted(idTache, isCompleted);
 //	    return ResponseEntity.ok(tache);
 //	}
+	@PutMapping("/realisation/comment")
+	public Completion addComment(@RequestParam int tacheId,@RequestParam int etudiantId,@RequestParam String comment) {
+		return comServ.addComment(tacheId, etudiantId, comment);
+	}
 }
