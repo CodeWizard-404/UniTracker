@@ -79,6 +79,12 @@ public class EtudiantServiceImpl implements IEtudiantService {
 	        return true; 
 	    }
 
+		@Override
+		public Etudiant getEtudiantById(int id) {
+			// TODO Auto-generated method stub
+			return etdRep.findById(id).get();
+		}
+
 
 
 

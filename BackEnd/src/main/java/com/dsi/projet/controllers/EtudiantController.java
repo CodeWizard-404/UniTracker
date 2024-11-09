@@ -27,6 +27,10 @@ public class EtudiantController {
 	public List<Etudiant> getAll(){
 	return etdServ.getAll();}
 	
+	@GetMapping("/etd/{id}")
+	public Etudiant getEtudiantById(@PathVariable("id") int id){
+	return etdServ.getEtudiantById(id);}
+	
 	
 	@PostMapping("/etd")
 	public Etudiant addEtudiant(@RequestBody Etudiant e){

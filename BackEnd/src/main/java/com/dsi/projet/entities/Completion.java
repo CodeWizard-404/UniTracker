@@ -73,6 +73,9 @@ public class Completion {
 		
 		return etudiant.getId_Etudiant();
 	}
+	public String  getEtudiantName() {
+		return etudiant.getNom_Etd()+" "+etudiant.getPrenom_Etd();
+	}
 
 	public void setEtudiant(Etudiant etudiant) {
 		this.etudiant = etudiant;
