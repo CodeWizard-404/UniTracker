@@ -47,13 +47,16 @@ public class CompletionService implements ICompletion{
 		 Completion completion = comRep.findById(idCompletion)
 			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
 		 completion.setMarquer(isCompleted);
+		 
+		if(isCompleted) {completion.setProgression(1);}
+		else {completion.setProgression(0);}
 		/////
 		Tache tache = tacheRepo.findById(tacheId)
 					        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
 		if(tache.getTachePrincipaleId()!=null) {
 			Tache tacheP = tacheRepo.findById((Integer) tache.getTachePrincipaleId())
 			        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
-			completion.setProgression(0);
+			//completion.setProgression(0);
 			List<Tache>staches=tacheP.getSousTaches();
 			
 			int p=0;
@@ -75,7 +78,7 @@ public class CompletionService implements ICompletion{
 			 comRep.save(completionP);
 		}
 
-		//else {completion.setProgression(1);}
+		
 
 		    return comRep.save(completion);
 		
