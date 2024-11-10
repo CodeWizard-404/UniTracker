@@ -30,11 +30,13 @@ import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listet
 import { CreergroupeComponent } from './dashboard_Etd/creergroupe/creergroupe.component';
 import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
 import { UpdateClasseComponent } from './admin_dashboard/update-classe/update-classe.component';
+import { EditProfComponent } from './admin_dashboard/edit-prof/edit-prof.component';
 
 const routes: Routes = [
   // Admin Routes
   { path: 'dashboard', title: 'Admin', component: DashboardComponent },
   { path: 'listeprof', title: 'Les Professeurs', component: ListesProfComponent },
+  { path: 'edit-prof/:id', title: 'Modifier Professeur', component: EditProfComponent },
   { path: 'listeetud', title: 'Les Étudiants', component: ListesEtudiantsComponent },
   { path: 'edit-etudiant/:id', title: 'Modifier Étudiant', component: EditEtudiantComponent },
   { path: 'listeclasse', title: 'Les Classes', component: ListeclasseComponent },

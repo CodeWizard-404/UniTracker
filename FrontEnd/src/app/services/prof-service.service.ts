@@ -21,4 +21,14 @@ export class ProfServiceService {
   getProf(id:Number): Observable<Prof> {
     return this.http.get<Prof>(`${this.baseUrl}/prof/${id}`);
   }
+
+
+   updateProf(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/professeurs/${id}`, data);
+  }
+
+    
+    deleteProf(id: number): Observable<void> {
+      return this.http.delete<void>(`${this.baseUrl}/professeurs/${id}`);
+    }
 }

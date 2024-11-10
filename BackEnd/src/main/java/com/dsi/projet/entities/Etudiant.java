@@ -182,10 +182,9 @@ public Etudiant(String nom_Etd, String prenom_Etd, String email_Etd, String mot_
 	// public void setNumClasse(int Num_Classe) {
 	// 	this.classe.setNum_Classe(Num_Classe);
 	// }
-	public Classe getClasse1() {
-		return classe;
-	}
-
+//	public Classe getClasse1() {
+//	return classe;
+//}
 	public String getClasse() {
 		return classe.getNom_Classe();
 	}

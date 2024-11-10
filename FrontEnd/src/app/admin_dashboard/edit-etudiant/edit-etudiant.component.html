@@ -8,7 +8,7 @@
           <div class="card">
             <div class="card-body">
               <h2 class="card-title">Modifier les informations de l'étudiant</h2>
-              <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <p class="card-description"><i class="bi bi-dot"></i> Informations Personnelles </p>
 
                 <div class="row">
@@ -47,8 +47,20 @@
 
                 <div class="row">
                   <div class="col-md">
-                    <label class="col-sm col-form-label input-label">Nom de la Classe</label>
-                    <input type="text" id="nomClasse" class="form-control custom-input" formControlName="nomClasse" />
+                    <div class="form-group">
+                      <label for="classe" class="col-sm col-form-label input-label">Classe</label>
+                      <select
+                        id="classe"
+                        formControlName="classe"
+                        (change)="onClasseChange($event)"
+                        class="form-control custom-input"
+                      >
+                        <option value="">Sélectionner une classe</option>
+                        <option *ngFor="let classe of filteredClasses" [value]="classe.nom_Classe">
+                          {{ classe.nom_Classe }}
+                        </option>
+                      </select>
+                    </div>
                   </div>
                 
                   <div class="col-md">
@@ -65,7 +77,8 @@
                 <hr>
 
                 <div class="d-flex justify-content-end">
-                  <button type="submit" class="btn btn-secondary mr-2" [disabled]="editForm.invalid"><i class="bi bi-floppy"></i>Modifier</button>
+                 
+                  <button type="submit" class="btn btn-secondary mr-2" [disabled]="form.invalid"><i class="bi bi-floppy"></i>Modifier</button>
                   <a routerLink="/listes-etudiants" class="btn btn-danger ml-2"><i class="bi bi-backspace-reverse"></i> Annuler</a>
                 </div>
 

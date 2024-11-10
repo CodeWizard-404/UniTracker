@@ -38,6 +38,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
 import { EditEtudiantComponent } from './admin_dashboard/edit-etudiant/edit-etudiant.component';
 import { UpdateClasseComponent } from './admin_dashboard/update-classe/update-classe.component';
+import { EditProfComponent } from './admin_dashboard/edit-prof/edit-prof.component';
 
 
 
@@ -77,6 +78,7 @@ import { UpdateClasseComponent } from './admin_dashboard/update-classe/update-cl
     ModifierTacheComponent,
     EditEtudiantComponent,
     UpdateClasseComponent,
+    EditProfComponent,
 
   
    
