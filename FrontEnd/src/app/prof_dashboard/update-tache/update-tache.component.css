@@ -6,14 +6,14 @@
 }
 
 .card-title {
-    color: #ffffff;
+    color: #474747;
     font-weight: bold;
 }
 
 .form-control {
-    background-color: #282828;
+    background-color: #e5e5e5;
     border: 1px solid #555555;
-    color: #ffffff;
+    color: #474747;
     border-radius: 5px;
     padding: 10px;
     transition: border-color 0.3s ease;
@@ -32,12 +32,12 @@
 }
 
 .custom-datetime-dark {
-    appearance: none;
-    -webkit-appearance: none;
     -moz-appearance: none;
-    color: #ffffff;
+    -webkit-appearance: none;
+    appearance: none;
+    color: #474747;
     font-size: 16px;
-    background-color: #282828;
+    background-color: #e5e5e5;
 }
 
 .custom-datetime-dark:hover,
@@ -60,16 +60,19 @@
 }
 
 .form-label {
-    flex: 0 0 110px;
+    flex: 0 0 120px;
     text-align: left;
     margin-right: 10px;
+    color: #555555;
 }
 
 label {
     font-size: large;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .form-input {
     flex: 5;
 }
+
+

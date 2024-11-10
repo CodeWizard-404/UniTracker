@@ -6,10 +6,10 @@
       <div class="content-wrapper">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="card-title">Liste des Taches</h2>
+          <h5 class="card-title">Liste des Taches</h5>
           <div class="d-flex">
 
-            <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashboardProf', idProf, 'creerTache']">+ Créer Tâche</a>
+            <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashboardProf', idProf, 'creerTache']">+ Creer Tache</a>
 
             <!--<a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Créer
               Groupe</a>-->
@@ -20,7 +20,7 @@
         <div class="kanban-container d-flex justify-content-between">
           
           <div class="kanban-column">
-            <h3 class="card-title">To Do</h3>
+            <h5 >To Do</h5>
             <!--<div *ngFor="let tache of taches | filterByStatus:'todo'" class="card mb-3">-->
 
               <div *ngFor="let tache of taches" class="card mb-3">
@@ -35,9 +35,10 @@
                     </button>
                   </div>
                    <!-- show Comments -->
+                   <label><strong>Commentaires</strong></label>
                   <div *ngFor="let c of tache.completions">
                     <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
-                  </div>
+                  </div><br>
                  <!-- show Comments -->
                     <div *ngIf="selectedTacheId === tache.id_Tache" class="mb-4" id="assignEtudiantsSection">
                     <div class="card">
@@ -71,7 +72,7 @@
                       <div *ngIf="alertVisible1" class="alert alert-primary mt-3" role="alert">Tâche assignée avec succès</div>
                     </div>
                   </div>
-              <hr>
+              <hr><br>
                   <div class="d-flex justify-content-between mt-3">
                     <button class="btn btn-secondary" (click)="assignTache(tache.id_Tache)"
                             style="position: absolute; bottom: 30px; left: 40px;">

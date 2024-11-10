@@ -13,6 +13,8 @@ table {
 
 th {
     color: white !important;
+    text-shadow: 1px 1px 5px #808080 !important;
+    font-weight: bolder !important;
     text-align: center;
     border: 1ps;
 }

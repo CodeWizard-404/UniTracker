@@ -5,17 +5,15 @@
     width: 520px;
 }
 
-
 .card-title {
-    color: #ffffff;
+    color: #474747;
     font-weight: bold;
 }
 
-
 .form-control {
-    background-color: #282828;
+    background-color: #e5e5e5;
     border: 1px solid #555555;
-    color: #ffffff;
+    color: #474747;
     border-radius: 5px;
     padding: 10px;
     transition: border-color 0.3s ease;
@@ -27,7 +25,6 @@
     outline: none;
 }
 
-
 .btn {
     padding: 10px 20px;
     border-radius: 5px;
@@ -35,12 +32,12 @@
 }
 
 .custom-datetime-dark {
-    appearance: none;
-    -webkit-appearance: none;
     -moz-appearance: none;
-    color: #ffffff;
+    -webkit-appearance: none;
+    appearance: none;
+    color: #474747;
     font-size: 16px;
-    background-color: #282828;
+    background-color: #e5e5e5;
 }
 
 .custom-datetime-dark:hover,
@@ -49,7 +46,6 @@
     outline: none;
 }
 
-/* Calendar icon styling */
 .custom-datetime-dark::-webkit-calendar-picker-indicator {
     background-color: #4a90e2;
     border-radius: 50%;
@@ -58,23 +54,25 @@
     transition: background-color 0.3s ease;
 }
 
-
 .form-group {
     display: flex;
     align-items: left;
 }
 
 .form-label {
-    flex: 0 0 110px;
+    flex: 0 0 120px;
     text-align: left;
     margin-right: 10px;
+    color: #555555;
 }
 
 label {
     font-size: large;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .form-input {
     flex: 5;
 }
+
+

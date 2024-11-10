@@ -23,7 +23,7 @@
   transform: translateY(-10px);
 }
 
-.kanban-column h5 {
+ h5 {
   font-size: 1.3rem;
   font-weight: 600;
   color: #333;
