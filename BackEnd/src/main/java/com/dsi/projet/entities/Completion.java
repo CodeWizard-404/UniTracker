@@ -35,17 +35,27 @@ public class Completion {
 	private List<String> commentaires = new ArrayList<>();
 	@Column(nullable = false,columnDefinition = "int default 0")
 	private int progression=0;
+	@Column(nullable = false,columnDefinition = "int default 0")
+	private int totalSoustTaches=0;
 	//=new ArrayList<String>();
 
-	public void setProgression(int progression) {
-		this.progression = progression;
-	}
+	
 
 	
 
 	@Override
 	public String toString() {
 		return "Completion [id_Completion=" + id_Completion + ", etudiant=" + etudiant + ", tache=" + tache + "]";
+	}
+
+
+
+	public int getTotalSoustTaches() {
+		return totalSoustTaches;
+	}
+
+	public void setTotalSoustTaches(int totalSoustTaches) {
+		this.totalSoustTaches = totalSoustTaches;
 	}
 
 
@@ -76,6 +86,7 @@ public class Completion {
 		this.etudiant = etudiant;
 		this.tache = tache;
 		this.progression=0;
+		this.totalSoustTaches=0;
 	}
 
 	public boolean isMarquer() {
@@ -125,6 +136,14 @@ public class Completion {
 
 	public List<String> getCommentaires() {
 		return commentaires;
+	}
+	
+	public void setProgression(int progression) {
+		this.progression = progression;
+	}
+
+	public int getProgression() {
+		return progression;
 	}
 
   

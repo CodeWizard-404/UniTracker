@@ -42,34 +42,24 @@ public class CompletionService implements ICompletion{
 	}
 
 	@Override
-	public Completion markTaskAsCompleted(int tacheId, int etudiantId, boolean isCompleted) {
+	public Completion markTaskAsCompleted(int tacheId, int etudiantId, Boolean isCompleted) {
 		 CompletionId idCompletion = new CompletionId(tacheId, etudiantId);
 		 Completion completion = comRep.findById(idCompletion)
 			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
 		 completion.setMarquer(isCompleted);
-		 
-		if(isCompleted) {completion.setProgression(1);}
-		else {completion.setProgression(0);}
-		/////
 		Tache tache = tacheRepo.findById(tacheId)
 					        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
 		if(tache.getTachePrincipaleId()!=null) {
 			Tache tacheP = tacheRepo.findById((Integer) tache.getTachePrincipaleId())
 			        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
-			//completion.setProgression(0);
 			List<Tache>staches=tacheP.getSousTaches();
-			
 			int p=0;
 			for (Tache t : staches) {
 				List<Completion>completions=t.getCompletions();
 				for (Completion c : completions) {
 					if(c.getEtudiant()==etudiantId && c.isMarquer()) {p++;}
-					System.out.println(p); 
-				}
-				
-				
-				
-			    }
+					}
+		 }
 			 CompletionId idCompletionP = new CompletionId((int) tache.getTachePrincipaleId(),etudiantId);
 			 System.out.println(etudiantId+""+tache.getTachePrincipaleId());
 			 Completion completionP = comRep.findById(idCompletionP)
@@ -77,6 +67,18 @@ public class CompletionService implements ICompletion{
 			 completionP.setProgression(p);
 			 comRep.save(completionP);
 		}
+//		if( completion.getTotalSoustTaches()>0) {
+//			completion.setProgression(completion.getTotalSoustTaches());
+//			List<Tache>staches=tache.getSousTaches();
+//			for (Tache t : staches) {
+//				List<Completion>completions=t.getCompletions();
+//				for (Completion c : completions) {
+//					if(c.getEtudiant()==etudiantId) { c.setMarquer(isCompleted);c.setProgression(etudiantId);}
+//					}
+//		 }
+//			}
+		if(isCompleted)  {completion.setProgression(1);}
+		else {completion.setProgression(0);}
 
 		
 

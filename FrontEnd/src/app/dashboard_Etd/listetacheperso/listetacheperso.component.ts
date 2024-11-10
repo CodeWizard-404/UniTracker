@@ -20,6 +20,7 @@ export class ListetachepersoComponent implements OnInit {
   marked!: Completion;
   comment!:String;
   selectedTacheId: number | null = null;
+  totalStudentSubtasks: number = 0;
 
     
     timers: { [key: number]: any } = {}; 
@@ -33,7 +34,17 @@ export class ListetachepersoComponent implements OnInit {
     });
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
     this.loadTasks();
+    this.calculateStudentProgression();
+    
   }
+  calculateStudentProgression() {
+    // Filtrer les sous-tâches pour cet étudiant uniquement
+    const studentSubtasks = this.selectedTask.sousTaches.filter((subtask: any) =>
+      subtask.completions.some((completion: any) => completion.etudiant === this.idEtudiant)
+    );
+
+    // Calculer le total de sous-tâches pour cet étudiant
+    this.totalStudentSubtasks = studentSubtasks.length;}
 
   loadTasks() {
     this.tacheService.getTasksByEtudiant(this.idEtudiant).subscribe(
@@ -109,6 +120,7 @@ export class ListetachepersoComponent implements OnInit {
       (updatedCompletion: Completion) => {
         console.log('Tâche marquée comme complétée:', updatedCompletion);
                 this.updateTaskLists();
+                this.cd.detectChanges();
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);
@@ -135,6 +147,7 @@ deleteTask(idTache: number, idEtudiant: number): void {
         console.log('Tâche supprimée avec succès.');
         this.taches = this.taches.filter(tache => tache.id_Tache !== idTache);
         this.updateTaskLists();
+        
       
       } else {
         console.log('La tâche n\'a pas été trouvée ou n\'appartient pas au professeur.');

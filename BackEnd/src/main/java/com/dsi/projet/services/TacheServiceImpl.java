@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.dsi.projet.entities.Classe;
 import com.dsi.projet.entities.Completion;
+import com.dsi.projet.entities.CompletionId;
 import com.dsi.projet.entities.Etudiant;
 import com.dsi.projet.entities.Matiere;
 import com.dsi.projet.entities.Professeur;
@@ -120,6 +121,15 @@ public class TacheServiceImpl implements ITacheService{
 	public boolean deleteTaskByProf(int idTache, int idProf) {
 	    Optional<Tache> tacheOpt = tacherep.findById(idTache);
 	    List<Completion> c=compRep.findAll();
+//	    if(tacheOpt.get().getSousTaches()!=null) {
+//	    	 List<Tache>st=tacheOpt.get().getSousTaches();
+//	    	 for (Tache t : st) {
+//					List<Completion>completions=t.getCompletions();
+//					for (Completion comp : completions) {
+//						compRep.deleteById(comp.getId_Completion());
+//					} tacherep.deleteById(t.getId_Tache());
+//					}
+//	    }
 	    
 	    if (tacheOpt.isPresent() && tacheOpt.get().getProfesseur().getId_Professeur() == idProf) {
 	    	for (Completion completion : c) {
@@ -211,7 +221,16 @@ public class TacheServiceImpl implements ITacheService{
 		 */	
 		 Optional<Tache> tacheOpt = tacherep.findById(idTache);
 		    List<Completion> c=compRep.findAll();
-		    
+		   
+		    if(tacheOpt.get().getSousTaches()!=null) {
+		    	 List<Tache>st=tacheOpt.get().getSousTaches();
+		    	 for (Tache t : st) {
+						List<Completion>completions=t.getCompletions();
+						for (Completion comp : completions) {
+							if(comp.getEtudiant()==id_etud) {compRep.deleteById(comp.getId_Completion());} 
+						} tacherep.deleteById(t.getId_Tache());
+						}
+		    }
 		    if (tacheOpt.isPresent() ) {
 		    	for (Completion completion : c) {
 					if(completion.getTache()==idTache) {compRep.deleteById(completion.getId_Completion());}
@@ -258,6 +277,11 @@ public class TacheServiceImpl implements ITacheService{
 						t.getEtudiants().add(etudiant);
 						Tache tacheP = tacherep.findById(idTacheP)
 							        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
+						CompletionId idCompletion = new CompletionId(idTacheP, idEtudiant);
+						Completion completion = compRep.findById(idCompletion)
+							        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
+						completion.setTotalSoustTaches(completion.getTotalSoustTaches()+1);
+						compRep.save(completion);
 						t.setTachePrincipale(tacheP);
 						Tache tache=tacherep.save(t);
 						return tacheP; }

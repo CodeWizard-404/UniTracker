@@ -27,7 +27,7 @@ public class CompletionController {
 	return comServ.Consulter(idEtd, idTache);}
 	
 	@PostMapping("/realisation/mark")
-	public ResponseEntity<Completion> markTaskAsCompleted(@RequestParam int tacheId,@RequestParam int etudiantId, @RequestParam boolean isCompleted) {
+	public ResponseEntity<Completion> markTaskAsCompleted(@RequestParam int tacheId,@RequestParam int etudiantId, @RequestParam Boolean isCompleted) {
 	    Completion c = comServ.markTaskAsCompleted(tacheId,etudiantId, isCompleted);
 	    return ResponseEntity.ok(c );
 	}
