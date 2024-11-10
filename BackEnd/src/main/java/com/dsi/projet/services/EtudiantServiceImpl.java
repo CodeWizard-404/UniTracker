@@ -5,14 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.dsi.projet.entities.Classe;
 import com.dsi.projet.entities.Etudiant;
+import com.dsi.projet.repositories.ClasseRepository;
 import com.dsi.projet.repositories.EtudiantRepository;
 
 @Service
 public class EtudiantServiceImpl implements IEtudiantService {
 	@Autowired
 	private EtudiantRepository etdRep;
+	
+	@Autowired
+	private ClasseRepository classeRepository;
 	
 	
 	@Override
@@ -46,25 +50,28 @@ public class EtudiantServiceImpl implements IEtudiantService {
 	 
 	  
 
+	 @Override
+	 public Etudiant editEtudiant(Etudiant e, int id) {
+	  
+	     Etudiant etudiantExistant = etdRep.findById(id)
+	             .orElseThrow(() -> new RuntimeException("Étudiant non trouvé"));
 
-	    @Override
-	    public Etudiant editEtudiant(Etudiant e, int id) {
-	        
-	        Etudiant etudiantExistant = etdRep.findById(id)
-	                .orElseThrow(() -> new RuntimeException("Étudiant non trouvé"));
-	        
-	       
-	        etudiantExistant.setNom_Etd(e.getNom_Etd());
-	        etudiantExistant.setPrenom_Etd(e.getPrenom_Etd());
-	        etudiantExistant.setEmail_Etd(e.getEmail_Etd());
-	        etudiantExistant.setMot_de_passe_Etd(e.getMot_de_passe_Etd());
-	        
-	        
-	        etudiantExistant.setClasse(etudiantExistant.getClasse1()); 
-	        
-	      
-	        return etdRep.save(etudiantExistant);
-	    }
+	    
+	     etudiantExistant.setNom_Etd(e.getNom_Etd());
+	     etudiantExistant.setPrenom_Etd(e.getPrenom_Etd());
+	     etudiantExistant.setEmail_Etd(e.getEmail_Etd());
+	     etudiantExistant.setMot_de_passe_Etd(e.getMot_de_passe_Etd());
+
+	    
+	        String nomClasse = e.getClasse();  
+	        Classe classe = classeRepository.findByNomClasse(nomClasse)
+	                .orElseThrow(() -> new RuntimeException("Classe non trouvée"));
+
+	     etudiantExistant.setClasse(classe);
+
+	 
+	     return etdRep.save(etudiantExistant);
+	 }
 
 
 	    @Override

@@ -42,6 +42,7 @@ public class EtudiantController {
         return etdServ.getEtudiantsByIdClasse(classeId);
     }
 	
+
 	 @PutMapping("etudiants/{id}")
 	 public Etudiant updateEtudiant(@PathVariable int id, @RequestBody Etudiant etd) {
 	      Etudiant etudiant = etdServ.editEtudiant(etd,id);
@@ -51,7 +52,7 @@ public class EtudiantController {
 	        return null;
 	  }
 
-	  @DeleteMapping("/{id}")
+	  @DeleteMapping("etudiants/{id}")
 	  public boolean deleteEtudiant(@PathVariable int id) {
 	       etdServ.deleteEtudiant(id);
 	       return true;

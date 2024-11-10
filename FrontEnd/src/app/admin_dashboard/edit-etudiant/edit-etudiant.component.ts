@@ -1,112 +1,166 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Classe } from 'src/app/classes/classe';
 import { Etudiant } from 'src/app/classes/etudiant';
+import { ClasseServiceService } from 'src/app/services/classe-service.service';
 import { EtudiantServiceService } from 'src/app/services/etudiant-service.service';
 
 @Component({
-  selector: 'app-edit-etudiant',
+  selector: 'app-modifier-etudiant',
   templateUrl: './edit-etudiant.component.html',
   styleUrls: ['./edit-etudiant.component.css']
 })
-export class EditEtudiantComponent {
-  
-  etudiant: Etudiant;
-  editForm: FormGroup;
+export class EditEtudiantComponent implements OnInit {
+  form!: FormGroup;
+  classes: Classe[] = [];
+  uniqueClasses: string[] = [];
+  etudiant!: Etudiant;  
+  filteredClasses: Classe[] = [];
+  etudiantId!: string;  
 
   constructor(
-    private route: ActivatedRoute,
+    private fb: FormBuilder,
     private router: Router,
+    private activatedRoute: ActivatedRoute, 
     private etudiantService: EtudiantServiceService,
-    private fb: FormBuilder
-  ) {
-    this.etudiant = new Etudiant(
-      0,                    // id_Etudiant
-      '',                   // nom_Etd
-      '',                   // prenom_Etd
-      '',                   // email_Etd
-      '',                   // mot_de_passe_Etd
-
-      new Classe(),         // classe : ici vous devez créer un objet de type Classe
-      '',
-      0,                    // numClasse
-      0,                    // anneeClasse
-      []                    // groupes
-    );
-    this.editForm = this.fb.group({
-      nom_Etd: ['', Validators.required],
-      prenom_Etd: ['', Validators.required],
-      email_Etd: ['', [Validators.required, Validators.email]],
-      mot_de_passe_Etd: ['', Validators.required],
-      classe: this.fb.group({
-        nomClasse: ['', Validators.required],
-        anneeClasse: [null, Validators.required],
-        numClasse: [null, Validators.required]
-      })
-    });
-  }
+    private classeService: ClasseServiceService
+  ) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id')!;  // Récupérer l'ID de l'étudiant
-    this.etudiantService.getEtudiants().subscribe((etudiants) => {
-      // Trouver l'étudiant par ID
-      this.etudiant = etudiants.find(etd => etd.id_Etudiant === id)!;
-      
-      if (this.etudiant) {
-        // Remplir le formulaire avec les données de l'étudiant
-        this.editForm.patchValue({
+
+    this.etudiantId = this.activatedRoute.snapshot.paramMap.get('id')!;
+
+
+    this.form = this.fb.group({
+      nom_Etd: ['', Validators.required],
+      prenom_Etd: ['', Validators.required],
+      email_Etd: ['', [Validators.required]],
+      mot_de_passe_Etd: ['', Validators.required], 
+      classe: ['HHH', Validators.required],
+      numClasse: [''],
+      anneeClasse: ['', Validators.required]
+    });
+
+ 
+    this.loadClasses();
+    this.loadEtudiant(Number(this.etudiantId));
+  }
+
+
+  loadEtudiant(id: number) {
+    this.etudiantService.getEtudiantById(id).subscribe(
+      (etudiant: Etudiant) => {
+        this.etudiant = etudiant;
+       
+        this.form.patchValue({
           nom_Etd: this.etudiant.nom_Etd,
           prenom_Etd: this.etudiant.prenom_Etd,
           email_Etd: this.etudiant.email_Etd,
           mot_de_passe_Etd: this.etudiant.mot_de_passe_Etd,
-          // Remplir les informations de la classe
-          classe: {
-            nomClasse: this.etudiant.classe.nom_Classe,
-            anneeClasse: this.etudiant.classe.annee_Classe,
-            numClasse: this.etudiant.classe.num_Classe
-          }
+          classe: this.etudiant.nomClasse,  
+          numClasse: this.etudiant.numClasse,
+          anneeClasse: this.etudiant.anneeClasse
         });
-      } else {
-        console.error('Étudiant non trouvé');
+        this.onYearChange(); 
+      },
+      (error) => {
+        console.error('Erreur lors du chargement de l\'étudiant:', error);
       }
+    );
+  }
+
+
+  loadClasses() {
+    this.classeService.getClasses().subscribe((data) => {
+      this.classes = data;
+      console.log('Classes chargées:', this.classes); 
+      this.uniqueClasses = [...new Set(this.classes.map(classe => classe.nom_Classe))];
+    }, (error) => {
+      console.error('Erreur lors du chargement des classes:', error);
     });
   }
+  onClasseChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedClassValue = selectElement.value;
+  
+    
+    console.log('Classes filtrées disponibles:', this.filteredClasses);
+    console.log('Valeur sélectionnée:', selectedClassValue);
+  
+   
+    const selectedClass = this.filteredClasses.find(c => c.nom_Classe === selectedClassValue);
+  
+    if (selectedClass) {
+      console.log('Classe trouvée:', selectedClass);
+      this.form.patchValue({
+        classe: selectedClass,       
+        numClasse: selectedClass.num_Classe
+      });
+    } else {
+      console.error('Erreur: Classe non trouvée pour la valeur sélectionnée:', selectedClassValue);
+    }
+  }
 
-  onSubmit() {
-    if (this.editForm.valid) {
-      this.etudiantService.updateEtudiant(this.etudiant.id_Etudiant, this.editForm.value).subscribe(
-        () => {
-          this.router.navigate(['/listes-etudiants']);
-          alert('Étudiant mis à jour avec succès!');
+  onYearChange() {
+    const selectedYear = this.form.get('anneeClasse')?.value;
+    console.log('Année sélectionnée:', selectedYear);  
+    
+    if (selectedYear) {
+      this.filteredClasses = this.classes.filter(c => c.annee_Classe === selectedYear);
+      console.log('Classes filtrées après changement d\'année:', this.filteredClasses); 
+    } else {
+      this.filteredClasses = this.classes;  
+      console.log('Aucune année sélectionnée, toutes les classes sont affichées:', this.filteredClasses);
+    }
+  }
+  onSubmit(): void {
+    console.log('Tentative de soumission du formulaire...');
+
+    if (this.form.valid) {
+      console.log('Formulaire valide. Préparation des données pour l\'envoi...');
+      const formData = { ...this.form.value };
+
+      formData.email_Etd = formData.email_Etd.trim();
+      formData.nom_Etd = formData.nom_Etd.trim();
+      formData.prenom_Etd = formData.prenom_Etd.trim();
+
+      if (typeof formData.classe === 'object' && formData.classe !== null) {
+        console.log('Classe correcte reçue comme objet:', formData.classe);
+      } else {
+        console.error('Erreur: la classe n\'est pas un objet valide. Valeur actuelle:', formData.classe);
+        return;
+      }
+
+      console.log('Données du formulaire après validation:', formData);
+
+ 
+      this.etudiantService.updateEtudiant((Number(this.etudiantId)), formData).subscribe(
+        (response) => {
+          console.log('Étudiant modifié avec succès:', response);
+          this.router.navigate(['/listeetud']);
         },
         (error) => {
-          console.error('Erreur lors de la mise à jour de l\'étudiant', error);
+          console.error('Erreur lors de la modification de l\'étudiant:', error);
         }
       );
+    } else {
+      console.error('Formulaire invalide. Veuillez corriger les erreurs suivantes :');
+
+      Object.keys(this.form.controls).forEach(key => {
+        const controlErrors = this.form.get(key)?.errors;
+        if (controlErrors) {
+          console.error(`Erreur dans le champ "${key}":`, controlErrors);
+        } else {
+          console.log(`Le champ "${key}" est valide.`);
+        }
+      });
+
+      console.log('Contenu actuel du formulaire:', this.form.value);
     }
   }
 
-  isPasswordVisible: boolean = false; 
+
 
   
-  generatePassword(length = 8): string {
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*@#";
-    let password = "";
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      password += charset[randomIndex];
-    }
-    return password;
-  }
-  togglePasswordVisibility(): void {
-    this.isPasswordVisible = !this.isPasswordVisible;
-  }
-
-  generateAndSetPassword(): void {
-    const password = this.generatePassword();
-    this.editForm.get('mot_de_passe_Etd')?.setValue(password);
-    console.log('Generated password:', password);
-  }
 }
-

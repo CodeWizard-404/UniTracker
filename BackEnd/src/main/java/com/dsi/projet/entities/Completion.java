@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -49,7 +50,7 @@ public class Completion {
 
 
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@MapsId("etudiant_id") // Mappe l'ID composite à l'association
     @JoinColumn(name = "etudiant_id", insertable = false, updatable = false) // Désactiver insertable et updatable
 	//@JoinColumn(name = "etudiant_id")
