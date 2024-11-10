@@ -1,0 +1,118 @@
+<div class="container-scroller">
+    <app-sidebar></app-sidebar>
+    <div class="container-fluid page-body-wrapper">
+      <app-navbar></app-navbar>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form #matiereForm="ngForm">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title">Créer Matière</h2>
+  
+                <div class="row">
+                  <!-- Nom input -->
+                  <div class="col-md">
+                    <label for="libelle_Matiere" class="col-sm col-form-label input-label">Nom</label>
+                    <input
+                      type="text"
+                      class="form-control custom-input"
+                      id="libelle_Matiere"
+                      name="libelle_Matiere"
+                      required
+                    />
+                  </div>
+  
+                  <!-- Année selection -->
+                  <div class="col-md">
+                    <label class="col-sm col-form-label input-label">Année</label>
+                    <select
+                      class="form-control custom-input"
+                      name="annee"
+                      required
+                    >
+                      <option value="1">1ère Année</option>
+                      <option value="2">2ème Année</option>
+                      <option value="3">3ème Année</option>
+                    </select>
+                  </div>
+  
+                  <!-- Semestre selection -->
+                  <div class="col-md">
+                    <label class="col-sm col-form-label input-label">Semestre</label>
+                    <select
+                      class="form-control custom-input"
+                      name="semestre"
+                      required
+                    >
+                      <option value="1">S1</option>
+                      <option value="2">S2</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <br>
+                <div class="row">
+                  <!-- Professors checklist -->
+                  <div class="col-md">
+                    <label class="col-sm col-form-label input-label">Professeurs</label>
+                    <div class="checklist-container">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input checkbox-input"
+                          name="professor1"
+                        />
+                        <label class="form-check-label">Professeur 1</label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input checkbox-input"
+                          name="professor2"
+                        />
+                        <label class="form-check-label">Professeur 2</label>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <!-- Classes checklist -->
+                  <div class="col-md">
+                    <label class="col-sm col-form-label input-label">Classes</label>
+                    <div class="checklist-container">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input checkbox-input"
+                          name="class1"
+                        />
+                        <label class="form-check-label">Classe A</label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input checkbox-input"
+                          name="class2"
+                        />
+                        <label class="form-check-label">Classe B</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <hr>
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-secondary mr-2">
+                  <i class="bi bi-floppy"></i> Ajouter
+                </button>
+                <button type="button" class="btn btn-danger">
+                  <i class="bi bi-backspace-reverse"></i> Annuler
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

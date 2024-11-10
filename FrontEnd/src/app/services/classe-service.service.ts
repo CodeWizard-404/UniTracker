@@ -50,6 +50,9 @@ export class ClasseServiceService {
   getClasseById(id: number): Observable<Classe> {
     return this.http.get<Classe>(`${this.Url}/${id}`);
   }
+
+
+
   
 }
 

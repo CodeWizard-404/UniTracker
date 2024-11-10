@@ -44,9 +44,12 @@
                           </div>
                      
                         </td>
-                        <td><button class="btn btn-danger">
-                      <i class="bi bi-trash-fill"></i>
-                    </button></td>
+                        <td *ngIf="classe.id_Classe !== undefined">
+                          <button class="btn btn-danger" (click)="deleteClasse(classe.id_Classe)">
+                            <i class="bi bi-trash-fill"></i>
+                          </button>
+                        </td>
+                        
                         <!-- <td>
                           <button class="btn btn-secondary"><i class="bi bi-pencil-square"></i></button>
                           <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>

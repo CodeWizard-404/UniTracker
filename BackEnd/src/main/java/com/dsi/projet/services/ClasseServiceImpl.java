@@ -85,7 +85,7 @@ public class ClasseServiceImpl implements IClasseService {
             throw new RuntimeException("Classe with ID " + id + " not found");
         }
     }
-@Override
+    @Override
 	public boolean deleteClasse(int id) {
         if (classeRepository.existsById(id)) {
             classeRepository.deleteById(id);

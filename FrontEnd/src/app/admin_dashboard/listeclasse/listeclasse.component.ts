@@ -69,4 +69,17 @@ export class ListeclasseComponent {
       }
     );
   }
+  deleteClasse(id: number): void {
+    if (confirm('Are you sure you want to delete this class?')) {
+      this.classeService.deleteClasse(id).subscribe(
+        () => {
+          console.log('Class deleted successfully');
+          this.loadClasses(); // Refresh the class list
+        },
+        (error) => {
+          console.error('Error deleting class:', error);
+        }
+      );
+    }
+  }
 }

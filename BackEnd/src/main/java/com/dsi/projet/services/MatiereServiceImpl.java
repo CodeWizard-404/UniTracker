@@ -11,6 +11,7 @@ import com.dsi.projet.repositories.ProfRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MatiereServiceImpl implements IMatiereService {
@@ -57,13 +58,13 @@ public class MatiereServiceImpl implements IMatiereService {
     }
     
     @Override
-    public Matiere getMatiereById(int id) {
-        // Fetch Matiere from repository, returns an Optional
-        Optional<Matiere> matiere = matiereRepository.findById(id);
-        
-        // Check if Matiere is present, else throw an exception or handle as needed
-        return matiere.orElseThrow(() -> new RuntimeException("Matiere not found with id: " + id));
+    public List<Matiere> getMatieresByIds(List<Integer> ids) {
+        return ids.stream()
+                  .map(id -> matiereRepository.findById(id)
+                      .orElseThrow(() -> new RuntimeException("Matiere not found with id: " + id)))
+                  .collect(Collectors.toList());
     }
+
     
     
     

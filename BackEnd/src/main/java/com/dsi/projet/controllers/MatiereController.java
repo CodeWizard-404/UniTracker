@@ -3,6 +3,7 @@ package com.dsi.projet.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +31,16 @@ public class MatiereController {
 	public Matiere createMatiere(@RequestBody Matiere m) {
 		return matiereService.createMatiere(m);
 	}
-	@GetMapping("/matiere/{id}")
-    public ResponseEntity<Matiere> getMatiereById(@PathVariable int id) {
-        Matiere matiere = matiereService.getMatiereById(id); // Call service to get Matiere
-        return ResponseEntity.ok(matiere); // Return Matiere in response body with HTTP 200 status
-    }
+	 @PostMapping("/getMatieres")
+	    public ResponseEntity<?> getMatieresByIds(@RequestBody List<Integer> ids) {
+	        try {
+	            List<Matiere> matieres = matiereService.getMatieresByIds(ids); // Appelle le service pour obtenir les Matieres
+	            return ResponseEntity.ok(matieres); // Retourne la liste des Matieres avec le statut HTTP 200
+	        } catch (RuntimeException e) {
+	            // En cas d'erreur (matière introuvable), renvoie une réponse avec le statut 404 et le message d'erreur
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                                 .body(e.getMessage());
+	        }
+	    }
+
 }
