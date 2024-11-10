@@ -43,4 +43,31 @@ public class ProfServiceImpl implements IProfService{
         return profRep.findClassesByProfId(idProf);
     }
 
+	
+    public boolean deleteProfesseur(int id) {
+        Optional<Professeur> pro =  profRep.findById(id);
+        
+        if (pro.isPresent()) {
+        	profRep.deleteById(id);
+            return true; 
+        }
+        
+        return false; 
+    }
+
+    @Override
+    public Professeur editProfesseur(int id, Professeur p) {
+       
+        Professeur professeur = profRep.findById(id).orElseThrow(() -> new RuntimeException("Professeur introuvable"));
+
+      
+        professeur.setNom_Prof(p.getNom_Prof());
+        professeur.setPrenom_Prof(p.getPrenom_Prof());
+        professeur.setEmail_Prof(p.getEmail_Prof());
+        professeur.setMot_de_passe_Prof(p.getMot_de_passe_Prof()); 
+
+       
+        return profRep.save(professeur);
+    }
+
 }

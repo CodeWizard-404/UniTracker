@@ -3,6 +3,7 @@ import { Prof } from 'src/app/classes/prof';
 import { Matiere } from 'src/app/classes/matiere';
 import { ProfServiceService } from 'src/app/services/prof-service.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listes-prof',
@@ -13,7 +14,7 @@ export class ListesProfComponent implements OnInit {
   profs: Prof[] = [];
   allMatieres: Matiere[] = [];
 
-  constructor(private profService: ProfServiceService, private http: HttpClient) {}
+  constructor(private profService: ProfServiceService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.loadProfAndMatieres();
@@ -86,4 +87,23 @@ export class ListesProfComponent implements OnInit {
     }
     return "Aucune classe";
   }
+
+  modifierProf(id: number): void {
+    this.router.navigate([`/edit-prof/${id}`]);
+  }
+
+  
+  supprimerProf(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')) {
+      this.profService.deleteProf(id).subscribe(
+        () => {
+          this.profs = this.profs.filter(prof => prof.id_Professeur !== id);
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression du professeur', error);
+        }
+      );
+    }
+  }
 }
+
