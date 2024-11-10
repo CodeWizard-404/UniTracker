@@ -48,23 +48,35 @@ public class CompletionService implements ICompletion{
 			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
 		 completion.setMarquer(isCompleted);
 		/////
-//		Tache tache = tacheRepo.findById(tacheId)
-//					        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
-//		Optional<Tache> tacheP=tacheRepo.findById((Integer) tache.getTachePrincipaleId());
-//		if(tacheP.isPresent()) {
-//		List<Completion>completions=tacheP.get().getCompletions();
-//		int p=0;
-//		for (Completion c : completions) {
-//			if(c.getEtudiant()==etudiantId && c.isMarquer()) {p++;}
-//		    }
-//		 CompletionId idCompletionP = new CompletionId(tacheId,(int) tache.getTachePrincipaleId());
-//		 Completion completionP = comRep.findById(idCompletion)
-//			        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
-//		 completionP.setProgression(p);
-//		
-//		} 
-		
-	   ////
+		Tache tache = tacheRepo.findById(tacheId)
+					        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
+		if(tache.getTachePrincipaleId()!=null) {
+			Tache tacheP = tacheRepo.findById((Integer) tache.getTachePrincipaleId())
+			        .orElseThrow(() -> new RuntimeException("tache non trouvée"));
+			completion.setProgression(0);
+			List<Tache>staches=tacheP.getSousTaches();
+			
+			int p=0;
+			for (Tache t : staches) {
+				List<Completion>completions=t.getCompletions();
+				for (Completion c : completions) {
+					if(c.getEtudiant()==etudiantId && c.isMarquer()) {p++;}
+					System.out.println(p); 
+				}
+				
+				
+				
+			    }
+			 CompletionId idCompletionP = new CompletionId((int) tache.getTachePrincipaleId(),etudiantId);
+			 System.out.println(etudiantId+""+tache.getTachePrincipaleId());
+			 Completion completionP = comRep.findById(idCompletionP)
+				        .orElseThrow(() -> new RuntimeException("Réalisation non trouvée"));
+			 completionP.setProgression(p);
+			 comRep.save(completionP);
+		}
+
+		//else {completion.setProgression(1);}
+
 		    return comRep.save(completion);
 		
 	}

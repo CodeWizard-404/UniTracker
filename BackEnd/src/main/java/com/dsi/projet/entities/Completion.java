@@ -32,13 +32,22 @@ public class Completion {
 	}
 	private ComplexteTache complexite;
 	private List<String> commentaires = new ArrayList<>();
-//	@Column(columnDefinition = "int default 0")
-//	private int progression=0;
+	@Column(nullable = false,columnDefinition = "int default 0")
+	private int progression=0;
 	//=new ArrayList<String>();
 
-//	public void setProgression(int progression) {
-//		this.progression = progression;
-//	}
+	public void setProgression(int progression) {
+		this.progression = progression;
+	}
+
+	
+
+	@Override
+	public String toString() {
+		return "Completion [id_Completion=" + id_Completion + ", etudiant=" + etudiant + ", tache=" + tache + "]";
+	}
+
+
 
 	@ManyToOne
 	@MapsId("etudiant_id") // Mappe l'ID composite à l'association
@@ -65,6 +74,7 @@ public class Completion {
 		this.marquer = marquer;
 		this.etudiant = etudiant;
 		this.tache = tache;
+		this.progression=0;
 	}
 
 	public boolean isMarquer() {
