@@ -142,7 +142,7 @@
           <!-- Checkbox to mark task as completed -->
         <div class="form-check mt-2">
           <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
-          (change)="markTaskAsCompleted(subtask.id_Tache, c.etudiant, c.marquer)"
+          (change)="markSubTaskAsCompleted(subtask.id_Tache, c.etudiant, c.marquer)"
             id="completion-{{c.tache_id}}-{{c.etudiant}}" />
           <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant}}">
             Marquer comme complétée

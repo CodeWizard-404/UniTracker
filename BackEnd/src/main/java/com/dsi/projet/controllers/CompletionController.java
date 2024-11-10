@@ -32,6 +32,12 @@ public class CompletionController {
 	    return ResponseEntity.ok(c );
 	}
 	
+	@PostMapping("/realisation/mark/subTask")
+	public ResponseEntity<Completion> markSubTaskAsCompleted(@RequestParam int tacheId,@RequestParam int etudiantId, @RequestParam Boolean isCompleted) {
+	    Completion c = comServ.markSubTaskAsCompleted(tacheId,etudiantId, isCompleted);
+	    return ResponseEntity.ok(c );
+	}
+	
 	@PostMapping("/realisation/difficulty")
 	public ResponseEntity<Completion> pickDifficulty(@RequestParam int tacheId,@RequestParam int etudiantId, @RequestParam ComplexteTache complexite) {
 	    Completion c = comServ.pickDifficulty(tacheId,etudiantId, complexite);

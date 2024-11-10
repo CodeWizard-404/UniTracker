@@ -127,7 +127,18 @@ export class ListetachepersoComponent implements OnInit {
       }
     );
   }
-
+  markSubTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean) {
+    this.CompServ.markSubTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
+      (updatedCompletion: Completion) => {
+        console.log('Tâche marquée comme complétée:', updatedCompletion);
+                this.updateTaskLists();
+                this.cd.detectChanges();
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);
+      }
+    );
+  }
   chooseDiff(c: Completion,tacheId: number)  {
     const difficulty=c.complexite;
     this.CompServ.chooseDiff(tacheId,c.etudiant,difficulty).subscribe((updatedCompletion: Completion) => {

@@ -23,6 +23,10 @@ export class CompletionService {
     const url = `${this.Url}/realisation/mark?tacheId=${idTache}&etudiantId=${idEtd}&isCompleted=${isCompleted}`;
     return this.http.post<Completion>(url, null); // Sending null body since we're using query params
   }
+  markSubTaskAsCompleted(idTache:number, idEtd: number,isCompleted: boolean): Observable<Completion> {
+    const url = `${this.Url}/realisation/mark/subTask?tacheId=${idTache}&etudiantId=${idEtd}&isCompleted=${isCompleted}`;
+    return this.http.post<Completion>(url, null); // Sending null body since we're using query params
+  }
 
  chooseDiff(idTache:number, idEtd: number,complexite: String): Observable<Completion> {
     const url = `${this.Url}/realisation/difficulty?tacheId=${idTache}&etudiantId=${idEtd}&complexite=${complexite}`;
