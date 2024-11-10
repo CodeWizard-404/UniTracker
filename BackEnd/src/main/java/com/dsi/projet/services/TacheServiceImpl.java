@@ -121,15 +121,15 @@ public class TacheServiceImpl implements ITacheService{
 	public boolean deleteTaskByProf(int idTache, int idProf) {
 	    Optional<Tache> tacheOpt = tacherep.findById(idTache);
 	    List<Completion> c=compRep.findAll();
-//	    if(tacheOpt.get().getSousTaches()!=null) {
-//	    	 List<Tache>st=tacheOpt.get().getSousTaches();
-//	    	 for (Tache t : st) {
-//					List<Completion>completions=t.getCompletions();
-//					for (Completion comp : completions) {
-//						compRep.deleteById(comp.getId_Completion());
-//					} tacherep.deleteById(t.getId_Tache());
-//					}
-//	    }
+	    if(tacheOpt.get().getSousTaches()!=null) {
+	    	 List<Tache>st=tacheOpt.get().getSousTaches();
+	    	 for (Tache t : st) {
+					List<Completion>completions=t.getCompletions();
+					for (Completion comp : completions) {
+						compRep.deleteById(comp.getId_Completion());
+					} tacherep.deleteById(t.getId_Tache());
+					}
+	    }
 	    
 	    if (tacheOpt.isPresent() && tacheOpt.get().getProfesseur().getId_Professeur() == idProf) {
 	    	for (Completion completion : c) {
