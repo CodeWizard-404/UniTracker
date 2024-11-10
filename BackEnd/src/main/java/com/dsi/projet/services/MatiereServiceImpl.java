@@ -10,6 +10,7 @@ import com.dsi.projet.repositories.ProfRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MatiereServiceImpl implements IMatiereService {
@@ -54,4 +55,16 @@ public class MatiereServiceImpl implements IMatiereService {
 
         return savedMatiere;
     }
+    
+    @Override
+    public Matiere getMatiereById(int id) {
+        // Fetch Matiere from repository, returns an Optional
+        Optional<Matiere> matiere = matiereRepository.findById(id);
+        
+        // Check if Matiere is present, else throw an exception or handle as needed
+        return matiere.orElseThrow(() -> new RuntimeException("Matiere not found with id: " + id));
+    }
+    
+    
+    
 }

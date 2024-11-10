@@ -8,4 +8,5 @@ import com.dsi.projet.entities.Matiere;
 public interface IMatiereService {
 	public List<Matiere> allMatieres();
 	public Matiere createMatiere(Matiere m);
+	Matiere getMatiereById(int id);
 }

@@ -2,6 +2,7 @@ package com.dsi.projet.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,48 @@ public class ClasseServiceImpl implements IClasseService {
 	            classe.getNum_Classe() == c.getNum_Classe() &&
 	            classe.getNom_Classe().equals(c.getNom_Classe()));
 	}
+	
+	@Override
+	public Classe updateClasse(int id, Classe updatedClasse) {
+        Optional<Classe> existingClasseOpt = classeRepository.findById(id);
 
+        if (existingClasseOpt.isPresent()) {
+            Classe existingClasse = existingClasseOpt.get();
+            existingClasse.setNum_Classe(updatedClasse.getNum_Classe());
+            existingClasse.setNom_Classe(updatedClasse.getNom_Classe());
+            existingClasse.setAnnee_Classe(updatedClasse.getAnnee_Classe());
+
+            existingClasse.setEtudiants(updatedClasse.getEtudiants());
+            existingClasse.setMatieres(updatedClasse.getMatieres());
+
+            return classeRepository.save(existingClasse);
+        } else {
+            throw new RuntimeException("Classe with ID " + id + " not found");
+        }
+    }
+@Override
+	public boolean deleteClasse(int id) {
+        if (classeRepository.existsById(id)) {
+            classeRepository.deleteById(id);
+            return true;  // Delete was successful
+        }
+        return false;  // Classe not found
+    }
+@Override
+public List<Integer> getMatieresByIdClasse(int id_Classe) {
+    Optional<Classe> classeOptional = classeRepository.findById(id_Classe);
+    if (classeOptional.isPresent()) {
+        Classe classe = classeOptional.get();
+        return classe.getMatieres();  // Get the list of id matieres from the Classe object
+    } else {
+        throw new RuntimeException("Classe not found with id: " + id_Classe); // Handle case where Classe is not found
+    }
+}
+@Override
+public Optional<Classe> getClasseById(int id) {
+    return classeRepository.findById(id);
+}
+	
 		
 	
 }
@@ -78,36 +120,3 @@ public class ClasseServiceImpl implements IClasseService {
 		
 		
 		
-		
-		
-		//
-		// List<Matiere> matieres = new ArrayList<>();
-		//
-		// for (Matiere matiere : c.getMatieres()) {
-		// matieres.add(matiereRepository.findById(matiere.getId_Matiere()).orElse(null));
-		// }
-		// c.setMatieres(matieres);
-		//
-		//
-		//
-		// // Récupérer et associer les professeurs à partir des matières
-		// List<Professeur> professeurs = new ArrayList<>();
-		// for (Matiere matiere : matieres) {
-		// List<Professeur> professeurFromDb = matiere.getProfesseurs(); // Récupérer
-		// les professeurs associés à la matière
-		// for (Professeur p : professeurFromDb) {
-		// Professeur pro =
-		// professeurRepository.findById(p.getId_Professeur()).orElse(null);
-		// if (pro != null) {
-		// professeurs.add(pro);
-		// }
-		// }
-		// }
-		//
-		//
-		//
-		// //c.setMatieres(c.getMatieres());
-		//
-		// return classeRepository.save(c);
-
-	

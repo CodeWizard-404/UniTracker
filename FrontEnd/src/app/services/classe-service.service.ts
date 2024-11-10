@@ -33,6 +33,23 @@ export class ClasseServiceService {
     console.log("Making HTTP call to:", `${this.Url2}/${idProf}/classes`);
     return this.http.get<Classe[]>(`${this.Url2}/${idProf}/classes`);
   }
+
+  updateClasse(id: number, updatedClasse: Classe): Observable<Classe> {
+    const url = `${this.Url}/updateClasse/${id}`;
+    return this.http.put<Classe>(url, updatedClasse);
+  }
+
+  // Méthode pour supprimer une classe
+  deleteClasse(id: number): Observable<void> {
+    const url = `${this.Url}/deleteClasse/${id}`;
+    return this.http.delete<void>(url);
+  }
+  getIdsMatieresByClasseId(id_Classe: number): Observable<number[]> {
+    return this.http.get<number[]>(`${this.Url}/${id_Classe}/matieres`);
+  }
+  getClasseById(id: number): Observable<Classe> {
+    return this.http.get<Classe>(`${this.Url}/${id}`);
+  }
   
 }
 

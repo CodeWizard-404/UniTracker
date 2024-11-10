@@ -29,6 +29,7 @@ import { CreertacheComponent } from './dashboard_Etd/creertache-perso/creertache
 import { ListetachepersoComponent } from './dashboard_Etd/listetacheperso/listetacheperso.component';
 import { CreergroupeComponent } from './dashboard_Etd/creergroupe/creergroupe.component';
 import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-tache.component';
+import { UpdateClasseComponent } from './admin_dashboard/update-classe/update-classe.component';
 
 const routes: Routes = [
   // Admin Routes
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'etd', title: 'Créer Étudiant', component: CreerEtudiantComponent },
   { path: 'classe', title: 'Créer Classe', component: CreerClasseComponent },
   { path: 'mat', title: 'Créer Matière', component: CreerMatiereComponent },
+  { path: 'updateClasse/:id', title: 'updateClasse', component: UpdateClasseComponent },
 
   // Professor Routes
   { path: 'dashboardProf/:id/creerTache', title: 'Créer Tâche', component: CreerTacheComponent },
