@@ -79,7 +79,6 @@ export class CreerClasseComponent {
     } else {
       this.selectedMatiere.splice(index, 1); // Remove if already selected
     }
-    console.log("Selected Subjects:", this.selectedMatiere);
   }
 
   // Filter subjects by semester 1
@@ -97,15 +96,17 @@ export class CreerClasseComponent {
     // Validation checks before proceeding
     if (!this.classe.nom_Classe || !this.classe.annee_Classe || this.classe.num_Classe === 0 || this.selectedMatiere.length === 0) {
       this.alertVisible2 = true; // Show error alert if validation fails
-      setTimeout(() => { this.alertVisible2 = false; }, 2000); // Hide after 2 seconds
-      return;
+      setTimeout(() => { 
+        this.alertVisible2 = false; 
+      }, 2000); // Hide after 2 seconds
+      return; // Prevent form submission
     }
-
+  
     // Assign selected subjects to the class
     this.classe.matieres = this.selectedMatiere
       .map((matiere) => matiere.id_Matiere)
       .filter((id): id is number => id !== undefined);
-
+  
     // Submit the class creation request
     this.classeService.createClasse(this.classe).subscribe(
       (response) => {
@@ -117,10 +118,13 @@ export class CreerClasseComponent {
       },
       (error) => {
         this.alertVisible2 = true; // Show error alert on failure
-        setTimeout(() => { this.alertVisible2 = false; }, 2000); // Hide after 2 seconds
+        setTimeout(() => { 
+          this.alertVisible2 = false; 
+        }, 2000); // Hide after 2 seconds
       }
     );
   }
+  
 
   // Navigate back to the class list page
   cancel(): void {
