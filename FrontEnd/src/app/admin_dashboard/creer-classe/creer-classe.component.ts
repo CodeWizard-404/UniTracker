@@ -1,14 +1,13 @@
-import { Component, AfterViewInit } from "@angular/core";
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+
+// Importing necessary classes and services
 import { Classe } from "src/app/classes/classe";
-import { Etudiant } from "src/app/classes/etudiant";
 import { Matiere } from "src/app/classes/matiere";
 import { ClasseServiceService } from "src/app/services/classe-service.service";
-//import * as $ from 'jquery';
-//import 'select2';
 import { EtudiantServiceService } from "src/app/services/etudiant-service.service";
 import { MatiereServiceService } from "src/app/services/matiere-service.service";
 import { ProfServiceService } from "src/app/services/prof-service.service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-creer-classe",
@@ -16,101 +15,115 @@ import { Router } from "@angular/router";
   styleUrls: ["./creer-classe.component.css"],
 })
 export class CreerClasseComponent {
-  classe: Classe;
+  // Define properties
+  classe: Classe = new Classe();
   etudiants: any[] = [];
   matieres: any[] = [];
   professeurs: any[] = [];
+  selectedMatiere: Matiere[] = [];
+  alertVisible1: boolean = false; // Alert for success
+  alertVisible2: boolean = false; // Alert for failure
 
+  // Inject services in the constructor
   constructor(
     private classeService: ClasseServiceService,
     private etudiantService: EtudiantServiceService,
     private matiereService: MatiereServiceService,
     private professeurService: ProfServiceService,
     private router: Router
-  ) {
-    this.classe = new Classe();
-  }
+  ) {}
 
+  // Initialize component
   ngOnInit(): void {
-    this.loadEtudiants();
-    this.loadMatieres();
-    this.loadProfesseurs();
-    console.log("Initialized num_Classe:", this.classe.num_Classe); 
+    this.loadEtudiants(); // Load students
+    this.loadMatieres(); // Load subjects
+    this.loadProfesseurs(); // Load professors
   }
-  
 
-  loadEtudiants() {
+  // Load students from the service
+  loadEtudiants(): void {
     this.etudiantService.getEtudiants().subscribe(
       (data) => {
         this.etudiants = data;
       },
       (error) => {
-        console.error("Erreur lors du chargement des étudiants", error);
+        console.error("Error loading students:", error);
       }
     );
   }
 
-  loadMatieres() {
+  // Load subjects from the service
+  loadMatieres(): void {
     this.matiereService.getMatieres().subscribe(
       (data) => {
         this.matieres = data;
       },
       (error) => {
-        console.error("Erreur lors du chargement des matières", error);
+        console.error("Error loading subjects:", error);
       }
     );
   }
 
-  loadProfesseurs() {
+  // Load professors from the service
+  loadProfesseurs(): void {
     this.professeurService.getProfesseurs().subscribe((data) => {
       this.professeurs = data;
     });
   }
 
-  selectedMatiere: Matiere[] = [];
-
-toggleSelectionMatiere(matiere: Matiere) {
+  // Toggle subject selection for the class
+  toggleSelectionMatiere(matiere: Matiere): void {
     const index = this.selectedMatiere.indexOf(matiere);
     if (index === -1) {
-        this.selectedMatiere.push(matiere);
+      this.selectedMatiere.push(matiere); // Add if not selected
     } else {
-        this.selectedMatiere.splice(index, 1);
+      this.selectedMatiere.splice(index, 1); // Remove if already selected
     }
-    console.log('Selected Matieres:', this.selectedMatiere);
-}
+    console.log("Selected Subjects:", this.selectedMatiere);
+  }
 
+  // Filter subjects by semester 1
   getMatiereS1(): Matiere[] {
     return this.matieres.filter((matiere) => matiere.semestre === "1");
   }
 
+  // Filter subjects by semester 2
   getMatiereS2(): Matiere[] {
     return this.matieres.filter((matiere) => matiere.semestre === "2");
   }
 
+  // Handle form submission
+  onSubmit(): void {
+    // Validation checks before proceeding
+    if (!this.classe.nom_Classe || !this.classe.annee_Classe || this.classe.num_Classe === 0 || this.selectedMatiere.length === 0) {
+      this.alertVisible2 = true; // Show error alert if validation fails
+      setTimeout(() => { this.alertVisible2 = false; }, 2000); // Hide after 2 seconds
+      return;
+    }
 
-
-  onSubmit() {
-    console.log("Before submitting:", this.classe);
-    console.log("Num Classe:", this.classe.num_Classe);
-  
+    // Assign selected subjects to the class
     this.classe.matieres = this.selectedMatiere
-      .map(matiere => matiere.id_Matiere)
-      .filter((id): id is number => id !== undefined); 
-  
+      .map((matiere) => matiere.id_Matiere)
+      .filter((id): id is number => id !== undefined);
+
+    // Submit the class creation request
     this.classeService.createClasse(this.classe).subscribe(
       (response) => {
-        console.log("Classe created successfully:", response);
-        this.router.navigate(['/listeclasse']);
+        this.alertVisible1 = true; // Show success alert
+        setTimeout(() => {
+          this.alertVisible1 = false; 
+          this.router.navigate(['/listeclasse']); // Redirect after 2 seconds
+        }, 2000);
       },
       (error) => {
-        console.error("Erreur lors de la création de la classe", error);
+        this.alertVisible2 = true; // Show error alert on failure
+        setTimeout(() => { this.alertVisible2 = false; }, 2000); // Hide after 2 seconds
       }
     );
   }
-  
-  
 
-  cancel() {
+  // Navigate back to the class list page
+  cancel(): void {
     this.router.navigate(["/listeclasse"]);
   }
 }

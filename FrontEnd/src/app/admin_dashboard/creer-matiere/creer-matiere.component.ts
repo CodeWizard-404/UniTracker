@@ -27,6 +27,7 @@ export class CreerMatiereComponent {
 
   alertVisible1: boolean = false; // Success alert visibility
   alertVisible2: boolean = false; // Error alert visibility
+  alertVisible3: boolean = false; // Validation error alert visibility
 
   // Constructor to inject required services
   constructor(
@@ -95,9 +96,23 @@ export class CreerMatiereComponent {
     }
   }
 
-  // Handle form submission
+  // Handle form submission with validation
   onSubmit() {
-    // Set selected classes and professors for the Matiere
+    // Validation checks
+    if (
+      !this.matiere.libelle ||
+      !this.selectedClassYear ||
+      !this.matiere.semestre ||
+      this.selectedProfesseurs.length === 0
+    ) {
+      this.alertVisible2 = true; // Show error alert
+      setTimeout(() => {
+        this.alertVisible2 = false;
+      }, 2000);
+      return; // Prevent form submission
+    }
+
+    // If all fields are valid, proceed with the form submission
     this.matiere.classes = this.selectedClasses;
     this.matiere.professeurs = this.selectedProfesseurs.map(
       (prof) => prof.id_Professeur
@@ -106,16 +121,14 @@ export class CreerMatiereComponent {
     // Sending Matiere data to the server
     this.matiereService.addMatiere(this.matiere).subscribe(
       (response) => {
-        // Show success alert and navigate to the list of subjects
-        this.alertVisible1 = true;
+        this.alertVisible1 = true; // Show success alert
         setTimeout(() => {
           this.alertVisible1 = false;
           this.router.navigate(["/listmatiere"]);
         }, 2000);
       },
       (error) => {
-        // Show error alert on failure
-        this.alertVisible2 = true;
+        this.alertVisible2 = true; // Show error alert if submission fails
         setTimeout(() => {
           this.alertVisible2 = false;
         }, 2000);
