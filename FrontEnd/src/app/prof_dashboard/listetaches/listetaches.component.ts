@@ -174,24 +174,6 @@ export class ListetachesComponent implements OnInit{
   }
 }
 
-  // getClassesNames(prof: Prof): string[] {
-  //   if (prof.lesMatieres && prof.lesMatieres.length > 0) {
-  //     const uniqueClasses = new Set<string>();
-
-  //     prof.lesMatieres.forEach(m => {
-  //       if (m.classes && m.classes.length > 0) {
-  //         m.classes.forEach(cls => {
-  //           uniqueClasses.add(cls.nom_Classe); 
-  //         });
-  //       }
-  //     });
-
-  //     return Array.from(uniqueClasses);
-  //   }
-  //   return [];
-  // }
-
-
 }
 
 
