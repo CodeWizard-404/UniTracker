@@ -10,14 +10,18 @@ import { ProfServiceService } from "src/app/services/prof-service.service";
 })
 export class CreerProfComponent implements OnInit {
   form!: FormGroup;
-  constructor(
-    private fb: FormBuilder,
-    private profService: ProfServiceService,
-    private router: Router
-  ) {}
-  
   isPasswordVisible: boolean = false;
+  alertVisible1: boolean = false;
+  alertVisible2: boolean = false;
 
+  // Inject services and dependencies through constructor
+  constructor(
+    private fb: FormBuilder,  // FormBuilder to manage the form
+    private profService: ProfServiceService, // Service to handle Prof data
+    private router: Router // Router to navigate between pages
+  ) {}
+
+  // Initialize the form group and set up validation
   ngOnInit(): void {
     this.form = this.fb.group({
       nom_Prof: ["", Validators.required],
@@ -30,27 +34,45 @@ export class CreerProfComponent implements OnInit {
     });
   }
 
+  // Handle form submission
   onSubmit(): void {
     if (this.form.valid) {
       const formData = this.form.value;
 
+      // Call the service to add the professor data
       this.profService.addProf(formData).subscribe(
         (response) => {
-          console.log("Professeur ajouté avec succès:", response);
-          this.router.navigate(["/listeprof"]);
+          this.showSuccessAlert();
         },
         (error) => {
-          console.error("Erreur lors de l'ajout du professeur:", error);
+          this.showErrorAlert();
         }
       );
     } else {
-      console.log("Formulaire invalide, veuillez corriger les erreurs.");
+      this.showErrorAlert();
     }
   }
 
-  generatePassword(length = 8): string {
-    const charset =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*@#";
+  // Display success alert and navigate to the list page
+  private showSuccessAlert(): void {
+    this.alertVisible1 = true;
+    setTimeout(() => {
+      this.alertVisible1 = false;
+      this.router.navigate(["/listeprof"]);
+    }, 2000);
+  }
+
+  // Display error alert
+  private showErrorAlert(): void {
+    this.alertVisible2 = true;
+    setTimeout(() => {
+      this.alertVisible2 = false;
+    }, 2000);
+  }
+
+  // Generate a random password with the specified length
+  private generatePassword(length = 8): string {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*@#";
     let password = "";
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
@@ -58,18 +80,21 @@ export class CreerProfComponent implements OnInit {
     }
     return password;
   }
+
+  // Toggle the visibility of the password field
   togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
+  // Generate a password and set it in the form
   generateAndSetPassword(): void {
     const password = this.generatePassword();
-    this.form.get("mot_de_passe_Prof")?.setValue(password);  
+    this.form.get("mot_de_passe_Prof")?.setValue(password);
     console.log("Generated password:", password);
   }
-  
-  cancel() {
-    this.router.navigate(["/listeprof"]); 
+
+  // Navigate to the professor list page without submitting
+  cancel(): void {
+    this.router.navigate(["/listeprof"]);
   }
-  
 }

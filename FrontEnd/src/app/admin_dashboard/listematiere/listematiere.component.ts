@@ -57,7 +57,7 @@ export class ListematiereComponent implements OnInit{
   
       return yearsWithSuffix;
     }
-    return [];
+    return ["Aucune Année"];
   }
   
 
