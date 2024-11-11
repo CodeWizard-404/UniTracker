@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 import { Classe } from "src/app/classes/classe";
 import { Matiere } from "src/app/classes/matiere";
 import { ClasseServiceService } from "src/app/services/classe-service.service";
@@ -12,37 +14,52 @@ import { MatiereServiceService } from "src/app/services/matiere-service.service"
 export class ListeclasseComponent {
   classes: Classe[] = [];
   allMatieres: Matiere[] = [];
+  selectedAnnee: number | null = null;
+  filteredClasses: Classe[] = [];
 
   constructor(
     private classeService: ClasseServiceService,
-    private matiereService: MatiereServiceService // Ensure this service is imported
+    private matiereService: MatiereServiceService, private route: ActivatedRoute // Ensure this service is imported
   ) {}
 
-  ngOnInit(): void {
-    this.loadClasses();
+  async ngOnInit(): Promise<void> {
+    try {
+ 
+      await this.loadClasses();
+      this.route.queryParams.subscribe(params => {
+        this.selectedAnnee = params['annee'] ? +params['annee'] : null;
+        this.applyFilter();
+      });
+    } catch (error) {
+      console.error('Erreur lors du chargement des classes:', error);
+    }
   }
-
-  loadClasses() {
-    this.classeService.getClasses().subscribe(
-      (data) => {
-        console.log("Raw classes data:", data);
-        if (!Array.isArray(data)) {
-          console.error("Expected an array of classes");
-          return;
-        }
-        this.classes = data.map((classe: Classe) => ({
-          ...classe,
-          nombreMatieres: Array.isArray(classe.matieres) ? classe.matieres.length : 0,
-          nombreEtudiants: Array.isArray(classe.etudiants) ? classe.etudiants.length : 0,
-          nombreProfesseurs: 0, // Initialize with 0, will calculate later
-        }));
-
-        this.fetchMatiereDetails();
-      },
-      (error) => {
-        console.error("Error retrieving classes:", error);
+  applyFilter(): void {
+    if (this.selectedAnnee !== null) {
+      this.filteredClasses = this.classes.filter(classe => classe.annee_Classe === this.selectedAnnee);
+    } else {
+      this.filteredClasses = this.classes;
+    }
+  }
+  async loadClasses(): Promise<void> {
+    try {
+      const data = await firstValueFrom(this.classeService.getClasses());
+      console.log("Raw classes data:", data);
+      if (!Array.isArray(data)) {
+        console.error("Expected an array of classes");
+        return;
       }
-    );
+      this.classes = data.map((classe: Classe) => ({
+        ...classe,
+        nombreMatieres: Array.isArray(classe.matieres) ? classe.matieres.length : 0,
+        nombreEtudiants: Array.isArray(classe.etudiants) ? classe.etudiants.length : 0,
+        nombreProfesseurs: 0, 
+      }));
+
+      this.fetchMatiereDetails();
+    } catch (error) {
+      console.error("Error retrieving classes:", error);
+    }
   }
 
   fetchMatiereDetails() {

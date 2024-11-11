@@ -82,7 +82,7 @@ export class UpdateClasseComponent implements OnInit {
     const isChecked = inputElement.checked;
 
     if (isChecked) {
-      this.selectedMatiereIds.push(matiereId); // Add the selected matiere ID
+      this.selectedMatiereIds.push(matiereId); 
     } else {
       this.selectedMatiereIds = this.selectedMatiereIds.filter(id => id !== matiereId); 
     }

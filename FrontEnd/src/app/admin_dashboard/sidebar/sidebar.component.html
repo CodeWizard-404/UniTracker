@@ -74,23 +74,23 @@
     <li class="nav-item menu-items">
       <a class="nav-link" [routerLink]="['/listeclasse']" routerLinkActive="active">
         <span class="menu-icon"><i class="mdi mdi-account-group"></i></span>
-        <span class="menu-title">Classes</span>
+        <span class="menu-title" (click)="filterByAnnee(null)">Classes</span>
         <i class="menu-arrow"></i>
       </a>
       <div>
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active">
+            <a class="nav-link" (click)="filterByAnnee(1)" routerLinkActive="active" >
               <i class="bi bi-caret-right-fill"></i> 1er Année
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active">
+            <a class="nav-link" (click)="filterByAnnee(2)" routerLinkActive="active">
               <i class="bi bi-caret-right-fill"></i> 2éme Année
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active">
+            <a class="nav-link" (click)="filterByAnnee(3)" routerLinkActive="active">
               <i class="bi bi-caret-right-fill"></i> 3éme Année
             </a>
           </li>
