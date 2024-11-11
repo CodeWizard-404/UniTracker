@@ -12,5 +12,7 @@ public interface IClasseService {
 	boolean deleteClasse(int id);
 	List<Integer> getMatieresByIdClasse(int id_Classe);
 	Optional<Classe> getClasseById(int id);
+	List<Integer> getClassesIdByIdMatiere(Integer matiereId);
+	List<Classe> getClassesByIds(List<Integer> ids);
 
 }

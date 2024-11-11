@@ -70,4 +70,9 @@ public class ProfServiceImpl implements IProfService{
         return profRep.save(professeur);
     }
 
+    
+    @Override
+    public List<Professeur> getProfsByIds(List<Integer> profIds) {
+        return profRep.findAllById(profIds);
+    }
 }

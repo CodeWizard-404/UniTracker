@@ -107,8 +107,16 @@ public List<Integer> getMatieresByIdClasse(int id_Classe) {
 public Optional<Classe> getClasseById(int id) {
     return classeRepository.findById(id);
 }
+
+@Override
+public List<Integer> getClassesIdByIdMatiere(Integer matiereId) {
+    return classeRepository.findClassesIdByMatiereId(matiereId);
+}
+@Override
+public List<Classe> getClassesByIds(List<Integer> ids) {
+    return classeRepository.findAllById(ids);
+}
 	
-		
 	
 }
 		
