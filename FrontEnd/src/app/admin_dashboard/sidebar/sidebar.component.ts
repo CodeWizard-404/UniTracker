@@ -13,6 +13,7 @@ export class SidebarComponent {
     this.router.navigate(['/listeclasse'], { queryParams: { annee: annee } });
   }
   filterByAnneeMatiere(annee: number | null): void {
-    this.router.navigate(['/listeMatiere'], { queryParams: { annee: annee } });
+    if (annee !== null) {
+    this.router.navigate(['/listmatiere'], { queryParams: { annee: annee } });}
   }
 }
