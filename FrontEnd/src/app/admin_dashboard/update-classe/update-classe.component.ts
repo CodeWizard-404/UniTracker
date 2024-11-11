@@ -12,8 +12,10 @@ import { MatiereServiceService } from 'src/app/services/matiere-service.service'
 })
 export class UpdateClasseComponent implements OnInit {
   classe: Classe = new Classe();
-  matieresS1: Matiere[] = [];
-  matieresS2: Matiere[] = [];
+  matieres: Matiere[] = [];          // All matieres available in the system
+  matieresS1: Matiere[] = [];        // Matiere filter for semester 1
+  matieresS2: Matiere[] = [];        // Matiere filter for semester 2
+  selectedMatiereIds: number[] = []; // Matiere IDs associated with the class
 
   constructor(
     private classeService: ClasseServiceService,
@@ -21,39 +23,53 @@ export class UpdateClasseComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
- 
 
   ngOnInit(): void {
-    const classeId = Number(this.route.snapshot.paramMap.get('id')); // Récupérer l'ID depuis l'URL
-  
-    // Récupérer la classe par son ID
+    const classeId = Number(this.route.snapshot.paramMap.get('id')); 
+
+
     this.classeService.getClasseById(classeId).subscribe((classe) => {
       this.classe = classe;
-    });
 
 
-    this.classeService.getIdsMatieresByClasseId(classeId).subscribe((matieresIds) => {
-      console.log("Matières IDs:", matieresIds);
-      // Récupérer les matières complètes en utilisant les IDs
-      this.matiereService.getMatieresByIds(matieresIds).subscribe((matieres) => {
-        console.log("Matières Responseeeeeeeeee:", matieres); // Verify the response structure and content
-        this.matieresS1 = matieres.filter(m => m.semestre === '1');
-        this.matieresS2 = matieres.filter(m => m.semestre === '2');
-        console.log("matieres1111111111", this.matieresS1);
+      this.classeService.getIdsMatieresByClasseId(classeId).subscribe((matieresIds) => {
+        this.selectedMatiereIds = matieresIds; // Set the selected matieres IDs
+
+        // Get all available matieres
+        this.matiereService.getMatieres().subscribe((allMatieres) => {
+          this.matieres = allMatieres;
+
+          // Filter matieres based on the semester
+          this.matieresS1 = allMatieres.filter(m => m.semestre === "1");
+          this.matieresS2 = allMatieres.filter(m => m.semestre === "2");
+        });
       });
     });
   }
 
-
+ 
   onSubmit(): void {
     if (!this.classe.id_Classe) {
       console.error('ID de la classe manquant');
       return;
     }
-    this.classeService.updateClasse(this.classe.id_Classe, this.classe).subscribe(
-      (updatedClasse) => {
-        console.log('Classe mise à jour', updatedClasse);
-        this.router.navigate(['/listeclasse']); 
+
+ 
+    this.classe.matieres = this.selectedMatiereIds;
+
+  
+    const updatedClasse = {
+      num_Classe: this.classe.num_Classe,
+      nom_Classe: this.classe.nom_Classe,
+      annee_Classe: this.classe.annee_Classe,
+      etudiants: this.classe.etudiants,
+      matieres: this.classe.matieres  
+    };
+
+    this.classeService.updateClasse(this.classe.id_Classe, updatedClasse).subscribe(
+      (response) => {
+        console.log('Classe mise à jour', response);
+        this.router.navigate(['/listeclasse']);
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la classe', error);
@@ -61,10 +77,19 @@ export class UpdateClasseComponent implements OnInit {
     );
   }
 
-  onCancel(): void {
-    this.router.navigate(['/listeclasse']); // Adjust the route to your class list path
+  onMatiereChange(matiereId: number, event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const isChecked = inputElement.checked;
+
+    if (isChecked) {
+      this.selectedMatiereIds.push(matiereId); // Add the selected matiere ID
+    } else {
+      this.selectedMatiereIds = this.selectedMatiereIds.filter(id => id !== matiereId); 
+    }
   }
-  
 
-
+  // Handle cancellation of the update
+  onCancel(): void {
+    this.router.navigate(['/listeclasse']); 
+  }
 }

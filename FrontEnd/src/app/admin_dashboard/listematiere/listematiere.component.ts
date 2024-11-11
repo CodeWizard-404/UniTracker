@@ -1,4 +1,5 @@
 import { Component, OnInit  } from "@angular/core";
+import { Route, Router } from "@angular/router";
 import { Matiere } from "src/app/classes/matiere";
 import { MatiereServiceService } from "src/app/services/matiere-service.service";
 
@@ -10,7 +11,7 @@ import { MatiereServiceService } from "src/app/services/matiere-service.service"
 export class ListematiereComponent implements OnInit{
   matieres: Matiere[] = [];
 
-  constructor(private matiereService: MatiereServiceService) {}
+  constructor(private matiereService: MatiereServiceService, private router:Router) {}
 
   ngOnInit(): void {
     this.loadMatieres();
@@ -69,6 +70,21 @@ export class ListematiereComponent implements OnInit{
         console.error("Erreur lors du chargement des matières", error);
       }
     );
+  }
+  deleteMatiere(id_Matiere: number): void {
+    if (confirm('Are you sure you want to delete this matière?')) {
+      this.matiereService.deleteMatiere(id_Matiere).subscribe(
+        () => {
+          alert('Matière deleted successfully');
+  
+          this.router.navigate(['/listmatiere']); 
+        },
+        (error) => {
+          console.error('Error deleting matière:', error);
+         
+        }
+      );
+    }
   }
 }
 

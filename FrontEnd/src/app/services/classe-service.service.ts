@@ -34,10 +34,11 @@ export class ClasseServiceService {
     return this.http.get<Classe[]>(`${this.Url2}/${idProf}/classes`);
   }
 
-  updateClasse(id: number, updatedClasse: Classe): Observable<Classe> {
-    const url = `${this.Url}/updateClasse/${id}`;
-    return this.http.put<Classe>(url, updatedClasse);
-  }
+ // classe-service.service.ts
+updateClasse(id_Classe: number, updatedClasse: Classe): Observable<Classe> {
+  return this.http.put<Classe>(`${this.Url2}/classes/updateClasse/${id_Classe}`, updatedClasse);
+}
+
 
   // Méthode pour supprimer une classe
   deleteClasse(id: number): Observable<void> {

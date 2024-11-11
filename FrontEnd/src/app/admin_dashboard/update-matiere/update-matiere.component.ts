@@ -17,7 +17,7 @@ export class UpdateMatiereComponent implements OnInit {
   matiere: Matiere = new Matiere();
   professeurs: Prof[] = []; // To hold all professors
   classes: Classe[] = [];   // To hold all classes
-  selectedClasses: number[] = [];  // To hold selected classes' IDs
+  selectedClasses: Classe[] = [];  // To hold selected classes' IDs
   selectedProfessors: number[] = [];   // To hold selected professors' IDs
    matiereId = this.activatedRoute.snapshot.params['id'];
   constructor(
@@ -25,7 +25,7 @@ export class UpdateMatiereComponent implements OnInit {
     private profServ: ProfServiceService,
     private classeServ: ClasseServiceService,
 
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class UpdateMatiereComponent implements OnInit {
 
   loadClasses(): void {
     this.matiereService.getClassesIdByMatiere(this.matiere.id_Matiere!).subscribe((classIds: number[]) => {
-      this.selectedClasses = classIds || [];
+      this.selectedClasses = this.classes.filter(classe => classIds.includes(classe.id_Classe!));
     });
   }
 
@@ -85,7 +85,7 @@ export class UpdateMatiereComponent implements OnInit {
   onSubmit(): void {
     // Prepare the updated matiere object with selected professors and classes
     this.matiere.professeurs = this.selectedProfessors;
-    this.matiere.classesIds = this.selectedClasses;
+    this.matiere.classes = this.selectedClasses;
     console.log("prooooooooooofs", this.matiere.professeurs);
     console.log("classssssses", this.matiere.classesIds);
 
@@ -117,19 +117,22 @@ export class UpdateMatiereComponent implements OnInit {
   }
 
   // Handle class checkbox change
-  onClassChange(event: any, classId: number): void {
+  onClassChange(event: any, classe: Classe): void {
     if (event.target.checked) {
-      this.selectedClasses.push(classId);
-    } else {
-      const index = this.selectedClasses.indexOf(classId);
-      if (index > -1) {
-        this.selectedClasses.splice(index, 1);
+   
+      const exists = this.selectedClasses.some(c => c.id_Classe === classe.id_Classe);
+      if (!exists) {
+        this.selectedClasses.push(classe);
       }
     }
+   
   }
+  
 
-  // Optionally handle cancelling the operation
+ 
   onCancel(): void {
-    // Logic to reset or navigate away from the modification page
+    this.selectedProfessors = [];
+    this.selectedClasses = [];
+    this.router.navigate(['/listmatiere']); 
   }
 }

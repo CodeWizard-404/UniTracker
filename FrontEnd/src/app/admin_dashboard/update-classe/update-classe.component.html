@@ -57,12 +57,12 @@
                       <input
                         type="checkbox"
                         class="form-check-input"
-                        [(ngModel)]="classe.matieres"
-                        [ngModelOptions]="{standalone: true}"
+                        [checked]="selectedMatiereIds.includes(matiere.id_Matiere!)"
+                        (change)="onMatiereChange(matiere.id_Matiere! , $event)"
                         [value]="matiere.id_Matiere"
-                        name="matiereS1-{{ matiere.id_Matiere }}"
+                        name="matiereS1-{{ matiere.id_Matiere! }}"
                       />
-                      <label class="form-check-label" for="matiereS1-{{ matiere.id_Matiere }}">
+                      <label class="form-check-label" for="matiereS1-{{ matiere.id_Matiere! }}">
                         {{ matiere.libelle }}
                       </label>
                     </div>
@@ -76,12 +76,12 @@
                       <input
                         type="checkbox"
                         class="form-check-input"
-                        [(ngModel)]="classe.matieres"
-                        [ngModelOptions]="{standalone: true}"
+                        [checked]="selectedMatiereIds.includes(matiere.id_Matiere!)"
+                        (change)="onMatiereChange(matiere.id_Matiere!, ($event))"
                         [value]="matiere.id_Matiere"
-                        name="matiereS2-{{ matiere.id_Matiere }}"
+                        name="matiereS2-{{ matiere.id_Matiere! }}"
                       />
-                      <label class="form-check-label" for="matiereS2-{{ matiere.id_Matiere }}">
+                      <label class="form-check-label" for="matiereS2-{{ matiere.id_Matiere !}}">
                         {{ matiere.libelle }}
                       </label>
                     </div>
