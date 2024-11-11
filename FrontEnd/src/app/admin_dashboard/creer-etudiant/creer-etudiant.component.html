@@ -1,6 +1,9 @@
 <div class="container-scroller">
+  <!-- Sidebar Component -->
   <app-sidebar></app-sidebar>
   <div class="container-fluid page-body-wrapper">
+
+    <!-- Navbar Component -->
     <app-navbar></app-navbar>
     <div class="main-panel">
       <div class="content-wrapper">
@@ -8,27 +11,35 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Créer un Etudiant</h4>
-              <form class="form-sample" [formGroup]="form" (ngSubmit)="onSubmit()">
-                <p class="card-description"><i class="bi bi-dot"></i> Informations Personnelles </p>
 
+              <!-- Form starts here -->
+              <form class="form-sample" [formGroup]="form" (ngSubmit)="onSubmit()">
+                
+                <!-- Personal Information Section -->
+                <p class="card-description"><i class="bi bi-dot"></i> Informations Personnelles </p>
                 <div class="row">
+
+                  <!-- Student Name -->
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Nom</label>
                     <input type="text" class="form-control custom-input" formControlName="nom_Etd" />
                   </div>
 
+                  <!-- Student Surname -->
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Prénom</label>
                     <input type="text" class="form-control custom-input" formControlName="prenom_Etd" />
                   </div>
                 </div>
-
                 <div class="row">
+
+                  <!-- Student Email -->
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Mail</label>
                     <input type="text" class="form-control custom-input" formControlName="email_Etd" />
                   </div>
 
+                  <!-- Student Password -->
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Mot de passe</label>
                     <div class="input-group">
@@ -47,17 +58,14 @@
                         </span>
                     </div>
                     <small class="form-text text-muted">Mot de passe généré automatiquement.</small>
+                  </div>
                 </div>
-                
-                
-                
-                </div>
-
                 <br>
 
+                <!-- Academic Information Section -->
                 <p class="card-description"><i class="bi bi-dot"></i> Informations Académiques </p>
-
                 <div class="row">
+                  <!-- Year Selection -->
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Année</label>
                     <select class="form-control custom-input" formControlName="anneeClasse" (change)="onYearChange()">
@@ -66,7 +74,8 @@
                       <option [ngValue]="3">3ème Année</option>
                     </select>
                   </div>
-                
+
+                  <!-- Class Selection -->
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Classe</label>
                     <select class="form-control custom-input" formControlName="classe" (change)="onClasseChange($event)">
@@ -74,6 +83,7 @@
                     </select>
                   </div>
 
+                  <!-- Class Number -->
                   <div class="col-md">
                     <label class="col-sm col-form-label input-label">Numéro de Classe</label>
                     <input 
@@ -85,31 +95,17 @@
                   </div>
                 </div>
 
-                <!-- <div class="row">
-                  <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Matieres S1</label>
-                      <input 
-                        type="text" 
-                        class="form-control custom-input "  
-                        formControlName="" />
-                  </div>
-                
-                  <div class="col-md">
-                      <label class="col-sm col-form-label input-label">Matieres S2</label>
-                      <input 
-                        type="text" 
-                        class="form-control custom-input "  
-                        formControlName="" />
-                  </div>
-                </div> -->
+                <!-- Success/Error Alerts -->
+                <div *ngIf="alertVisible1" class="alert alert-primary mt-3" role="alert">Professeur ajouté avec succès</div>
+                <div *ngIf="alertVisible2" class="alert alert-danger mt-3" role="alert">Erreur lors de l'ajout !!</div>
 
                 <hr>
 
+                <!-- Action Buttons -->
                 <div class="d-flex justify-content-end">
                   <button type="submit" class="btn btn-secondary mr-2"><i class="bi bi-floppy"></i> Ajouter</button>
                   <button type="button" class="btn btn-danger" (click)="cancel()"><i class="bi bi-backspace-reverse"></i> Annuler</button>
                 </div>
-
               </form>
             </div>
           </div>
@@ -118,122 +114,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-              <!--
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">Id</label>
-                      <div class="col-sm-9">
-                        <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        formControlName="id_Etudiant" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">Genre</label>
-                      <div class="col-sm-9">
-                        <select class="form-control custom-input" formControlName="sexe_Etd">
-                          <option>Homme</option>
-                          <option>Femme</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">Adresse</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control custom-input" formControlName="adresse_Etd"/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">Date naissance</label>
-                      <div class="col-sm-9">
-                        <input type="date" class="form-control custom-input" formControlName="date_de_naissance_Etd"/>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">Téléphone</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control custom-input" formControlName="telephone_Etd"/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">CIN</label>
-                      <div class="col-sm-9">
-                        <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        formControlName="cin_Etd" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">CIN</label>
-                      <div class="col-sm-9">
-                        <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        formControlName="cin_Etd" />
-                      </div>
-                    </div>
-                  </div>
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label input-label">Redoublant</label>
-                      <div class="col-sm-4">
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input 
-                            type="radio" 
-                            class="form-check-input" 
-                            [value]="false" 
-                            formControlName="redoublant">
-                            Non
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input 
-                            type="radio" 
-                            class="form-check-input" 
-                            [value]="true" 
-                            formControlName="redoublant">
-                            Oui
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                -->

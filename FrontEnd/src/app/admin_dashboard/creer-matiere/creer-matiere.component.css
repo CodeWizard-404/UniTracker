@@ -1,14 +1,17 @@
+/* Card Styling */
 .card {
   border-radius: 15px !important;
   border: 1px solid gray !important;
   padding: 15px;
 }
 
+/* Label and Description Styling */
 .input-label, .card-description {
   color: #767676;
   font-weight: 500;
 }
 
+/* Custom Input Styling */
 .custom-input {
   background-color: #e5e5e5;
   border: 1px solid #555555;
@@ -33,6 +36,7 @@
   font-weight: 500;
 }
 
+/* Button Styling */
 .btn {
   padding: 10px 20px;
   border-radius: 5px;
@@ -40,6 +44,7 @@
   border: 1px solid #555555;
 }
 
+/* Input Group Styling */
 .input-group {
   position: relative;
 }
@@ -59,6 +64,7 @@
   right: 50px;
 }
 
+/* Form Checkbox Styling */
 .form-check-input {
   width: 20px;
   height: 20px;
@@ -69,15 +75,15 @@
   font-size: 15px;
   font-weight: bold;
   color: #555555;
-
 }
 
+/* Custom Checkbox Styling */
 .checkbox-input {
   background-color: #e5e5e5;
   border-radius: 15px;
 }
 
-
+/* Checklist Container Styling */
 .checklist-container {
   background-color: #e5e5e5;
   border-radius: 10px;
