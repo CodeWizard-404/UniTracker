@@ -28,7 +28,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let matiere of matieres">
+                                            <tr *ngFor="let matiere of filteredMatieres">
                                                 <td>{{ matiere.id_Matiere }}</td>
                                                 <td>{{ matiere.libelle }}</td>
                                                 <td>{{ getClassesNames(matiere) }}</td>
