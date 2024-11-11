@@ -15,6 +15,7 @@ export class ListetachepersoComponent implements OnInit {
   tacheForm!: FormGroup;
   doneTasks: Tache[] = [];
   todoTasks: Tache[] = [];
+  inProgressTasks: Tache[] = [];
   idEtudiant!: number; 
   taches: Tache[] = [];
   marked!: Completion;
@@ -111,7 +112,18 @@ export class ListetachepersoComponent implements OnInit {
     );
     
     this.todoTasks = this.taches.filter(tache => 
-      !tache.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      tache.sousTaches.every(subtask => 
+        !subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      )
+    );
+
+    this.inProgressTasks = this.taches.filter(tache => 
+      tache.sousTaches.some(subtask => 
+        subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      ) &&
+      !tache.sousTaches.every(subtask => 
+        subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      )
     );
   }
 

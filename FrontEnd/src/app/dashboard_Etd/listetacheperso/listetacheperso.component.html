@@ -10,7 +10,8 @@
           <div class="d-flex">
             <a class="nav-link btn btn-primary create-new-button"
               [routerLink]="['/dashEtd', idEtudiant, 'creertacheperso']">+ Creer Tache</a>
-            <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Creer Groupe</a>
+            <a class="nav-link btn btn-primary create-new-button ml-3" [routerLink]="['/creerGroupe']">+ Creer
+              Groupe</a>
           </div>
         </div>
 
@@ -21,19 +22,28 @@
             <div *ngFor="let tache of todoTasks" class="card mb-3" (click)="openTaskDetails(tache)">
               <div class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
-                <span class="text-muted">Description: {{ tache.description }}</span>
-                <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span>
+                <span class="text-muted">{{ tache.description }}</span>
+                <span class="text-muted">Date: {{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</span>
               </div>
             </div>
           </div>
-
+          <div class="kanban-column">
+            <h5>In Progress</h5>
+            <div *ngFor="let tache of inProgressTasks" class="card mb-3" (click)="openTaskDetails(tache)">
+              <div class="card-body">
+                <strong class="d-block mb-2">{{ tache.titre }}</strong>
+                <span class="text-muted">{{ tache.description }}</span>
+                <span class="text-muted">Date: {{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+            </div>
+          </div>
           <div class="kanban-column">
             <h5>Done</h5>
             <div *ngFor="let tache of doneTasks" class="card mb-3" (click)="openTaskDetails(tache)">
               <div class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
-                <span class="text-muted">Description: {{ tache.description }}</span>
-                <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span>
+                <span class="text-muted">{{ tache.description }}</span>
+                <span class="text-muted">Date: {{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</span>
               </div>
             </div>
           </div>
@@ -43,21 +53,21 @@
     </div>
   </div>
 
-<!-- Modal for task details -->
-<div class="task-modal" *ngIf="selectedTask">
-  <div class="task-modal-content">
-    <span class="close-btn" (click)="closeTaskDetails()">&times;</span>
-    
-    <!-- Task title and basic information -->
-    <h3>{{ selectedTask.titre }}</h3>
-    <p><strong>Description:</strong> {{ selectedTask.description }}</p>
-    <p><strong>Date limite:</strong> {{ selectedTask.dateLimite | date:'fullDate' }}</p>
+  <!-- Modal for task details -->
+  <div class="task-modal" *ngIf="selectedTask">
+    <div class="task-modal-content">
+      <span class="close-btn" (click)="closeTaskDetails()">&times;</span>
 
-    <!-- Timer control buttons -->
+      <!-- Task title and basic information -->
+      <h3>{{ selectedTask.titre }}</h3>
+      <p><strong>Description:</strong> {{ selectedTask.description }}</p>
+      <p><strong>Date limite:</strong> {{ selectedTask.dateLimite | date:'fullDate' }}</p>
+
+      <!-- Timer control buttons -->
 
       <!-- Play button (if timer is not running) -->
-      <button *ngIf="!timers[selectedTask.id_Tache]" class="btn btn-primary" (click)="toggleTimer(selectedTask.id_Tache)"
-        [ngClass]="{'btn-start': !timers[selectedTask.id_Tache]}">
+      <button *ngIf="!timers[selectedTask.id_Tache]" class="btn btn-primary"
+        (click)="toggleTimer(selectedTask.id_Tache)" [ngClass]="{'btn-start': !timers[selectedTask.id_Tache]}">
         <i class="fa fa-play"></i>
       </button>
       <!-- Pause/Resume button (if timer is running) -->
@@ -71,169 +81,121 @@
       </button>
 
 
-    <!-- Display elapsed time -->
-    <div class="mt-2">
-      <span><strong>Temps écoulé:</strong> {{ formatTime(times[selectedTask.id_Tache] || 0) }}</span>
-    </div>
-
-    <!-- Edit button (only visible if the task is not assigned to a professor) -->
-    <div class="d-flex justify-content-between">
-      <button *ngIf="selectedTask.professeur == null" class="btn btn-lig"
-        [routerLink]="['/dashboardEtud', idEtudiant, 'taches', selectedTask.id_Tache]"
-        style="position: absolute; top: 10px; right: 40px;">
-        <i class="bi bi-pencil-square"></i>
-      </button>
-    </div>
-
-    <!-- Completion and Difficulty selection -->
-    <div *ngFor="let completion of selectedTask.completions">
-      <div *ngIf="completion.etudiant === idEtudiant">
-        <!-- Checkbox to mark task as completed -->
-        <div class="form-check mt-2">
-          <input type="checkbox" class="form-check-input" [(ngModel)]="completion.marquer"
-            (change)="markTaskAsCompleted(selectedTask.id_Tache, completion.etudiant, completion.marquer)"
-            id="completion-{{completion.tache_id}}-{{completion.etudiant}}" />
-          <label class="form-check-label" for="completion-{{completion.tache_id}}-{{completion.etudiant}}">
-            Marquer comme complétée
-          </label>
-        </div>
-        <div>progresssion:{{completion.progression}}/{{ completion.totalSoustTaches === 0 ? 1 : completion.totalSoustTaches }}</div>
-
-        <!-- Progress bar to show completion status -->
-        <div class="progress" style="height: 15px;">
-          <div 
-            class="progress-bar" 
-            role="progressbar" 
-            [style.width]="completion.totalSoustTaches > 0 ? (completion.progression / completion.totalSoustTaches * 100) + '%' : '100%'"
-            [attr.aria-valuenow]="completion.totalSoustTaches > 0 ? (completion.progression / completion.totalSoustTaches * 100) : 100" 
-            aria-valuemin="0" 
-            aria-valuemax="100">
-          </div>
-        </div>
-
-        <!-- Difficulty selection dropdown, shown after marking task as completed -->
-        <div class="form-group" *ngIf="completion.marquer" style="margin: 20px;">
-          <div class="form-label">
-            <label>Difficulté :</label>
-          </div>
-          <div class="form-input">
-            <select class="form-control p_input" (change)="chooseDiff(completion, selectedTask.id_Tache)"
-              [(ngModel)]="completion.complexite">
-              <option value="" disabled selected>Choisir...</option>
-              <option value="Easy">Facile</option>
-              <option value="Medium">Moyenne</option>
-              <option value="Hard">Difficile</option>
-            </select>
-          </div>
-        </div>
-<!-- Form to add a subtask -->
-<form [formGroup]="tacheForm" (ngSubmit)="addSubTask(selectedTask)" class="task-form">
-  <label for="subtaskTitle" class="form-label">Sous-Tache</label>
-  <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" id="subtaskTitle" class="form-input" />
-  <button type="submit" class="btn-submit"><i class="bi bi-plus-square"></i> Ajouter</button>
-</form>
-
-<!-- Display subtasks -->
-<div *ngIf="selectedTask.sousTaches" class="subtasks-container">
-  <div *ngFor="let subtask of selectedTask.sousTaches" class="subtask-item">
-    <div *ngIf="subtask.completions" class="completion-container">
-      <div *ngFor="let c of subtask.completions" class="completion-item">
-        <div *ngIf="c.etudiant === idEtudiant" class="subtask-title">{{ subtask.titre }}
-          <!-- Checkbox to mark task as completed -->
-        <div class="form-check mt-2">
-          <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
-          (change)="markSubTaskAsCompleted(subtask.id_Tache, c.etudiant, c.marquer)"
-            id="completion-{{c.tache_id}}-{{c.etudiant}}" />
-          <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant}}">
-            Marquer comme complétée
-          </label>
-        </div>
-                   <!-- Progress bar to show completion status -->
-        <div class="progress" style="height: 15px;">
-          <div class="progress-bar" role="progressbar" [style.width]="c.marquer ? '100%' : '0%'"
-            [attr.aria-valuenow]="c.marquer ? 100 : 0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div><br><br>
-
-        </div>
+      <!-- Display elapsed time -->
+      <div class="mt-2">
+        <span><strong>Temps écoulé:</strong> {{ formatTime(times[selectedTask.id_Tache] || 0) }}</span>
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- Add comment section -->
-<div class="comment-section">
-  <label for="commentInput" class="form-label">Commentaires</label>
-  <input type="text" [(ngModel)]="comment" placeholder="Ajouter un commentaire" id="commentInput" class="form-input" />
-  <button (click)="addComment(selectedTask.id_Tache, comment, completion)" class="btn-submit"><i class="bi bi-plus-square"></i> Ajouter</button>
-</div>
+      <!-- Edit button (only visible if the task is not assigned to a professor) -->
+      <div class="d-flex justify-content-between">
+        <button *ngIf="selectedTask.professeur == null" class="btn btn-lig"
+          [routerLink]="['/dashboardEtud', idEtudiant, 'taches', selectedTask.id_Tache]"
+          style="position: absolute; top: 10px; right: 40px;">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      </div>
 
-<!-- Display existing comments -->
-<div *ngFor="let completion of selectedTask.completions" class="comment-list">
-  <div *ngFor="let comment of completion.commentaires" class="comment-item">
-    <span class="comment-text">{{ comment }}</span> -- <span class="comment-author">{{ completion.etudiantName }}</span>
-  </div>
-</div>
+      <!-- Completion and Difficulty selection -->
+      <div *ngFor="let completion of selectedTask.completions">
+        <div *ngIf="completion.etudiant === idEtudiant">
+          <!-- Checkbox to mark task as completed -->
+          <div class="form-check mt-2">
+            <input type="checkbox" class="form-check-input" [(ngModel)]="completion.marquer"
+              (change)="markTaskAsCompleted(selectedTask.id_Tache, completion.etudiant, completion.marquer)"
+              id="completion-{{completion.tache_id}}-{{completion.etudiant}}" />
+            <label class="form-check-label" for="completion-{{completion.tache_id}}-{{completion.etudiant}}">
+              Marquer comme complétée
+            </label>
+          </div>
+          <div>progresssion:{{completion.progression}}/{{ completion.totalSoustTaches === 0 ? 1 :
+            completion.totalSoustTaches }}</div>
 
+          <!-- Progress bar to show completion status -->
+          <div class="progress" style="height: 15px;">
+            <div class="progress-bar" role="progressbar"
+              [style.width]="completion.totalSoustTaches > 0 ? (completion.progression / completion.totalSoustTaches * 100) + '%' : '100%'"
+              [attr.aria-valuenow]="completion.totalSoustTaches > 0 ? (completion.progression / completion.totalSoustTaches * 100) : 100"
+              aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
 
+          <!-- Difficulty selection dropdown, shown after marking task as completed -->
+          <div class="form-group" *ngIf="completion.marquer" style="margin: 20px;">
+            <div class="form-label">
+              <label>Difficulté :</label>
+            </div>
+            <div class="form-input">
+              <select class="form-control p_input" (change)="chooseDiff(completion, selectedTask.id_Tache)"
+                [(ngModel)]="completion.complexite">
+                <option value="" disabled selected>Choisir...</option>
+                <option value="Easy">Facile</option>
+                <option value="Medium">Moyenne</option>
+                <option value="Hard">Difficile</option>
+              </select>
+            </div>
+          </div>
+          <!-- Form to add a subtask -->
+          <form [formGroup]="tacheForm" (ngSubmit)="addSubTask(selectedTask)" class="task-form">
+            <label for="subtaskTitle" class="form-label">Sous-Tache</label>
+            <input type="text" formControlName="titre" placeholder="Titre de la sous-tâche" id="subtaskTitle"
+              class="form-input" />
+            <button type="submit" class="btn-submit"><i class="bi bi-plus-square"></i> Ajouter</button>
+          </form>
 
-    <!-- Delete task button (only visible if the task is not assigned to a professor) -->
-    <div class="d-flex justify-content-between mt-3">
-      <button *ngIf="selectedTask.professeur == null" class="btn btn-danger"
-        (click)="deleteTask(selectedTask.id_Tache, idEtudiant)">
-        <i class="bi bi-trash-fill"></i>
-      </button>
-
-    </div>
-  </div>
-</div>
-
-</div>
-
-
-
-<!--
-          <div class="kanban-column">
-            <h5>In Progress</h5>
-            <div *ngFor="let tache of taches" class="card mb-3">
-              <div class="card-body">
-                <strong class="d-block mb-2">{{ tache.titre }}</strong>
-                <span class="text-muted">Description: {{ tache.description }}</span><br />
-                <span class="text-muted">Date limite: {{ tache.dateLimite | date:'short' }}</span><br />
-                <span class="text-muted">Matiere: {{ tache.matiere.libelle }}</span>
-                <div class="d-flex justify-content-between">
-                  <button *ngIf="tache.professeur==null"  class="btn btn-lig" [routerLink]="['/dashboardEtud', idEtudiant, 'taches', tache.id_Tache]" style="position: absolute; top: 20px; right: 10px;"><i class="bi bi-pencil-square"></i></button>
-                </div>
-                <div *ngFor="let c of tache.completions">
-                  <div *ngIf="c.etudiant === idEtudiant">
+          <!-- Display subtasks -->
+          <div *ngIf="selectedTask.sousTaches" class="subtasks-container">
+            <div *ngFor="let subtask of selectedTask.sousTaches" class="subtask-item">
+              <div *ngIf="subtask.completions" class="completion-container">
+                <div *ngFor="let c of subtask.completions" class="completion-item">
+                  <div *ngIf="c.etudiant === idEtudiant" class="subtask-title">{{ subtask.titre }}
+                    <!-- Checkbox to mark task as completed -->
                     <div class="form-check mt-2">
                       <input type="checkbox" class="form-check-input" [(ngModel)]="c.marquer"
-                        (change)="markTaskAsCompleted(c)" id="completion-{{c.id_Completion}}" />
-                      <label class="form-check-label" for="completion-{{c.id_Completion}}">
+                        (change)="markSubTaskAsCompleted(subtask.id_Tache, c.etudiant, c.marquer)"
+                        id="completion-{{c.tache_id}}-{{c.etudiant}}" />
+                      <label class="form-check-label" for="completion-{{c.tache_id}}-{{c.etudiant}}">
                         Marquer comme complétée
                       </label>
                     </div>
+                    <!-- Progress bar to show completion status -->
                     <div class="progress" style="height: 15px;">
                       <div class="progress-bar" role="progressbar" [style.width]="c.marquer ? '100%' : '0%'"
                         [attr.aria-valuenow]="c.marquer ? 100 : 0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div class="form-group" *ngIf="c.marquer" style="margin: 20px;">
-                      <div class="form-label">
-                        <label>Difficulte :</label>
-                      </div>
-                      <div class="form-input">
-                        <select class="form-control p_input" (change)="chooseDiff(c)" [(ngModel)]="c.complexite">
-                          <option value="" disabled selected>Choisir...</option>
-                          <option value="Easy">Facile</option>
-                          <option value="Medium">Moyenne</option>
-                          <option value="Hard">Difficile</option>
-                        </select>
-                      </div>
-                    </div>
                   </div>
-                </div>
-                  <div class="d-flex justify-content-between mt-3">
-                  <button *ngIf="tache.professeur==null" class="btn btn-danger"(click)="deleteTask(tache.id_Tache, idEtudiant)"style="position:  bottom: 30px; right: 40px;"><i class="bi bi-trash-fill"></i></button>
                 </div>
               </div>
             </div>
-          </div>-->
+          </div>
+
+          <!-- Add comment section -->
+          <div class="comment-section">
+            <label for="commentInput" class="form-label">Commentaires</label>
+            <input type="text" [(ngModel)]="comment" placeholder="Ajouter un commentaire" id="commentInput"
+              class="form-input" />
+            <button (click)="addComment(selectedTask.id_Tache, comment, completion)" class="btn-submit"><i
+                class="bi bi-plus-square"></i> Ajouter</button>
+          </div>
+
+          <!-- Display existing comments -->
+          <div *ngFor="let completion of selectedTask.completions" class="comment-list">
+            <div *ngFor="let comment of completion.commentaires" class="comment-item">
+              <span class="comment-text">{{ comment }}</span> -- <span class="comment-author">{{ completion.etudiantName
+                }}</span>
+            </div>
+          </div>
+
+
+
+          <!-- Delete task button (only visible if the task is not assigned to a professor) -->
+          <div class="d-flex justify-content-between mt-3">
+            <button *ngIf="selectedTask.professeur == null" class="btn btn-danger"
+              (click)="deleteTask(selectedTask.id_Tache, idEtudiant)">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
