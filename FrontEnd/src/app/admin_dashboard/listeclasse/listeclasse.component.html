@@ -24,9 +24,8 @@
                         <th>Matières</th>
                         <th>Professeurs</th>
                         <th>Etudiants</th>
-                        
-                        <th></th>
-                        <th></th>
+                        <th>Action</th>
+
                       </tr>
                     </thead>
                     <tbody>
@@ -36,24 +35,11 @@
                         <td>{{ classe.nombreMatieres }}</td>
                         <td>{{ classe.nombreProfesseurs }}</td>
                         <td>{{ classe.nombreEtudiants }}</td>
-                        <td>
-                          <div class="d-flex justify-content-between">
-                            <button class="btn btn-lig"  [routerLink]="['/updateClasse', classe.id_Classe]">
-                              <i class="bi bi-pencil-square"></i>
-                            </button>
-                          </div>
-                     
-                        </td>
-                        <td *ngIf="classe.id_Classe !== undefined">
-                          <button class="btn btn-danger" (click)="deleteClasse(classe.id_Classe)">
-                            <i class="bi bi-trash-fill"></i>
-                          </button>
-                        </td>
                         
-                        <!-- <td>
-                          <button class="btn btn-secondary"><i class="bi bi-pencil-square"></i></button>
-                          <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                        </td> -->
+                        <td *ngIf="classe.id_Classe !== undefined">
+                          <button class="btn btn-secondary" [routerLink]="['/updateClasse', classe.id_Classe]"><i class="bi bi-pencil-square"></i></button>
+                          <button class="btn btn-danger" (click)="deleteClasse(classe.id_Classe)"><i class="bi bi-trash-fill"></i></button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
