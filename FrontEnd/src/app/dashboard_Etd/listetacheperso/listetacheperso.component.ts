@@ -131,10 +131,28 @@ export class ListetachepersoComponent implements OnInit {
 
     this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       (updatedCompletion: Completion) => {
-        
-        console.log('Tâche marquée comme complétée:', updatedCompletion);
-                this.updateTaskLists();
-                this.cd.detectChanges();
+        const task = this.taches.find(t => t.id_Tache === tacheId);
+        if (task) {
+          // Update the main task completion (marquer and progression)
+          const completion = task.completions.find(c => c.etudiant === etudiantId);
+          if (completion) {
+            completion.marquer = updatedCompletion.marquer;
+            completion.progression = updatedCompletion.progression;
+          }
+    
+          // Now handle the subtasks
+          task.sousTaches.forEach(subtask => {
+            const subtaskCompletion = subtask.completions.find(c => c.etudiant === etudiantId);
+            if (subtaskCompletion) {
+              subtaskCompletion.marquer = isCompleted;
+              subtaskCompletion.progression = isCompleted ? subtaskCompletion.totalSoustTaches : 0;
+            }
+          });
+          
+          console.log('Tâche marquée comme complétée:', updatedCompletion);
+          this.updateTaskLists();
+      this.cd.detectChanges();
+    }
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);
