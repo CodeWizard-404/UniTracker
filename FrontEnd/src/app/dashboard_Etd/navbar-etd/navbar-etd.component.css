@@ -4,4 +4,9 @@
 .nav-item{
     color: #808080 !important;
 }
-
+.dropdown-item{
+    color: #555555;
+}
+.dropdown-menu{
+    color: #555555;
+}

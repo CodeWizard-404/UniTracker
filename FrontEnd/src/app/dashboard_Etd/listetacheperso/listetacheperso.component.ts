@@ -128,8 +128,10 @@ export class ListetachepersoComponent implements OnInit {
   }
 
   markTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean) {
+
     this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       (updatedCompletion: Completion) => {
+        
         console.log('Tâche marquée comme complétée:', updatedCompletion);
                 this.updateTaskLists();
                 this.cd.detectChanges();
@@ -142,9 +144,28 @@ export class ListetachepersoComponent implements OnInit {
   markSubTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean) {
     this.CompServ.markSubTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       (updatedCompletion: Completion) => {
-        console.log('Tâche marquée comme complétée:', updatedCompletion);
-                this.updateTaskLists();
-                this.cd.detectChanges();
+        const task = this.taches.find(t => t.id_Tache === tacheId);
+        if (task) {
+          // Update the main task completion (marquer and progression)
+          const completion = task.completions.find(c => c.etudiant === etudiantId);
+          if (completion) {
+            completion.marquer = updatedCompletion.marquer;
+            completion.progression = updatedCompletion.progression;
+          }
+    
+          // Now handle the subtasks
+          task.sousTaches.forEach(subtask => {
+            const subtaskCompletion = subtask.completions.find(c => c.etudiant === etudiantId);
+            if (subtaskCompletion) {
+              subtaskCompletion.marquer = isCompleted;
+              subtaskCompletion.progression = isCompleted ? subtaskCompletion.totalSoustTaches : 0;
+            }
+          });
+          
+          console.log('Tâche marquée comme complétée:', updatedCompletion);
+          this.updateTaskLists();
+      this.cd.detectChanges();
+    }
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);
@@ -207,6 +228,7 @@ addSubTask(tache:Tache){
         tache.completions=updatedTache.completions;
         tache.sousTaches = [...updatedTache.sousTaches];
         console.log('soustache ajoutee avec succee', tache.completions);
+        this.updateMainTaskCompletion(tache,this.idEtudiant);
         this.cd.detectChanges();
         this.tacheForm.reset();
               
@@ -222,7 +244,26 @@ addSubTask(tache:Tache){
 }
 }
 
+updateMainTaskCompletion(task: Tache, etudiantId: number) {
+   
+  let totalCompleted = 0;
+  let totalSubtasks = task.sousTaches.length;
 
+  // Calculate how many subtasks are marked as completed
+  task.sousTaches.forEach(subtask => {
+    const subtaskCompletion = subtask.completions.find(c => c.etudiant === etudiantId);
+    if (subtaskCompletion && subtaskCompletion.marquer) {
+      totalCompleted++;
+    }
+  });
+
+  // Update the main task's completion progress
+  const mainCompletion = task.completions.find(c => c.etudiant === etudiantId);
+  if (mainCompletion) {
+    mainCompletion.progression = totalCompleted;
+    mainCompletion.marquer = totalCompleted === totalSubtasks;
+  }
+}
   selectedTask: any;
 
   openTaskDetails(tache: any) {

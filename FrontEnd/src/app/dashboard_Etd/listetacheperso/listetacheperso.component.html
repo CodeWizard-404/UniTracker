@@ -113,8 +113,13 @@
           <!-- Progress bar to show completion status -->
           <div class="progress" style="height: 15px;">
             <div class="progress-bar" role="progressbar"
-              [style.width]="completion.totalSoustTaches > 0 ? (completion.progression / completion.totalSoustTaches * 100) + '%' : '100%'"
-              [attr.aria-valuenow]="completion.totalSoustTaches > 0 ? (completion.progression / completion.totalSoustTaches * 100) : 100"
+
+              [style.width]="completion.totalSoustTaches === 0 
+                          ? (completion.marquer ? '100%' : '0%') 
+                          : (completion.progression / completion.totalSoustTaches * 100) + '%'"
+              [attr.aria-valuenow]="completion.totalSoustTaches === 0 
+                                  ? (completion.marquer ? 100 : 0) 
+                                  : (completion.progression / completion.totalSoustTaches * 100)"
               aria-valuemin="0" aria-valuemax="100">
             </div>
           </div>
@@ -158,9 +163,13 @@
                       </label>
                     </div>
                     <!-- Progress bar to show completion status -->
+
+
                     <div class="progress" style="height: 15px;">
-                      <div class="progress-bar" role="progressbar" [style.width]="c.marquer ? '100%' : '0%'"
-                        [attr.aria-valuenow]="c.marquer ? 100 : 0" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar" role="progressbar" 
+                           [style.width]="c.marquer ? '100%' : '0%'"
+                           [attr.aria-valuenow]="c.marquer ? 100 : 0" 
+                           aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>

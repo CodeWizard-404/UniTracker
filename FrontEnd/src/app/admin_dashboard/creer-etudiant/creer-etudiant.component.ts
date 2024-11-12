@@ -43,7 +43,8 @@ export class CreerEtudiantComponent implements OnInit {
       cin_Etd: [null],
       classe: ['', Validators.required],
       numClasse: [''],
-      anneeClasse: ['', Validators.required]
+      anneeClasse: ['', Validators.required],
+      role:["etudiant"],
     });
 
     this.loadClasses(); // Load classes on component initialization

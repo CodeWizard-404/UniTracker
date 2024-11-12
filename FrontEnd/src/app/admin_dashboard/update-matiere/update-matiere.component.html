@@ -13,25 +13,14 @@
                 <!-- Nom input -->
                 <div class="col-md">
                   <label for="libelle_Matiere" class="col-sm col-form-label input-label">Nom</label>
-                  <input
-                    type="text"
-                    class="form-control custom-input"
-                    id="libelle_Matiere"
-                    name="libelle_Matiere"
-                    [(ngModel)]="matiere.libelle"
-                    required
-                  />
+                  <input type="text" class="form-control custom-input" id="libelle_Matiere" name="libelle_Matiere"
+                    [(ngModel)]="matiere.libelle" required />
                 </div>
 
                 <!-- Semestre selection -->
                 <div class="col-md">
                   <label class="col-sm col-form-label input-label">Semestre</label>
-                  <select
-                    class="form-control custom-input"
-                    name="semestre"
-                    [(ngModel)]="matiere.semestre"
-                    required
-                  >
+                  <select class="form-control custom-input" name="semestre" [(ngModel)]="matiere.semestre" required>
                     <option value="1">S1</option>
                     <option value="2">S2</option>
                   </select>
@@ -47,11 +36,11 @@
                     <div *ngFor="let prof of professeurs">
                       <div class="form-check">
                         <input type="checkbox" [value]="prof.id_Professeur"
-        [checked]="selectedProfessors.includes(prof.id_Professeur || 0)"
-        (change)="onProfChange($event, prof.id_Professeur)">
-      {{ prof.nom_Prof }}
+                          [checked]="selectedProfessors.includes(prof.id_Professeur || 0)"
+                          (change)="onProfChange($event, prof.id_Professeur)">
+                        {{ prof.nom_Prof }} - {{ prof.prenom_Prof}}
 
-                     
+
                       </div>
                     </div>
                   </div>
@@ -63,13 +52,12 @@
                   <div class="checklist-container">
                     <div *ngFor="let classe of classes">
                       <div class="form-check">
-                        <input type="checkbox" [value]="classe.id_Classe"
-        [checked]="selectedClasses.includes(classe)"
-        (change)="onClassChange($event, classe)">
-                             {{ classe.nom_Classe }}
-    
+                        <input type="checkbox" [value]="classe.id_Classe" [checked]="selectedClasses.includes(classe)"
+                          (change)="onClassChange($event, classe)">
+                        {{ classe.nom_Classe }} - {{ classe.annee_Classe }}0{{ classe.num_Classe }}
 
-                       
+
+
                       </div>
                     </div>
                   </div>
