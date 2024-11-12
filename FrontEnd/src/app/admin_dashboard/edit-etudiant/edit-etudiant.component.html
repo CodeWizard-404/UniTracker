@@ -78,7 +78,7 @@
                 <div class="d-flex justify-content-end">
                  
                   <button type="submit" class="btn btn-secondary mr-2" [disabled]="form.invalid"><i class="bi bi-floppy"></i>Modifier</button>
-                  <a routerLink="/listes-etudiants" class="btn btn-danger ml-2"><i class="bi bi-backspace-reverse"></i> Annuler</a>
+                  <a routerLink="/listes-etudiants" class="btn btn-danger ml-2" (click)="cancel()"><i class="bi bi-backspace-reverse"></i> Annuler</a>
                 </div>
 
               </form>

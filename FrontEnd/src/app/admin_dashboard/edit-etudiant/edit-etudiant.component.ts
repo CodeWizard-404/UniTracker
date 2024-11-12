@@ -149,4 +149,9 @@ export class EditEtudiantComponent implements OnInit {
         console.log('Contenu actuel du formulaire:', this.form.value);
     }
 }
+
+  // Cancel form submission and navigate back to student list
+  cancel(): void {
+    this.router.navigate(['/listeetud']);
+  }
 }
