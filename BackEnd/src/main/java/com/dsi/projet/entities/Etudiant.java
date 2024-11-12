@@ -27,7 +27,7 @@ public class Etudiant {
 	private String prenom_Etd;
 	private String email_Etd;
 	private String mot_de_passe_Etd;
-	
+	private String role;
 	@ManyToOne
 	@JoinColumn(name = "id_classe")
 	// @JsonIgnore
@@ -224,6 +224,16 @@ public Etudiant(String nom_Etd, String prenom_Etd, String email_Etd, String mot_
 		return "Etudiant [id_Etudiant=" + id_Etudiant + ", nom_Etd=" + nom_Etd + ", prenom_Etd=" + prenom_Etd
 				+ ", email_Etd=" + email_Etd + ", mot_de_passe_Etd=" + mot_de_passe_Etd + ", classe=" + classe
 				+ ", taches=" + taches + ", groupes=" + groupes + ", completions=" + completions + "]";
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	/*

@@ -26,7 +26,7 @@ public class Professeur {
 	private String sexe_Prof;
 	private String telephone_Prof;
 	private String mot_de_passe_Prof;
-	
+	private String role;
 	
 	@ManyToMany(mappedBy = "professeurs")
 	private List<Matiere> lesMatieres =new ArrayList<>();
@@ -187,6 +187,16 @@ public class Professeur {
 
 	public void setCin_Prof(String cin_Prof) {
 		this.cin_Prof = cin_Prof;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 

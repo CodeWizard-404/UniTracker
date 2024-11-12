@@ -1,0 +1,27 @@
+<div class="container-fluid page-body-wrapper full-page-wrapper">
+    <div class="row w-100 m-0">
+      <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+        <div class="card col-lg-4 mx-auto">
+          <div class="card-body px-5 py-5">
+            <h3 class="card-title text-left mb-3">Login</h3>
+            <form (ngSubmit)="login()">
+              <div class="form-group">
+                <label class="labelLogin">Username or email <span class="requiredInput">*</span></label>
+                <input type="text" class="form-control p_input" [(ngModel)]="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label class="labelLogin">Mot de passe <span class="requiredInput">*</span></label>
+                <input type="password" class="form-control p_input" [(ngModel)]="password" name="password" required >
+              </div>
+            
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+              </div>
+              
+            </form>
+            <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

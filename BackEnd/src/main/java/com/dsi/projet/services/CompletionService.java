@@ -95,15 +95,19 @@ public class CompletionService implements ICompletion{
 
 	public String notifierSiDateProche(Tache tache) {
 	    LocalDate aujourdHui = LocalDate.now();
+	    
+	    if (tache.getDateLimite() == null) {
+	        return null;
+	    }
+	    
 	    LocalDate dateLimite = tache.getDateLimite().toLocalDate();
 	    long joursRestants = ChronoUnit.DAYS.between(aujourdHui, dateLimite);
 	    
-	    if (joursRestants <= 2 && joursRestants > 0) { //jours restants pour la fin de la tâche 1 ou 2 jours
-	        return "La tâche '" + tache.getTitre() + "' arrive à échéance dans " + joursRestants + " jour(s).";
+	    if (joursRestants <= 2 && joursRestants > 0) { // jours restants pour la fin de la tâche 1 ou 2 jours
+	        return "La tâche '" + tache.getTitre() + "' arrive à échéance dans " + joursRestants + " jour(s)";
 	    }
 	    return null;
 	}
-
 	@Override
 	public Completion addComment(int tacheId, int etudiantId,String comment) {
 		CompletionId idCompletion = new CompletionId(tacheId, etudiantId);
