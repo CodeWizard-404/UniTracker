@@ -32,40 +32,48 @@ import { ModifierTacheComponent } from './dashboard_Etd/modifier-tache/modifier-
 import { UpdateClasseComponent } from './admin_dashboard/update-classe/update-classe.component';
 import { EditProfComponent } from './admin_dashboard/edit-prof/edit-prof.component';
 import { UpdateMatiereComponent } from './admin_dashboard/update-matiere/update-matiere.component';
+import { LoginComponent } from './login/login.component';
+import { AdminGuard } from './guards/admin.guard';
+import { ProfGuard } from './guards/prof.guard';
+import { EtudiantGuard } from './guards/etudiant.guard';
 
 const routes: Routes = [
+
+  {path:'login',title:"S'authentifier",component:LoginComponent},
+
+
   // Admin Routes
-  { path: 'dashboard', title: 'Admin', component: DashboardComponent },
-  { path: 'listeprof', title: 'Les Professeurs', component: ListesProfComponent },
-  { path: 'edit-prof/:id', title: 'Modifier Professeur', component: EditProfComponent },
-  { path: 'listeetud', title: 'Les Étudiants', component: ListesEtudiantsComponent },
-  { path: 'edit-etudiant/:id', title: 'Modifier Étudiant', component: EditEtudiantComponent },
-  { path: 'listeclasse', title: 'Les Classes', component: ListeclasseComponent },
-  { path: 'listmatiere', title: 'Les Matières', component: ListematiereComponent },
+  { path: 'dashboard', title: 'Admin', component: DashboardComponent ,canActivate: [AdminGuard]},
+  { path: 'listeprof', title: 'Les Professeurs', component: ListesProfComponent,canActivate: [AdminGuard] },
+  { path: 'edit-prof/:id', title: 'Modifier Professeur', component: EditProfComponent,canActivate: [AdminGuard] },
+  { path: 'listeetud', title: 'Les Étudiants', component: ListesEtudiantsComponent,canActivate: [AdminGuard] },
+  { path: 'edit-etudiant/:id', title: 'Modifier Étudiant', component: EditEtudiantComponent,canActivate: [AdminGuard] },
+  { path: 'listeclasse', title: 'Les Classes', component: ListeclasseComponent,canActivate: [AdminGuard] },
+  { path: 'listmatiere', title: 'Les Matières', component: ListematiereComponent,canActivate: [AdminGuard] },
   
-  { path: 'profs', title: 'Créer Professeur', component: CreerProfComponent },
-  { path: 'etd', title: 'Créer Étudiant', component: CreerEtudiantComponent },
-  { path: 'classe', title: 'Créer Classe', component: CreerClasseComponent },
-  { path: 'mat', title: 'Créer Matière', component: CreerMatiereComponent },
-  { path: 'updateClasse/:id', title: 'updateClasse', component: UpdateClasseComponent },
-  { path: 'updateMatiere/:id', title: 'updateClasse', component: UpdateMatiereComponent },
+  { path: 'profs', title: 'Créer Professeur', component: CreerProfComponent,canActivate: [AdminGuard] },
+  { path: 'etd', title: 'Créer Étudiant', component: CreerEtudiantComponent,canActivate: [AdminGuard] },
+  { path: 'classe', title: 'Créer Classe', component: CreerClasseComponent,canActivate: [AdminGuard] },
+  { path: 'mat', title: 'Créer Matière', component: CreerMatiereComponent,canActivate: [AdminGuard] },
+  { path: 'updateClasse/:id', title: 'updateClasse', component: UpdateClasseComponent,canActivate: [AdminGuard] },
+  { path: 'updateMatiere/:id', title: 'updateClasse', component: UpdateMatiereComponent,canActivate: [AdminGuard] },
 
   // Professor Routes
-  { path: 'dashboardProf/:id/creerTache', title: 'Créer Tâche', component: CreerTacheComponent },
-  { path: 'dashboardProf', title: 'Professeur', component: DashProfComponent },
-  { path: 'dashboardProf/:id/listetaches', title: 'Liste des Tâches', component: ListetachesComponent },
-  { path: 'assignerTache/:id', title: 'Attribuer Tâche', component: AssignerTacheComponent },
-  { path: 'dashboardProf/:id/taches/:idTache', title: 'Modifier Tâche', component: UpdateTacheComponent },
+  { path: 'dashboardProf/:id/creerTache', title: 'Créer Tâche', component: CreerTacheComponent,canActivate: [ProfGuard] },
+  { path: 'dashboardProf', title: 'Professeur', component: DashProfComponent,canActivate: [ProfGuard] },
+  { path: 'dashboardProf/:id/listetaches', title: 'Liste des Tâches', component: ListetachesComponent,canActivate: [ProfGuard] },
+  { path: 'assignerTache/:id', title: 'Attribuer Tâche', component: AssignerTacheComponent,canActivate: [ProfGuard] },
+  { path: 'dashboardProf/:id/taches/:idTache', title: 'Modifier Tâche', component: UpdateTacheComponent,canActivate: [ProfGuard] },
 
   // Student Routes
-  { path: 'dashEtd', title: 'Étudiant', component: DashboardEtdComponent },
-  { path: 'dashEtd/:id/creertacheperso', title: 'Créer Tâche Personnalisée', component: CreertacheComponent },
-  { path: 'dashEtd/:id/listetacheperso', title: 'Liste des Tâches Personnalisées', component: ListetachepersoComponent },
-  { path: 'creerGroupe', title: 'Créer Groupe', component: CreergroupeComponent },
-  { path: 'dashboardEtud/:id/taches/:idTache', title: 'Modifier Tâche', component: ModifierTacheComponent },
+  { path: 'dashEtd', title: 'Étudiant', component: DashboardEtdComponent,canActivate: [EtudiantGuard] },
+  { path: 'dashEtd/:id/creertacheperso', title: 'Créer Tâche Personnalisée', component: CreertacheComponent,canActivate: [EtudiantGuard] },
+  { path: 'dashEtd/:id/listetacheperso', title: 'Liste des Tâches Personnalisées', component: ListetachepersoComponent,canActivate: [EtudiantGuard] },
+  { path: 'creerGroupe', title: 'Créer Groupe', component: CreergroupeComponent ,canActivate: [EtudiantGuard]},
+  { path: 'dashboardEtud/:id/taches/:idTache', title: 'Modifier Tâche', component: ModifierTacheComponent,canActivate: [EtudiantGuard] },
 
   // Default and Error Routes
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', title: 'Erreur', component: ErrorComponent }
 ];
 

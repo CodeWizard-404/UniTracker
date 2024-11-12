@@ -12,7 +12,7 @@ import { ListematiereComponent } from './admin_dashboard/listematiere/listematie
 import { CreerProfComponent } from './admin_dashboard/creer-prof/creer-prof.component';
 import { CreerEtudiantComponent } from './admin_dashboard/creer-etudiant/creer-etudiant.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorComponent } from './admin_dashboard/error/error.component';
 import { CreerClasseComponent } from './admin_dashboard/creer-classe/creer-classe.component';
 import { CreerMatiereComponent } from './admin_dashboard/creer-matiere/creer-matiere.component';
@@ -40,6 +40,8 @@ import { EditEtudiantComponent } from './admin_dashboard/edit-etudiant/edit-etud
 import { UpdateClasseComponent } from './admin_dashboard/update-classe/update-classe.component';
 import { EditProfComponent } from './admin_dashboard/edit-prof/edit-prof.component';
 import { UpdateMatiereComponent } from './admin_dashboard/update-matiere/update-matiere.component';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 
@@ -80,7 +82,8 @@ import { UpdateMatiereComponent } from './admin_dashboard/update-matiere/update-
     EditEtudiantComponent,
     UpdateClasseComponent,
     EditProfComponent,
-    UpdateMatiereComponent
+    UpdateMatiereComponent,
+    LoginComponent
 
   
    
@@ -102,7 +105,13 @@ import { UpdateMatiereComponent } from './admin_dashboard/update-matiere/update-
 
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,  // Enregistrer l'intercepteur
+      multi: true                // Assurez-vous de configurer multi: true pour permettre à plusieurs intercepteurs d'être utilisés
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Tache } from '../classes/tache';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class CreerTacheService {
   private baseUrl = 'http://localhost:8081';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient ) {}
 
   addTache(newTache: Tache, idProf: number): Observable<Tache> {
     let params = new HttpParams().set('idProf', idProf.toString());

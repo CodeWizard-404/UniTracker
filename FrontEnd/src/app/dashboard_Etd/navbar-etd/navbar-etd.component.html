@@ -20,7 +20,7 @@
             <span class="count bg-danger" *ngIf="hasNewNotifications && !clicked" (click)="OnclickBell()"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-            <h5 class="p-3 mb-0">Notifications</h5>
+            <h5 class="p-3 mb-0" style="color: black;">Notifications</h5>
             <div class="dropdown-divider" *ngIf="rappels && rappels.length > 0;else noNotifications"></div>
              
               <div class="preview-item-content">
@@ -30,7 +30,7 @@
                 <a class="dropdown-item preview-item">
 
                 <div class="preview-thumbnail">
-                  <div class="preview-icon bg-dark rounded-circle">
+                  <div class="preview-icon rounded-circle">
                     <i class="fa-regular fa-clock" style="color: rgb(182, 47, 47);"></i>
                 </div>
                 </div>
@@ -62,36 +62,20 @@
               <i class="mdi mdi-menu-down d-none d-sm-block"></i>
             </div>
           </a>
-          <!--<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-            <h6 class="p-3 mb-0">Profile</h6>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
             <div class="dropdown-divider"></div>
-          
-            <a class="dropdown-item preview-item">
+            <a class="dropdown-item preview-item" [routerLink]="['/login']">
               <div class="preview-thumbnail">
-                <div class="preview-icon bg-dark rounded-circle">
-                  <i class="mdi mdi-settings text-success"></i>
+                <div class="preview-icon bg-light rounded-circle">
+                  <i class="mdi mdi-logout text-success"></i>
                 </div>
               </div>
               <div class="preview-item-content">
-                <p class="preview-subject mb-1">Settings</p>
+                <p class="preview-subject mb-1">Déconnexion</p>
               </div>
             </a>
-          
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <div class="preview-icon bg-dark rounded-circle">
-                  <i class="mdi mdi-logout text-danger"></i>
-                </div>
-              </div>
-              <div class="preview-item-content">
-                <p class="preview-subject mb-1">Log out</p>
-              </div>
-             
-            </a>
-            <div class="dropdown-divider"></div>
-            <p class="p-3 mb-0 text-center">Advanced settings</p>
-          </div>-->
+          </div>
         </li>
       </ul>
       <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">

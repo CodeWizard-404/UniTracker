@@ -13,7 +13,7 @@ export class Etudiant {
             public nomClasse :string,
             public numClasse :number,
             public anneeClasse:number,
-            
+            public role:string,
             public groupes: Groupe[]
         ) {}
     }

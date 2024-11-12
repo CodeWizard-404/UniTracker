@@ -11,6 +11,7 @@ export class Prof {
         public cin_Prof: string,
         public sexe_Prof: string,
         public telephone_Prof: string,
+        public role:string,
         public lesMatieres: Matiere[] 
     ) {
         this.matieres = []; 
