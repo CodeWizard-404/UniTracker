@@ -38,6 +38,18 @@
                 </a>
                 <div class="dropdown-divider"></div>
               </div>
+              <div *ngFor="let notification of notifications;let i = index">
+                <a class="dropdown-item preview-item">
+
+                <div class="preview-thumbnail">
+                  <div class="preview-icon rounded-circle">
+                    <i class="fa-regular fa-clock" style="color: rgb(182, 47, 47);"></i>
+                </div>
+                </div>
+                  <p style="padding-top: 15px;padding-right: 6px;">   &nbsp;{{notification}}</p>
+                </a>
+                <div class="dropdown-divider"></div>
+              </div>
                <p>    </p>
               </div>
               </div>

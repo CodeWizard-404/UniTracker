@@ -89,6 +89,11 @@ public class TacheController {
 		return tacheService.deleteTaskByEtud(id, idEtud);
 	}
 
-	
+	@GetMapping("/notifications/{id}")
+    public List<String> getNotifications(@PathVariable int id) {
+        List<String> notifications = tacheService.getNotifications(id);
+        tacheService.clearNotifications(id); 
+        return notifications;
+    }
 	
 }

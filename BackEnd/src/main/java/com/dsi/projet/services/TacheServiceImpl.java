@@ -3,7 +3,9 @@ package com.dsi.projet.services;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,7 @@ public class TacheServiceImpl implements ITacheService{
     private ProfRepository profRep;
 	@Autowired
     private MatiereRepository matRep;
+    private static final Map<Integer, List<String>> notificationsMap = new HashMap<>();
 
 	@Override
 	public Tache addTacheByProf(Tache t,int idProf) {
@@ -150,7 +153,15 @@ public class TacheServiceImpl implements ITacheService{
 	        t.setTitre(tache.getTitre()); 
             t.setDescription(tache.getDescription()); 
             t.setDateLimite(tache.getDateLimite());
+            String message = "La tâche '" + t.getTitre() + "' a été mise à jour. Veuillez vérifier les détails!";
+            List<Etudiant> etudiantsAssocies = t.getEtudiants();
+            for (Etudiant etudiant : etudiantsAssocies) {
+                notifierEtudiant(etudiant,message);
+        	    System.out.println(message);
+
+            }
             return tacherep.save(t);
+            
 	        }
 		return null;
 	}
@@ -289,6 +300,19 @@ public class TacheServiceImpl implements ITacheService{
 				return null;
 	}
 
+	private void notifierEtudiant(Etudiant etudiant, String message) {
+	    this.ajouterNotification(etudiant.getId_Etudiant(), message);
+	}
+	 public void ajouterNotification(int etudiantId, String message) {
+	        notificationsMap.computeIfAbsent(etudiantId, k -> new ArrayList<>()).add(message);
+	    }
+
+	    public List<String> getNotifications(int etudiantId) {
+	        return notificationsMap.getOrDefault(etudiantId, new ArrayList<>());
+	    }
+	    public void clearNotifications(int etudiantId) {
+	        notificationsMap.remove(etudiantId);
+	    }
 
 	}
 

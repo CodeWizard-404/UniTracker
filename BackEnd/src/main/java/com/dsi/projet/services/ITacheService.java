@@ -20,5 +20,6 @@ public interface ITacheService {
 	public boolean deleteTaskByEtud(int idTache,int id_etud);
 	
 	public String getMatiereByTache(int idTache);
-	
+	public List<String> getNotifications(int etudiantId);
+	public void clearNotifications(int etudiantId);
 }

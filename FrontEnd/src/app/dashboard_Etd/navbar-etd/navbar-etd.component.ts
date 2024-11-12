@@ -12,14 +12,16 @@ export class NavbarEtdComponent implements OnInit{
   hasNewNotifications: boolean = false;
   clicked: boolean = false;
   rappels !: string[];
-  prevRappels: string[] = [];  
+  prevRappels: string[] = []; 
+  notifications:string[]=[]; 
   constructor(private route:ActivatedRoute,
     private compService:CompletionService
   ) { }
 
   ngOnInit(): void {
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
- this.getRappels();  
+ this.getRappels(); 
+ this.loadNotifications(); 
   }
   
   getRappels(): void {
@@ -70,5 +72,15 @@ export class NavbarEtdComponent implements OnInit{
     if (this.clicked) {
       this.hasNewNotifications = false;
     }
+  }
+
+  loadNotifications(): void {
+    this.compService.getNotifications(this.idEtudiant).subscribe(
+      (data) => {
+        this.notifications = data;
+        this.hasNewNotifications = true;
+      },
+      (error) => console.error('Erreur lors de la récupération des notifications:', error)
+    );
   }
 }
