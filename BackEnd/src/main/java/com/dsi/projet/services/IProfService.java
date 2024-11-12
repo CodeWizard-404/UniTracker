@@ -12,5 +12,6 @@ public interface IProfService {
 	
 	public boolean deleteProfesseur(int id);
 	public Professeur editProfesseur(int id,Professeur p);
+	List<Professeur> getProfsByIds(List<Integer> profIds);
 
 }

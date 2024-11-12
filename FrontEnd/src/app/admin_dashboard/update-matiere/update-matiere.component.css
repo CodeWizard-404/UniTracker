@@ -80,6 +80,8 @@
   
   .checklist-container {
     background-color: #e5e5e5;
+    color: #303030;
+    font-weight: bold;
     border-radius: 10px;
     padding: 2px 10px 10px 10px;
     border: 1px solid #444444 !important;

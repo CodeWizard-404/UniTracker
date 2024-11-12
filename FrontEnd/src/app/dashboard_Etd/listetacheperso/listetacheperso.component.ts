@@ -15,6 +15,7 @@ export class ListetachepersoComponent implements OnInit {
   tacheForm!: FormGroup;
   doneTasks: Tache[] = [];
   todoTasks: Tache[] = [];
+  inProgressTasks: Tache[] = [];
   idEtudiant!: number; 
   taches: Tache[] = [];
   marked!: Completion;
@@ -111,13 +112,26 @@ export class ListetachepersoComponent implements OnInit {
     );
     
     this.todoTasks = this.taches.filter(tache => 
-      !tache.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      tache.sousTaches.every(subtask => 
+        !subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      )
+    );
+
+    this.inProgressTasks = this.taches.filter(tache => 
+      tache.sousTaches.some(subtask => 
+        subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      ) &&
+      !tache.sousTaches.every(subtask => 
+        subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
+      )
     );
   }
 
   markTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean) {
+
     this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       (updatedCompletion: Completion) => {
+        
         console.log('Tâche marquée comme complétée:', updatedCompletion);
                 this.updateTaskLists();
                 this.cd.detectChanges();
@@ -130,9 +144,28 @@ export class ListetachepersoComponent implements OnInit {
   markSubTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean) {
     this.CompServ.markSubTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       (updatedCompletion: Completion) => {
-        console.log('Tâche marquée comme complétée:', updatedCompletion);
-                this.updateTaskLists();
-                this.cd.detectChanges();
+        const task = this.taches.find(t => t.id_Tache === tacheId);
+        if (task) {
+          // Update the main task completion (marquer and progression)
+          const completion = task.completions.find(c => c.etudiant === etudiantId);
+          if (completion) {
+            completion.marquer = updatedCompletion.marquer;
+            completion.progression = updatedCompletion.progression;
+          }
+    
+          // Now handle the subtasks
+          task.sousTaches.forEach(subtask => {
+            const subtaskCompletion = subtask.completions.find(c => c.etudiant === etudiantId);
+            if (subtaskCompletion) {
+              subtaskCompletion.marquer = isCompleted;
+              subtaskCompletion.progression = isCompleted ? subtaskCompletion.totalSoustTaches : 0;
+            }
+          });
+          
+          console.log('Tâche marquée comme complétée:', updatedCompletion);
+          this.updateTaskLists();
+      this.cd.detectChanges();
+    }
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la tâche:', tacheId, etudiantId, isCompleted, error);
@@ -195,6 +228,7 @@ addSubTask(tache:Tache){
         tache.completions=updatedTache.completions;
         tache.sousTaches = [...updatedTache.sousTaches];
         console.log('soustache ajoutee avec succee', tache.completions);
+        this.updateMainTaskCompletion(tache,this.idEtudiant);
         this.cd.detectChanges();
         this.tacheForm.reset();
               
@@ -210,7 +244,26 @@ addSubTask(tache:Tache){
 }
 }
 
+updateMainTaskCompletion(task: Tache, etudiantId: number) {
+   
+  let totalCompleted = 0;
+  let totalSubtasks = task.sousTaches.length;
 
+  // Calculate how many subtasks are marked as completed
+  task.sousTaches.forEach(subtask => {
+    const subtaskCompletion = subtask.completions.find(c => c.etudiant === etudiantId);
+    if (subtaskCompletion && subtaskCompletion.marquer) {
+      totalCompleted++;
+    }
+  });
+
+  // Update the main task's completion progress
+  const mainCompletion = task.completions.find(c => c.etudiant === etudiantId);
+  if (mainCompletion) {
+    mainCompletion.progression = totalCompleted;
+    mainCompletion.marquer = totalCompleted === totalSubtasks;
+  }
+}
   selectedTask: any;
 
   openTaskDetails(tache: any) {

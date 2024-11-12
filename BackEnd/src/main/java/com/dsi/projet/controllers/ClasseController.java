@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dsi.projet.entities.Classe;
@@ -69,6 +70,18 @@ public class ClasseController {
 	          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // Return 404 if not found
 	      }
 	  }
+	  
+	  @GetMapping("classes/by-matiere/{matiereId}")
+	    public ResponseEntity<List<Integer>> getClassesIdByIdMatiere(@PathVariable Integer matiereId) {
+	        List<Integer> classIds = classeService.getClassesIdByIdMatiere(matiereId);
+	        return ResponseEntity.ok(classIds);
+	    }
+	  
+	  @PostMapping("/classesBy-ids")
+	    public ResponseEntity<List<Classe>> getClassesByIds(@RequestBody List<Integer> ids) {
+	        List<Classe> classes = classeService.getClassesByIds(ids);
+	        return ResponseEntity.ok(classes);
+	    }
 
 
 }

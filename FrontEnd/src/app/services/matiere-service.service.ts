@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Matiere } from '../classes/matiere';
 import { catchError, Observable, throwError } from 'rxjs';
+import { Classe } from '../classes/classe';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,9 @@ export class MatiereServiceService {
   getMatieres(): Observable<Matiere[]> {
     return this.http.get<Matiere[]>(`${this.baseUrl}/matieres`);
 }
-getMatiereById(id: number): Observable<Matiere> {
-  return this.http.get<Matiere>(`/matiere/${this.baseUrl}/${id}`);
-}
+// getMatiereById(id: number): Observable<Matiere> {
+//   return this.http.get<Matiere>(`/matiere/${this.baseUrl}/${id}`);
+// }
 
 getMatieresByIds(ids: number[]): Observable<Matiere[]> {
   const url = `${this.baseUrl}/getMatieres`;
@@ -34,5 +35,40 @@ getMatieresByIds(ids: number[]): Observable<Matiere[]> {
   );
 }
 
+getClassesIdByMatiere(matiereId: number): Observable<number[]> {
+  return this.http.get<number[]>(`${this.baseUrl}/classes/by-matiere/${matiereId}`);
+}
+
+getClassesByIds(ids: number[]): Observable<Classe[]> {
+  return this.http.post<Classe[]>(`${this.baseUrl}/classesBy-ids`, ids);
+}
+
+
+getMatiereById(id: number): Observable<Matiere> {
+  return this.http.get<Matiere>(`${this.baseUrl}/matiere/${id}`);
+}
+
+
+getProfIdsByMatiereId(idMatiere: number): Observable<number[]> {
+  return this.http.get<number[]>(`${this.baseUrl}/matiere/${idMatiere}/professeurs`);
+}
+
+deleteMatiere(id: number): Observable<string> {
+  return this.http.delete<string>(`${this.baseUrl}/Matiere/${id}`);
+}
+
+updateMatiere(id: number, matiere: Matiere): Observable<Matiere> {
+  const url = `${this.baseUrl}/matiere/${id}`;
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.put<Matiere>(url, matiere, { headers }).pipe(
+    catchError(error => {
+      console.error('Error updating matiere:', error);
+      return throwError(() => new Error('Error updating matiere'));
+    })
+  );
+}
 
 }

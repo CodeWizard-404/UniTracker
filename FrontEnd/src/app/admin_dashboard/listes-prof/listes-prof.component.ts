@@ -45,48 +45,53 @@ export class ListesProfComponent implements OnInit {
 }
 
 
-  getClassesNames(prof: Prof): string {
-    if (prof.lesMatieres && prof.lesMatieres.length > 0) {
-      const uniqueClasses = new Set<string>();
+getClassesNames(prof: Prof): string {
+  if (prof.lesMatieres && prof.lesMatieres.length > 0) {
+    const uniqueClasses = new Set<string>();
 
-      prof.lesMatieres.forEach(m => {
-        if (m.classes && m.classes.length > 0) {
-          m.classes.forEach(cls => {
+    prof.lesMatieres.forEach(m => {
+      if (m.classes && m.classes.length > 0) {
+        m.classes.forEach(cls => {
+          if (cls.nom_Classe) { // Ensuring that there is a class name
             uniqueClasses.add(cls.nom_Classe); 
-          });
-        }
-      });
+          }
+        });
+      }
+    });
 
-      return Array.from(uniqueClasses).join(", ");
-    }
-    return "Aucune classe";
+    return uniqueClasses.size > 0 ? Array.from(uniqueClasses).join(", ") : "--";
   }
+  return "--";
+}
 
-  getGroupedClassesByYear(prof: Prof): string {
-    if (prof.lesMatieres && prof.lesMatieres.length > 0) {
-      const groupedClasses = new Map<number, Set<number>>();
+getGroupedClassesByYear(prof: Prof): string {
+  if (prof.lesMatieres && prof.lesMatieres.length > 0) {
+    const groupedClasses = new Map<number, Set<number>>();
 
-      prof.lesMatieres.forEach(m => {
-        if (m.classes && m.classes.length > 0) {
-          m.classes.forEach(cls => {
+    prof.lesMatieres.forEach(m => {
+      if (m.classes && m.classes.length > 0) {
+        m.classes.forEach(cls => {
+          if (cls.annee_Classe && cls.num_Classe) { // Ensure we have valid year and class numbers
             if (!groupedClasses.has(cls.annee_Classe)) {
               groupedClasses.set(cls.annee_Classe, new Set<number>());
             }
             groupedClasses.get(cls.annee_Classe)?.add(cls.num_Classe);
-          });
-        }
-      });
+          }
+        });
+      }
+    });
 
-      const result: string[] = [];
-      groupedClasses.forEach((classNumbers, year) => {
-        const yearLabel = year === 1 ? '1er' : `${year}eme`;
-        result.push(`${yearLabel}: ${Array.from(classNumbers).sort().join(",")}`);
-      });
+    const result: string[] = [];
+    groupedClasses.forEach((classNumbers, year) => {
+      const yearLabel = year === 1 ? '1er' : `${year}eme`;
+      result.push(`${yearLabel}: ${Array.from(classNumbers).sort().join(",")}`);
+    });
 
-      return result.join(" / ");
-    }
-    return "Aucune classe";
+    return result.length > 0 ? result.join(" / ") : "--";
   }
+  return "--";
+}
+
 
   modifierProf(id: number): void {
     this.router.navigate([`/edit-prof/${id}`]);

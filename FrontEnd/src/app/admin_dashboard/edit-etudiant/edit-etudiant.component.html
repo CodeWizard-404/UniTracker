@@ -7,7 +7,7 @@
         <div class="col-12 grid-margin">
           <div class="card">
             <div class="card-body">
-              <h2 class="card-title">Modifier les informations de l'étudiant</h2>
+              <h2 class="card-title">Modifier Etudiant</h2>
               <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <p class="card-description"><i class="bi bi-dot"></i> Informations Personnelles </p>
 
@@ -47,39 +47,38 @@
 
                 <div class="row">
                   <div class="col-md">
-                    <div class="form-group">
-                      <label for="classe" class="col-sm col-form-label input-label">Classe</label>
-                      <select
-                        id="classe"
-                        formControlName="classe"
-                        (change)="onClasseChange($event)"
-                        class="form-control custom-input"
-                      >
-                        <option value="">Sélectionner une classe</option>
-                        <option *ngFor="let classe of filteredClasses" [value]="classe.nom_Classe">
-                          {{ classe.nom_Classe }}
-                        </option>
-                      </select>
-                    </div>
+                  <label class="col-sm col-form-label input-label">Année de la Classe</label>
+                  <select formControlName="anneeClasse" class="form-control custom-input">
+                    <option *ngFor="let year of years" [value]="year">{{ year }} année</option>
+                  </select>
                   </div>
                 
-                  <div class="col-md">
-                    <label class="col-sm col-form-label input-label">Année de la Classe</label>
-                    <input type="number" id="anneeClasse" class="form-control custom-input" formControlName="anneeClasse" />
+                <div class="col-md">
+                  <label class="col-sm col-form-label input-label">Nom de la Classe</label>
+                  <select formControlName="classe" class="form-control custom-input">
+                    <option *ngFor="let classe of filteredClasses" [ngValue]="classe">
+                      {{ classe.nom_Classe }}
+                    </option>
+                  </select>
                   </div>
-
                   <div class="col-md">
-                    <label class="col-sm col-form-label input-label">Numéro de la Classe</label>
-                    <input type="number" id="numClasse" class="form-control custom-input" formControlName="numClasse" />
+                    <label class="col-sm col-form-label input-label">Numéro de Classe</label>
+                    <input 
+                      type="number" 
+                      class="form-control custom-input" 
+                      formControlName="numClasse" 
+                      [value]="form.get('classe')?.value?.num_Classe" 
+                      readonly />
                   </div>
+                
                 </div>
-
+          
                 <hr>
 
                 <div class="d-flex justify-content-end">
                  
                   <button type="submit" class="btn btn-secondary mr-2" [disabled]="form.invalid"><i class="bi bi-floppy"></i>Modifier</button>
-                  <a routerLink="/listes-etudiants" class="btn btn-danger ml-2"><i class="bi bi-backspace-reverse"></i> Annuler</a>
+                  <a routerLink="/listes-etudiants" class="btn btn-danger ml-2" (click)="cancel()"><i class="bi bi-backspace-reverse"></i> Annuler</a>
                 </div>
 
               </form>

@@ -28,7 +28,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let matiere of matieres">
+                                            <tr *ngFor="let matiere of filteredMatieres">
                                                 <td>{{ matiere.id_Matiere }}</td>
                                                 <td>{{ matiere.libelle }}</td>
                                                 <td>{{ getClassesNames(matiere) }}</td>
@@ -36,7 +36,7 @@
                                                 <td>{{ matiere.professeurs.length }}</td>
                                                 <td *ngIf="matiere.id_Matiere !== undefined">
                                                     <button class="btn btn-secondary" [routerLink]="['/updateMatiere', matiere.id_Matiere]"><i class="bi bi-pencil-square"></i></button>
-                                                    <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                                    <button class="btn btn-danger"(click)="deleteMatiere(matiere.id_Matiere)" ><i class="bi bi-trash-fill"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

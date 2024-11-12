@@ -4,8 +4,9 @@ export class Classe {
     public id_Classe?: number;
     public nom_Classe: string;              
     public annee_Classe: number;            
-    public num_Classe: number;              
-    public etudiants: Etudiant[];
+    public num_Classe: number; 
+    // public etudiants: Etudiant[];             
+    public etudiants: number[];
     public matieres: number[];
     public nombreMatieres?: number;  
     public nombreProfesseurs?: number; 

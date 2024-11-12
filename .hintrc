@@ -43,6 +43,13 @@
       }
     ],
     "css-prefix-order": "off",
-    "meta-charset-utf-8": "off"
+    "meta-charset-utf-8": "off",
+    "axe/structure": [
+      "default",
+      {
+        "list": "off",
+        "listitem": "off"
+      }
+    ]
   }
 }
