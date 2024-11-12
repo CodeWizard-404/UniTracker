@@ -27,6 +27,8 @@ export class CreerProfComponent implements OnInit {
       sexe_Prof: [null],
       telephone_Prof: [null],
       mot_de_passe_Prof: ["", Validators.required],
+      role:["prof"],
+
     });
   }
 
