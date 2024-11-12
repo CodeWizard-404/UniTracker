@@ -30,10 +30,10 @@ export class EtudiantServiceService {
     return this.http.get<Etudiant[]>(`${this.baseUrl}/Etudiants/byClasse/${classeId}`);
   }
   updateEtudiant(id: number, etudiant: Etudiant): Observable<Etudiant> {
-    return this.http.put<Etudiant>(`${this.baseUrl}/${id}`, etudiant);
+    return this.http.put<Etudiant>(`${this.baseUrl}/etudiants/${id}`, etudiant);
   }
  
    deleteEtudiant(id_Etudiant: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id_Etudiant}`);
+    return this.http.delete<void>(`${this.baseUrl}/etudiants/${id_Etudiant}`);
   }
 }
