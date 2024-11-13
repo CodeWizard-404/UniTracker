@@ -67,8 +67,8 @@ const routes: Routes = [
 
   // Student Routes
   { path: 'dashEtd', title: 'Étudiant', component: DashboardEtdComponent,canActivate: [EtudiantGuard] },
-  { path: 'dashEtd/:id/creertacheperso', title: 'Créer Tâche Personnalisée', component: CreertacheComponent,canActivate: [EtudiantGuard] },
-  { path: 'dashEtd/:id/listetacheperso', title: 'Liste des Tâches Personnalisées', component: ListetachepersoComponent,canActivate: [EtudiantGuard] },
+  { path: 'dashEtd/:id/creertacheperso', title: 'Créer Tâche ', component: CreertacheComponent,canActivate: [EtudiantGuard] },
+  { path: 'dashEtd/:id/listetacheperso', title: 'Liste des Tâches', component: ListetachepersoComponent,canActivate: [EtudiantGuard] },
   { path: 'creerGroupe', title: 'Créer Groupe', component: CreergroupeComponent ,canActivate: [EtudiantGuard]},
   { path: 'dashboardEtud/:id/taches/:idTache', title: 'Modifier Tâche', component: ModifierTacheComponent,canActivate: [EtudiantGuard] },
 
