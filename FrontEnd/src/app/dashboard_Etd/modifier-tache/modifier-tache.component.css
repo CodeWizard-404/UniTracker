@@ -76,3 +76,11 @@ label {
 }
 
 
+.content-wrapper{
+    background-image: radial-gradient(circle, #5555557a 0.1px, transparent 1px), radial-gradient(circle, #55555580 0.1px, transparent 1px) !important;
+    background-size: 20px 20px  !important;
+    background-position: 0 0, 10px 10px !important;
+    background-attachment: fixed !important;  /* Ensures the background scrolls with the page */
+    background-origin: padding-box !important; /* Adjusts the origin for the gradient */
+    height: 100vh !important;    
+}
