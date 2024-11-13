@@ -20,7 +20,7 @@ export class LoginComponent {
         this.redirectBasedOnRole(); // Appel de la méthode pour rediriger en fonction du rôle
       },
       error: () => {
-        this.errorMessage = 'Nom d\'utilisateur ou mot de passe incorrect';
+        this.errorMessage = 'Votre Email ou mot de passe incorrect';
       }
     });
   }

@@ -19,6 +19,8 @@ export class EditEtudiantComponent implements OnInit {
   etudiantId!: string;
   selectedYear: number | null = null;
   years = [1, 2, 3];  // Define available years
+  isPasswordVisible: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -148,6 +150,10 @@ export class EditEtudiantComponent implements OnInit {
 
         console.log('Contenu actuel du formulaire:', this.form.value);
     }
+}
+
+togglePasswordVisibility(): void {
+  this.isPasswordVisible = !this.isPasswordVisible;
 }
 
   // Cancel form submission and navigate back to student list

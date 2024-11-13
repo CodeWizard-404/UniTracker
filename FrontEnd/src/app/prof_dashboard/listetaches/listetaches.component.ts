@@ -105,7 +105,7 @@ export class ListetachesComponent implements OnInit{
         response => {
           console.log('Tâche assignée avec succès:', response,selectedEtudiants);
           this.Submited();
-          setTimeout(() => { this.closeEtudiantList(); }, 2200);
+          setTimeout(() => { this.closeEtudiantList(); }, 1200);
         },
         error => {
           console.error('Erreur lors de l\'attribution de la tâche:', error);
@@ -117,7 +117,7 @@ export class ListetachesComponent implements OnInit{
   alertVisible1 = false;
   Submited() {
     this.alertVisible1 = true;
-    setTimeout(() => { this.alertVisible1 = false;}, 2000);
+    setTimeout(() => { this.alertVisible1 = false;}, 1000);
   }
 
   onEtudiantChange(event: any) {

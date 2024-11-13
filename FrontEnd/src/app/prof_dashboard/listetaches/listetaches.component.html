@@ -6,7 +6,7 @@
       <div class="content-wrapper">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h5 class="card-title">Liste des Taches</h5>
+          <h2 class="card-title">Liste des Taches</h2>
           <div class="d-flex">
 
             <a class="nav-link btn btn-primary create-new-button" [routerLink]="['/dashboardProf', idProf, 'creerTache']">+ Creer Tache</a>
@@ -27,10 +27,10 @@
                 <div class="card-body">
                   <h3 class="card-title">{{ tache.titre }}</h3>
                   <p class="card-text">{{ tache.description }}</p>
-                  <p class="card-text text-muted">{{ tache.dateLimite | date:'short' }}</p>
+                  <p class="card-text text-muted">{{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</p>
                   <div class="d-flex justify-content-between">
                     <button class="btn btn-lig" [routerLink]="['/dashboardProf', idProf, 'taches', tache.id_Tache]"
-                            style="position: absolute; top: 20px; right: 40px;">
+                            style="position: absolute; top: 20px; right: 20px;">
                       <i class="bi bi-pencil-square"></i>
                     </button>
                   </div>
@@ -75,11 +75,11 @@
               <hr><br>
                   <div class="d-flex justify-content-between mt-3">
                     <button class="btn btn-secondary" (click)="assignTache(tache.id_Tache)"
-                            style="position: absolute; bottom: 30px; left: 40px;">
+                            style="position: absolute; bottom: 20px; left: 17px;">
                       <i class="bi bi-person-plus-fill"></i>
                     </button>
                     <button class="btn btn-danger" (click)="deleteTask(tache.id_Tache, tache.professeur.id_Professeur)"
-                            style="position: absolute; bottom: 30px; right: 40px;">
+                            style="position: absolute; bottom: 20px; right: 20px;">
                       <i class="bi bi-trash-fill"></i>
                     </button>
                   </div>

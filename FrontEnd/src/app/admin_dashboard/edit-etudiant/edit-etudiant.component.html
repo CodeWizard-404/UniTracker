@@ -35,8 +35,12 @@
                         <input 
                             type="password" 
                             id="mot_de_passe_Etd" 
+                            [type]="isPasswordVisible ? 'text' : 'password'" 
                             class="form-control custom-input" 
                             formControlName="mot_de_passe_Etd" />
+                            <span class="input-group-text2" (click)="togglePasswordVisibility()" style="cursor: pointer;">
+                              <i class="bi" [ngClass]="isPasswordVisible ? 'bi-eye-slash' : 'bi-eye'"></i>
+                            </span>
                     </div>
                   </div>
                 </div>
