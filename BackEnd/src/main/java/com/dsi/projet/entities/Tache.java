@@ -190,6 +190,12 @@ public class Tache {
 	public void setEtudiants(List<Etudiant> etudiants) {
 		this.etudiants = etudiants;
 	}
+
+	public void setSousTaches(List<Tache> sousTaches) {
+		this.sousTaches = sousTaches;
+	}
+
+	
 	
 	
 
