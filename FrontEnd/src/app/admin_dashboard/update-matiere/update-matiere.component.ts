@@ -86,15 +86,15 @@ export class UpdateMatiereComponent implements OnInit {
     // Prepare the updated matiere object with selected professors and classes
     this.matiere.professeurs = this.selectedProfessors;
     this.matiere.classes = this.selectedClasses;
-    console.log("prooooooooooofs", this.matiere.professeurs);
-    console.log("classssssses", this.matiere.classesIds);
+    console.log("profs", this.matiere.professeurs);
+    console.log("classes", this.matiere.classesIds);
 
     // Call the service to update the matiere data
     const matiereId = this.matiere.id_Matiere!;  // Ensure this is set correctly
     this.matiereService.updateMatiere(matiereId, this.matiere).subscribe(
       (response) => {
         console.log('Matiere updated successfully:', response);
-        // Optionally, redirect or show a success message
+        this.router.navigate(["/listmatiere"]);
       },
       (error) => {
         console.log("teeeest",this.matiere)
