@@ -52,5 +52,10 @@ export class CompletionService {
   getChronometreState(tacheId: number, etudiantId: number): Observable<any> {
     return this.http.get(`${this.Url}/${tacheId}/${etudiantId}`);
   }
+
+  getTaskCompltions(idTache:number): Observable<Completion[]> {
+    const url = `${this.Url}/completions?idTache=${idTache}`;
+    return this.http.get<Completion[]>(url);
+  }
 }
   
