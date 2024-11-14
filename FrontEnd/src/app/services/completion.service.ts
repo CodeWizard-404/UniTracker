@@ -40,4 +40,16 @@ export class CompletionService {
   getNotifications(id: number): Observable<string[]> {
     return this.http.get<string[]>(`${this.Url}/notifications/${id}`);
   }
+
+  startChronometre(tacheId: number, etudiantId: number): Observable<any> {
+    return this.http.post(`${this.Url}/start/${tacheId}/${etudiantId}`, {});
+  }
+
+  pauseChronometre(tacheId: number, etudiantId: number, tempsEcoule: number): Observable<any> {
+    return this.http.put(`${this.Url}/pause/${tacheId}/${etudiantId}?tempsEcoule=${tempsEcoule}`, {});
+  }
+
+  getChronometreState(tacheId: number, etudiantId: number): Observable<any> {
+    return this.http.get(`${this.Url}/${tacheId}/${etudiantId}`);
+  }
 }

@@ -23,7 +23,9 @@ export class ListetachepersoComponent implements OnInit {
   selectedTacheId: number | null = null;
   totalStudentSubtasks: number = 0;
 
-    
+  tempsEcoule: number = 0;
+  running: boolean = false;
+
     timers: { [key: number]: any } = {}; 
     times: { [key: number]: number } = {}; 
 
@@ -36,7 +38,14 @@ export class ListetachepersoComponent implements OnInit {
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
     this.loadTasks();
     this.calculateStudentProgression();
-    
+  
+    // Récupérer les temps sauvegardés dans localStorage
+    this.taches.forEach(tache => {
+      const savedTime = localStorage.getItem(`timer-${tache.id_Tache}`);
+      if (savedTime) {
+        this.times[tache.id_Tache] = parseInt(savedTime, 10);
+      }
+    });
   }
   calculateStudentProgression() {
     // Filtrer les sous-tâches pour cet étudiant uniquement
@@ -58,34 +67,59 @@ export class ListetachepersoComponent implements OnInit {
       }
     );
   }
-  toggleTimer(tacheId: number) {
-    if (!this.timers[tacheId]) {
-      this.startTimer(tacheId);
+  toggleTimer(tacheId: number): void {
+    if (this.timers[tacheId] && this.timers[tacheId].running) {
+      // Si le timer est déjà en cours, arrêtez-le et enregistrez l'état dans localStorage
+      clearInterval(this.timers[tacheId].interval);
+      this.timers[tacheId].running = false;
+  
+      // Sauvegarder le temps écoulé dans localStorage
+      localStorage.setItem(`timer-${tacheId}`, this.times[tacheId].toString());
     } else {
-      if (this.timers[tacheId].running) {
-        this.stopTimer(tacheId);
-      } else {
-        this.resumeTimer(tacheId);
-      }
+      // Si le timer n'est pas en cours, démarrez-le et récupérez l'état depuis localStorage
+      const savedTime = localStorage.getItem(`timer-${tacheId}`);
+      this.timers[tacheId] = { running: true, elapsedTime: savedTime ? parseInt(savedTime, 10) : this.times[tacheId] || 0 };
+  
+      this.timers[tacheId].interval = setInterval(() => {
+        this.times[tacheId] = this.timers[tacheId].elapsedTime++;
+        this.cd.detectChanges();
+      }, 1000);
     }
   }
+  
+  
+  startChronometre(tacheId: number) {
+    this.CompServ.startChronometre(tacheId, this.idEtudiant).subscribe(
+      () => {
+        this.timers[tacheId] = { startTime: Date.now(), interval: null, running: true };
+        this.times[tacheId] = 0;
 
-  startTimer(tacheId: number) {
-    this.timers[tacheId] = { startTime: Date.now(), interval: null, running: true };
-    this.times[tacheId] = 0;
-
-    this.timers[tacheId].interval = setInterval(() => {
-      this.times[tacheId] = Math.floor((Date.now() - this.timers[tacheId].startTime) / 1000);
-    }, 1000);
+        this.timers[tacheId].interval = setInterval(() => {
+          this.times[tacheId] = Math.floor((Date.now() - this.timers[tacheId].startTime) / 1000);
+        }, 1000);
+      },
+      (error) => {
+        console.error('Erreur lors du démarrage du chronomètre:', error);
+      }
+    );
   }
 
-  stopTimer(tacheId: number) {
+  pauseChronometre(tacheId: number) {
     if (this.timers[tacheId]) {
       clearInterval(this.timers[tacheId].interval);
-      this.timers[tacheId].running = false; 
+      this.timers[tacheId].running = false;
+
+      const tempsEcoule = this.times[tacheId];
+      this.CompServ.pauseChronometre(tacheId, this.idEtudiant, tempsEcoule).subscribe(
+        () => {
+          console.log('Chronomètre en pause');
+        },
+        (error) => {
+          console.error('Erreur lors de la mise en pause du chronomètre:', error);
+        }
+      );
     }
   }
-
   resumeTimer(tacheId: number) {
     if (this.timers[tacheId] && !this.timers[tacheId].running) {
       this.timers[tacheId].startTime = Date.now() - this.times[tacheId] * 1000;
@@ -98,14 +132,18 @@ export class ListetachepersoComponent implements OnInit {
   }
 
   formatTime(seconds: number): string {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    const hours = Math.floor(seconds / 3600); // 3600 secondes dans une heure
+    const minutes = Math.floor((seconds % 3600) / 60); // Reste de minutes après avoir extrait les heures
+    const remainingSeconds = seconds % 60; // Reste des secondes après avoir extrait les minutes
+    
+    // Formatage de l'heure, des minutes et des secondes
+    return `${this.padZero(hours)}:${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
   }
-
   
-
+  padZero(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
+  }
+  
   updateTaskLists() {
     this.doneTasks = this.taches.filter(tache => 
       tache.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
@@ -284,8 +322,27 @@ updateMainTaskCompletion(task: Tache, etudiantId: number) {
 }
   selectedTask: any;
 
-  openTaskDetails(tache: any) {
+  // openTaskDetails(tache: any) {
+  //   this.selectedTask = tache;
+  // }
+
+  openTaskDetails(tache: Tache): void {
     this.selectedTask = tache;
+  
+    // Initialiser ou réinitialiser le temps écoulé pour la tâche sélectionnée
+    if (!this.times[tache.id_Tache]) {
+      this.times[tache.id_Tache] = 0;  // Initialiser si pas déjà défini
+    }
+  
+    // Mettre à jour le timer en cours pour la tâche
+    if (this.timers[tache.id_Tache] && !this.timers[tache.id_Tache].running) {
+      // Si le timer est arrêté, calculer le temps écoulé et redémarrer si nécessaire
+      localStorage.setItem(`timer-${tache.id_Tache}`, this.times[tache.id_Tache].toString());
+      this.timers[tache.id_Tache].elapsedTime = this.times[tache.id_Tache];
+    }
+  
+    // Forcer la détection de changements après mise à jour des données
+    this.cd.detectChanges();
   }
 
   closeTaskDetails() {

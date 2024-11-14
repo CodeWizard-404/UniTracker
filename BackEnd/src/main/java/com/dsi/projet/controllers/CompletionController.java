@@ -57,4 +57,21 @@ public class CompletionController {
 	public Completion addComment(@RequestParam int tacheId,@RequestParam int etudiantId,@RequestParam String comment) {
 		return comServ.addComment(tacheId, etudiantId, comment);
 	}
+	
+    @PostMapping("/start/{tacheId}/{etudiantId}")
+    public Completion startChronometre(@PathVariable Long tacheId, @PathVariable Long etudiantId) {
+        return comServ.startChronometre(tacheId, etudiantId);
+    }
+
+    @PutMapping("/pause/{tacheId}/{etudiantId}")
+    public Completion pauseChronometre(@PathVariable Long tacheId, @PathVariable Long etudiantId, @RequestParam Long tempsEcoule) {
+        return comServ.pauseChronometre(tacheId, etudiantId, tempsEcoule);
+    }
+
+    @GetMapping("/{tacheId}/{etudiantId}")
+    public Completion getChronometreState(@PathVariable Long tacheId, @PathVariable Long etudiantId) {
+        return comServ.getChronometreState(tacheId, etudiantId);
+    }
 }
+
+

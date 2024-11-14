@@ -40,12 +40,29 @@ public class Completion {
 	//=new ArrayList<String>();
 
 	
-
-	
+	private Long tempsEcoule = 0L; // En millisecondes, valeur par défaut 0
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean enPause = true; // Indique si le chronomètre est en pause, par défaut "en pause"    
 
 	@Override
 	public String toString() {
 		return "Completion [id_Completion=" + id_Completion + ", etudiant=" + etudiant + ", tache=" + tache + "]";
+	}
+
+
+
+	public Completion(boolean marquer, ComplexteTache complexite, List<String> commentaires, int progression,
+			int totalSoustTaches, Long tempsEcoule, boolean enPause, Etudiant etudiant, Tache tache) {
+		super();
+		this.marquer = marquer;
+		this.complexite = complexite;
+		this.commentaires = commentaires;
+		this.progression = progression;
+		this.totalSoustTaches = totalSoustTaches;
+		this.tempsEcoule = tempsEcoule;
+		this.enPause = enPause;
+		this.etudiant = etudiant;
+		this.tache = tache;
 	}
 
 
@@ -144,6 +161,30 @@ public class Completion {
 
 	public int getProgression() {
 		return progression;
+	}
+
+
+
+	public Long getTempsEcoule() {
+		return tempsEcoule;
+	}
+
+
+
+	public void setTempsEcoule(Long tempsEcoule) {
+		this.tempsEcoule = tempsEcoule;
+	}
+
+
+
+	public boolean isEnPause() {
+		return enPause;
+	}
+
+
+
+	public void setEnPause(boolean enPause) {
+		this.enPause = enPause;
 	}
 
   
