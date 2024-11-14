@@ -265,8 +265,6 @@ export class ListetachesComponent implements OnInit {
     
     const taskDate = new Date(dateLimite);
     const currentDate = new Date();
-    
-    console.log("Comparing task date:", taskDate, "with current date:", currentDate);
   
     return taskDate < currentDate;
   }
