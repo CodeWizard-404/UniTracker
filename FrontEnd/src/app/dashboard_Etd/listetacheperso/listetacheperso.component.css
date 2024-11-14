@@ -99,7 +99,7 @@
   padding: 35px;
   border-radius: 12px;
   width: 80%;
-  max-width: 800px;
+  max-width: 500px;
   max-height: 80%;
   overflow-y: auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -148,12 +148,17 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+.form-check{
+  margin: 0 0 0 0 !important;
+  padding:  0 0 0 10px !important;
+}
+
 /* Progress Bar */
 .progress {
   height: 12px;
   background-color: #f1f1f1;
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .progress-bar {
@@ -194,12 +199,13 @@
 }
 
 /* Task Form & Comment Section */
-.task-form, .comment-section {
-  margin-bottom: 20px;
-  padding: 15px;
+.task-form, .comment-section, form {
+  margin: 0px !important;
+  margin-top: 10px !important;
+  padding: 10px;
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px 8px 0px 0px;
+  border: 1px solid #80808041;
 }
 
 .form-label {
@@ -240,15 +246,14 @@
 
 /* Subtasks */
 .subtasks-container {
-  margin-top: 30px;
-  padding: 10px;
   background-color: #f4f4f4;
-  border-radius: 8px;
-  margin-bottom: 30px;
+  border-radius: 0 0 8px 8px ;
+  margin: 5px 0 10px 0;
+  border: 1px solid #80808041;
 }
 
 .subtask-item {
-  padding: 8px;
+  padding: 4px 8px 4px 8px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -257,7 +262,7 @@
 }
 
 .completion-item {
-  padding: 5px 0;
+  padding: 0;
   font-size: 14px;
 }
 
@@ -274,12 +279,15 @@
   margin-top: 30px;
 }
 
-.comment-section input {
+.comment-section input , .task-form input{
   flex: 1;
 }
 
 .comment-list {
-  margin-top: 20px;
+  margin-top: 5px;
+  border: 1px solid #80808041;
+  border-radius: 0 0 8px 8px ;
+  background-color: #f4f4f4;
 }
 
 .comment-item {
@@ -314,4 +322,59 @@ h5{
   background-position: 0 0, 10px 10px !important;
   background-attachment: fixed !important;  /* Ensures the background scrolls with the page */
   background-origin: padding-box !important; /* Adjusts the origin for the gradient */
+}
+
+
+.check1{
+  margin-left: -10px !important;
+}
+
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns label to the left */
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.input-button-container {
+  display: flex;
+  width: 100%;
+}
+
+.form-input {
+  flex: 1; /* Makes the input take the remaining space */
+  padding: 10px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn-submit {
+  width: 50px; /* Fixed width for the button */
+  padding: 0 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
 }
