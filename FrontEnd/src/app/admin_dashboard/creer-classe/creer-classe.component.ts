@@ -82,21 +82,19 @@ export class CreerClasseComponent {
     }
   }
 
-  // Filter subjects by semester 1
-  getMatiereS1(): Matiere[] {
-    if (this.matieres.length === 0) {
-      this.alertVisible3 = true;
-    }else{
-      this.alertVisible3 = false;
-    }
-    return this.matieres.filter((matiere) => matiere.semestre === "1");
-  }
+    // Filter subjects by semester 1
 
+  getMatiereS1(): Matiere[] {
+    const matiereS1 = this.matieres.filter((matiere) => matiere.semestre === "1");
+    this.alertVisible3 = matiereS1.length === 0 && this.matieres.filter((matiere) => matiere.semestre === "2").length === 0;
+    return matiereS1;
+  }
+  
   // Filter subjects by semester 2
   getMatiereS2(): Matiere[] {
     return this.matieres.filter((matiere) => matiere.semestre === "2");
   }
-
+  
   // Handle form submission
   onSubmit(): void {
     // Validation checks before proceeding

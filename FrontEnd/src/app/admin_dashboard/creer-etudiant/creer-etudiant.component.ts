@@ -127,7 +127,7 @@ export class CreerEtudiantComponent implements OnInit {
   // Load classes from the server
   loadClasses(): void {
     this.classeService.getClasses().subscribe((data) => {
-      if (this.classes.length === 0) {
+      if (data.length === 0) {
         this.alertVisible3 = true;
       }else{
         this.alertVisible3 = false;
