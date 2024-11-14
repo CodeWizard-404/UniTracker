@@ -41,3 +41,4 @@ export class CompletionService {
     return this.http.get<string[]>(`${this.Url}/notifications/${id}`);
   }
 }
+  
