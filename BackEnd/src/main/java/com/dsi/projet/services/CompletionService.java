@@ -159,4 +159,25 @@ public class CompletionService implements ICompletion{
 		return comRep.save(completion);
 	}
 	
+	// Chronometre
+	   public Completion startChronometre(Long tacheId, Long etudiantId) {
+	        Completion completion = comRep.findByTacheIdAndEtudiantId(tacheId, etudiantId)
+	            .orElseThrow(() -> new RuntimeException("Completion not found"));
+	        completion.setEnPause(false); 
+	        return comRep.save(completion);
+	    }
+
+	    public Completion pauseChronometre(Long tacheId, Long etudiantId, Long tempsEcoule) {
+	        Completion completion = comRep.findByTacheIdAndEtudiantId(tacheId, etudiantId)
+	            .orElseThrow(() -> new RuntimeException("Completion not found"));
+	        completion.setTempsEcoule(tempsEcoule);
+	        completion.setEnPause(true);
+	        return comRep.save(completion);
+	    }
+
+	    public Completion getChronometreState(Long tacheId, Long etudiantId) {
+	        return comRep.findByTacheIdAndEtudiantId(tacheId, etudiantId)
+	            .orElseThrow(() -> new RuntimeException("Completion not found"));
+	    }
+	
 }
