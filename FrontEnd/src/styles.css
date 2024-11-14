@@ -116,3 +116,6 @@ body{
   border: 1px solid #555555;
 }
 
+.content-wrapper{
+  border-radius: 15px 0 0 0 !important;
+}

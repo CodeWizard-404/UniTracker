@@ -36,7 +36,7 @@ export class EditEtudiantComponent implements OnInit {
     this.form = this.fb.group({
       nom_Etd: ['', Validators.required],
       prenom_Etd: ['', Validators.required],
-      email_Etd: ['', [Validators.required]],
+      email_Etd: ['', [Validators.required, Validators.email]],
       mot_de_passe_Etd: ['', Validators.required], 
       classe: ['', Validators.required],
       numClasse: [''],
