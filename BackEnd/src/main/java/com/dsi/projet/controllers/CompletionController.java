@@ -72,6 +72,10 @@ public class CompletionController {
     public Completion getChronometreState(@PathVariable Long tacheId, @PathVariable Long etudiantId) {
         return comServ.getChronometreState(tacheId, etudiantId);
     }
+    
+    @GetMapping("/completions")
+	public List<Completion> getTaskCompltions(@RequestParam int idTache){
+	return comServ.getTaskCompltions(idTache);}
 }
 
 

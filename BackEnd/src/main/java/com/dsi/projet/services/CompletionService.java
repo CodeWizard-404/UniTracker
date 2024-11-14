@@ -65,7 +65,7 @@ public class CompletionService implements ICompletion{
 					}
 		 }
 			}
-		if( completion.getTotalSoustTaches()<0)  {completion.setProgression(1);}
+		if( completion.getTotalSoustTaches()<1 && isCompleted)  {completion.setProgression(1);}
 		return comRep.save(completion);
 	}
 
@@ -179,5 +179,16 @@ public class CompletionService implements ICompletion{
 	        return comRep.findByTacheIdAndEtudiantId(tacheId, etudiantId)
 	            .orElseThrow(() -> new RuntimeException("Completion not found"));
 	    }
+
+		@Override
+		public List<Completion> getTaskCompltions(int tacheId) {
+			List<Completion> tc= new ArrayList<>();
+			for (Completion c : comRep.findAll()) {
+				if(c.getTache()==tacheId) {
+					tc.add(c);
+				}
+			}
+			return tc;
+		}
 	
 }
