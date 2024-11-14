@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CompletionService } from 'src/app/services/completion.service';
+import { EtudiantServiceService } from 'src/app/services/etudiant-service.service';
 
 @Component({
   selector: 'app-navbar-etd',
@@ -14,12 +15,28 @@ export class NavbarEtdComponent implements OnInit{
   rappels !: string[];
   prevRappels: string[] = []; 
   notifications:string[]=[]; 
+  name!: string;
+
   constructor(private route:ActivatedRoute,
-    private compService:CompletionService
+    private compService:CompletionService,
+   private etudiantServ: EtudiantServiceService
   ) { }
 
+
+
   ngOnInit(): void {
-    this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
+    this.idEtudiant = Number(this.route.snapshot.paramMap.get('id'));
+    this.etudiantServ.getEtudiantById(this.idEtudiant).subscribe(
+      (response) => {
+        console.log('etd', response);
+        this.name = response.nom_Etd + ' ' + response.prenom_Etd;
+  
+      },
+      (error) => {
+        console.error('Erreur', error);
+     
+      }
+    );
  this.getRappels(); 
  this.loadNotifications(); 
   }
@@ -83,4 +100,8 @@ export class NavbarEtdComponent implements OnInit{
       (error) => console.error('Erreur lors de la récupération des notifications:', error)
     );
   }
+
+
+
+
 }

@@ -15,7 +15,7 @@ export class SidebarEtdComponent implements OnInit{
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id'));
     this.etudiantServ.getEtudiantById(this.idEtudiant).subscribe(
       (response) => {
-        console.log('prof', response);
+        console.log('etd', response);
         this.name = response.nom_Etd + ' ' + response.prenom_Etd;
   
       },
