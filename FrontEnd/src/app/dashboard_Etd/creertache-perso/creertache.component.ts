@@ -18,6 +18,7 @@ export class CreertacheComponent implements OnInit {
   idEtudiant!: number; 
   taches: Tache[] = []
   matieres:Matiere[]=[];
+  minDate!: string;
   constructor(private fb: FormBuilder, private router: Router, private tacheService: CreerTacheService,
     private route: ActivatedRoute,private matService:MatiereServiceService,private toastr: ToastrService) { }
 
@@ -28,6 +29,9 @@ export class CreertacheComponent implements OnInit {
       dateLimite: ['', Validators.required],
       // matiere: ['', Validators.required],
     });
+
+    const today = new Date();
+    this.minDate = today.toISOString().slice(0, 16);
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
     this.matService.getMatieres().subscribe(
       (data) => {

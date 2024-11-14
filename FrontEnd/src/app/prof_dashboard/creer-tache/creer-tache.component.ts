@@ -22,6 +22,7 @@ export class CreerTacheComponent implements OnInit{
   idProf!:number;
   profs:Prof[]=[]
   matieres:Matiere[]=[];
+  minDate!: string;
   constructor(
     private fb: FormBuilder,
     private tacheService: CreerTacheService,
@@ -37,6 +38,8 @@ export class CreerTacheComponent implements OnInit{
       dateLimite: ['', Validators.required],
       // matiere: ['', Validators.required],
     });
+    const today = new Date();
+    this.minDate = today.toISOString().slice(0, 16);
     this.idProf = Number(this.route.snapshot.paramMap.get('id'));
     this.matService.getMatieres().subscribe(
       (data) => {
@@ -83,6 +86,7 @@ export class CreerTacheComponent implements OnInit{
     this.alertVisible0 = true;
     setTimeout(() => { this.alertVisible0 = false;}, 3000);
   }
+
 
 
 }

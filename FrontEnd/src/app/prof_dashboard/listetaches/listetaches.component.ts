@@ -4,7 +4,7 @@ import { Tache } from "src/app/classes/tache";
 import { CreerTacheService } from "src/app/services/creer-tache.service";
 import { Etudiant } from "src/app/classes/etudiant";
 import { EtudiantServiceService } from "src/app/services/etudiant-service.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Data } from "@angular/router";
 import { Prof } from "src/app/classes/prof";
 import { ProfServiceService } from "src/app/services/prof-service.service";
 import { ClasseServiceService } from "src/app/services/classe-service.service";
@@ -229,4 +229,18 @@ export class ListetachesComponent implements OnInit {
   closeTaskDetails() {
     this.selectedTask = null;
   }
+
+  isTaskOverdue(dateLimite: string | Date | undefined): boolean {
+    if (!dateLimite) return false;
+    
+    const taskDate = new Date(dateLimite);
+    const currentDate = new Date();
+    
+    console.log("Comparing task date:", taskDate, "with current date:", currentDate);
+  
+    return taskDate < currentDate;
+  }
+  
+  
+  
 }
