@@ -8,6 +8,8 @@
 .card-title {
     color: #474747;
     font-weight: bold;
+    font-family: cursive;
+
 }
 
 .form-control {
@@ -82,5 +84,4 @@ label {
     background-position: 0 0, 10px 10px !important;
     background-attachment: fixed !important;  /* Ensures the background scrolls with the page */
     background-origin: padding-box !important; /* Adjusts the origin for the gradient */
-    height: 100vh !important;    
-}
+ }

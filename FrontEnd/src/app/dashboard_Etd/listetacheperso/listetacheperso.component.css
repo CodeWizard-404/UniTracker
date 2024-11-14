@@ -184,6 +184,10 @@
   .kanban-column h5 {
     font-size: 1rem;
   }
+  h5{
+    font-family: cursive;
+
+  }
 
   .card-body {
     font-size: 0.9rem;

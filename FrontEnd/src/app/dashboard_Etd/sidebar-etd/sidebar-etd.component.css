@@ -81,3 +81,20 @@ h1{
     transform: scaleX(1);
   }
   
+  
+  #sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #sidebar .nav {
+    flex-grow: 1;
+  }
+  
+  .bottom-item {
+    margin-top: auto;
+  }
+  
+  .sidebar .nav {
+    margin-bottom: 0px !important;
+}

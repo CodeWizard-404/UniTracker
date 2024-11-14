@@ -41,14 +41,14 @@
     <!-- Dashboard -->
     <li class="nav-item menu-items">
       <a class="nav-link" [routerLink]="['/dashboardProf']" routerLinkActive="active">
-        <span class="menu-icon"><i class="mdi mdi-speedometer"></i></span>
+        <span class="menu-icon"><i class="mdi mdi-speedometer text-dark"></i></span>
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
 
 
     <!--Projet -->
-    <!-- <li class="nav-item menu-items">
+    <li class="nav-item menu-items">
       <a class="nav-link">
         <span class="menu-icon"><i class="fa-solid fa-folder-open"></i></span>
         <span class="menu-title">Projet</span>
@@ -62,11 +62,11 @@
           <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Classe - Matiere</a></li>
         </ul>
       </div>
-    </li> -->
+    </li>
     <!-- Tâches -->
     <li class="nav-item menu-items">
       <a class="nav-link" >
-        <span class="menu-icon"><i class="fa-solid fa-list-check"></i></span>
+        <span class="menu-icon"><i class="fa-solid fa-list-check text-primary"></i></span>
         <span class="menu-title">Tâches</span>
         <i class="menu-arrow"></i>
       </a>
@@ -83,25 +83,11 @@
       </div>
     </li>
 
-
-    <!-- <li class="nav-item menu-items">
-      <a class="nav-link" [routerLink]="['/listeclasse']"  routerLinkActive="active">
-        <span class="menu-icon">
-          <i class="mdi mdi-chart-bar"></i>
-        </span>
-        <span class="menu-title">Classes</span>
+    <li class="nav-item menu-items bottom-item">
+      <a class="nav-link" [routerLink]="['/login']">
+        <span class="menu-icon"><i class="mdi mdi-logout text-dark"></i></span>
+        <span class="menu-title">Déconnexion</span>
       </a>
     </li>
-    <li class="nav-item menu-items">
-      <a class="nav-link" [routerLink]="['/listmatiere']" routerLinkActive="active">
-        <span class="menu-icon">
-          <i class="mdi mdi-contacts"></i>
-        </span>
-        <span class="menu-title">Matières</span>
-      </a>
-    </li> -->
-
-
-
   </ul>
 </nav>

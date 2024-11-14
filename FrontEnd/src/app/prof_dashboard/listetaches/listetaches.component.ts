@@ -173,7 +173,15 @@ export class ListetachesComponent implements OnInit{
     });
   }
 }
+selectedTask: any;
 
+openTaskDetails(tache: any) {
+  this.selectedTask = tache;
+}
+
+closeTaskDetails() {
+  this.selectedTask = null;
+}
 }
 
 
