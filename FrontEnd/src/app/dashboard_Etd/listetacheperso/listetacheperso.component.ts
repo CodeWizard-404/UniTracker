@@ -247,8 +247,7 @@ deleteTask(idTache: number, idEtudiant: number): void {
         console.log('Tâche supprimée avec succès.');
         this.taches = this.taches.filter(tache => tache.id_Tache !== idTache);
         this.updateTaskLists();
-        
-      
+        this.selectedTask = null;
       } else {
         console.log('La tâche n\'a pas été trouvée ou n\'appartient pas au professeur.');
       }
