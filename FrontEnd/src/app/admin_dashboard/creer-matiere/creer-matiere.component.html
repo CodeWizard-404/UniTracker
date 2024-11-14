@@ -11,7 +11,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="card-title">Créer Matière</h2>
-
+                            <div *ngIf="alertVisible3" class="alert alert-danger mt-3" role="alert">
+                                Aucun professeur trouvé. Veuillez ajouter des <strong>Professeurs</strong> d'abord!!
+                            </div>
                             <!-- Row for input fields (Nom, Année, and Semestre) -->
                             <div class="row">
 

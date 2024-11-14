@@ -48,9 +48,15 @@ export class CreerMatiereComponent {
   // Load professors data
   loadProfesseurs() {
     this.profService.getProfesseurs().subscribe((data) => {
-      this.professeurs = data.map((prof) => ({ ...prof, selected: false }));
+      if (data.length === 0) {
+        this.alertVisible3 = true;
+      } else {
+        this.alertVisible3 = false;
+        this.professeurs = data.map((prof) => ({ ...prof, selected: false }));
+      }
     });
   }
+  
 
   // Load classes data
   loadClasses() {

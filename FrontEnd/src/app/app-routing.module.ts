@@ -60,7 +60,7 @@ const routes: Routes = [
 
   // Professor Routes
   { path: 'dashboardProf/:id/creerTache', title: 'Créer Tâche', component: CreerTacheComponent,canActivate: [ProfGuard] },
-  { path: 'dashboardProf', title: 'Professeur', component: DashProfComponent,canActivate: [ProfGuard] },
+  { path: 'dashboardProf/:id', title: 'Professeur', component: DashProfComponent,canActivate: [ProfGuard] },
   { path: 'dashboardProf/:id/listetaches', title: 'Liste des Tâches', component: ListetachesComponent,canActivate: [ProfGuard] },
   { path: 'assignerTache/:id', title: 'Attribuer Tâche', component: AssignerTacheComponent,canActivate: [ProfGuard] },
   { path: 'dashboardProf/:id/taches/:idTache', title: 'Modifier Tâche', component: UpdateTacheComponent,canActivate: [ProfGuard] },
