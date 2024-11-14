@@ -4,7 +4,6 @@
     background-position: 0 0, 10px 10px;
     background-attachment: fixed;  /* Ensures the background scrolls with the page */
     background-origin: padding-box; /* Adjusts the origin for the gradient */
-    height: 100vh;
     z-index: 999;
   
 }
