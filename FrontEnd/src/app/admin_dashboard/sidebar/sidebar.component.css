@@ -100,3 +100,7 @@ h1{
   .sidebar .nav {
     margin-bottom: 0px !important;
 }
+
+.sidebar .nav .nav-item {
+  padding: 0 0 0 0 !important;
+}

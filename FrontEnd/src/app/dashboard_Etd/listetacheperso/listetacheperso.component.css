@@ -185,8 +185,7 @@
     font-size: 1rem;
   }
   h5{
-    font-family: cursive;
-
+    font-family: cursive !important;
   }
 
   .card-body {
@@ -305,7 +304,9 @@
   font-style: italic;
 }
 
-
+h5{
+  font-family: cursive !important;
+}
 
 .content-wrapper{
   background-image: radial-gradient(circle, #5555557a 0.1px, transparent 1px), radial-gradient(circle, #55555580 0.1px, transparent 1px) !important;
