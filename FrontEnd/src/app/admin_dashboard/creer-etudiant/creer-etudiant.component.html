@@ -11,6 +11,9 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Créer un Etudiant</h4>
+              <div *ngIf="alertVisible3" class="alert alert-danger mt-3" role="alert">
+                Aucun classe trouvé. Veuillez ajouter des <strong>Classes</strong> d'abord!!
+            </div>
 
               <!-- Form starts here -->
               <form class="form-sample" [formGroup]="form" (ngSubmit)="onSubmit()">

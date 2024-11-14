@@ -17,6 +17,7 @@ export class CreerEtudiantComponent implements OnInit {
   filteredClasses: Classe[] = [];
   alertVisible1: boolean = false; // Alert for successful submission
   alertVisible2: boolean = false; // Alert for form validation error
+  alertVisible3: boolean = false; // Alert for class not found
 
   // Constructor to inject necessary services
   constructor(
@@ -126,6 +127,11 @@ export class CreerEtudiantComponent implements OnInit {
   // Load classes from the server
   loadClasses(): void {
     this.classeService.getClasses().subscribe((data) => {
+      if (this.classes.length === 0) {
+        this.alertVisible3 = true;
+      }else{
+        this.alertVisible3 = false;
+      }
       this.classes = data;
       this.uniqueClasses = [...new Set(this.classes.map(classe => classe.nom_Classe))]; // Ensure uniqueness
     });
