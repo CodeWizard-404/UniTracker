@@ -10,6 +10,8 @@ import { ProfServiceService } from "src/app/services/prof-service.service";
 import { ClasseServiceService } from "src/app/services/classe-service.service";
 import { Classe } from "src/app/classes/classe";
 import { error } from "jquery";
+import { CompletionService } from "src/app/services/completion.service";
+import { Completion } from "src/app/classes/completion";
 
 @Component({
   selector: "app-listetaches",
@@ -25,13 +27,17 @@ export class ListetachesComponent implements OnInit {
   selectedEtudiants: number[] = []; // Tableau pour stocker les IDs des étudiants sélectionnés
   idProf!: number;
   tabClasses!: Classe[];
+  taskCompletions:Completion[]=[];
+  progress:number=0;
 
   constructor(
     private tacheService: CreerTacheService,
     private etudiantService: EtudiantServiceService,
     private profService: ProfServiceService,
     private route: ActivatedRoute,
-    private classeService: ClasseServiceService
+    private classeService: ClasseServiceService,
+    private compServ:CompletionService
+
   ) {}
 
   ngOnInit(): void {
@@ -218,15 +224,39 @@ export class ListetachesComponent implements OnInit {
       });
     }
   }
+
+
+  getTaskCompltions(tacheId:number){
+    this.compServ.getTaskCompltions(tacheId).subscribe(
+      (data) => {
+        this.taskCompletions = data;
+        this.taskCompletions.forEach(completion => {
+          // Check if marquer is true and increment the progress if it is
+          if (completion.marquer) {
+              this.progress += 1;
+          }
+      });
+  
+        console.log("Loaded completions:", this.taskCompletions); 
+      },
+      (error) => {
+        console.error("Erreur lors du chargement des taches", error);
+      }
+    );
+  }
+
+
   selectedTask: any;
 
   openTaskDetails(tache: any) {
     console.log("Selected Task:", tache);
     this.selectedTask = tache;
-    this.assignTache(tache.id_Tache); // Ensure the task is assigned when clicked
+    this.assignTache(tache.id_Tache);
+    this.getTaskCompltions(tache.id_Tache) ;
   }
 
   closeTaskDetails() {
     this.selectedTask = null;
+    this.progress=0;
   }
 }

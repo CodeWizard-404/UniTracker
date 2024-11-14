@@ -43,6 +43,9 @@
     <h3 class="card-title">{{ selectedTask.titre }}</h3>
     <p class="card-text">{{ selectedTask.description }}</p>
     <p class="card-text text-muted">{{ selectedTask.dateLimite | date:'dd/MM/yyyy HH:mm' }}</p>
+    <p class="card-text" style="margin-left: 10px;">
+      {{ progress }} / {{ taskCompletions.length }} Etudiants ont exécuté cette tâche
+    </p>
     <hr>
     <!-- show Comments -->
     <label>
