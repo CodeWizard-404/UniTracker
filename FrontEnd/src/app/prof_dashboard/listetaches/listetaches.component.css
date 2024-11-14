@@ -1,4 +1,28 @@
 /* Overall Container */
+
+.disabled-task {
+  background-color: #b0b0b0; /* Rouge clair pour indiquer une tâche bloquée */
+  color: #721c24; /* Couleur du texte en rouge foncé */
+  position: relative; /* Pour positionner le texte ou l'icône de "bloqué" */
+  opacity: 0.8;
+  pointer-events: none; /* Empêche les interactions avec la tâche */
+}
+
+.disabled-task::after {
+  content: "Tache expirée"; /* Texte indiquant que la tâche est bloquée */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #721c24;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+
+
+
 .kanban-container {
   display: flex;
   justify-content: space-between;
