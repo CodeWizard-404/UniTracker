@@ -7,7 +7,7 @@ import com.dsi.projet.entities.Completion.ComplexteTache;
 
 public interface ICompletion {
 	public Completion Consulter(int idEtd,int idTache);
-	
+	public List<Completion> getTaskCompltions(int tacheId);
 	public Completion markTaskAsCompleted(int tacheId, int etudiantId, Boolean isCompleted);
 	public Completion markSubTaskAsCompleted(int tacheId, int etudiantId, Boolean isCompleted);
 	public Completion pickDifficulty(int tacheId, int etudiantId, ComplexteTache complexite);
