@@ -92,7 +92,6 @@ public class TacheController {
 	@GetMapping("/notifications/{id}")
     public List<String> getNotifications(@PathVariable int id) {
         List<String> notifications = tacheService.getNotifications(id);
-        tacheService.clearNotifications(id); 
         return notifications;
     }
 	
