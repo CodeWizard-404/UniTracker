@@ -24,14 +24,18 @@ export class ListetachepersoComponent implements OnInit {
   comment!:String;
   selectedTacheId: number | null = null;
   totalStudentSubtasks: number = 0;
-  selectedTask: any;
+ 
 
+  intervalId: any = null; // Pour stocker l'ID de l'intervalle et pouvoir le nettoyer plus tard
+  timers: { [tacheId: number]: { running: boolean, tempsEcoule: number } } = {};
+  selectedTask: any; // Remplacez par la structure exacte de la tâche que vous utilisez
 
   tempsEcoule: number = 0;
   running: boolean = false;
+  
+  times: { [key: number]: number } = {}; 
 
-    timers: { [key: number]: any } = {}; 
-    times: { [key: number]: number } = {}; 
+  
     taskUpdates$ = new BehaviorSubject<void>(undefined); // Emit changes to trigger updates
 
 
@@ -43,7 +47,8 @@ export class ListetachepersoComponent implements OnInit {
     });
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
     this.loadTasks();
-    this.retrieveSavedTimers();
+    //this.retrieveSavedTimers();
+    this.loadChronometreState();
     this.calculateStudentProgression();
 
     this.taskUpdates$.subscribe(() => {
@@ -52,15 +57,16 @@ export class ListetachepersoComponent implements OnInit {
 
     });
   
-    // Récupérer les temps sauvegardés dans localStorage
-    this.taches.forEach(tache => {
-      const savedTime = localStorage.getItem(`timer-${tache.id_Tache}`);
-      if (savedTime) {
-        this.times[tache.id_Tache] = parseInt(savedTime, 10);
-      }
-    });
+  // Récupérer les temps sauvegardés dans localStorage
+  // this.taches.forEach(tache => {
+  //   const savedTime = localStorage.getItem(`timer-${tache.id_Tache}`);
+  //   if (savedTime) {
+  //     this.times[tache.id_Tache] = parseInt(savedTime, 10);
+  //   }
+  // });
 
-    this.taskUpdates$.subscribe(() => {
+
+      this.taskUpdates$.subscribe(() => {
       this.cd.detectChanges();
   });
   }
@@ -263,97 +269,158 @@ export class ListetachepersoComponent implements OnInit {
     
   }
 
-  retrieveSavedTimers() {
-    this.todoTasks.forEach(task => {
-      const savedTime = localStorage.getItem(`timer-${task.id_Tache}`);
-      if (savedTime) {
-        this.times[task.id_Tache] = parseInt(savedTime, 10);
-      }
-    });
-  }
+  // retrieveSavedTimers() {
+  //   this.todoTasks.forEach(task => {
+  //     this.tacheService.getTimerForTask(task.id_Tache, this.idEtudiant).subscribe(
+  //       (timerData: { elapsedTime: number }) => {
+  //         if (timerData) {
+  //           this.times[task.id_Tache] = timerData.elapsedTime;
+  //         }
+  //       },
+  //       error => {
+  //         console.error('Erreur lors de la récupération des minuteries:', error);
+  //       }
+  //     );
+  //   });
+  // }
+  // toggleTimer(tacheId: number): void {
+  //   if (this.timers[tacheId] && this.timers[tacheId].running) {
+  //     this.pauseChronometre();
+  //   } else {
+  //     this.startChronometre(); // Lancer le chronomètre
+  //   }
+  // }
+ 
+  loadChronometreState(): void {
+    
+    const savedState = JSON.parse(localStorage.getItem('timers') || '{}');
+    const savedTask = savedState[this.selectedTask.id_Tache];
+  console.log("savedState", savedState);
+  console.log("savedTask", savedTask);
 
-
-
-
-  toggleTimer(taskId: number) {
-    if (!this.timers[taskId]) {
-      this.startTimer(taskId);
-    } else {
-      this.stopTimer(taskId);
-    }
-  }
-  startTimer(taskId: number) {
-    this.timers[taskId] = setInterval(() => {
-      this.times[taskId] = (this.times[taskId] || 0) + 1;
-      localStorage.setItem(`timer-${taskId}`, this.times[taskId].toString());
-      this.taskUpdates$.next(); // Trigger view update
-    }, 1000);
-  }
-
-  stopTimer(taskId: number) {
-    clearInterval(this.timers[taskId]);
-    delete this.timers[taskId];
-    this.taskUpdates$.next(); // Trigger view update
-  }
-
-
+    if (savedTask) {
+      // Restore from localStorage
+      this.timers[this.selectedTask.id_Tache] = {
+        running: savedTask.running,
+        tempsEcoule: savedTask.tempsEcoule || 0
+      };
+      this.tempsEcoule = this.timers[this.selectedTask.id_Tache].tempsEcoule;
   
-  startChronometre(tacheId: number) {
-    this.CompServ.startChronometre(tacheId, this.idEtudiant).subscribe(
-      () => {
-        this.timers[tacheId] = { startTime: Date.now(), interval: null, running: true };
-        this.times[tacheId] = 0;
-
-        this.timers[tacheId].interval = setInterval(() => {
-          this.times[tacheId] = Math.floor((Date.now() - this.timers[tacheId].startTime) / 1000);
-        }, 1000);
+      if (this.timers[this.selectedTask.id_Tache].running) {
+        this.startUpdatingTempsEcoule();
+      }
+      this.cd.detectChanges();
+    }
+  
+    // Then, make a backend call to ensure the state is up-to-date
+    this.CompServ.getChronometreState(this.selectedTask.id_Tache, this.idEtudiant).subscribe(
+      (response: any) => {
+        if (response) {
+          this.timers[this.selectedTask.id_Tache] = {
+            running: response.running,
+            tempsEcoule: response.tempsEcoule || 0
+          };
+          this.tempsEcoule = this.timers[this.selectedTask.id_Tache].tempsEcoule;
+  
+          if (this.timers[this.selectedTask.id_Tache].running) {
+            this.startUpdatingTempsEcoule();
+          }
+  
+          // Sync the state with localStorage
+          const timersState = JSON.parse(localStorage.getItem('timers') || '{}');
+          timersState[this.selectedTask.id_Tache] = {
+            running: response.running,
+            tempsEcoule: response.tempsEcoule || 0
+          };
+          localStorage.setItem('timers', JSON.stringify(timersState));
+  
+          this.cd.detectChanges();
+        }
       },
       (error) => {
-        console.error('Erreur lors du démarrage du chronomètre:', error);
+        console.error("Erreur lors du chargement de l'état du chronomètre", error);
       }
     );
   }
+  
 
-  pauseChronometre(tacheId: number) {
-    if (this.timers[tacheId]) {
-      clearInterval(this.timers[tacheId].interval);
-      this.timers[tacheId].running = false;
-
-      const tempsEcoule = this.times[tacheId];
-      this.CompServ.pauseChronometre(tacheId, this.idEtudiant, tempsEcoule).subscribe(
-        () => {
-          console.log('Chronomètre en pause');
-        },
-        (error) => {
-          console.error('Erreur lors de la mise en pause du chronomètre:', error);
-        }
-      );
+  startChronometre(): void {
+    // Check if there is an existing timer state in localStorage
+    const savedTimers = JSON.parse(localStorage.getItem('timers') || '{}');
+    const savedTask = savedTimers[this.selectedTask.id_Tache];
+  
+    if (savedTask && savedTask.running) {
+      // If the task is already running, do not restart it, just resume
+      this.tempsEcoule = savedTask.tempsEcoule; // Set elapsed time to saved value
+    } else {
+      // If it's not running, start from the current time
+      this.tempsEcoule = this.tempsEcoule || 0;
     }
-  }
-  resumeTimer(tacheId: number) {
-    if (this.timers[tacheId] && !this.timers[tacheId].running) {
-      this.timers[tacheId].startTime = Date.now() - this.times[tacheId] * 1000;
-      this.timers[tacheId].running = true;
-
-      this.timers[tacheId].interval = setInterval(() => {
-        this.times[tacheId] = Math.floor((Date.now() - this.timers[tacheId].startTime) / 1000);
-      }, 1000);
-    }
-  }
-
-  formatTime(seconds: number): string {
-    const hours = Math.floor(seconds / 3600); // 3600 secondes dans une heure
-    const minutes = Math.floor((seconds % 3600) / 60); // Reste de minutes après avoir extrait les heures
-    const remainingSeconds = seconds % 60; // Reste des secondes après avoir extrait les minutes
-    
-    // Formatage de l'heure, des minutes et des secondes
-    return `${this.padZero(hours)}:${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
+  
+    // Mark the timer as running and save it back to localStorage
+    this.timers[this.selectedTask.id_Tache] = { running: true, tempsEcoule: this.tempsEcoule };
+    savedTimers[this.selectedTask.id_Tache] = this.timers[this.selectedTask.id_Tache];
+    localStorage.setItem('timers', JSON.stringify(savedTimers));
+  
+    // Start the chronometer
+    this.CompServ.startChronometre(this.selectedTask.id_Tache, this.idEtudiant).subscribe(
+      (response) => {
+        this.startUpdatingTempsEcoule(); // Démarrer la mise à jour du temps écoulé
+      },
+      (error) => {
+        console.error('Erreur lors du démarrage du chronomètre', error);
+      }
+    );
   }
   
-  padZero(value: number): string {
-    return value < 10 ? `0${value}` : `${value}`;
+
+  pauseChronometre(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId); // Stop updating elapsed time
+    }
+  
+    // Save the paused state to localStorage
+    const savedTimers = JSON.parse(localStorage.getItem('timers') || '{}');
+    this.timers[this.selectedTask.id_Tache].running = false; // Mark the timer as paused
+    savedTimers[this.selectedTask.id_Tache] = this.timers[this.selectedTask.id_Tache]; // Save updated state
+    localStorage.setItem('timers', JSON.stringify(savedTimers));
+  
+    // Make API call to pause the chronometer
+    this.CompServ.pauseChronometre(this.selectedTask.id_Tache, this.idEtudiant, this.tempsEcoule).subscribe(
+      (response) => {
+        console.log('Chronometer paused successfully');
+        this.cd.detectChanges(); // Update the UI
+      },
+      (error) => {
+        console.error('Error while pausing the chronometer', error);
+      }
+    );
+  }
+  
+
+  startUpdatingTempsEcoule(): void {
+    this.intervalId = setInterval(() => {
+      this.tempsEcoule++;
+      this.timers[this.selectedTask.id_Tache].tempsEcoule = this.tempsEcoule;
+  
+      // Save the updated state to localStorage
+      const timersState = JSON.parse(localStorage.getItem('timers') || '{}');
+      timersState[this.selectedTask.id_Tache] = {
+        running: true,
+        tempsEcoule: this.tempsEcoule,
+      };
+      localStorage.setItem('timers', JSON.stringify(timersState));
+  
+      this.cd.detectChanges();
+    }, 1000);
   }
 
+  formatTime(time: number): string {
+    const hours = Math.floor(time / 3600).toString().padStart(2, '0');
+    const minutes = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
+    const seconds = (time % 60).toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+  }
 addComment(idTache: number,comment:String,c:Completion){
   
   console.log(comment);
@@ -373,13 +440,6 @@ addComment(idTache: number,comment:String,c:Completion){
 }
 
 
-
-
-
-
-
-
-
 calculateStudentProgression() {
   // Filtrer les sous-tâches pour cet étudiant uniquement
   const studentSubtasks = this.selectedTask.sousTaches.filter((subtask: any) =>
@@ -390,23 +450,33 @@ calculateStudentProgression() {
   this.totalStudentSubtasks = studentSubtasks.length;
 }
 
-  openTaskDetails(tache: Tache): void {
-    this.selectedTask = tache;
-    this.taskUpdates$.next(); // Trigger view update
+openTaskDetails(tache: Tache): void {
+  this.selectedTask = tache;
 
-    if (!this.times[tache.id_Tache]) {
-      this.times[tache.id_Tache] = 0;  
-    }
-    if (this.timers[tache.id_Tache] && !this.timers[tache.id_Tache].running) {
-      localStorage.setItem(`timer-${tache.id_Tache}`, this.times[tache.id_Tache].toString());
-      this.timers[tache.id_Tache].elapsedTime = this.times[tache.id_Tache];
-    }
-  
-    // Forcer la détection de changements après mise à jour des données
-    this.cd.detectChanges();
-    this.cd.markForCheck();
+  // Retrieve saved timers from localStorage
+  const savedTimers = JSON.parse(localStorage.getItem('timers') || '{}');
+  const savedTask = savedTimers[this.selectedTask.id_Tache];
 
+  if (savedTask) {
+    // Restore the timer state but pause it
+    this.timers[this.selectedTask.id_Tache] = {
+      running: false, // Ensure the timer is paused
+      tempsEcoule: savedTask.tempsEcoule || 0
+    };
+    this.tempsEcoule = this.timers[this.selectedTask.id_Tache].tempsEcoule;
+  } else {
+    // If no saved state is found, initialize the timer for this task
+    this.timers[this.selectedTask.id_Tache] = { running: false, tempsEcoule: 0 };
+    this.tempsEcoule = 0;
   }
+
+  // Save the updated (paused) state back to localStorage
+  savedTimers[this.selectedTask.id_Tache] = this.timers[this.selectedTask.id_Tache];
+  localStorage.setItem('timers', JSON.stringify(savedTimers));
+
+  this.cd.detectChanges(); // Update the UI
+}
+
   closeTaskDetails() {
     this.selectedTask = null;
     this.taskUpdates$.next();

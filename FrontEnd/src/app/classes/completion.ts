@@ -11,8 +11,10 @@ export class Completion {
     public commentaires:String[];
     public progression:number;
     public totalSoustTaches:number;
+    public tempsEcoule: number;  // En millisecondes
+    public enPause: boolean;     // Indique si le chronomètre est en pause
 
-    constructor(tache_id: number, marquer: boolean, complexite: String, etudiant: number, tache: Tache,commentaires:String[],etudiantName:String ,progression:number,totalSoustTaches:number) {
+    constructor(tache_id: number, marquer: boolean, complexite: String, etudiant: number, tache: Tache,commentaires:String[],etudiantName:String ,progression:number,totalSoustTaches:number,tempsEcoule: number = 0, enPause: boolean = true) {
      
       this.tache_id = tache_id;
         this.marquer = marquer;
@@ -23,6 +25,9 @@ export class Completion {
         this.etudiantName = etudiantName; 
         this.progression = progression; 
         this.totalSoustTaches=totalSoustTaches;
+
+        this.tempsEcoule = tempsEcoule;
+        this.enPause = enPause;
       }
     
 }

@@ -180,6 +180,8 @@ public class CompletionService implements ICompletion{
 	            .orElseThrow(() -> new RuntimeException("Completion not found"));
 	    }
 
+	    
+	    
 		@Override
 		public List<Completion> getTaskCompltions(int tacheId) {
 			List<Completion> tc= new ArrayList<>();

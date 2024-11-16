@@ -62,26 +62,24 @@
       <h3>{{ selectedTask.titre }}</h3>
       <p><strong>Description:</strong> {{ selectedTask.description }}</p>
       <p><strong>Date limite:</strong> {{ selectedTask.dateLimite | date:'dd/MM/yyyy HH:mm' }}</p>
+<!-- Bouton pour démarrer le chronomètre -->
+<!-- <button *ngIf="!timers[selectedTask.id_Tache]?.running" (click)="startChronometre()" class="btn btn-primary">
+  <i class="fa fa-play"></i> Démarrer
+</button>
 
-      <!-- Timer control buttons -->
+ Bouton pour mettre en pause le chronomètre 
+<button *ngIf="timers[selectedTask.id_Tache]?.running" (click)="pauseChronometre()" class="btn btn-danger">
+  <i class="fa fa-pause"></i> Pause
+</button>
 
-      <!-- Play button (if timer is not running) -->
-      <p><strong>Temps écoulé:</strong>
-      <button *ngIf="!timers[selectedTask.id_Tache]" class="btn btn-primary timer_button"
-        (click)="toggleTimer(selectedTask.id_Tache)" [ngClass]="{'btn-start': !timers[selectedTask.id_Tache]}">
-        <i class="fa fa-play"></i> {{ formatTime(times[selectedTask.id_Tache] || 0) }}
-      </button>
-      <!-- Pause/Resume button (if timer is running) -->
-      <button *ngIf="timers[selectedTask.id_Tache]" class="btn" (click)="toggleTimer(selectedTask.id_Tache)" [ngClass]="{
-        'btn-primary': !timers[selectedTask.id_Tache].running, 
-        'btn-danger': timers[selectedTask.id_Tache].running,
-        'btn-pause': timers[selectedTask.id_Tache].running, 
-        'btn-resume': !timers[selectedTask.id_Tache].running
-      }">
-        <i class="fa" [ngClass]="timers[selectedTask.id_Tache].running ? 'fa-pause' : 'fa-play'"></i> {{ formatTime(times[selectedTask.id_Tache] || 0) }}
-      </button></p>
+$ Affichage du temps écoulé 
+<p>{{ timers[selectedTask.id_Tache]?.tempsEcoule }} secondes</p> -->
 
-
+      <div class="chronometre">
+        <p><strong>Temps écoulé : </strong> {{ formatTime(tempsEcoule) }}</p>
+        <button (click)="startChronometre()" *ngIf="!timers[selectedTask.id_Tache]?.running" class="btn btn-primary"><i class="fa fa-play"></i>Démarrer</button>
+        <button (click)="pauseChronometre()" *ngIf="timers[selectedTask.id_Tache]?.running" class="btn btn-danger"><i class="fa fa-pause"></i>Pause</button>
+      </div>
 
       <!-- Edit button (only visible if the task is not assigned to a professor) -->
       <div class="d-flex justify-content-between">
