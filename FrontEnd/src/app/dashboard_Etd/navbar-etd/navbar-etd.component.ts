@@ -20,7 +20,7 @@ export class NavbarEtdComponent implements OnInit{
   constructor(private route:ActivatedRoute,
     private compService:CompletionService,
    private etudiantServ: EtudiantServiceService
-  ) { }
+  ) {}
 
 
 
@@ -95,13 +95,9 @@ export class NavbarEtdComponent implements OnInit{
     this.compService.getNotifications(this.idEtudiant).subscribe(
       (data) => {
         this.notifications = data;
-        this.hasNewNotifications = true;
       },
       (error) => console.error('Erreur lors de la récupération des notifications:', error)
     );
   }
-
-
-
 
 }
