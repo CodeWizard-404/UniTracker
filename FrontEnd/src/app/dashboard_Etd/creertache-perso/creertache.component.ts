@@ -27,7 +27,7 @@ export class CreertacheComponent implements OnInit {
       titre: ['', Validators.required],
       description: ['', Validators.required],
       dateLimite: ['', Validators.required],
-      // matiere: ['', Validators.required],
+      // matiere: [''],
     });
 
     const today = new Date();
@@ -36,9 +36,11 @@ export class CreertacheComponent implements OnInit {
     this.matService.getMatieres().subscribe(
       (data) => {
         this.matieres = data;
+    
       },
       (error) => {
         console.error("Erreur lors du chargement des matières", error);
+        console.log("matieres")
       }
     );
     console.log(this.idEtudiant);

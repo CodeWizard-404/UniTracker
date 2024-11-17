@@ -41,11 +41,10 @@ public class Tache {
 	private List<Etudiant> etudiants=new ArrayList<>();
 	
 	
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "id_Matiere") private Matiere matiere;
-	 */
+
+	 @ManyToOne
+	 @JoinColumn(name = "id_Matiere") private Matiere matiere;
+	
 	
 	/*-------------relationRealisation---------------------------------------------*/
 	@OneToMany(mappedBy = "tache")
@@ -87,11 +86,34 @@ public class Tache {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	/*
-	 * public Matiere getMatiere() { return matiere; }
-	 * 
-	 * public void setMatiere(Matiere matiere) { this.matiere = matiere; }
-	 */
+	
+	public int getMatiere() {
+	    if (matiere != null) {
+	        return matiere.getId_Matiere();
+	    } else {
+	        return -1;  
+	    }
+	}
+
+	 
+	 public Tache(int id_Tache, String titre, String description, LocalDateTime dateLimite, Professeur professeur,
+			List<Etudiant> etudiants, Matiere matiere, List<Completion> completions, List<Tache> sousTaches,
+			Tache tachePrincipale) {
+		super();
+		this.id_Tache = id_Tache;
+		this.titre = titre;
+		this.description = description;
+		this.dateLimite = dateLimite;
+		this.professeur = professeur;
+		this.etudiants = etudiants;
+		this.matiere = matiere;
+		this.completions = completions;
+		this.sousTaches = sousTaches;
+		this.tachePrincipale = tachePrincipale;
+	}
+
+	public void setMatiere(Matiere matiere) { this.matiere = matiere; }
+	 
 
 //	public List<Integer> getCompletions() {
 //		 List<Integer> compsIds = new ArrayList<>();

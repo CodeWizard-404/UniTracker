@@ -99,10 +99,5 @@ public class TacheController {
         return notifications;
     }
 
- @GetMapping("/tasks/overview")
- public Map<String, Long> getTasksOverview() {
-     List<Tache> tasks = tacheService.getAll(); 
-     return tasks.stream()
-         .collect(Collectors.groupingBy(Tache::getStatus, Collectors.counting()));
- }
+
 }

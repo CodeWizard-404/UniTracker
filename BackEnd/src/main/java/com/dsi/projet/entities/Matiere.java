@@ -42,10 +42,21 @@ public class Matiere {
 
 	//@ManyToMany(mappedBy = "matieres")
 	
-	/*
-	 * @OneToMany(mappedBy = "matiere") private List<Tache> taches = new
-	 * ArrayList<>();
-	 */
+	
+	 @OneToMany(mappedBy = "matiere") private List<Tache> taches = new
+	 ArrayList<>();
+	 
+
+	public Matiere(int id_Matiere, String libelle, String semestre, List<Professeur> professeurs, List<Classe> classes,
+			List<Tache> taches) {
+		super();
+		this.id_Matiere = id_Matiere;
+		this.libelle = libelle;
+		this.semestre = semestre;
+		this.professeurs = professeurs;
+		this.classes = classes;
+		this.taches = taches;
+	}
 
 	/*---------------------------------------------------------------------------*/
 	/*
@@ -53,6 +64,14 @@ public class Matiere {
 	 * ArrayList<>();
 	 */
 	/*---------------------------------------------------------------------------*/
+
+	public List<Tache> getTaches() {
+		return taches;
+	}
+
+	public void setTaches(List<Tache> taches) {
+		this.taches = taches;
+	}
 
 	public Matiere(String libelle, String semestre) {
 		super();
