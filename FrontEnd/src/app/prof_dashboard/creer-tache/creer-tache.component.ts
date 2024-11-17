@@ -36,12 +36,12 @@ export class CreerTacheComponent implements OnInit{
       titre: ['', Validators.required],
       description: ['', Validators.required],
       dateLimite: ['', Validators.required],
-      // matiere: ['', Validators.required],
+      matiere: [''],
     });
     const today = new Date();
     this.minDate = today.toISOString().slice(0, 16);
     this.idProf = Number(this.route.snapshot.paramMap.get('id'));
-    this.matService.getMatieres().subscribe(
+    this.matService.getMatieresByProf(this.idProf).subscribe(
       (data) => {
         this.matieres = data;
         this.alertVisible33 = true;
