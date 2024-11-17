@@ -29,8 +29,6 @@ public class SecurityConfig {
                 .requestMatchers("/realisation/difficulty").hasAuthority("etudiant") 
                 .requestMatchers("/createGroupe").hasAuthority("etudiant")
                 .requestMatchers("/rappels/{id}").hasAuthority("etudiant")
-                .requestMatchers("/classes").hasAuthority("admin")//seulement pour l'admin
-                .requestMatchers("/matieres").hasAuthority("admin")
                 .requestMatchers("/profs").hasAuthority("admin")                
                 .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
             .and()
