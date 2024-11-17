@@ -42,6 +42,8 @@ import { EditProfComponent } from './admin_dashboard/edit-prof/edit-prof.compone
 import { UpdateMatiereComponent } from './admin_dashboard/update-matiere/update-matiere.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { ListefiltreeComponent } from './dashboard_Etd/listefiltree/listefiltree.component';
+
 
 
 
@@ -83,7 +85,8 @@ import { AuthInterceptor } from './auth.interceptor';
     UpdateClasseComponent,
     EditProfComponent,
     UpdateMatiereComponent,
-    LoginComponent
+    LoginComponent,
+    ListefiltreeComponent
 
   
    

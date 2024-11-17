@@ -1,19 +1,19 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import { Completion } from 'src/app/classes/completion';
 import { Tache } from 'src/app/classes/tache';
 import { CompletionService } from 'src/app/services/completion.service';
 import { CreerTacheService } from 'src/app/services/creer-tache.service';
-import { BehaviorSubject } from 'rxjs';
-
+import { MatiereServiceService } from 'src/app/services/matiere-service.service';
 
 @Component({
-  selector: 'app-listetacheperso',
-  templateUrl: './listetacheperso.component.html',
-  styleUrls: ['./listetacheperso.component.css']
+  selector: 'app-listefiltree',
+  templateUrl: './listefiltree.component.html',
+  styleUrls: ['./listefiltree.component.css']
 })
-export class ListetachepersoComponent implements OnInit {
+export class ListefiltreeComponent implements OnInit {
   tacheForm!: FormGroup;
   doneTasks: Tache[] = [];
   todoTasks: Tache[] = [];
@@ -21,12 +21,14 @@ export class ListetachepersoComponent implements OnInit {
   idEtudiant!: number; 
   taches: Tache[] = [];
   marked!: Completion;
+  idMatiere: number = 0; 
   comment!:String;
   selectedTacheId: number | null = null;
   totalStudentSubtasks: number = 0;
+  taches2: Tache[] = [];  
  
 
-  intervalId: any = null; 
+  intervalId: any = null; // Pour stocker l'ID de l'intervalle et pouvoir le nettoyer plus tard
   timers: { [tacheId: number]: { running: boolean, tempsEcoule: number } } = {};
   selectedTask: any; // Remplacez par la structure exacte de la tâche que vous utilisez
 
@@ -39,14 +41,18 @@ export class ListetachepersoComponent implements OnInit {
     taskUpdates$ = new BehaviorSubject<void>(undefined); // Emit changes to trigger updates
 
 
-  constructor(private cd: ChangeDetectorRef,private fb: FormBuilder,private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService) { }
+  constructor(private cd: ChangeDetectorRef,private fb: FormBuilder,private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService,     private matiereService: MatiereServiceService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
+     this.idMatiere = +this.route.snapshot.paramMap.get('idMatiere')!;
+    this.loadTaches();
+
     this.tacheForm = this.fb.group({
       titre: ['', Validators.required]
     });
-    this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
-    this.loadTasks();
+
+    
     //this.retrieveSavedTimers();
     this.loadChronometreState();
     this.calculateStudentProgression();
@@ -69,6 +75,10 @@ export class ListetachepersoComponent implements OnInit {
       this.taskUpdates$.subscribe(() => {
       this.cd.detectChanges();
   });
+
+
+    
+
   }
 
 
@@ -86,6 +96,51 @@ export class ListetachepersoComponent implements OnInit {
       }
     );
   }
+
+
+
+
+
+
+  loadTaches(): void {
+
+    this.matiereService.getIdsTachesByMatiere(this.idMatiere).subscribe(
+      (tachesIds) => {
+        if (!tachesIds || tachesIds.length === 0) {
+          console.warn('Aucune tâche trouvée pour cette matière.');
+          this.taches2 = [];
+          return;
+        }
+    
+        console.log('Tâches associées à cette matière :', tachesIds);
+  
+        const tachesObservableArray = tachesIds.map((id) =>
+          this.tacheService.getTaskById(id)
+        );
+
+        forkJoin(tachesObservableArray).subscribe(
+          (tachesDetails) => {
+            console.log('Détails des tâches récupérés :', tachesDetails);
+            this.taches2 = tachesDetails; 
+          },
+          (error) => {
+            console.error('Erreur lors de la récupération des détails des tâches:', error);
+            this.taches2 = []; 
+          }
+        );
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des IDs des tâches:', error);
+        this.taches2 = []; // Gère le cas où une erreur survient
+      }
+    );
+    
+  }
+
+
+
+  
+
   addSubTask(tache:Tache){
     this.selectedTacheId = tache.id_Tache;
     if (this.tacheForm.valid) {

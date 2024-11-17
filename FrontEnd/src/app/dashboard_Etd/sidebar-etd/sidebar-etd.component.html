@@ -72,11 +72,19 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"><a class="nav-link" [routerLink]="['/dashEtd',idEtudiant,'listetacheperso']" routerLinkActive="active"><i class="bi bi-caret-right-fill"></i>Tous</a></li>
           <li class="nav-item"><a class="nav-link" ><i class="bi bi-caret-right-fill"></i>Personnel</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Matière</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Matière</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Matière</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Matière</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Matière</a></li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <i class="bi bi-caret-right-fill"></i> Matière
+            </a>
+            <ul>
+              <li *ngFor="let matiere of matieres" class="nav-item">
+                <a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'listreFiltrée', matiere.id_Matiere]" routerLinkActive="active">
+                  {{ matiere.libelle }}
+                </a>
+              </li>
+            </ul>
+          </li>
+   
         </ul>
       </div>
     </li>

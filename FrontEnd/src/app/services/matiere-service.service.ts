@@ -73,5 +73,13 @@ updateMatiere(id: number, matiere: Matiere): Observable<Matiere> {
     })
   );
 }
+getIdsTachesByMatiere(idMatiere: number): Observable<number[]> {
+  return this.http.get<number[]>(`${this.baseUrl}/${idMatiere}/taches`);
+}
+
+// Méthode pour récupérer les IDs des Matières d'un Etudiant
+getIdsMatieresByEtudiant(idEtudiant: number): Observable<number[]> {
+  return this.http.get<number[]>(`${this.baseUrl}/etudiants/${idEtudiant}/matieres`);
+}
 
 }

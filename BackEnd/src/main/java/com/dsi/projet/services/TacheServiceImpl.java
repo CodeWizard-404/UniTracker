@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -313,6 +315,11 @@ public class TacheServiceImpl implements ITacheService{
 	    public void clearNotifications(int etudiantId) {
 	        notificationsMap.remove(etudiantId);
 	    }
+	    
+@Override
+public List<Integer> getTachesIdsForMatiere(int idMatiere) {
+    return this.tacherep.getIdsTachesByIdMatiere(idMatiere);
+}
 
 	}
 

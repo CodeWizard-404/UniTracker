@@ -22,4 +22,5 @@ public interface ITacheService {
 	public String getMatiereByTache(int idTache);
 	public List<String> getNotifications(int etudiantId);
 	public void clearNotifications(int etudiantId);
+	List<Integer> getTachesIdsForMatiere(int idMatiere);
 }
