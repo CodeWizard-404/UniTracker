@@ -47,17 +47,6 @@ public class Matiere {
 	 ArrayList<>();
 	 
 
-	public Matiere(int id_Matiere, String libelle, String semestre, List<Professeur> professeurs, List<Classe> classes,
-			List<Tache> taches) {
-		super();
-		this.id_Matiere = id_Matiere;
-		this.libelle = libelle;
-		this.semestre = semestre;
-		this.professeurs = professeurs;
-		this.classes = classes;
-		this.taches = taches;
-	}
-
 	/*---------------------------------------------------------------------------*/
 	/*
 	 * @OneToMany(mappedBy = "matiere") private List<Groupe> groupes = new
