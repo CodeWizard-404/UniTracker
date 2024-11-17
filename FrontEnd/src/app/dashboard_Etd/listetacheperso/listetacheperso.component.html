@@ -53,6 +53,8 @@
     </div>
   </div>
 
+
+  
   <!-- Modal for task details -->
   <div class="task-modal" *ngIf="selectedTask">
     <div class="task-modal-content">
@@ -63,18 +65,6 @@
       <p><strong>Description:</strong> {{ selectedTask.description }}</p>
       
       <p><strong>Date limite:</strong> {{ selectedTask.dateLimite | date:'dd/MM/yyyy HH:mm' }}</p>
-<!-- Bouton pour démarrer le chronomètre -->
-<!-- <button *ngIf="!timers[selectedTask.id_Tache]?.running" (click)="startChronometre()" class="btn btn-primary">
-  <i class="fa fa-play"></i> Démarrer
-</button>
-
- Bouton pour mettre en pause le chronomètre 
-<button *ngIf="timers[selectedTask.id_Tache]?.running" (click)="pauseChronometre()" class="btn btn-danger">
-  <i class="fa fa-pause"></i> Pause
-</button>
-
-$ Affichage du temps écoulé 
-<p>{{ timers[selectedTask.id_Tache]?.tempsEcoule }} secondes</p> -->
 
       <div class="chronometre">
         <strong>Temps écoulé : </strong> 

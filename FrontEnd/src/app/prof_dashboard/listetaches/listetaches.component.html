@@ -65,7 +65,7 @@
         <input type="checkbox" [value]="classe.id_Classe" (change)="onClasseChange(classe, $event)"
           class="form-check-input" id="classe-{{ classe.id_Classe }}" />
         <label class="form-check-label" for="classe-{{ classe.id_Classe }}">
-          {{ classe.nom_Classe }} {{ classe.num_Classe }}
+          {{ classe.nom_Classe }} - {{ classe.annee_Classe }}0{{ classe.num_Classe }}
         </label>
       </div>
       <h5 class="sub-title"><i class="bi bi-dot"></i><strong>Etudents</strong> </h5>
@@ -74,7 +74,7 @@
           class="form-check-input" id="etudiant-{{ etudiant.id_Etudiant }}"
           [checked]="selectedEtudiants.includes(etudiant.id_Etudiant)" />
         <label class="form-check-label" for="etudiant-{{ etudiant.id_Etudiant }}">
-          {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}  {{ etudiant.classe }}
+          {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
         </label>
       </div>
     </div>

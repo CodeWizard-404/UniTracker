@@ -4,25 +4,23 @@
     <app-navbar-etd></app-navbar-etd>
     <div class="main-panel">
       <div class="content-wrapper">
-        
-        <div class="row">
-          <div class="col-md-6">
-            <canvas id="tasksOverviewChart"></canvas>
-          </div>
-          <div class="col-md-6">
-            <canvas id="taskComplexityChart"></canvas>
-          </div>
-        </div>
+        <div class="charts-container">
 
-        <div class="row">
-          <div class="col-md-6">
-            <canvas id="timeSpentSubjectsChart"></canvas>
+          <div class="dashboard">
+            <h1 class="dashboard-title">Résultats des Taches</h1>
+            <div class="charts-container">
+              <div class="chart-card" *ngFor="let chart of charts">
+                <div class="chart-header">
+                  <h3>{{ chart.titre }}</h3>
+                  <p>{{ chart.description }}</p>
+                </div>
+                <canvas id="{{ chart.id }}" width="500" height="200"></canvas>
+              </div>
+            </div>
           </div>
-          <div class="col-md-6">
-            <canvas id="timeSpentWeeklyChart"></canvas>
-          </div>
-        </div>
+          
 
+          
       </div>
     </div>
   </div>
