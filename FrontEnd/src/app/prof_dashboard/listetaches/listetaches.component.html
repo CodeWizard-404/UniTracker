@@ -56,9 +56,11 @@
       <div *ngFor="let comment of c.commentaires">{{comment}} -- {{c.etudiantName}}</div>
     </div>
     <hr>
-    <!-- show Comments -->
+    <!-- Assign Students -->
     <h4 class="mb-0">Assigner à des étudiants</h4>
+    <br>
     <div class="form-group">
+      <h5 class="sub-title"><i class="bi bi-dot" ></i><strong>Classes</strong> </h5>
       <div *ngFor="let classe of tabClasses" class="form-check">
         <input type="checkbox" [value]="classe.id_Classe" (change)="onClasseChange(classe, $event)"
           class="form-check-input" id="classe-{{ classe.id_Classe }}" />
@@ -66,12 +68,13 @@
           {{ classe.nom_Classe }} {{ classe.num_Classe }}
         </label>
       </div>
+      <h5 class="sub-title"><i class="bi bi-dot"></i><strong>Etudents</strong> </h5>
       <div *ngFor="let etudiant of etudiants" class="form-check">
         <input type="checkbox" [value]="etudiant.id_Etudiant" (change)="onEtudiantChange($event)"
           class="form-check-input" id="etudiant-{{ etudiant.id_Etudiant }}"
           [checked]="selectedEtudiants.includes(etudiant.id_Etudiant)" />
         <label class="form-check-label" for="etudiant-{{ etudiant.id_Etudiant }}">
-          {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}
+          {{ etudiant.nom_Etd }} {{ etudiant.prenom_Etd }}  {{ etudiant.classe }}
         </label>
       </div>
     </div>

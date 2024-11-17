@@ -5,3 +5,10 @@
     background-attachment: fixed !important;  /* Ensures the background scrolls with the page */
     background-origin: padding-box !important; /* Adjusts the origin for the gradient */
  }
+ 
+ canvas {
+    max-width: 100%;
+    max-height: 400px;
+    margin: 20px 0;
+  }
+  

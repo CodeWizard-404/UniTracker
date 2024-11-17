@@ -30,7 +30,7 @@ export class CreerTacheComponent implements OnInit{
     private route:ActivatedRoute,
     private matService:MatiereServiceService
   ) {}
-
+  alertVisible33 = false;
   ngOnInit(): void {
     this.form = this.fb.group({
       titre: ['', Validators.required],
@@ -44,6 +44,7 @@ export class CreerTacheComponent implements OnInit{
     this.matService.getMatieres().subscribe(
       (data) => {
         this.matieres = data;
+        this.alertVisible33 = true;
       },
       (error) => {
         console.error("Erreur lors du chargement des matières", error);

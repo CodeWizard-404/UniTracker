@@ -61,6 +61,7 @@
       <!-- Task title and basic information -->
       <h3>{{ selectedTask.titre }}</h3>
       <p><strong>Description:</strong> {{ selectedTask.description }}</p>
+      
       <p><strong>Date limite:</strong> {{ selectedTask.dateLimite | date:'dd/MM/yyyy HH:mm' }}</p>
 <!-- Bouton pour démarrer le chronomètre -->
 <!-- <button *ngIf="!timers[selectedTask.id_Tache]?.running" (click)="startChronometre()" class="btn btn-primary">
@@ -76,9 +77,9 @@ $ Affichage du temps écoulé
 <p>{{ timers[selectedTask.id_Tache]?.tempsEcoule }} secondes</p> -->
 
       <div class="chronometre">
-        <p><strong>Temps écoulé : </strong> {{ formatTime(tempsEcoule) }}</p>
-        <button (click)="startChronometre()" *ngIf="!timers[selectedTask.id_Tache]?.running" class="btn btn-primary"><i class="fa fa-play"></i>Démarrer</button>
-        <button (click)="pauseChronometre()" *ngIf="timers[selectedTask.id_Tache]?.running" class="btn btn-danger"><i class="fa fa-pause"></i>Pause</button>
+        <strong>Temps écoulé : </strong> 
+        <button (click)="startChronometre()" *ngIf="!timers[selectedTask.id_Tache]?.running" class="btn btn-primary"><i class="fa fa-play"></i>{{ formatTime(tempsEcoule) }}</button>
+        <button (click)="pauseChronometre()" *ngIf="timers[selectedTask.id_Tache]?.running" class="btn btn-danger"><i class="fa fa-pause"></i>{{ formatTime(tempsEcoule) }}</button>
       </div>
 
       <!-- Edit button (only visible if the task is not assigned to a professor) -->

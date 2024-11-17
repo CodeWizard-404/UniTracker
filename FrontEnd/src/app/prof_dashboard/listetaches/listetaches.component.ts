@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from "@angular/core";
 import { CreerTacheComponent } from "../creer-tache/creer-tache.component";
 import { Tache } from "src/app/classes/tache";
@@ -47,10 +48,8 @@ export class ListetachesComponent implements OnInit {
       return;
     }
     this.loadTaches();
-
-    this.loadEtudiants();
-
     this.loadClasses();
+    this.loadEtudiants();
   }
 
   loadTaches() {
@@ -66,32 +65,50 @@ export class ListetachesComponent implements OnInit {
   }
 
   loadClasses() {
-    if (this.idProf == null) {
+    if (!this.idProf) {
       console.error("idProf is not defined");
       return;
     }
+  
     this.classeService.getClassesByIdProf(this.idProf).subscribe({
       next: (data) => {
         this.tabClasses = data;
         console.log("Classes retrieved:", data);
+        this.loadEtudiants(); // Load students only after classes are loaded
       },
       error: (error) => {
         console.error("Error retrieving classes:", error);
       },
     });
   }
+  
 
   loadEtudiants() {
-    this.etudiantService.getEtudiants().subscribe(
-      (data) => {
-        this.etudiants = data;
-      },
-      (error) => {
-        console.error("Erreur lors du chargement des étudiants", error);
-      }
-    );
+    if (!this.tabClasses || this.tabClasses.length === 0) {
+      console.warn("No classes loaded to fetch students.");
+      return;
+    }
+  
+    const studentsSet: Set<Etudiant> = new Set<Etudiant>(); // To avoid duplicates
+  
+    this.tabClasses.forEach((classe) => {
+      this.etudiantService.getEtudiantsByIdClasse(classe.id_Classe!).subscribe({
+        next: (etudiants) => {
+          etudiants.forEach((etudiant) => studentsSet.add(etudiant)); // Add students to the set
+        },
+        error: (error) => {
+          console.error(`Error fetching students for class ${classe.id_Classe}`, error);
+        },
+      });
+    });
+  
+    // Convert the set to an array for use in the component
+    setTimeout(() => { // Wait for asynchronous calls
+      this.etudiants = Array.from(studentsSet);
+      console.log("Loaded students for loaded classes:", this.etudiants);
+    }, 500);
   }
-
+  
   assignTache(tacheId: number) {
     this.selectedTacheId = tacheId;
     console.log("Assigned Tache ID:", this.selectedTacheId); // Debugging step

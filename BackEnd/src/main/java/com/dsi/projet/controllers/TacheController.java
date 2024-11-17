@@ -1,9 +1,12 @@
 package com.dsi.projet.controllers;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dsi.projet.entities.Etudiant;
 import com.dsi.projet.entities.Tache;
+import com.dsi.projet.repositories.TacheRepository;
 import com.dsi.projet.services.ITacheService;
 
 @RestController
@@ -94,5 +98,11 @@ public class TacheController {
         List<String> notifications = tacheService.getNotifications(id);
         return notifications;
     }
-	
+
+ @GetMapping("/tasks/overview")
+ public Map<String, Long> getTasksOverview() {
+     List<Tache> tasks = tacheService.getAll(); 
+     return tasks.stream()
+         .collect(Collectors.groupingBy(Tache::getStatus, Collectors.counting()));
+ }
 }
