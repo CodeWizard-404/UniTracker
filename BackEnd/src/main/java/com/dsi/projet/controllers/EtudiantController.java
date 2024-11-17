@@ -1,6 +1,7 @@
 package com.dsi.projet.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -58,5 +59,11 @@ public class EtudiantController {
 	       return true;
 	      
 	  }
+	  
+	  @GetMapping("/etudiants/{idEtudiant}/matieres")
+	    public Set<Integer> getIdsMatieresByEtudiant(@PathVariable int idEtudiant) {
+	        return etdServ.getIdsMatieresByIdEtudiant(idEtudiant);
+	    }
+	  
 
 }

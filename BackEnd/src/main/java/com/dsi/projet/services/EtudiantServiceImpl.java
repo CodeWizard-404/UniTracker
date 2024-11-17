@@ -1,14 +1,20 @@
 package com.dsi.projet.services;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsi.projet.entities.Classe;
 import com.dsi.projet.entities.Etudiant;
+import com.dsi.projet.entities.Matiere;
+import com.dsi.projet.entities.Tache;
 import com.dsi.projet.repositories.ClasseRepository;
 import com.dsi.projet.repositories.EtudiantRepository;
+import com.dsi.projet.repositories.TacheRepository;
 
 @Service
 public class EtudiantServiceImpl implements IEtudiantService {
@@ -17,6 +23,9 @@ public class EtudiantServiceImpl implements IEtudiantService {
 	
 	@Autowired
 	private ClasseRepository classeRepository;
+	@Autowired
+	private TacheRepository tacheRep;
+	
 	
 	
 	@Override
@@ -92,6 +101,40 @@ public class EtudiantServiceImpl implements IEtudiantService {
 			// TODO Auto-generated method stub
 			return etdRep.findById(id).get();
 		}
+
+	
+
+		public Set<Integer> getIdsMatieresByIdEtudiant(int idEtudiant) {
+		    // Récupérer l'étudiant par son ID
+		    Etudiant etudiant = etdRep.findById(idEtudiant).orElse(null);
+		    if (etudiant == null) {
+		        throw new RuntimeException("Etudiant non trouvé");
+		    }
+
+		    // Créer un Set pour stocker les IDs des matières
+		    Set<Integer> matieresIds = new HashSet<>();
+
+		    // Parcourir les IDs des tâches de l'étudiant
+		    for (Integer idTache : etudiant.getTaches()) {
+		        // Chercher la tâche par son ID
+		        Tache tache = tacheRep.findById(idTache).orElse(null);
+		        if (tache != null) {
+		            // Récupérer l'ID de la matière associée à la tâche
+		            int matiereId = tache.getMatiere();  // Utilisez getMatiere() pour obtenir l'ID de la matière
+		            if (matiereId != -1) {
+		                matieresIds.add(matiereId);  // Ajouter l'ID de la matière au Set
+		            }
+		        }
+		    }
+
+		    return matieresIds;
+		}
+
+
+		
+
+
+
 
 
 

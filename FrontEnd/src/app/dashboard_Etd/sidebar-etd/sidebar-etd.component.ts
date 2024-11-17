@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Matiere } from 'src/app/classes/matiere';
 import { EtudiantServiceService } from 'src/app/services/etudiant-service.service';
+import { MatiereServiceService } from 'src/app/services/matiere-service.service';
 
 @Component({
   selector: 'app-sidebar-etd',
@@ -10,7 +12,8 @@ import { EtudiantServiceService } from 'src/app/services/etudiant-service.servic
 export class SidebarEtdComponent implements OnInit{
   idEtudiant!:number;
   name!: string;
-  constructor(private route:ActivatedRoute, private etudiantServ: EtudiantServiceService){}
+  matieres: Matiere[] = []; 
+  constructor(private route:ActivatedRoute, private etudiantServ: EtudiantServiceService, private matiereService: MatiereServiceService ){}
   ngOnInit(): void {
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id'));
     this.etudiantServ.getEtudiantById(this.idEtudiant).subscribe(
@@ -24,5 +27,30 @@ export class SidebarEtdComponent implements OnInit{
      
       }
     );
+
+    this.loadMatieres();
   }
+
+  loadMatieres(): void {
+    // Étape 1 : Récupérer les IDs des matières de l'étudiant
+    this.matiereService.getIdsMatieresByEtudiant(this.idEtudiant).subscribe(
+      (idsMatieres) => {
+      
+        this.matiereService.getMatieresByIds(idsMatieres).subscribe(
+          (matieres) => {
+            this.matieres = matieres;  // Stocker les matières récupérées dans le tableau
+          },
+          (error) => {
+            console.error('Erreur lors de la récupération des matières:', error);
+          }
+        );
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des IDs de matières:', error);
+      }
+    );
+  }
+
+
+ 
 }

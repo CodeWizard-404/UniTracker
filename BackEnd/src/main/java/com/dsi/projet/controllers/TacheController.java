@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dsi.projet.entities.Etudiant;
 import com.dsi.projet.entities.Tache;
 import com.dsi.projet.repositories.TacheRepository;
+import com.dsi.projet.services.IMatiereService;
 import com.dsi.projet.services.ITacheService;
 
 @RestController
@@ -27,6 +28,7 @@ import com.dsi.projet.services.ITacheService;
 public class TacheController {
 	@Autowired
 	private ITacheService tacheService;
+
 	
 	@PostMapping("/createTaskByProf")
 	public Tache CreateTache(@RequestParam int idProf,@RequestBody Tache tache) {
@@ -97,6 +99,11 @@ public class TacheController {
     public List<String> getNotifications(@PathVariable int id) {
         List<String> notifications = tacheService.getNotifications(id);
         return notifications;
+    }
+	
+	@GetMapping("/{idMatiere}/taches")
+    public List<Integer> getTachesIdsByMatiere(@PathVariable int idMatiere) {
+        return tacheService.getTachesIdsForMatiere(idMatiere);
     }
 
 

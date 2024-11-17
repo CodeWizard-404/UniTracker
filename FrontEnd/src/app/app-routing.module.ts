@@ -36,6 +36,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminGuard } from './guards/admin.guard';
 import { ProfGuard } from './guards/prof.guard';
 import { EtudiantGuard } from './guards/etudiant.guard';
+import { ListefiltreeComponent } from './dashboard_Etd/listefiltree/listefiltree.component';
 
 const routes: Routes = [
 
@@ -71,6 +72,10 @@ const routes: Routes = [
   { path: 'dashEtd/:id/listetacheperso', title: 'Liste des Tâches', component: ListetachepersoComponent,canActivate: [EtudiantGuard] },
   { path: 'creerGroupe', title: 'Créer Groupe', component: CreergroupeComponent ,canActivate: [EtudiantGuard]},
   { path: 'dashboardEtud/:id/taches/:idTache', title: 'Modifier Tâche', component: ModifierTacheComponent,canActivate: [EtudiantGuard] },
+  {
+    path: 'dashEtd/:idEtudiant/listreFiltrée/:idMatiere',  // URL avec idMatiere
+    component: ListefiltreeComponent, canActivate: [EtudiantGuard]  // Composant qui affiche la liste des tâches
+  },
 
   // Default and Error Routes
   { path: '', redirectTo: '/login', pathMatch: 'full' },
