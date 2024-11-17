@@ -48,7 +48,7 @@ public class Etudiant {
 	/*----------------------------------------------------------*/
 
 	/*-------------relationRealisation---------------------------------------------*/
-	 @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, orphanRemoval = true)
+	 @OneToMany(mappedBy = "etudiant")
 	List<Completion> completions = new ArrayList<>();
 	/*----------------------------------------------------------*/
 
