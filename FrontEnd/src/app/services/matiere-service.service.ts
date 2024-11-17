@@ -19,6 +19,9 @@ export class MatiereServiceService {
   getMatieres(): Observable<Matiere[]> {
     return this.http.get<Matiere[]>(`${this.baseUrl}/matieres`);
 }
+getMatieresByProf(idProf:number): Observable<Matiere[]> {
+  return this.http.get<Matiere[]>(`${this.baseUrl}/matieres/${idProf}`);
+}
 // getMatiereById(id: number): Observable<Matiere> {
 //   return this.http.get<Matiere>(`/matiere/${this.baseUrl}/${id}`);
 // }

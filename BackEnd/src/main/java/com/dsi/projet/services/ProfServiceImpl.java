@@ -1,5 +1,6 @@
 package com.dsi.projet.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsi.projet.entities.Classe;
+import com.dsi.projet.entities.Matiere;
 import com.dsi.projet.entities.Professeur;
 import com.dsi.projet.repositories.EtudiantRepository;
+import com.dsi.projet.repositories.MatiereRepository;
 import com.dsi.projet.repositories.ProfRepository;
 
 @Service
@@ -17,6 +20,8 @@ public class ProfServiceImpl implements IProfService{
 	private EtudiantRepository etdRep;
 	@Autowired
 	private ProfRepository profRep;
+	@Autowired
+	private MatiereRepository matRep;
 
 	@Override
 	public List<Professeur> getProfs() {
@@ -75,4 +80,16 @@ public class ProfServiceImpl implements IProfService{
     public List<Professeur> getProfsByIds(List<Integer> profIds) {
         return profRep.findAllById(profIds);
     }
+
+	@Override
+	public List<Matiere> getMatieresByProf(int idProf) {
+		//Professeur professeur = profRep.findById(idProf).orElseThrow(() -> new RuntimeException("Professeur introuvable"));
+		List<Matiere> matieres=new ArrayList<>();
+		for (Matiere matiere : matRep.findAll()) {
+			if(matiere.getProfesseurs().contains(idProf)) {
+				matieres.add(matiere);
+			}
+		}
+		return matieres;
+	}
 }

@@ -13,6 +13,7 @@ export class Tache {
         public completions:Completion[],
         public sousTaches:Tache[],
         public tachePrincipale:String,
+        public matiere:Matiere,
 
     ){}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,7 +48,7 @@ public class Etudiant {
 	/*----------------------------------------------------------*/
 
 	/*-------------relationRealisation---------------------------------------------*/
-	@OneToMany(mappedBy = "etudiant")
+	@OneToMany(mappedBy = "etudiant",cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Completion> completions = new ArrayList<>();
 	/*----------------------------------------------------------*/
 

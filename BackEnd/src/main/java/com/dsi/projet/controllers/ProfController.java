@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dsi.projet.entities.Classe;
 import com.dsi.projet.entities.Etudiant;
+import com.dsi.projet.entities.Matiere;
 import com.dsi.projet.entities.Professeur;
 import com.dsi.projet.services.ProfServiceImpl;
 
@@ -32,9 +33,14 @@ public class ProfController {
 	public List<Professeur> getProfs(){
 	return profService.getProfs();}
 	
+	
 	@GetMapping("/prof/{idProf}")
 	public Professeur getProf(@PathVariable("idProf") int id){
 	return profService.getProf(id);}
+	
+	@GetMapping("/matieres/{idProf}")
+	public List<Matiere> getMatieresByProf(@PathVariable("idProf") int id){
+	return profService.getMatieresByProf(id);}
 	
 	
 	@PostMapping("/profs")
