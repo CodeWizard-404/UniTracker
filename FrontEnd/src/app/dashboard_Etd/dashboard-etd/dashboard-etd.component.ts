@@ -1,17 +1,26 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Matiere } from 'src/app/classes/matiere';
+import { Tache } from 'src/app/classes/tache';
+import { CreerTacheService } from 'src/app/services/creer-tache.service';
+import { EtudiantServiceService } from 'src/app/services/etudiant-service.service';
+import { MatiereServiceService } from 'src/app/services/matiere-service.service';
+// Adjust the path
 
 @Component({
   selector: 'app-dashboard-etd',
   templateUrl: './dashboard-etd.component.html',
   styleUrls: ['./dashboard-etd.component.css'],
 })
-export class DashboardEtdComponent implements AfterViewInit {
+export class DashboardEtdComponent implements AfterViewInit,OnInit {
+  idEtudiant!: number; 
+
   charts = [
     {
       id: 'tasksOverviewChart',
       titre: 'Aperçu des tâches',
       description: 'Une répartition des tâches par statut.',
-      type: 'doughnut', // Change type to 'doughnut'
+      type: 'doughnut',
       labels: ['To Do', 'In Progress', 'Done'],
       donnees: [30, 30, 40],
       couleurs: ['#2786e8', '#73b4e8', '#0e4178'],
@@ -30,18 +39,18 @@ export class DashboardEtdComponent implements AfterViewInit {
     },
     {
       id: 'timeSpentChart',
-      titre: 'Temps passé sur les matières',
-      description: 'Répartition des domaines par allocation du temps.',
-      type: 'doughnut', // Change type to 'doughnut'
-      labels: ['Web', 'Mobile', 'Flutter', 'Django', 'Angular'],
-      donnees: [30, 20, 15, 10, 25],
-      couleurs: ['#2786e8', '#73b4e8', '#0e4178', '#85659e', '#cea9bc'],
+      titre: 'Taches par Matiére',
+      description: 'Nombre des taches pour chaque matiere',
+      type: 'doughnut',
+      labels: ['test'],
+      donnees: [10],
+      couleurs: ['#00308F','#0076CE','#2786e8','#72A0C1', '#73b4e8', '#0e4178','#5072A7','#B9D9EB', '#85659e', '#cea9bc',''],
     },
     {
       id: 'timeSpentDaysChart',
       titre: 'Répartition du temps hebdomadaire',
       description: 'Comment le temps est réparti tout au long de la semaine.',
-      type: 'stackedColumn', // Change type to 'stackedColumn'
+      type: 'stackedColumn',
       labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
       ensemblesDonnees: [
         { label: 'Temps', donnees: [20, 30, 45, 20, 35, 30, 20], couleur: '#2786e8' },
@@ -50,41 +59,128 @@ export class DashboardEtdComponent implements AfterViewInit {
     },
   ];
 
-  ngAfterViewInit() {
-    this.charts.forEach((graphique) => this.renderGraphique(graphique));
+  constructor(
+    private creerTacheService: CreerTacheService,
+    private etudiantService: EtudiantServiceService,
+    private matiereService: MatiereServiceService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
+
   }
+  ngAfterViewInit() {
+    this.fetchStudentDataAndRenderChart();
+  }
+
+  fetchStudentDataAndRenderChart() {
+    const studentId = this.idEtudiant;
+  
+    this.matiereService.getMatieres().subscribe((matieres: Matiere[]) => {
+      this.creerTacheService.getTasksByEtudiant(studentId).subscribe((tasks: Tache[]) => {
+        const taskCountsByMatiere = this.aggregateTasksByMatiere(tasks, matieres);
+        const taskComplexityByMatiere = this.aggregateTaskComplexityByMatiere(tasks, matieres); // New function to handle complexity
+        this.updateChartData(taskCountsByMatiere, taskComplexityByMatiere); // Pass complexity data to updateChartData
+        this.charts.forEach((graphique) => this.renderGraphique(graphique));
+      });
+    });
+  }
+  
+  aggregateTaskComplexityByMatiere(tasks: Tache[], matieres: Matiere[]): any {
+    const complexityCounts: { [key: string]: { [complexity: string]: number } } = {};
+  
+    tasks.forEach((task) => {
+      const matiere = matieres.find(m => m.id_Matiere === task.matiere);
+      const matiereName = matiere ? matiere.libelle : "Perso"; 
+  
+      // Ensure complexity data exists
+      if (!complexityCounts[matiereName]) {
+        complexityCounts[matiereName] = { Facile: 0, Moyenne: 0, Difficile: 0 };
+      }
+  
+      // Increment complexity category
+      if (task.complexite === 'Facile') {
+        complexityCounts[matiereName]['Facile']++;
+      } else if (task.complexite === 'Moyenne') {
+        complexityCounts[matiereName]['Moyenne']++;
+      } else if (task.complexite === 'Difficile') {
+        complexityCounts[matiereName]['Difficile']++;
+      }
+    });
+  
+    return complexityCounts;
+  }
+  
+  updateChartData(taskCounts: { [key: string]: number }, taskComplexityByMatiere: any) {
+    const labels = Object.keys(taskCounts);
+    const data = Object.values(taskCounts);
+  
+    this.charts[2].labels = labels;
+    this.charts[2].donnees = data;
+  
+    /*this.charts[1].labels = labels;
+    if (this.charts[1] && this.charts[1].ensemblesDonnees) {
+      this.charts[1].ensemblesDonnees[0].donnees = labels.map(label => taskComplexityByMatiere[label]?.Facile ?? 0);
+      this.charts[1].ensemblesDonnees[1].donnees = labels.map(label => taskComplexityByMatiere[label]?.Moyenne ?? 0);
+      this.charts[1].ensemblesDonnees[2].donnees = labels.map(label => taskComplexityByMatiere[label]?.Difficile ?? 0);
+  }*/
+  
+  }
+  
+
+  aggregateTasksByMatiere(tasks: Tache[], matieres: Matiere[]): { [key: string]: number } {
+    const taskCounts: { [key: string]: number } = {};
+  
+    tasks.forEach((task) => {
+      const matiere = matieres.find(m => m.id_Matiere === task.matiere);
+        const matiereName = matiere ? matiere.libelle : "Perso"; 
+        if (taskCounts[matiereName]) {
+        taskCounts[matiereName]++;
+      } else {
+        taskCounts[matiereName] = 1;
+      }
+    });
+  
+    return taskCounts;
+  }
+  
+  
 
   renderGraphique(graphique: any) {
     const canvas = <HTMLCanvasElement>document.getElementById(graphique.id);
     const ctx = canvas.getContext('2d');
 
     if (graphique.type === 'doughnut') {
-      this.renderDoughnut(ctx, graphique.donnees, graphique.couleurs, graphique.labels); // Call renderDoughnut for doughnut chart
-    } else if (graphique.type === 'barres') {
+      this.renderDoughnut(ctx, graphique.donnees, graphique.couleurs, graphique.labels);
+    }else if (graphique.type === 'barres') {
       this.renderBarres(ctx, graphique.labels, graphique.ensemblesDonnees);
     } else if (graphique.type === 'stackedColumn') {
-      this.renderStackedColumn(ctx, graphique.labels, graphique.ensemblesDonnees); // Call renderStackedColumn for the last chart
+      this.renderStackedColumn(ctx, graphique.labels, graphique.ensemblesDonnees); 
     }
   }
 
-  renderDoughnut(ctx: CanvasRenderingContext2D | null, donnees: number[], couleurs: string[], labels: string[]) {
+  renderDoughnut(
+    ctx: CanvasRenderingContext2D | null,
+    donnees: number[],
+    couleurs: string[],
+    labels: string[]
+  ) {
     if (!ctx) return;
-    
-    const total = donnees.reduce((acc, val) => acc + val, 0);
-    let angleDepart = 0;
-    const rayonExterieur = 50;
-    const rayonInterieur = 30; // Inner radius for doughnut effect
   
-    // Draw the doughnut chart
+    const total = donnees.reduce((acc, val) => acc + val, 0);
+    let angleDepart = 10;
+    const rayonExterieur = 70;
+    const rayonInterieur = 40;
+  
     donnees.forEach((valeur, index) => {
       const angleTranche = (valeur / total) * 2 * Math.PI;
       ctx.beginPath();
-      ctx.moveTo(220, 60); // Centre of the canvas
-      ctx.arc(220, 60, rayonExterieur, angleDepart, angleDepart + angleTranche); // Outer arc
-      ctx.arc(220, 60, rayonInterieur, angleDepart + angleTranche, angleDepart, true); // Inner arc to create hole
+      ctx.moveTo(220, 80); 
+      ctx.arc(220, 80, rayonExterieur, angleDepart, angleDepart + angleTranche);
+      ctx.arc(220, 80, rayonInterieur, angleDepart + angleTranche, angleDepart, true);
       ctx.closePath();
   
-      // Create gradient for filling
       const gradient = ctx.createLinearGradient(160, 0, 160, 240);
       gradient.addColorStop(0, couleurs[index]);
   
@@ -94,24 +190,23 @@ export class DashboardEtdComponent implements AfterViewInit {
       angleDepart += angleTranche;
     });
   
-    // Add labels with color indicators on the side
-    const labelStartX = 10; // X position for labels on the side
-    const labelStartY = 10; // Y position to start the list of labels
-    const boxSize = 12; // Size of the color indicator box
-    const labelSpacing = 20; // Space between each label and box
+    const labelStartX = 10;
+    const labelStartY = 10;
+    const boxSize = 12;
+    const labelSpacing = 20;
   
     labels.forEach((label, index) => {
-      // Draw the color box next to the label
+      const percentage = ((donnees[index] / total) * 100).toFixed(2); 
+      //const labelWithPercentage = `${label} > ${percentage}%`; 
+      const labelWithPercentage = `${label}  > ${donnees[index]}`
+  
       ctx.fillStyle = couleurs[index];
       ctx.fillRect(labelStartX, labelStartY + index * labelSpacing, boxSize, boxSize);
-  
-      // Draw the label text next to the color box
       ctx.fillStyle = '#000';
       ctx.font = '14px cursive';
-      ctx.fillText(label, labelStartX + boxSize + 5, labelStartY + index * labelSpacing + 10);
+      ctx.fillText(labelWithPercentage, labelStartX + boxSize + 5, labelStartY + index * labelSpacing + 10);
     });
   }
-
   renderBarres(ctx: CanvasRenderingContext2D | null, labels: string[], ensemblesDonnees: any[]) {
     if (!ctx) return;
 
@@ -216,4 +311,5 @@ ensemblesDonnees.forEach((ensemble, index) => {
 
 }
 
+  
 }
