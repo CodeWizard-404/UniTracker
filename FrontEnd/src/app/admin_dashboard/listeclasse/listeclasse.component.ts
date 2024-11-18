@@ -4,7 +4,7 @@ import { firstValueFrom } from "rxjs";
 import { Classe } from "src/app/classes/classe";
 import { Matiere } from "src/app/classes/matiere";
 import { ClasseServiceService } from "src/app/services/classe-service.service";
-import { MatiereServiceService } from "src/app/services/matiere-service.service"; // Ensure this service exists
+import { MatiereServiceService } from "src/app/services/matiere-service.service"; 
 
 @Component({
   selector: "app-listeclasse",
@@ -19,14 +19,14 @@ export class ListeclasseComponent {
 
   constructor(
     private classeService: ClasseServiceService,
-    private matiereService: MatiereServiceService, private route: ActivatedRoute // Ensure this service is imported
+    private matiereService: MatiereServiceService, private route: ActivatedRoute 
   ) {}
 
   async ngOnInit(): Promise<void> {
     try {
  
       await this.loadClasses();
-      this.route.queryParams.subscribe(params => {
+      this.route.queryParams.subscribe((params: { [x: string]: string | number; }) => {
         this.selectedAnnee = params['annee'] ? +params['annee'] : null;
         this.applyFilter();
       });
