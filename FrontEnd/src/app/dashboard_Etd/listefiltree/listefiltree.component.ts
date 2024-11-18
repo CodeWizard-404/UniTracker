@@ -19,7 +19,6 @@ export class ListefiltreeComponent implements OnInit {
   todoTasks: Tache[] = [];
   inProgressTasks: Tache[] = [];
   idEtudiant!: number; 
-  taches: Tache[] = [];
   marked!: Completion;
   idMatiere: number = 0; 
   comment!:String;
@@ -86,7 +85,7 @@ export class ListefiltreeComponent implements OnInit {
   loadTasks() {
     this.tacheService.getTasksByEtudiant(this.idEtudiant).subscribe(
       (response: Tache[]) => {
-        this.taches = response.filter(tache => !tache.tachePrincipale);  
+        this.taches2 = response.filter(tache => !tache.tachePrincipale);  
         this.updateTaskLists(); 
         this.taskUpdates$.next(); // Trigger view update
 
@@ -122,6 +121,9 @@ export class ListefiltreeComponent implements OnInit {
           (tachesDetails) => {
             console.log('Détails des tâches récupérés :', tachesDetails);
             this.taches2 = tachesDetails; 
+            this.taches2 = tachesDetails.filter(tache => !tache.tachePrincipale);  
+            this.updateTaskLists(); 
+            this.taskUpdates$.next();
           },
           (error) => {
             console.error('Erreur lors de la récupération des détails des tâches:', error);
@@ -170,18 +172,18 @@ export class ListefiltreeComponent implements OnInit {
   }
   }
   updateTaskLists() {
-    this.doneTasks = this.taches.filter(tache => 
+    this.doneTasks = this.taches2.filter(tache => 
       tache.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
     );
     
-    this.todoTasks = this.taches.filter(tache => 
+    this.todoTasks = this.taches2.filter(tache => 
       tache.sousTaches.every(subtask => 
         !subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
       )
     );
    
 
-    this.inProgressTasks = this.taches.filter(tache => 
+    this.inProgressTasks = this.taches2.filter(tache => 
       tache.sousTaches.some(subtask => 
         subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
       ) &&
@@ -223,7 +225,7 @@ export class ListefiltreeComponent implements OnInit {
       (response: boolean) => {
         if (response) {
           console.log('Tâche supprimée avec succès.');
-          this.taches = this.taches.filter(tache => tache.id_Tache !== idTache);
+          this.taches2 = this.taches2.filter(tache => tache.id_Tache !== idTache);
           this.updateTaskLists();
           this.selectedTask = null;
         } else {
@@ -241,12 +243,12 @@ export class ListefiltreeComponent implements OnInit {
     this.CompServ.markTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       
       (updatedCompletion: Completion) => {
-        this.loadTasks();
+        this.loadTaches;
         this.updateTaskLists();
         this.cd.detectChanges();
         this.cd.markForCheck();
 
-        const task = this.taches.find(t => t.id_Tache === tacheId);
+        const task = this.taches2.find(t => t.id_Tache === tacheId);
         if (task) {
           // Update the main task completion (marquer and progression)
           const completion = task.completions.find(c => c.etudiant === etudiantId);
@@ -281,7 +283,7 @@ export class ListefiltreeComponent implements OnInit {
   markSubTaskAsCompleted(tacheId: number, etudiantId: number, isCompleted: boolean) {
     this.CompServ.markSubTaskAsCompleted(tacheId, etudiantId, isCompleted).subscribe(
       (updatedCompletion: Completion) => {
-        const task = this.taches.find(t => t.id_Tache === tacheId);
+        const task = this.taches2.find(t => t.id_Tache === tacheId);
         if (task) {
           // Update the main task completion (marquer and progression)
           const completion = task.completions.find(c => c.etudiant === etudiantId);

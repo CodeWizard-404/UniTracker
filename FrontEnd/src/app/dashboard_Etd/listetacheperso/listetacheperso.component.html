@@ -20,7 +20,7 @@
           <div class="kanban-column">
             <h5>To Do</h5>
             <div *ngFor="let tache of todoTasks" class="card mb-3" (click)="openTaskDetails(tache)">
-              <div class="card-body">
+              <div  *ngIf="!idMatiere || tache.matiere === idMatiere" class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">{{ tache.description }}</span>
                 <span class="text-muted">Date: {{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</span>
@@ -30,7 +30,7 @@
           <div class="kanban-column">
             <h5 >In Progress</h5>
             <div *ngFor="let tache of inProgressTasks" class="card mb-3" (click)="openTaskDetails(tache)">
-              <div class="card-body">
+              <div *ngIf="!idMatiere || tache.matiere === idMatiere" class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">{{ tache.description }}</span>
                 <span class="text-muted">Date: {{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</span>
@@ -40,7 +40,7 @@
           <div class="kanban-column">
             <h5>Done</h5>
             <div *ngFor="let tache of doneTasks" class="card mb-3" (click)="openTaskDetails(tache)">
-              <div class="card-body">
+              <div  *ngIf="!idMatiere || tache.matiere === idMatiere" class="card-body">
                 <strong class="d-block mb-2">{{ tache.titre }}</strong>
                 <span class="text-muted">{{ tache.description }}</span>
                 <span class="text-muted">Date: {{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</span>
