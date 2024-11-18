@@ -29,6 +29,8 @@
             (click)="!isTaskOverdue(tache.dateLimite) && openTaskDetails(tache)">>
               <div class="card-body" >
                 <h3 class="card-title">{{ tache.titre }}</h3>
+                <p class="card-text"><strong>{{ tache.matiereDetails.libelle }}</strong></p>
+                <hr style="margin: 0;">
                 <p class="card-text" style="margin-left: 10px;">{{ tache.description }}</p>
                 <p class="card-text text-muted" style="margin-left: 10px;">{{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</p>
               </div>

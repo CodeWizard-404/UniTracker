@@ -55,8 +55,8 @@
       <div>
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Tous</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Matière</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Matière</a></li>
+          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Projet</a></li>
+          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Projet</a></li>
         </ul>
       </div>
     </li>
@@ -71,20 +71,19 @@
       <div>
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"><a class="nav-link" [routerLink]="['/dashEtd',idEtudiant,'listetachesEtudiants']" routerLinkActive="active"><i class="bi bi-caret-right-fill"></i>Tous</a></li>
-          <li class="nav-item"><a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'personelTache', varPersonnelle]" routerLinkActive="active" ><i class="bi bi-caret-right-fill"></i>Personnel</a></li>
-          <li class="nav-item">
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'personelTache', varPersonnelle]" routerLinkActive="active" ><i class="bi bi-caret-right-fill"></i>Perso</a></li>
+         <!--<li class="nav-item">
             <a class="nav-link">
               <i class="bi bi-caret-right-fill"></i> Matière
             </a>
-            <ul>
-              <li *ngFor="let matiere of matieres" class="nav-item">
-                <a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'listetachesEtudiants', matiere.id_Matiere]" routerLinkActive="active">
-                  {{ matiere.libelle }}
-                </a>
-              </li>
-            </ul>
+          </li>-->
+        </ul>
+        <ul class="nav flex-column sub-menu">
+          <li *ngFor="let matiere of matieres" class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'listetachesEtudiants', matiere.id_Matiere]" routerLinkActive="active">
+              <i class="bi bi-caret-right-fill"></i>{{ matiere.libelle }}
+            </a>
           </li>
-   
         </ul>
       </div>
     </li>

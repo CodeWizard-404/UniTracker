@@ -14,6 +14,7 @@ export class Tache {
         public sousTaches:Tache[],
         public tachePrincipale:String,
         public matiere:Number,
+        public matiereDetails: Matiere
 
     ){}
 }

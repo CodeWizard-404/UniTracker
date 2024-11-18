@@ -165,7 +165,7 @@
           </div>
 
           <!-- Add comment section -->
-          <div class="comment-section">
+          <div *ngIf="selectedTask.professeur != null" class="comment-section">
             <label for="commentInput" class="form-label">Commentaires</label>
             <div class="input-button-container">
               <input type="text" [(ngModel)]="comment" placeholder="Ajouter un commentaire" id="commentInput"
@@ -178,6 +178,7 @@
           
 
           <!-- Display existing comments -->
+          <div *ngIf="selectedTask.professeur != null">
           <div *ngFor="let completion of selectedTask.completions" class="comment-list">
             <div *ngFor="let comment of completion.commentaires" class="comment-item">
               <strong class="comment-text">{{ comment }}</strong> <small class="comment-author">{{
@@ -185,7 +186,7 @@
                 }}</small>
             </div>
           </div>
-
+        </div>
 
 
           <!-- Delete task button (only visible if the task is not assigned to a professor) -->

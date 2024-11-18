@@ -131,14 +131,14 @@ h4{
   padding: 35px;
   border-radius: 12px;
   width: 80%;
-  max-width: 800px;
+  max-width: 500px !important;
   max-height: 80%;
   overflow-y: auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
 }
 .task-modal-content:hover {
-  transform: scale(1.03);
+  transform: scale(1.001) !important;
 }
 .close-btn {
   position: absolute;
