@@ -13,6 +13,7 @@ export class SidebarEtdComponent implements OnInit{
   idEtudiant!:number;
   name!: string;
   matieres: Matiere[] = []; 
+  varPersonnelle:string= "personnelle";
   constructor(private route:ActivatedRoute, private etudiantServ: EtudiantServiceService, private matiereService: MatiereServiceService ){}
   ngOnInit(): void {
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id'));

@@ -38,6 +38,7 @@ export class ListetachepersoComponent implements OnInit {
   
     taskUpdates$ = new BehaviorSubject<void>(undefined); 
   idMatiere!: number;
+  varPerso!: string;
 
 
   constructor(private cd: ChangeDetectorRef,private fb: FormBuilder,private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService) { }
@@ -46,9 +47,12 @@ export class ListetachepersoComponent implements OnInit {
     this.tacheForm = this.fb.group({
       titre: ['', Validators.required]
     });
-    this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
-    this.idMatiere = +this.route.snapshot.paramMap.get('idMatiere')!;
-    this.loadTasks();
+    this.route.paramMap.subscribe(params => {
+      this.idEtudiant = Number(params.get('id'));
+      this.idMatiere = +params.get('idMatiere')!;
+      this.varPerso = params.get('varPersonnelle')!;
+      this.loadTasks();
+    });
     //this.retrieveSavedTimers();
     this.loadChronometreState();
     this.calculateStudentProgression();
