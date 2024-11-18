@@ -32,6 +32,7 @@ export class ListetachesComponent implements OnInit {
   tabClasses!: Classe[];
   taskCompletions:Completion[]=[];
   progress:number=0;
+  idMatiere!:number;
 
   constructor(
     private tacheService: CreerTacheService,
@@ -45,7 +46,12 @@ export class ListetachesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.idProf = Number(this.route.snapshot.paramMap.get("id"));
+
+    this.route.paramMap.subscribe(params => {
+      this.idProf = Number(params.get("id"));
+      this.idMatiere= Number(params.get("idMatiere"));
+    });
+
     if (!this.idProf) {
       console.error("Invalid or missing Professor ID");
       return;

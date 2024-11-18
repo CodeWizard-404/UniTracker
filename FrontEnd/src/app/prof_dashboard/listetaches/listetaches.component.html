@@ -22,9 +22,12 @@
           <div class="kanban-column">
             <h5>To Do</h5>
             <!--<div *ngFor="let tache of taches | filterByStatus:'todo'" class="card mb-3">-->
-              <div *ngFor="let tache of taches" class="card mb-3"   [ngClass]="{'disabled-task': isTaskOverdue(tache.dateLimite)}"
-              (click)="!isTaskOverdue(tache.dateLimite) && openTaskDetails(tache)">
-                <div class="card-body">
+            <ng-container *ngFor="let tache of taches" >
+            <div *ngIf="!idMatiere || tache.matiere === idMatiere" 
+            class="card mb-3" 
+            [ngClass]="{'disabled-task': isTaskOverdue(tache.dateLimite)}"
+            (click)="!isTaskOverdue(tache.dateLimite) && openTaskDetails(tache)">>
+              <div class="card-body" >
                 <h3 class="card-title">{{ tache.titre }}</h3>
                 <p class="card-text"><strong>{{ tache.matiereDetails.libelle }}</strong></p>
                 <hr style="margin: 0;">
@@ -32,6 +35,7 @@
                 <p class="card-text text-muted" style="margin-left: 10px;">{{ tache.dateLimite | date:'dd/MM/yyyy HH:mm' }}</p>
               </div>
             </div>
+            </ng-container>
           </div>
         </div>
       </div>

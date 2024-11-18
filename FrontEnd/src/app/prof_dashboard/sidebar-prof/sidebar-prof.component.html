@@ -74,11 +74,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"><a class="nav-link" [routerLink]="['/dashboardProf', idProf, 'listetaches']" routerLinkActive="active"><i class="bi bi-caret-right-fill"></i>Tous</a></li>
           <!-- <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Personnel</a></li> -->
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Classe - Matiere</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Classe - Matiere</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Classe - Matiere</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Classe - Matiere</a></li>
-          <li class="nav-item"><a class="nav-link"><i class="bi bi-caret-right-fill"></i>Classe - Matiere</a></li>
+          <li *ngFor="let m of matieres" class="nav-item"><a class="nav-link" [routerLink]="['/dashboardProf', idProf, 'listetaches', m.id_Matiere]" routerLinkActive="active"><i class="bi bi-caret-right-fill"></i>{{m.libelle}}</a></li>
         </ul>
       </div>
     </li>
