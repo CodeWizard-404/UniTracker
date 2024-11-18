@@ -61,7 +61,7 @@
                   <label class="col-sm col-form-label input-label">Nom de la Classe</label>
                   <select formControlName="classe" class="form-control custom-input">
                     <option *ngFor="let classe of filteredClasses" [ngValue]="classe">
-                      {{ classe.nom_Classe }}
+                      {{ classe.nom_Classe }} {{ classe.num_Classe }}
                     </option>
                   </select>
                   </div>

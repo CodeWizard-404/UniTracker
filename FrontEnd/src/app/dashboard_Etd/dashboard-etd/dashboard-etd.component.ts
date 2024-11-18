@@ -197,8 +197,8 @@ export class DashboardEtdComponent implements AfterViewInit,OnInit {
   
     labels.forEach((label, index) => {
       const percentage = ((donnees[index] / total) * 100).toFixed(2); 
-      //const labelWithPercentage = `${label} > ${percentage}%`; 
-      const labelWithPercentage = `${label}  > ${donnees[index]}`
+      const labelWithPercentage = `${label} > ${percentage}%`; 
+      //const labelWithPercentage = `${label}  > ${donnees[index]}`
   
       ctx.fillStyle = couleurs[index];
       ctx.fillRect(labelStartX, labelStartY + index * labelSpacing, boxSize, boxSize);
