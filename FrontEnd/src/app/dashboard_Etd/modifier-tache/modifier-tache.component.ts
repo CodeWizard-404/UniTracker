@@ -52,7 +52,7 @@ export class ModifierTacheComponent {
   updateTache() {
     if (this.tacheForm.valid) {
       this.tacheService.updateTaskByEtud(this.idTache, this.tacheForm.value).subscribe(() => {
-        this.router.navigate(['/dashEtd', this.idEtudiant, 'listetacheperso']);
+        this.router.navigate(['/dashEtd', this.idEtudiant, 'listetachesEtudiants']);
         
       });
     }

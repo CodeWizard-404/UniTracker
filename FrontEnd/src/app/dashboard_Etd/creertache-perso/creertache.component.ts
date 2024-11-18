@@ -57,7 +57,7 @@ export class CreertacheComponent implements OnInit {
           if(response==null){alert("Tâche non ajoutée");console.log('Tâche non ajoutée:', tache);}
           else{console.log('Tâche ajoutée avec succès:', response);
             this.toastr.success('Tâche crée avec succès!');
-            this.router.navigate(['/dashEtd', this.idEtudiant, 'listetacheperso']);}
+            this.router.navigate(['/dashEtd', this.idEtudiant, 'listetachesEtudiants']);}
           
         },
         error => {
