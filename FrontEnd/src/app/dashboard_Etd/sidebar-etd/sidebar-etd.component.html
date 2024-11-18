@@ -70,7 +70,7 @@
       </a>
       <div>
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"><a class="nav-link" [routerLink]="['/dashEtd',idEtudiant,'listetacheperso']" routerLinkActive="active"><i class="bi bi-caret-right-fill"></i>Tous</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/dashEtd',idEtudiant,'listetachesEtudiants']" routerLinkActive="active"><i class="bi bi-caret-right-fill"></i>Tous</a></li>
           <li class="nav-item"><a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'personelTache', varPersonnelle]" routerLinkActive="active" ><i class="bi bi-caret-right-fill"></i>Personnel</a></li>
           <li class="nav-item">
             <a class="nav-link">
@@ -78,7 +78,7 @@
             </a>
             <ul>
               <li *ngFor="let matiere of matieres" class="nav-item">
-                <a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'listetacheperso', matiere.id_Matiere]" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'listetachesEtudiants', matiere.id_Matiere]" routerLinkActive="active">
                   {{ matiere.libelle }}
                 </a>
               </li>

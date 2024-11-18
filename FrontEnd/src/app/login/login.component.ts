@@ -32,7 +32,7 @@ export class LoginComponent {
     if (role === 'prof') {
       this.router.navigate([`/dashboardProf/${userId}/listetaches`]); 
     } else if (role === 'etudiant') {
-      this.router.navigate([`/dashEtd/${userId}/listetacheperso`]);
+      this.router.navigate([`/dashEtd/${userId}/listetachesEtudiants`]);
     } else if (role === 'admin') {
       this.router.navigate(['/dashboard']); 
     } else {
