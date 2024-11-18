@@ -16,6 +16,6 @@ public interface CompletionRepository extends JpaRepository<Completion,Completio
 	 List<Tache> findTasksByEtudiantId(@Param("idEtudiant") int idEtudiant);
 	 
 	 @Query("SELECT c FROM Completion c WHERE c.tache.id = :tacheId AND c.etudiant.id = :etudiantId")
-	 Optional<Completion> findByTacheIdAndEtudiantId(@Param("tacheId") Long tacheId, @Param("etudiantId") Long etudiantId);
+	 Optional<Completion> findByTacheIdAndEtudiantId(@Param("tacheId") int tacheId, @Param("etudiantId") int etudiantId);
 	 
 }

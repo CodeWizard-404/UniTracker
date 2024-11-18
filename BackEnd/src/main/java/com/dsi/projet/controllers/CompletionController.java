@@ -59,17 +59,17 @@ public class CompletionController {
 	}
 	
     @PostMapping("/start/{tacheId}/{etudiantId}")
-    public Completion startChronometre(@PathVariable Long tacheId, @PathVariable Long etudiantId) {
+    public Completion startChronometre(@PathVariable int tacheId, @PathVariable int etudiantId) {
         return comServ.startChronometre(tacheId, etudiantId);
     }
 
     @PutMapping("/pause/{tacheId}/{etudiantId}")
-    public Completion pauseChronometre(@PathVariable Long tacheId, @PathVariable Long etudiantId, @RequestParam Long tempsEcoule) {
+    public Completion pauseChronometre(@PathVariable int tacheId, @PathVariable int etudiantId, @RequestParam Long tempsEcoule) {
         return comServ.pauseChronometre(tacheId, etudiantId, tempsEcoule);
     }
 
     @GetMapping("/{tacheId}/{etudiantId}")
-    public Completion getChronometreState(@PathVariable Long tacheId, @PathVariable Long etudiantId) {
+    public Completion getChronometreState(@PathVariable int tacheId, @PathVariable int etudiantId) {
         return comServ.getChronometreState(tacheId, etudiantId);
     }
     

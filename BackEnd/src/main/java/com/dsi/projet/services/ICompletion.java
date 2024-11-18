@@ -14,8 +14,8 @@ public interface ICompletion {
 	public List<String> getRappelByEtudiant(int id_etd);
 	public Completion addComment(int tacheId, int etudiantId,String comment);
 
-	public Completion startChronometre(Long tacheId, Long etudiantId);
+	public Completion startChronometre(int tacheId, int etudiantId);
 	
-	public Completion pauseChronometre(Long tacheId, Long etudiantId, Long tempsEcoule);
-	public Completion getChronometreState(Long tacheId, Long etudiantId);
+	public Completion pauseChronometre(int tacheId, int etudiantId, Long tempsEcoule);
+	public Completion getChronometreState(int tacheId, int etudiantId);
 }
