@@ -12,8 +12,14 @@ import com.dsi.projet.entities.Classe;
 @Repository
 public interface ClasseRepository extends JpaRepository<Classe,Integer>{
 	
-	     @Query("SELECT c FROM Classe c WHERE c.nom_Classe = :nomClasse")
-	     Optional<Classe> findByNomClasse(@Param("nomClasse") String nomClasse);
+//	     @Query("SELECT c FROM Classe c WHERE c.nom_Classe = :nomClasse")
+//	     Optional<Classe> findByNomClasse(@Param("nomClasse") String nomClasse);
+	
+	@Query("SELECT c FROM Classe c WHERE c.nom_Classe = :nomClasse AND c.annee_Classe = :anneeClasse AND c.num_Classe = :numClasse")
+	Optional<Classe> findByNameAndYearAndNumber(@Param("nomClasse") String nomClasse, 
+	                                            @Param("anneeClasse") int anneeClasse, 
+	                                            @Param("numClasse") int numero);
+
 	 
 	     @Query("SELECT c.id FROM Classe c JOIN c.matieres m WHERE m.id_Matiere = :matiereId")
 	     List<Integer> findClassesIdByMatiereId(@Param("matiereId") Integer matiereId);
