@@ -13,6 +13,8 @@ import { Classe } from "src/app/classes/classe";
 import { error } from "jquery";
 import { CompletionService } from "src/app/services/completion.service";
 import { Completion } from "src/app/classes/completion";
+import { MatiereServiceService } from "src/app/services/matiere-service.service";
+import { Matiere } from "src/app/classes/matiere";
 
 @Component({
   selector: "app-listetaches",
@@ -23,9 +25,9 @@ export class ListetachesComponent implements OnInit {
   taches: Tache[] = [];
   prof!: Prof;
   etudiants: Etudiant[] = [];
-  selectedTacheId: number | null = null; // Pour stocker l'ID de la tâche sélectionnée
-  showEtudiants: boolean = false; // Pour contrôler l'affichage de la liste des étudiants
-  selectedEtudiants: number[] = []; // Tableau pour stocker les IDs des étudiants sélectionnés
+  selectedTacheId: number | null = null; 
+  showEtudiants: boolean = false; 
+  selectedEtudiants: number[] = [];
   idProf!: number;
   tabClasses!: Classe[];
   taskCompletions:Completion[]=[];
@@ -37,7 +39,8 @@ export class ListetachesComponent implements OnInit {
     private profService: ProfServiceService,
     private route: ActivatedRoute,
     private classeService: ClasseServiceService,
-    private compServ:CompletionService
+    private compServ:CompletionService,
+    private matiereService: MatiereServiceService
 
   ) {}
 
@@ -56,13 +59,26 @@ export class ListetachesComponent implements OnInit {
     this.tacheService.getTasksByProf(this.idProf).subscribe(
       (data) => {
         this.taches = data;
-        console.log("Loaded tasks:", this.taches); // Debugging step
+        // Fetch and attach Matiere details
+        this.taches.forEach((tache) => {
+          this.matiereService.getMatiereById(Number(tache.matiere)).subscribe(
+            (matiere) => {
+              tache.matiereDetails = matiere; 
+            },
+            (error) => {
+              console.error("Error fetching Matiere:", error);
+            }
+          );
+        });
+        console.log("Loaded tasks:", this.taches);
       },
       (error) => {
-        console.error("Erreur lors du chargement des taches", error);
+        console.error("Error loading tasks", error);
       }
     );
   }
+  
+  
 
   loadClasses() {
     if (!this.idProf) {
