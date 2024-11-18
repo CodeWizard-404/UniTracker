@@ -124,7 +124,8 @@ export class ListetachepersoComponent implements OnInit {
     this.todoTasks = this.taches.filter(tache => 
       tache.sousTaches.every(subtask => 
         !subtask.completions.some(completion => completion.marquer === true && completion.etudiant === this.idEtudiant)
-      )
+      )&&
+      tache.completions.some(completion => completion.marquer === false && completion.etudiant === this.idEtudiant)
     );
    
 
