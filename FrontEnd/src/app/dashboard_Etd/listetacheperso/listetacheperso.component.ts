@@ -28,7 +28,7 @@ export class ListetachepersoComponent implements OnInit {
 
   intervalId: any = null; 
   timers: { [tacheId: number]: { running: boolean, tempsEcoule: number } } = {};
-  selectedTask: any; // Remplacez par la structure exacte de la tâche que vous utilisez
+  selectedTask: any; 
 
   tempsEcoule: number = 0;
   running: boolean = false;
@@ -36,7 +36,8 @@ export class ListetachepersoComponent implements OnInit {
   times: { [key: number]: number } = {}; 
 
   
-    taskUpdates$ = new BehaviorSubject<void>(undefined); // Emit changes to trigger updates
+    taskUpdates$ = new BehaviorSubject<void>(undefined); 
+  idMatiere!: number;
 
 
   constructor(private cd: ChangeDetectorRef,private fb: FormBuilder,private tacheService: CreerTacheService, private route: ActivatedRoute, private CompServ: CompletionService) { }
@@ -46,6 +47,7 @@ export class ListetachepersoComponent implements OnInit {
       titre: ['', Validators.required]
     });
     this.idEtudiant = Number(this.route.snapshot.paramMap.get('id')); 
+    this.idMatiere = +this.route.snapshot.paramMap.get('idMatiere')!;
     this.loadTasks();
     //this.retrieveSavedTimers();
     this.loadChronometreState();

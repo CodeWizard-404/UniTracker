@@ -78,7 +78,7 @@
             </a>
             <ul>
               <li *ngFor="let matiere of matieres" class="nav-item">
-                <a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'listreFiltrée', matiere.id_Matiere]" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/dashEtd', idEtudiant, 'listetacheperso', matiere.id_Matiere]" routerLinkActive="active">
                   {{ matiere.libelle }}
                 </a>
               </li>
