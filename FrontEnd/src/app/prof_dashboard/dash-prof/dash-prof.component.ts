@@ -58,11 +58,11 @@ export class DashProfComponent  implements AfterViewInit {
     const ctx = canvas.getContext('2d');
 
     if (graphique.type === 'doughnut') {
-      this.renderDoughnut(ctx, graphique.donnees, graphique.couleurs, graphique.labels); // Call renderDoughnut for doughnut chart
+      this.renderDoughnut(ctx, graphique.donnees, graphique.couleurs, graphique.labels); 
     } else if (graphique.type === 'barres') {
       this.renderBarres(ctx, graphique.labels, graphique.ensemblesDonnees);
     } else if (graphique.type === 'stackedColumn') {
-      this.renderStackedColumn(ctx, graphique.labels, graphique.ensemblesDonnees); // Call renderStackedColumn for the last chart
+      this.renderStackedColumn(ctx, graphique.labels, graphique.ensemblesDonnees); 
     }
   }
 
@@ -103,8 +103,8 @@ export class DashProfComponent  implements AfterViewInit {
   
     labels.forEach((label, index) => {
       const percentage = ((donnees[index] / total) * 100).toFixed(2); 
-      //const labelWithPercentage = `${label} > ${percentage}%`; 
-      const labelWithPercentage = `${label}  > ${donnees[index]}`
+      const labelWithPercentage = `${label} > ${percentage}%`; 
+      //const labelWithPercentage = `${label}  > ${donnees[index]}`
   
       ctx.fillStyle = couleurs[index];
       ctx.fillRect(labelStartX, labelStartY + index * labelSpacing, boxSize, boxSize);

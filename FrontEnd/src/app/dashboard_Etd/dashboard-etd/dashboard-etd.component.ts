@@ -73,6 +73,7 @@ export class DashboardEtdComponent implements AfterViewInit,OnInit {
   ngAfterViewInit() {
     this.fetchStudentDataAndRenderChart();
   }
+  
 
   fetchStudentDataAndRenderChart() {
     const studentId = this.idEtudiant;
@@ -80,8 +81,8 @@ export class DashboardEtdComponent implements AfterViewInit,OnInit {
     this.matiereService.getMatieres().subscribe((matieres: Matiere[]) => {
       this.creerTacheService.getTasksByEtudiant(studentId).subscribe((tasks: Tache[]) => {
         const taskCountsByMatiere = this.aggregateTasksByMatiere(tasks, matieres);
-        const taskComplexityByMatiere = this.aggregateTaskComplexityByMatiere(tasks, matieres); // New function to handle complexity
-        this.updateChartData(taskCountsByMatiere, taskComplexityByMatiere); // Pass complexity data to updateChartData
+        const taskComplexityByMatiere = this.aggregateTaskComplexityByMatiere(tasks, matieres); 
+        this.updateChartData(taskCountsByMatiere, taskComplexityByMatiere); 
         this.charts.forEach((graphique) => this.renderGraphique(graphique));
       });
     });
@@ -176,9 +177,9 @@ export class DashboardEtdComponent implements AfterViewInit,OnInit {
     donnees.forEach((valeur, index) => {
       const angleTranche = (valeur / total) * 2 * Math.PI;
       ctx.beginPath();
-      ctx.moveTo(220, 80); 
-      ctx.arc(220, 80, rayonExterieur, angleDepart, angleDepart + angleTranche);
-      ctx.arc(220, 80, rayonInterieur, angleDepart + angleTranche, angleDepart, true);
+      ctx.moveTo(320, 80); 
+      ctx.arc(320, 80, rayonExterieur, angleDepart, angleDepart + angleTranche);
+      ctx.arc(320, 80, rayonInterieur, angleDepart + angleTranche, angleDepart, true);
       ctx.closePath();
   
       const gradient = ctx.createLinearGradient(160, 0, 160, 240);
@@ -241,7 +242,7 @@ export class DashboardEtdComponent implements AfterViewInit,OnInit {
     });
 
     // Add labels with color indicators for 'Facile', 'Moyenne', 'Difficile' (from ensemblesDonnees)
-    const labelStartX = 320; // X position for labels on the side
+    const labelStartX = 420; // X position for labels on the side
     const labelStartY = 10; // Y position to start the list of labels
     const boxSize = 12; // Size of the color indicator box
     const labelSpacing = 20; // Space between each label and box
@@ -292,7 +293,7 @@ export class DashboardEtdComponent implements AfterViewInit,OnInit {
     });
 
     // Add labels with color indicators on the side
-    const labelStartX = 320; // X position for labels on the side
+    const labelStartX = 420; // X position for labels on the side
     const labelStartY = 10; // Y position to start the list of labels
     const boxSize = 12; // Size of the color indicator box
     const labelSpacing = 20; // Space between each label and box
