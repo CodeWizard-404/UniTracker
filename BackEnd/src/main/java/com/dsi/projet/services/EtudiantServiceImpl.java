@@ -73,8 +73,12 @@ public class EtudiantServiceImpl implements IEtudiantService {
 
 	    
 	        String nomClasse = e.getClasse();  
-	        String anneeClasse = e.getClasse();
-	        Classe classe = classeRepository.findByNomClasse(nomClasse)
+//	        String anneeClasse = e.getClasse();
+	        
+	        int numeroClasse = e.getNumClasse();
+	        int anneeClasse = e.getAnneeClasse();
+	   
+	        Classe classe = classeRepository.findByNameAndYearAndNumber(nomClasse, anneeClasse, numeroClasse)
 	                .orElseThrow(() -> new RuntimeException("Classe non trouvée"));
 
 	     etudiantExistant.setClasse(classe);
