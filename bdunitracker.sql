@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2024 at 06:42 PM
+-- Generation Time: Dec 07, 2024 at 04:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -67,73 +67,13 @@ CREATE TABLE `classe_matiere` (
 --
 
 INSERT INTO `classe_matiere` (`matiere_id`, `classe_id`) VALUES
-(1, 3),
-(12, 3),
-(16, 3),
-(15, 3),
-(14, 3),
-(13, 3),
-(13, 2),
-(12, 2),
-(16, 2),
-(1, 2),
-(14, 2),
-(15, 2),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(12, 1),
 (1, 1),
-(6, 4),
-(7, 4),
-(16, 4),
-(4, 4),
-(10, 4),
-(16, 5),
-(6, 5),
-(7, 5),
-(4, 5),
-(10, 5),
-(12, 6),
-(17, 6),
-(5, 6),
-(18, 6),
-(9, 6),
-(17, 7),
-(5, 7),
-(18, 7),
-(9, 7),
-(5, 9),
-(11, 9),
-(10, 9),
-(7, 8),
-(7, 8),
-(12, 8),
-(5, 8),
-(10, 11),
-(10, 11),
-(11, 11),
-(12, 11),
-(9, 11),
-(5, 11),
+(1, 4),
+(1, 8),
 (2, 1),
-(2, 2),
-(2, 3),
 (2, 4),
-(2, 5),
-(3, 6),
-(3, 7),
-(3, 11),
-(7, 10),
-(7, 10),
-(11, 10),
-(12, 10),
-(13, 10),
-(3, 10),
-(52, 1),
-(52, 2),
-(52, 3);
+(3, 2),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -150,6 +90,7 @@ CREATE TABLE `classe_seq` (
 --
 
 INSERT INTO `classe_seq` (`next_val`) VALUES
+(1),
 (101);
 
 -- --------------------------------------------------------
@@ -175,34 +116,19 @@ CREATE TABLE `completion` (
 --
 
 INSERT INTO `completion` (`commentaires`, `complexite`, `en_pause`, `marquer`, `progression`, `temps_ecoule`, `total_soust_taches`, `etudiant_id`, `tache_id`) VALUES
-(NULL, NULL, 0, 0, 1, NULL, 3, 1, 1),
-(NULL, NULL, 0, 0, 1, NULL, 2, 1, 2),
-(NULL, NULL, 0, 0, 0, NULL, 2, 1, 5),
-(NULL, NULL, 0, 1, 1, NULL, 1, 1, 6),
-(NULL, NULL, 0, 1, 1, NULL, 0, 1, 7),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 8),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 9),
-(NULL, NULL, 0, 1, 1, NULL, 0, 1, 10),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 11),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 12),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 13),
-(NULL, NULL, 0, 1, 1, NULL, 0, 1, 14),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 15),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 16),
-(0xaced0005737200136a6176612e7574696c2e41727261794c6973747881d21d99c7619d03000149000473697a6578700000000177040000000174000361616178, 1, 1, 1, 2, 43, 2, 1, 52),
-(NULL, NULL, 0, 1, 1, NULL, 0, 1, 53),
-(NULL, NULL, 0, 1, 1, NULL, 0, 1, 54),
-(NULL, NULL, 0, 0, 0, NULL, 0, 1, 55),
+(NULL, NULL, 0, 0, 0, NULL, 0, 1, 1),
+(0xaced0005737200136a6176612e7574696c2e41727261794c6973747881d21d99c7619d03000149000473697a65787000000002770400000002740005436f6d2031740005436f6d203278, NULL, 1, 0, 1, 3, 3, 1, 2),
+(NULL, NULL, 0, 1, 1, NULL, 0, 1, 3),
+(NULL, NULL, 0, 0, 0, NULL, 0, 1, 4),
+(NULL, NULL, 0, 1, 1, NULL, 0, 1, 5),
+(NULL, NULL, 0, 0, 0, NULL, 0, 1, 6),
+(NULL, NULL, 0, 0, 0, NULL, 0, 1, 7),
 (NULL, NULL, 0, 0, 0, NULL, 0, 2, 1),
 (NULL, NULL, 0, 0, 0, NULL, 0, 2, 2),
-(NULL, NULL, 0, 0, 0, NULL, 0, 2, 5),
-(NULL, NULL, 0, 0, 0, NULL, 0, 2, 6),
+(NULL, NULL, 0, 0, 0, NULL, 0, 2, 3),
 (NULL, NULL, 0, 0, 0, NULL, 0, 3, 1),
 (NULL, NULL, 0, 0, 0, NULL, 0, 3, 2),
-(NULL, NULL, 0, 0, 0, NULL, 0, 3, 5),
-(NULL, NULL, 0, 0, 0, NULL, 0, 3, 6),
-(NULL, NULL, 0, 0, 0, NULL, 0, 4, 52),
-(NULL, NULL, 0, 0, 0, NULL, 0, 5, 52);
+(NULL, NULL, 0, 0, 0, NULL, 0, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -248,6 +174,7 @@ CREATE TABLE `etudiant_seq` (
 --
 
 INSERT INTO `etudiant_seq` (`next_val`) VALUES
+(1),
 (101);
 
 -- --------------------------------------------------------
@@ -303,6 +230,7 @@ CREATE TABLE `groupe_seq` (
 --
 
 INSERT INTO `groupe_seq` (`next_val`) VALUES
+(1),
 (51);
 
 -- --------------------------------------------------------
@@ -358,37 +286,12 @@ CREATE TABLE `matiere_professeur` (
 --
 
 INSERT INTO `matiere_professeur` (`matiere_id`, `professeur_id`) VALUES
-(7, 7),
-(8, 8),
-(10, 9),
-(10, 1),
-(11, 3),
-(12, 1),
-(12, 2),
-(12, 3),
-(6, 6),
-(6, 1),
-(13, 2),
-(13, 3),
-(14, 1),
-(14, 2),
-(15, 2),
-(15, 1),
-(16, 2),
-(16, 3),
-(16, 9),
-(17, 8),
-(17, 9),
 (1, 1),
-(5, 5),
-(18, 2),
-(9, 9),
-(4, 4),
-(2, 2),
+(1, 2),
+(1, 3),
 (2, 1),
-(3, 3),
 (3, 1),
-(52, 1);
+(4, 1);
 
 -- --------------------------------------------------------
 
@@ -405,6 +308,7 @@ CREATE TABLE `matiere_seq` (
 --
 
 INSERT INTO `matiere_seq` (`next_val`) VALUES
+(1),
 (151);
 
 -- --------------------------------------------------------
@@ -455,6 +359,7 @@ CREATE TABLE `professeur_seq` (
 --
 
 INSERT INTO `professeur_seq` (`next_val`) VALUES
+(1),
 (101);
 
 -- --------------------------------------------------------
@@ -478,24 +383,13 @@ CREATE TABLE `tache` (
 --
 
 INSERT INTO `tache` (`id_tache`, `date_limite`, `description`, `titre`, `id_matiere`, `id_professeur`, `id_tachep`) VALUES
-(1, '2024-11-20 22:46:00.000000', 'DESC T1', 'TACHE 1', 1, 1, NULL),
-(2, '2024-11-20 22:46:00.000000', 'DESC T2', 'TACHE 2', 2, 1, NULL),
-(5, '2024-11-23 22:48:00.000000', 'DESC T3', 'TACHE 3', 3, 1, NULL),
-(6, '2024-12-06 22:48:00.000000', 'DESC T4', 'TACHE 4', 10, 1, NULL),
-(7, NULL, NULL, 'SOUS T1', NULL, NULL, 1),
-(8, NULL, NULL, 'SOUS T2', NULL, NULL, 1),
-(9, NULL, NULL, 'SOUS T3', NULL, NULL, 1),
-(10, NULL, NULL, 'SOUS T1', NULL, NULL, 2),
-(11, NULL, NULL, 'SOUS T2', NULL, NULL, 2),
-(12, NULL, NULL, 'SOUS T1', NULL, NULL, 5),
-(13, NULL, NULL, 'SOUS T2', NULL, NULL, 5),
-(14, NULL, NULL, 'SOUS T1', NULL, NULL, 6),
-(15, '2024-11-27 23:51:00.000000', 'DESC TP', 'TACHE PERSO', NULL, NULL, NULL),
-(16, '2024-11-20 23:52:00.000000', 'DESC TP2', 'TACHE PERSO 2', NULL, NULL, NULL),
-(52, '2024-11-21 12:43:00.000000', 'desc', 'Tache 6', 52, 1, NULL),
-(53, NULL, NULL, 'T1', NULL, NULL, 52),
-(54, NULL, NULL, 'T2', NULL, NULL, 52),
-(55, '2024-11-19 14:00:00.000000', 'desc', 'Tache perso 3', NULL, NULL, NULL);
+(1, '2024-12-09 14:59:00.000000', 'Desc 1', 'Tache1', 1, 1, NULL),
+(2, '2024-12-11 14:59:00.000000', 'Desc 2', 'Tache 2', 2, 1, NULL),
+(3, '2024-12-14 15:00:00.000000', 'Desc 3', 'Tache 3', 3, 1, NULL),
+(4, '2024-12-09 16:03:00.000000', 'Desc p', 'Tache Perso', NULL, NULL, NULL),
+(5, NULL, NULL, 'ST 1', NULL, NULL, 2),
+(6, NULL, NULL, 'ST 2', NULL, NULL, 2),
+(7, NULL, NULL, 'ST 3', NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -512,6 +406,7 @@ CREATE TABLE `tache_seq` (
 --
 
 INSERT INTO `tache_seq` (`next_val`) VALUES
+(101),
 (151);
 
 --
