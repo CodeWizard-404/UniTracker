@@ -10,9 +10,9 @@ From intuitive task views to real-time updates, we've created a seamless experie
 ## **🎯 Features & Highlights**
 
 ### 🚀 **Advanced Task Management**
-- **Create Tasks**: Add tasks with details such as name, description, due date, and priority.
+- **Create Tasks**: Add tasks with details such as name, description, due date, and subject.
 - **Organize Tasks**: Assign categories to tasks (e.g., Personal, Work, Study) for easy filtering.
-- **Priority System**: Mark tasks as High, Medium, or Low priority for better time management.
+- **Difficulty System**: Mark tasks as High, Medium, or Low difficulty for better management.
 - **Task Progress**: Mark tasks as **Completed**, **In Progress**, or **Pending** to track their progress.
 
 ### 🛠 **User Authentication**
@@ -38,7 +38,6 @@ Unitracker leverages modern technologies to ensure scalability, performance, and
 - **Backend**: Spring Boot (Java), REST APIs
 - **Database**: MySQL
 - **Authentication**: JSON Web Tokens (JWT)
-- **Deployment**: Docker, Nginx for production environment
 
 ---
 
@@ -120,8 +119,8 @@ The professor’s task view offers in-depth control over task assignments, and d
 ## **💡 Key Features in Detail**
 
 ### 1. **Task Creation & Management**
-Admins, professors, and students can easily create, manage, and organize tasks. The task management system includes essential features like:
-- Task name, description, and priority
+Professors, and students can easily create, manage, and organize tasks. The task management system includes essential features like:
+- Task name, description, and Subject
 - Due dates with reminders
 - Task status (Pending, In Progress, Completed)
 
@@ -132,8 +131,9 @@ Admins, professors, and students can easily create, manage, and organize tasks. 
 Get instant notifications for task deadlines, new task assignments, and updates. Stay on top of your tasks with minimal effort.
 
 ### 4. **Collaboration**
-Professors and admins can collaborate with students by assigning tasks, leaving feedback, and tracking progress in real-time.
+Professors can collaborate with students by assigning tasks, and tracking progress in real-time.
 
+**To Be Added :**
 ### 5. **Calendar Integration**
 See all your tasks and deadlines in one easy-to-read calendar view. Visualize your schedule and never miss a deadline again!
 
